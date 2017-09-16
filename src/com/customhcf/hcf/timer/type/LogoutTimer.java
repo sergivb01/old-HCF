@@ -1,0 +1,103 @@
+
+package com.customhcf.hcf.timer.type;
+
+
+import java.util.UUID;
+
+import java.util.concurrent.TimeUnit;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.player.PlayerKickEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
+
+import com.customhcf.hcf.HCF;
+import com.customhcf.hcf.Utils.ConfigurationService;
+import com.customhcf.hcf.combatlog.CombatLogListener;
+import com.customhcf.hcf.timer.PlayerTimer;
+import com.customhcf.hcf.timer.TimerRunnable;
+
+public class LogoutTimer
+extends PlayerTimer
+implements Listener {
+    public LogoutTimer() {
+        super(ConfigurationService.LOGOUT_TIMER, TimeUnit.SECONDS.toMillis(30), false);
+    }
+
+    @Override
+    public ChatColor getScoreboardPrefix() {
+        return ConfigurationService.LOGOUT_COLOUR;
+    }
+
+    private void checkMovement(Player player, Location from, Location to) {
+        if (from.getBlockX() == to.getBlockX() && from.getBlockZ() == to.getBlockZ()) {
+            return;
+        }
+        if (this.getRemaining(player) > 0) {
+            player.sendMessage((Object)ChatColor.RED + "You moved a block, " + this.getDisplayName() + (Object)ChatColor.RED + " timer cancelled.");
+            this.clearCooldown(player);
+        }
+    }
+
+    @EventHandler(ignoreCancelled=true, priority=EventPriority.MONITOR)
+    public void onPlayerMove(PlayerMoveEvent event) {
+        this.checkMovement(event.getPlayer(), event.getFrom(), event.getTo());
+    }
+
+    @EventHandler(ignoreCancelled=true, priority=EventPriority.MONITOR)
+    public void onPlayerTeleport(PlayerTeleportEvent event) {
+        this.checkMovement(event.getPlayer(), event.getFrom(), event.getTo());
+    }
+
+    @EventHandler(ignoreCancelled=true, priority=EventPriority.MONITOR)
+    public void onPlayerKick(PlayerKickEvent event) {
+        UUID uuid = event.getPlayer().getUniqueId();
+        if (this.getRemaining(event.getPlayer().getUniqueId()) > 0) {
+            this.clearCooldown(uuid);
+        }
+    }
+
+    @EventHandler(ignoreCancelled=true, priority=EventPriority.MONITOR)
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        UUID uuid = event.getPlayer().getUniqueId();
+        if (this.getRemaining(event.getPlayer().getUniqueId()) > 0) {
+            this.clearCooldown(uuid);
+        }
+    }
+
+    @EventHandler(ignoreCancelled=true, priority=EventPriority.MONITOR)
+    public void onPlayerDamage(EntityDamageEvent event) {
+        Player player;
+        Entity entity = event.getEntity();
+        if (entity instanceof Player && this.getRemaining(player = (Player)entity) > 0) {
+            player.sendMessage((Object)ChatColor.RED + "You were damaged, " + this.getDisplayName() + (Object)ChatColor.RED + " timer ended.");
+            this.clearCooldown(player);
+        }
+    }
+
+    @Override
+    public void onExpire(UUID userUUID) {
+        Player player = Bukkit.getPlayer((UUID)userUUID);
+        if (player == null) {
+            return;
+        }
+        CombatLogListener.safelyDisconnect(player, ConfigurationService.LOGOUT_DISCONNECT);
+    }
+
+    public void run(Player player) {
+        long remainingMillis = this.getRemaining(player);
+        if (remainingMillis > 0) {
+            player.sendMessage((Object)ChatColor.YELLOW + "Logging out in: " + (Object)ChatColor.RED + HCF.getRemaining(remainingMillis, true));
+            player.sendMessage(this.getDisplayName() + (Object)ChatColor.YELLOW + " timer is disconnecting you in " + (Object)ChatColor.RED + (Object)ChatColor.BOLD + HCF.getRemaining(remainingMillis, true, false) + (Object)ChatColor.BLUE + '.');
+        }
+    }
+}
+

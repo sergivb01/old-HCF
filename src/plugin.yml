@@ -1,0 +1,103 @@
+################################################################################
+#
+# THIS PLUGIN WAS MADE FOR USE ON VeilMC/VeilHCF OR LINKED NETWORKS ONLY
+# DO NOT DISTRIBUTE
+#
+################################################################################
+name: HCF
+version: VEILMC-3.4
+main: com.customhcf.hcf.HCF
+# depend: [Construct]
+softdepend: [ProtocolLib]
+commands:
+  savedata:
+  spawner:
+  ffa:
+  focus:
+    description: Focus a player in another faction
+  endportal:
+  toggleend:
+    aliases: [end]
+    description: Command used to close or open the end.
+  spawndragon:
+    description: Spawns an Ender-Dragon
+  random:
+    description: Teleports or gets a random player.
+  enddragon:
+  store:
+  stats:
+    description: Checks the staticstics on a player.
+  dinfo:
+  blacklist:
+  sotw:
+    description: Starts a 30 minute SOTW timer.
+  refund:
+    description: Refunds an inventory.
+  crowbar:
+    description: Management of crowbar tools.
+  conquest:
+    description: Command used to handle Conquest events.
+  economy:
+    aliases: [bal, balance, money, eco]
+    description: Command used to modify the economy.
+  eotw:
+    description: Sets if the server is in End of the World mode.
+  game:
+    aliases: [event]
+    description: Command used to manage minigame events.
+  faction:
+    aliases: [f, fac]
+    description: Faction related commands.
+  gopple:
+    description: Command to check remaining OP apple cooldown time.
+    aliases: [goppletimer, goppletime]
+  help:
+    aliases: ["?", "pl", "plugin"]
+    description: Find out more about this server.
+  koth:
+    description: Make or delete KotH arenas.
+  lives:
+    description: Management of lives or deathbans.
+  location:
+    aliases: [loc]
+    description: Check the faction location of a player.
+  logout:
+    aliases: [disconnect]
+    description: Command to safely logout without an NPC spawning.
+  loot:
+    description: Obtain keys to unlock awesome loot.
+  mapkit:
+    description: Used to check the current map restrictions.
+  pay:
+    description: Allow players to pay money.
+  pvptimer:
+    aliases: [pvp]
+    description:    to enable or disable pvp timer protection.
+  safestop:
+  servertime:
+    description: Checks the date and time of server.
+  setborder:
+    aliases: [setbordersize]
+    description: Sets the border size of an Environment.
+  cannon:
+    aliases: [spawncannon, playercannon]
+    description: Shoots you into the warzone.
+  coords:
+    description: Shows coords of events
+  staffrevive:
+    description: Revive a deathbanned player
+  revive:
+    aliases: [medic]
+  staffinfo:
+  spawn:
+    description: Teleport to the server spawn.
+  timer:
+    description: Command to manage timers.
+  cobble:
+  nick:
+    aliases: [nickname]
+  mapkit:
+    aliases: [viewkit]
+  ores:
+  crowgive:
+    aliases: [cg]

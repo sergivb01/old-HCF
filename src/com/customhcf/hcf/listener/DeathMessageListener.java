@@ -1,0 +1,144 @@
+package com.customhcf.hcf.listener;
+
+import com.customhcf.hcf.HCF;
+import com.customhcf.hcf.user.FactionUser;
+import com.customhcf.hcf.user.UserManager;
+import com.google.common.base.Preconditions;
+
+import java.util.UUID;
+
+import net.minecraft.server.v1_7_R4.Entity;
+import net.minecraft.server.v1_7_R4.EntityLiving;
+import net.minecraft.server.v1_7_R4.EntityPlayer;
+
+import org.apache.commons.lang3.text.WordUtils;
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+
+public class DeathMessageListener
+implements Listener {
+	private final HCF plugin;
+
+	public DeathMessageListener(HCF plugin) {
+		this.plugin = plugin;
+	}
+
+	public static String replaceLast(String text, String regex, String replacement) {
+		return text.replaceFirst("(?s)" + regex + "(?!.*?" + regex + ')', replacement);
+	}
+
+	@EventHandler(ignoreCancelled=true, priority=EventPriority.HIGHEST)
+	public void onPlayerDeath(PlayerDeathEvent event) {
+		String message = event.getDeathMessage();
+		if (message == null || message.isEmpty()) {
+			return;
+		}
+		EntityDamageEvent.DamageCause cause = EntityDamageEvent.DamageCause.CUSTOM;
+		if(event.getEntity().getLastDamageCause() != null){
+			cause = event.getEntity().getLastDamageCause().getCause();
+		}
+		boolean isLogger = false;
+		if(event.getDeathMessage().contains("Combat-Logger")){
+			isLogger = true;
+		}
+
+		event.setDeathMessage(this.getDeathMessage( event.getEntity(),this.getKiller(event) , cause , isLogger));
+		
+	}
+
+
+	public String toReadable(ItemStack item) {
+		if(item== null || item.getType() == Material.AIR ){
+			return "";
+		}
+		if (item.hasItemMeta()) {
+			ItemMeta meta = item.getItemMeta();
+			if (meta.hasDisplayName()) {
+				return ChatColor.YELLOW + " using " + ChatColor.RED + meta.getDisplayName() + ChatColor.YELLOW + ".";
+			}
+		}
+		return ChatColor.YELLOW + " using " + ChatColor.RED + toReadable(item.getType()) + ChatColor.YELLOW + ".";
+	}
+
+	public String toReadable(Enum enu) {
+		return WordUtils.capitalize(enu.name().replace("_", " ").toLowerCase());
+	}
+
+	private CraftEntity getKiller(PlayerDeathEvent event) {
+		EntityLiving lastAttacker = ((CraftPlayer)event.getEntity()).getHandle().aX();
+		return lastAttacker == null ? null : lastAttacker.getBukkitEntity();
+	}
+
+	private String getDeathMessage(org.bukkit.entity.Player player, org.bukkit.entity.Entity killer , EntityDamageEvent.DamageCause cause , boolean isLogger) {
+		String input = "";
+		
+		if(killer instanceof Player){
+			ItemStack item = ((Player)killer).getItemInHand();
+			if(item != null && item.getType() == Material.BOW){
+				input = ChatColor.RED + getDisplayName(player) + ChatColor.YELLOW + " was shot by " + ChatColor.RED + getDisplayName(killer);
+				input += ChatColor.YELLOW + " from " + ChatColor.LIGHT_PURPLE + (int)player.getLocation().distance(killer.getLocation()) + ChatColor.LIGHT_PURPLE + " blocks" + ChatColor.YELLOW + ".";
+			}else{
+				input = ChatColor.RED + getDisplayName(player) + ChatColor.YELLOW + " was slain by " + ChatColor.RED + getDisplayName(killer);
+				input += toReadable(item);
+			}
+		}else{
+			if(cause== DamageCause.FALL){
+				input = ChatColor.RED + getDisplayName(player) + ChatColor.YELLOW + " fell from a high place.";
+			}else if(cause== DamageCause.FIRE){
+				input = ChatColor.RED + getDisplayName(player) + ChatColor.YELLOW + " died to fire.";
+			}else if(cause== DamageCause.LIGHTNING){
+				input = ChatColor.RED + getDisplayName(player) + ChatColor.YELLOW + " died to lightning.";
+			}else if(cause== DamageCause.WITHER){
+				input = ChatColor.RED + getDisplayName(player) + ChatColor.YELLOW + " withered away.";
+			}else if(cause== DamageCause.DROWNING){
+				input = ChatColor.RED + getDisplayName(player) + ChatColor.YELLOW + " drowned.";
+			}else if(cause== DamageCause.FALLING_BLOCK){
+				input = ChatColor.RED + getDisplayName(player) + ChatColor.YELLOW + " died to a falling block.";
+			}else if(cause== DamageCause.MAGIC){
+				input = ChatColor.RED + getDisplayName(player) + ChatColor.YELLOW + " died to magic.";
+			}else if(cause== DamageCause.VOID){
+				input = ChatColor.RED + getDisplayName(player) + ChatColor.YELLOW + " fell into the void.";
+			}else if(cause== DamageCause.ENTITY_EXPLOSION){
+				input = ChatColor.RED + getDisplayName(player) + ChatColor.YELLOW + " died to an explosion.";
+			}else if(cause== DamageCause.LAVA){
+				input = ChatColor.RED + getDisplayName(player) + ChatColor.YELLOW + " burnt to a crisp.";
+			}else if(cause== DamageCause.STARVATION){
+				input = ChatColor.RED + getDisplayName(player) + ChatColor.YELLOW + " starved to death.";
+			}else{
+				input = ChatColor.RED + getDisplayName(player) + ChatColor.YELLOW + " died.";
+
+			}
+		}
+		if(isLogger){
+			input = ChatColor.RED + "(Combat-Logger) " + input;
+		}
+		return input;
+	}
+
+	private String getEntityName(org.bukkit.entity.Entity entity) {
+		Preconditions.checkNotNull((Object)entity, (Object)"Entity cannot be null");
+		return entity instanceof Player ? ((Player)entity).getName() : ((CraftEntity)entity).getHandle().getName();
+	}
+
+	private String getDisplayName(org.bukkit.entity.Entity entity) {
+		Preconditions.checkNotNull((Object)entity, (Object)"Entity cannot be null");
+		if (entity instanceof Player) {
+			Player player = (Player)entity;
+			return player.getName() + (Object)ChatColor.GOLD + '[' + (Object)ChatColor.WHITE + this.plugin.getUserManager().getUser(player.getUniqueId()).getKills() + (Object)ChatColor.GOLD + ']';
+		}
+		return WordUtils.capitalizeFully((String)entity.getType().name().replace('_', ' '));
+	}
+}
