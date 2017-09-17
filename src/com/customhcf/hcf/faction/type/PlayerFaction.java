@@ -205,7 +205,7 @@ public class PlayerFaction
   }
   
   public Collection<UUID> getAllied() {
-      return (Collection<UUID>)Maps.filterValues((Map)this.relations, (Predicate)new Predicate<Relation>() {
+      return (Collection<UUID>)Maps.filterValues(this.relations, new Predicate<Relation>() {
           public boolean apply(@Nullable final Relation relation) {
               return relation == Relation.ALLY;
           }
@@ -219,7 +219,7 @@ public class PlayerFaction
     List<PlayerFaction> results = new ArrayList(allied.size());
     while (iterator.hasNext())
     {
-      Faction faction = HCF.getPlugin().getFactionManager().getFaction((UUID)iterator.next());
+      Faction faction = HCF.getPlugin().getFactionManager().getFaction(iterator.next());
       if ((faction instanceof PlayerFaction)) {
         results.add((PlayerFaction)faction);
       } else {
@@ -274,11 +274,11 @@ public class PlayerFaction
     Iterator<Map.Entry<UUID, FactionMember>> iterator = this.members.entrySet().iterator();
     while (iterator.hasNext())
     {
-      Map.Entry<UUID, FactionMember> entry = (Map.Entry)iterator.next();
-      Player target = Bukkit.getPlayer((UUID)entry.getKey());
+      Map.Entry<UUID, FactionMember> entry = iterator.next();
+      Player target = Bukkit.getPlayer(entry.getKey());
       if ((target != null) && (
         (senderPlayer == null) || (senderPlayer.canSee(target)))) {
-        results.put((UUID)entry.getKey(), (FactionMember)entry.getValue());
+        results.put(entry.getKey(), entry.getValue());
       }
     }
     return results;
@@ -294,8 +294,8 @@ public class PlayerFaction
       if (!iterator.hasNext()) {
         return null;
       }
-    } while (((FactionMember)(entry = (Map.Entry)iterator.next()).getValue()).getRole() != Role.LEADER);
-    return (FactionMember)entry.getValue();
+    } while ((entry = iterator.next()).getValue().getRole() != Role.LEADER);
+    return entry.getValue();
   }
   
   @Deprecated

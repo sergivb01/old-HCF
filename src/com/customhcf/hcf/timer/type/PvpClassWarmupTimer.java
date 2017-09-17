@@ -48,7 +48,7 @@ implements Listener {
                     PvpClassWarmupTimer.this.attemptEquip(player);
                 }
             }
-        }.runTaskTimer((Plugin)plugin, 10 , 10);
+        }.runTaskTimer(plugin, 10 , 10);
     }
 
     @Override
@@ -74,12 +74,12 @@ implements Listener {
 
     @Override
     public void onExpire(UUID userUUID) {
-        Player player = Bukkit.getPlayer((UUID)userUUID);
+        Player player = Bukkit.getPlayer(userUUID);
         if (player == null) {
             return;
         }
         String className = (String)this.classWarmups.remove(userUUID);
-        Preconditions.checkNotNull((Object)className, (String)"Attempted to equip a class for %s, but nothing was added", (Object[])new Object[]{player.getName()});
+        Preconditions.checkNotNull((Object)className, "Attempted to equip a class for %s, but nothing was added", (Object[])new Object[]{player.getName()});
         this.plugin.getPvpClassManager().setEquippedClass(player, this.plugin.getPvpClassManager().getPvpClass(className));
     }
 

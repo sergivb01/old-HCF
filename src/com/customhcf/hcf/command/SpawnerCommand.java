@@ -45,7 +45,7 @@ public class SpawnerCommand
     
     Inventory inv = p.getInventory();
     
-    inv.addItem(new ItemStack[] { new ItemBuilder(Material.MOB_SPAWNER).displayName(ChatColor.GREEN + "Spawner").loreLine(ChatColor.WHITE + WordUtils.capitalizeFully(spawner)).build() });
+    inv.addItem(new ItemBuilder(Material.MOB_SPAWNER).displayName(ChatColor.GREEN + "Spawner").loreLine(ChatColor.WHITE + WordUtils.capitalizeFully(spawner)).build());
     
     p.sendMessage(C("&cYou just got a &e" + spawner + "&c."));
     

@@ -35,10 +35,10 @@ TabCompleter {
         OfflinePlayer target;
         boolean hasStaffPermission = sender.hasPermission(command.getPermission() + ".staff");
         if (args.length > 0 && hasStaffPermission) {
-            target = BukkitUtils.offlinePlayerWithNameOrUUID((String)args[0]);
+            target = BukkitUtils.offlinePlayerWithNameOrUUID(args[0]);
         } else {
             if (!(sender instanceof Player)) {
-                sender.sendMessage((Object)ChatColor.RED + "Usage: /" + label + " <playerName>");
+                sender.sendMessage(ChatColor.RED + "Usage: /" + label + " <playerName>");
                 return true;
             }
             target = (OfflinePlayer)sender;
@@ -50,57 +50,57 @@ TabCompleter {
         UUID uuid = target.getUniqueId();
         int balance = this.plugin.getEconomyManager().getBalance(uuid);
         if (args.length < 2 || !hasStaffPermission) {
-            sender.sendMessage((Object)ChatColor.YELLOW + (sender.equals((Object)target) ? "Your balance" : new StringBuilder().append("Balance of ").append(target.getName()).toString()) + " is " + (Object)ChatColor.LIGHT_PURPLE + '$' + balance + (Object)ChatColor.YELLOW + '.');
+            sender.sendMessage(ChatColor.YELLOW + (sender.equals(target) ? "Your balance" : new StringBuilder().append("Balance of ").append(target.getName()).toString()) + " is " + ChatColor.LIGHT_PURPLE + '$' + balance + ChatColor.YELLOW + '.');
             return true;
         }
-        if (GIVE.contains((Object)args[1].toLowerCase())) {
+        if (GIVE.contains(args[1].toLowerCase())) {
             if (args.length < 3) {
-                sender.sendMessage((Object)ChatColor.RED + "Usage: /" + label + ' ' + target.getName() + ' ' + args[1] + " <amount>");
+                sender.sendMessage(ChatColor.RED + "Usage: /" + label + ' ' + target.getName() + ' ' + args[1] + " <amount>");
                 return true;
             }
-            Integer amount = Ints.tryParse((String)args[2]);
+            Integer amount = Ints.tryParse(args[2]);
             if (amount == null) {
-                sender.sendMessage((Object)ChatColor.RED + "'" + args[2] + "' is not a valid number.");
+                sender.sendMessage(ChatColor.RED + "'" + args[2] + "' is not a valid number.");
                 return true;
             }
             int newBalance = this.plugin.getEconomyManager().addBalance(uuid, amount);
-            sender.sendMessage(new String[]{(Object)ChatColor.YELLOW + "Added " + '$' + JavaUtils.format((Number)amount) + " to balance of " + target.getName() + '.', (Object)ChatColor.YELLOW + "Balance of " + target.getName() + " is now " + '$' + newBalance + '.'});
+            sender.sendMessage(new String[]{ChatColor.YELLOW + "Added " + '$' + JavaUtils.format(amount) + " to balance of " + target.getName() + '.', ChatColor.YELLOW + "Balance of " + target.getName() + " is now " + '$' + newBalance + '.'});
             return true;
         }
-        if (TAKE.contains((Object)args[1].toLowerCase())) {
+        if (TAKE.contains(args[1].toLowerCase())) {
             if (args.length < 3) {
-                sender.sendMessage((Object)ChatColor.RED + "Usage: /" + label + ' ' + target.getName() + ' ' + args[1] + " <amount>");
+                sender.sendMessage(ChatColor.RED + "Usage: /" + label + ' ' + target.getName() + ' ' + args[1] + " <amount>");
                 return true;
             }
-            Integer amount = Ints.tryParse((String)args[2]);
+            Integer amount = Ints.tryParse(args[2]);
             if (amount == null) {
-                sender.sendMessage((Object)ChatColor.RED + "'" + args[2] + "' is not a valid number.");
+                sender.sendMessage(ChatColor.RED + "'" + args[2] + "' is not a valid number.");
                 return true;
             }
             int newBalance = this.plugin.getEconomyManager().subtractBalance(uuid, amount);
-            sender.sendMessage(new String[]{(Object)ChatColor.YELLOW + "Taken " + '$' + JavaUtils.format((Number)amount) + " from balance of " + target.getName() + '.', (Object)ChatColor.YELLOW + "Balance of " + target.getName() + " is now " + '$' + newBalance + '.'});
+            sender.sendMessage(new String[]{ChatColor.YELLOW + "Taken " + '$' + JavaUtils.format(amount) + " from balance of " + target.getName() + '.', ChatColor.YELLOW + "Balance of " + target.getName() + " is now " + '$' + newBalance + '.'});
             return true;
         }
         if (!args[1].equalsIgnoreCase("set")) {
-            sender.sendMessage((Object)ChatColor.GOLD + (sender.equals((Object)target) ? "Your balance" : new StringBuilder().append("Balance of ").append(target.getName()).toString()) + " is " + (Object)ChatColor.WHITE + '$' + balance + (Object)ChatColor.GOLD + '.');
+            sender.sendMessage(ChatColor.GOLD + (sender.equals(target) ? "Your balance" : new StringBuilder().append("Balance of ").append(target.getName()).toString()) + " is " + ChatColor.WHITE + '$' + balance + ChatColor.GOLD + '.');
             return true;
         }
         if (args.length < 3) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: /" + label + ' ' + target.getName() + ' ' + args[1] + " <amount>");
+            sender.sendMessage(ChatColor.RED + "Usage: /" + label + ' ' + target.getName() + ' ' + args[1] + " <amount>");
             return true;
         }
-        Integer amount = Ints.tryParse((String)args[2]);
+        Integer amount = Ints.tryParse(args[2]);
         if (amount == null) {
-            sender.sendMessage((Object)ChatColor.RED + "'" + args[2] + "' is not a valid number.");
+            sender.sendMessage(ChatColor.RED + "'" + args[2] + "' is not a valid number.");
             return true;
         }
         int newBalance = this.plugin.getEconomyManager().setBalance(uuid, amount);
-        sender.sendMessage((Object)ChatColor.YELLOW + "Set balance of " + target.getName() + " to " + '$' + JavaUtils.format((Number)newBalance) + '.');
+        sender.sendMessage(ChatColor.YELLOW + "Set balance of " + target.getName() + " to " + '$' + JavaUtils.format(newBalance) + '.');
         return true;
     }
 
     public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] args) {
-        return args.length == 2 ? BukkitUtils.getCompletions((String[])args, COMPLETIONS) : Collections.emptyList();
+        return args.length == 2 ? BukkitUtils.getCompletions(args, COMPLETIONS) : Collections.emptyList();
     }
 
     static {

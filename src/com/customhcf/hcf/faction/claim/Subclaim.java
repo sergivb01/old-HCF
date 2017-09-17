@@ -29,7 +29,7 @@ ConfigurationSerializable {
 
     public Subclaim(Map<String, Object> map) {
         super(map);
-        this.accessibleMembers.addAll(GenericUtils.createList((Object)map.get("accessibleMembers"), (Class)String.class));
+        this.accessibleMembers.addAll(GenericUtils.createList(map.get("accessibleMembers"), (Class)String.class));
     }
 
     public Subclaim(Faction faction, Location location) {
@@ -72,10 +72,7 @@ ConfigurationSerializable {
             return false;
         }
         Subclaim blocks = (Subclaim)o;
-        if (this.accessibleMembers != null ? !this.accessibleMembers.equals(blocks.accessibleMembers) : blocks.accessibleMembers != null) {
-            return false;
-        }
-        return true;
+        return this.accessibleMembers != null ? this.accessibleMembers.equals(blocks.accessibleMembers) : blocks.accessibleMembers == null;
     }
 
     @Override

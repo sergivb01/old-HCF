@@ -41,8 +41,8 @@ implements ConfigurationSerializable {
     }
 
     public FactionUser(Map<String, Object> map) {
-        this.shownScoreboardScores.addAll(GenericUtils.createList((Object)map.get("shownScoreboardScores"), (Class)String.class));
-        this.factionChatSpying.addAll(GenericUtils.createList((Object)map.get("faction-chat-spying"), (Class)String.class));
+        this.shownScoreboardScores.addAll(GenericUtils.createList(map.get("shownScoreboardScores"), (Class)String.class));
+        this.factionChatSpying.addAll(GenericUtils.createList(map.get("faction-chat-spying"), (Class)String.class));
         this.userUUID = UUID.fromString((String)map.get("userUUID"));
         this.capzoneEntryAlerts = (Boolean)map.get("capzoneEntryAlerts");
         this.showLightning = (Boolean)map.get("showLightning");
@@ -148,7 +148,7 @@ implements ConfigurationSerializable {
     }
 
     public Player getPlayer() {
-        return Bukkit.getPlayer((UUID)this.userUUID);
+        return Bukkit.getPlayer(this.userUUID);
     }
 
     public boolean isReclaimed() {

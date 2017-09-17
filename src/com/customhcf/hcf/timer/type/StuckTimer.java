@@ -58,7 +58,7 @@ implements Listener {
     @Override
     public boolean setCooldown(@Nullable Player player, UUID playerUUID, long millis, boolean force) {
         if (player != null && super.setCooldown(player, playerUUID, millis, force)) {
-            this.startedLocations.put(playerUUID, (Object)player.getLocation());
+            this.startedLocations.put(playerUUID, player.getLocation());
             return true;
         }
         return false;
@@ -76,7 +76,7 @@ implements Listener {
             int zDiff = Math.abs(from.getBlockZ() - to.getBlockZ());
             if (xDiff > 5 || yDiff > 5 || zDiff > 5) {
                 this.clearCooldown(uuid);
-                player.sendMessage((Object)ChatColor.RED + "You moved more than " + (Object)ChatColor.BOLD + 5 + (Object)ChatColor.RED + " blocks. " + this.getDisplayName() + (Object)ChatColor.RED + " timer ended.");
+                player.sendMessage(ChatColor.RED + "You moved more than " + ChatColor.BOLD + 5 + ChatColor.RED + " blocks. " + this.getDisplayName() + ChatColor.RED + " timer ended.");
             }
         }
     }
@@ -122,32 +122,32 @@ implements Listener {
         Player player;
         Entity entity = event.getEntity();
         if (entity instanceof Player && this.getRemaining(player = (Player)entity) > 0) {
-            player.sendMessage((Object)ChatColor.RED + "You were damaged, " + this.getDisplayName() + (Object)ChatColor.RED + " timer ended.");
+            player.sendMessage(ChatColor.RED + "You were damaged, " + this.getDisplayName() + ChatColor.RED + " timer ended.");
             this.clearCooldown(player);
         }
     }
 
     @Override
     public void onExpire(UUID userUUID) {
-        Player player = Bukkit.getPlayer((UUID)userUUID);
+        Player player = Bukkit.getPlayer(userUUID);
         if (player == null) {
             return;
         }
         Location nearest = LandMap.getNearestSafePosition(player, player.getLocation(), 124);
         if (nearest == null) {
-            CombatLogListener.safelyDisconnect(player, (Object)ChatColor.RED + "Unable to find a safe location, you have been safely logged out.");
-            player.sendMessage((Object)ChatColor.RED + "No safe-location found.");
+            CombatLogListener.safelyDisconnect(player, ChatColor.RED + "Unable to find a safe location, you have been safely logged out.");
+            player.sendMessage(ChatColor.RED + "No safe-location found.");
             return;
         }
         if (player.teleport(nearest, PlayerTeleportEvent.TeleportCause.PLUGIN)) {
-            player.sendMessage((Object)ChatColor.YELLOW + this.getDisplayName() + (Object)ChatColor.YELLOW + " timer has teleported you to the nearest safe area.");
+            player.sendMessage(ChatColor.YELLOW + this.getDisplayName() + ChatColor.YELLOW + " timer has teleported you to the nearest safe area.");
         }
     }
 
     public void run(Player player) {
         long remainingMillis = this.getRemaining(player);
         if (remainingMillis > 0) {
-            player.sendMessage(this.getDisplayName() + (Object)ChatColor.BLUE + " timer is teleporting you in " + (Object)ChatColor.BOLD + HCF.getRemaining(remainingMillis, true, false) + (Object)ChatColor.BLUE + '.');
+            player.sendMessage(this.getDisplayName() + ChatColor.BLUE + " timer is teleporting you in " + ChatColor.BOLD + HCF.getRemaining(remainingMillis, true, false) + ChatColor.BLUE + '.');
         }
     }
 }

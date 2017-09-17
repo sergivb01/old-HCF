@@ -23,14 +23,14 @@ implements Cancellable {
 
     public PlayerJoinFactionEvent(Player player, PlayerFaction playerFaction) {
         super(playerFaction);
-        Preconditions.checkNotNull((Object)player, (Object)"Player cannot be null");
+        Preconditions.checkNotNull((Object)player, "Player cannot be null");
         this.player = Optional.of(player);
         this.uniqueID = player.getUniqueId();
     }
 
     public PlayerJoinFactionEvent(UUID playerUUID, PlayerFaction playerFaction) {
         super(playerFaction);
-        Preconditions.checkNotNull((Object)playerUUID, (Object)"Player UUID cannot be null");
+        Preconditions.checkNotNull((Object)playerUUID, "Player UUID cannot be null");
         this.uniqueID = playerUUID;
     }
 

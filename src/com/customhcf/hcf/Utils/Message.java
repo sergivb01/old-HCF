@@ -36,7 +36,7 @@ public final class Message {
             this.messageDelay.remove(player.getUniqueId());
         }
         this.messageDelay.putIfAbsent(player.getUniqueId(), System.currentTimeMillis() + 3000);
-        text.send((CommandSender)player);
+        text.send(player);
     }
 }
 

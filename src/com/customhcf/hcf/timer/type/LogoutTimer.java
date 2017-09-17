@@ -42,7 +42,7 @@ implements Listener {
             return;
         }
         if (this.getRemaining(player) > 0) {
-            player.sendMessage((Object)ChatColor.RED + "You moved a block, " + this.getDisplayName() + (Object)ChatColor.RED + " timer cancelled.");
+            player.sendMessage(ChatColor.RED + "You moved a block, " + this.getDisplayName() + ChatColor.RED + " timer cancelled.");
             this.clearCooldown(player);
         }
     }
@@ -78,14 +78,14 @@ implements Listener {
         Player player;
         Entity entity = event.getEntity();
         if (entity instanceof Player && this.getRemaining(player = (Player)entity) > 0) {
-            player.sendMessage((Object)ChatColor.RED + "You were damaged, " + this.getDisplayName() + (Object)ChatColor.RED + " timer ended.");
+            player.sendMessage(ChatColor.RED + "You were damaged, " + this.getDisplayName() + ChatColor.RED + " timer ended.");
             this.clearCooldown(player);
         }
     }
 
     @Override
     public void onExpire(UUID userUUID) {
-        Player player = Bukkit.getPlayer((UUID)userUUID);
+        Player player = Bukkit.getPlayer(userUUID);
         if (player == null) {
             return;
         }
@@ -95,8 +95,8 @@ implements Listener {
     public void run(Player player) {
         long remainingMillis = this.getRemaining(player);
         if (remainingMillis > 0) {
-            player.sendMessage((Object)ChatColor.YELLOW + "Logging out in: " + (Object)ChatColor.RED + HCF.getRemaining(remainingMillis, true));
-            player.sendMessage(this.getDisplayName() + (Object)ChatColor.YELLOW + " timer is disconnecting you in " + (Object)ChatColor.RED + (Object)ChatColor.BOLD + HCF.getRemaining(remainingMillis, true, false) + (Object)ChatColor.BLUE + '.');
+            player.sendMessage(ChatColor.YELLOW + "Logging out in: " + ChatColor.RED + HCF.getRemaining(remainingMillis, true));
+            player.sendMessage(this.getDisplayName() + ChatColor.YELLOW + " timer is disconnecting you in " + ChatColor.RED + ChatColor.BOLD + HCF.getRemaining(remainingMillis, true, false) + ChatColor.BLUE + '.');
         }
     }
 }

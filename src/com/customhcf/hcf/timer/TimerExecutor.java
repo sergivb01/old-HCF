@@ -11,8 +11,8 @@ public class TimerExecutor
 extends ArgumentExecutor {
     public TimerExecutor(HCF plugin) {
         super("timer");
-        this.addArgument((CommandArgument)new TimerCheckArgument(plugin));
-        this.addArgument((CommandArgument)new TimerSetArgument(plugin));
+        this.addArgument(new TimerCheckArgument(plugin));
+        this.addArgument(new TimerSetArgument(plugin));
     }
 }
 

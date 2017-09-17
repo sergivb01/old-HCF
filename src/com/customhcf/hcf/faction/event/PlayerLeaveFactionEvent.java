@@ -25,8 +25,8 @@ implements Cancellable {
 
     public PlayerLeaveFactionEvent(Player player, PlayerFaction playerFaction, FactionLeaveCause cause) {
         super(playerFaction);
-        Preconditions.checkNotNull((Object)player, (Object)"Player cannot be null");
-        Preconditions.checkNotNull((Object)playerFaction, (Object)"Player faction cannot be null");
+        Preconditions.checkNotNull((Object)player, "Player cannot be null");
+        Preconditions.checkNotNull((Object)playerFaction, "Player faction cannot be null");
         Preconditions.checkNotNull((Object)"Leave cause cannot be null");
         this.player = Optional.of(player);
         this.uniqueID = player.getUniqueId();
@@ -35,8 +35,8 @@ implements Cancellable {
 
     public PlayerLeaveFactionEvent(UUID playerUUID, PlayerFaction playerFaction, FactionLeaveCause cause) {
         super(playerFaction);
-        Preconditions.checkNotNull((Object)playerUUID, (Object)"Player UUID cannot be null");
-        Preconditions.checkNotNull((Object)playerFaction, (Object)"Player faction cannot be null");
+        Preconditions.checkNotNull((Object)playerUUID, "Player UUID cannot be null");
+        Preconditions.checkNotNull((Object)playerFaction, "Player faction cannot be null");
         Preconditions.checkNotNull((Object)"Leave cause cannot be null");
         this.uniqueID = playerUUID;
         this.cause = cause;
@@ -48,7 +48,7 @@ implements Cancellable {
 
     public Optional<Player> getPlayer() {
         if (this.player == null) {
-            this.player = Optional.fromNullable(Bukkit.getPlayer((UUID)this.uniqueID));
+            this.player = Optional.fromNullable(Bukkit.getPlayer(this.uniqueID));
         }
         return this.player;
     }

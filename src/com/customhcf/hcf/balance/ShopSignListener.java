@@ -54,13 +54,13 @@ public class ShopSignListener implements Listener
                 if (lines[1].equalsIgnoreCase("Crowbar")) {
                     stack = new Crowbar().getItemIfPresent();
                 }
-                else if ((stack = BasePlugin.getPlugin().getItemDb().getItem(ShopSignListener.ALPHANUMERIC_REMOVER.matcher(lines[1]).replaceAll(""), (int)quantity)) == null) {
+                else if ((stack = BasePlugin.getPlugin().getItemDb().getItem(ShopSignListener.ALPHANUMERIC_REMOVER.matcher(lines[1]).replaceAll(""), quantity)) == null) {
                     return;
                 }
                 final Player player = event.getPlayer();
                 final String[] fakeLines = Arrays.copyOf(sign.getLines(), 4);
                 if ((lines[0].contains("Sell") && lines[0].contains(ChatColor.RED.toString())) || lines[0].contains(ChatColor.AQUA.toString())) {
-                    final int sellQuantity = Math.min(quantity, InventoryUtils.countAmount((Inventory)player.getInventory(), stack.getType(), stack.getDurability()));
+                    final int sellQuantity = Math.min(quantity, InventoryUtils.countAmount(player.getInventory(), stack.getType(), stack.getDurability()));
                     if (sellQuantity <= 0) {
                         fakeLines[0] = ChatColor.RED + "Not carrying any";
                         fakeLines[2] = ChatColor.RED + "on you.";
@@ -71,7 +71,7 @@ public class ShopSignListener implements Listener
                         fakeLines[0] = ChatColor.GREEN + "Sold " + sellQuantity;
                         fakeLines[3] = ChatColor.GREEN + "for " + '$' + newPrice;
                         this.plugin.getEconomyManager().addBalance(player.getUniqueId(), newPrice);
-                        InventoryUtils.removeItem((Inventory)player.getInventory(), stack.getType(), (short)stack.getData().getData(), sellQuantity);
+                        InventoryUtils.removeItem(player.getInventory(), stack.getType(), (short)stack.getData().getData(), sellQuantity);
                         player.updateInventory();
                     }
                 }
@@ -88,9 +88,9 @@ public class ShopSignListener implements Listener
                         this.plugin.getEconomyManager().subtractBalance(player.getUniqueId(), price);
                         final World world = player.getWorld();
                         final Location location = player.getLocation();
-                        final Map<Integer, ItemStack> excess = (Map<Integer, ItemStack>)player.getInventory().addItem(new ItemStack[] { stack });
+                        final Map<Integer, ItemStack> excess = player.getInventory().addItem(new ItemStack[] { stack });
                         for (final Map.Entry<Integer, ItemStack> excessItemStack : excess.entrySet()) {
-                            world.dropItemNaturally(location, (ItemStack)excessItemStack.getValue());
+                            world.dropItemNaturally(location, excessItemStack.getValue());
                         }
                         player.setItemInHand(player.getItemInHand());
                     }

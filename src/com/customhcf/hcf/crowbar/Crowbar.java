@@ -20,7 +20,7 @@ public class Crowbar {
     private static final String END_DRAGON_USE_TAG = "End Dragon Uses";
     private static final String SPAWNER_USE_TAG = "Spawner Uses";
     private static final String END_FRAME_USE_TAG = "End Frame Uses";
-    private static final String LORE_FORMAT = (Object)ChatColor.GRAY + "%1$s: " + (Object)ChatColor.YELLOW + "%2$s/%3$s";
+    private static final String LORE_FORMAT = ChatColor.GRAY + "%1$s: " + ChatColor.YELLOW + "%2$s/%3$s";
     private int endFrameUses;
     private int endDragonUses;
     private int spawnerUses;
@@ -32,7 +32,7 @@ public class Crowbar {
     }
 
     public Crowbar(int spawnerUses, int endFrameUses, int endDragonUses) {
-        Preconditions.checkArgument((boolean)(spawnerUses > 0 || endFrameUses > 0), (Object)"Cannot create a crowbar with empty uses");
+        Preconditions.checkArgument(spawnerUses > 0 || endFrameUses > 0, "Cannot create a crowbar with empty uses");
         this.setSpawnerUses(Math.min(1, spawnerUses));
         this.setEndDragonUses(Math.min(1, endDragonUses));
         this.setEndFrameUses(Math.min(5, endFrameUses));
@@ -51,7 +51,7 @@ public class Crowbar {
         Iterator iterator = loreList.iterator();
         block0 : while (iterator.hasNext()) {
             String lore = (String)iterator.next();
-            lore = ChatColor.stripColor((String)lore);
+            lore = ChatColor.stripColor(lore);
             int length = lore.length();
             for (int i = 0; i < length; ++i) {
                 char character = lore.charAt(i);
@@ -107,7 +107,7 @@ public class Crowbar {
 
     public ItemStack getItemIfPresent() {
         Optional<ItemStack> optional = this.toItemStack();
-        return optional.isPresent() ? (ItemStack)optional.get() : new ItemStack(Material.AIR, 1);
+        return optional.isPresent() ? optional.get() : new ItemStack(Material.AIR, 1);
     }
 
     public Optional<ItemStack> toItemStack() {

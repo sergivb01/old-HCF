@@ -36,8 +36,8 @@ public class RefundCommand
         Player target = Bukkit.getPlayer(args[0]);
         if (DeathListener.PlayerInventoryContents.containsKey(target.getUniqueId()))
         {
-            target.getInventory().setContents((ItemStack[])DeathListener.PlayerInventoryContents.get(target.getUniqueId()));
-            target.getInventory().setArmorContents((ItemStack[])DeathListener.PlayerArmorContents.get(target.getUniqueId()));
+            target.getInventory().setContents(DeathListener.PlayerInventoryContents.get(target.getUniqueId()));
+            target.getInventory().setArmorContents(DeathListener.PlayerArmorContents.get(target.getUniqueId()));
             String reason = StringUtils.join(args, ' ', 1, args.length);
 
             Command.broadcastCommandMessage(p, ChatColor.YELLOW + "Returned " + target.getName() + "'s items for: " + reason);

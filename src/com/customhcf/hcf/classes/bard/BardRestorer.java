@@ -23,7 +23,7 @@ implements Listener {
     private final Table<UUID, PotionEffectType, PotionEffect> restores = HashBasedTable.create();
 
     public BardRestorer(HCF plugin) {
-        plugin.getServer().getPluginManager().registerEvents((Listener)this, (Plugin)plugin);
+        plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
     @EventHandler(ignoreCancelled=true, priority=EventPriority.MONITOR)
@@ -33,9 +33,9 @@ implements Listener {
 
     public void setRestoreEffect(final Player player, final PotionEffect effect) {
         boolean shouldCancel = true;
-        final Collection<PotionEffect> activeList = (Collection<PotionEffect>)player.getActivePotionEffects();
+        final Collection<PotionEffect> activeList = player.getActivePotionEffects();
         for (final PotionEffect active : activeList) {
-            if (!active.getType().equals((Object)effect.getType())) {
+            if (!active.getType().equals(effect.getType())) {
                 continue;
             }
             if (effect.getAmplifier() < active.getAmplifier()) {
@@ -50,7 +50,7 @@ implements Listener {
         }
         player.addPotionEffect(effect, true);
         if (shouldCancel && effect.getDuration() > 100 && effect.getDuration() < BardClass.DEFAULT_MAX_DURATION) {
-            this.restores.remove((Object)player.getUniqueId(), (Object)effect.getType());
+            this.restores.remove(player.getUniqueId(), effect.getType());
         }
     }
     @EventHandler(ignoreCancelled=true, priority=EventPriority.MONITOR)
@@ -58,7 +58,7 @@ implements Listener {
         PotionEffect previous;
         Player player;
         LivingEntity livingEntity = event.getEntity();
-        if (livingEntity instanceof Player && (previous = (PotionEffect)this.restores.remove((Object)(player = (Player)livingEntity).getUniqueId(), (Object)event.getEffect().getType())) != null) {
+        if (livingEntity instanceof Player && (previous = this.restores.remove((player = (Player)livingEntity).getUniqueId(), event.getEffect().getType())) != null) {
             event.setCancelled(true);
             player.addPotionEffect(previous, true);
         }

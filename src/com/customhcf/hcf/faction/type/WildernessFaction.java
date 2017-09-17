@@ -19,7 +19,7 @@ extends Faction {
 
     @Override
     public String getDisplayName(CommandSender sender) {
-        return (Object)ConfigurationService.WILDERNESS_COLOUR + this.getName();
+        return ConfigurationService.WILDERNESS_COLOUR + this.getName();
     }
 }
 

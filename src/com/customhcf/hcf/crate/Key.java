@@ -23,7 +23,7 @@ public abstract class Key {
     public abstract ChatColor getColour();
 
     public String getDisplayName() {
-        return (Object)this.getColour() + this.name;
+        return this.getColour() + this.name;
     }
 
     public abstract ItemStack getItemStack();

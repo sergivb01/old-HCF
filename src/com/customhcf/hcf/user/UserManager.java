@@ -3,7 +3,7 @@ package com.customhcf.hcf.user;
 
 import com.customhcf.hcf.HCF;
 import com.customhcf.util.Config;
-import com.google.common.base.MoreObjects; //TODO: Need to move it to net.minecraft....
+import org.apache.commons.lang3.ObjectUtils;
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -22,7 +22,7 @@ implements Listener {
     public UserManager(HCF plugin) {
         this.plugin = plugin;
         this.reloadUserData();
-        plugin.getServer().getPluginManager().registerEvents((Listener)this, (Plugin)plugin);
+        plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
     @EventHandler(ignoreCancelled=true, priority=EventPriority.MONITOR)
@@ -41,14 +41,14 @@ implements Listener {
         synchronized (map) {
             FactionUser revert = new FactionUser(uuid);
             FactionUser user = this.users.putIfAbsent(uuid, revert);
-            return (FactionUser) MoreObjects.firstNonNull((Object)user, (Object)revert);
+            return (FactionUser) ObjectUtils.firstNonNull(user, revert);
         }
     }
 
     public FactionUser getUser(UUID uuid) {
         FactionUser revert = new FactionUser(uuid);
         FactionUser user = this.users.putIfAbsent(uuid, revert);
-        return (FactionUser)MoreObjects.firstNonNull((Object)user, (Object)revert); //TODO: This line crashes
+        return (FactionUser) ObjectUtils.firstNonNull(user, revert);
     }
 
     public void reloadUserData() {
@@ -56,7 +56,7 @@ implements Listener {
         final Object object = this.userConfig.get("users");
         if (object instanceof MemorySection) {
             final MemorySection section = (MemorySection)object;
-            final Collection<String> keys = (Collection<String>)section.getKeys(false);
+            final Collection<String> keys = section.getKeys(false);
             for (final String id : keys) {
                 this.users.put(UUID.fromString(id), (FactionUser)this.userConfig.get(section.getCurrentPath() + '.' + id));
             }

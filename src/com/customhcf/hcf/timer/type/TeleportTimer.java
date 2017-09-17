@@ -66,7 +66,7 @@ implements Listener {
         final FactionManager factionManager = this.plugin.getFactionManager();
         final Faction playerFaction = factionManager.getPlayerFaction(player.getUniqueId());
         int count = 0;
-        final Collection<Entity> nearby = (Collection<Entity>)player.getNearbyEntities((double)distance, (double)distance, (double)distance);
+        final Collection<Entity> nearby = player.getNearbyEntities((double)distance, (double)distance, (double)distance);
         for (final Entity entity : nearby) {
             if (entity instanceof Player) {
                 final Player target = (Player)entity;
@@ -96,7 +96,7 @@ implements Listener {
         } else {
             UUID uuid = player.getUniqueId();
             player.sendMessage(warmupMessage);
-            this.destinationMap.put(uuid, (Object)location.clone());
+            this.destinationMap.put(uuid, location.clone());
             this.setCooldown(player, uuid, millis, true);
             result = true;
         }
@@ -120,20 +120,20 @@ implements Listener {
         if (from.getBlockX() == to.getBlockX() && from.getBlockY() == to.getBlockY() && from.getBlockZ() == to.getBlockZ()) {
             return;
         }
-        this.cancelTeleport(event.getPlayer(), (Object)ChatColor.YELLOW + "You moved a block, therefore cancelling your teleport.");
+        this.cancelTeleport(event.getPlayer(), ChatColor.YELLOW + "You moved a block, therefore cancelling your teleport.");
     }
 
     @EventHandler(ignoreCancelled=true, priority=EventPriority.MONITOR)
     public void onPlayerDamage(EntityDamageEvent event) {
         Entity entity = event.getEntity();
         if (entity instanceof Player) {
-            this.cancelTeleport((Player)entity, (Object)ChatColor.YELLOW + "You took damage, therefore cancelling your teleport.");
+            this.cancelTeleport((Player)entity, ChatColor.YELLOW + "You took damage, therefore cancelling your teleport.");
         }
     }
 
     @Override
     public void onExpire(UUID userUUID) {
-        Player player = Bukkit.getPlayer((UUID)userUUID);
+        Player player = Bukkit.getPlayer(userUUID);
         if (player == null) {
             return;
         }

@@ -63,7 +63,7 @@ public enum Relation {
         return ConfigurationService.ENEMY_COLOUR;
     }
     public DyeColor toDyeColour() {
-        return BukkitUtils.toDyeColor((ChatColor)this.toChatColour());
+        return BukkitUtils.toDyeColor(this.toChatColour());
     }
 
 }

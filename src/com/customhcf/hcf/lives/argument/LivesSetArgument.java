@@ -32,21 +32,21 @@ extends CommandArgument {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length < 3) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
             return true;
         }
-        Integer amount = Ints.tryParse((String)args[2]);
+        Integer amount = Ints.tryParse(args[2]);
         if (amount == null) {
-            sender.sendMessage((Object)ChatColor.RED + "'" + args[2] + "' is not a number.");
+            sender.sendMessage(ChatColor.RED + "'" + args[2] + "' is not a number.");
             return true;
         }
-        OfflinePlayer target = BukkitUtils.offlinePlayerWithNameOrUUID((String)args[1]);
+        OfflinePlayer target = BukkitUtils.offlinePlayerWithNameOrUUID(args[1]);
         if (!target.hasPlayedBefore() && !target.isOnline()) {
             sender.sendMessage(String.format(BaseConstants.PLAYER_WITH_NAME_OR_UUID_NOT_FOUND, args[1]));
             return true;
         }
         this.plugin.getDeathbanManager().setLives(target.getUniqueId(), amount);
-        sender.sendMessage((Object)ChatColor.YELLOW + target.getName() + " now has " + (Object)ChatColor.GOLD + amount + (Object)ChatColor.YELLOW + " lives.");
+        sender.sendMessage(ChatColor.YELLOW + target.getName() + " now has " + ChatColor.GOLD + amount + ChatColor.YELLOW + " lives.");
         return true;
     }
 

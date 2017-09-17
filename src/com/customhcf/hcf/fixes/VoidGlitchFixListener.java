@@ -21,13 +21,13 @@ implements Listener {
             if (entity.getWorld().getEnvironment() == World.Environment.THE_END) {
                 return;
             }
-            Location destination = Bukkit.getWorld((String)"world").getSpawnLocation();
+            Location destination = Bukkit.getWorld("world").getSpawnLocation();
             if (destination == null) {
                 return;
             }
             if (entity.teleport(destination, PlayerTeleportEvent.TeleportCause.PLUGIN)) {
                 event.setCancelled(true);
-                ((Player)entity).sendMessage((Object)ChatColor.RED + "You were saved from the void.");
+                ((Player)entity).sendMessage(ChatColor.RED + "You were saved from the void.");
             }
         }
     }

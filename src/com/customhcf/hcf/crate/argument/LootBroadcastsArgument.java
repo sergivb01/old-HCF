@@ -22,7 +22,7 @@ extends CommandArgument {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         ConfigurationService.CRATE_BROADCASTS = !ConfigurationService.CRATE_BROADCASTS;
         boolean newBroadcasts = ConfigurationService.CRATE_BROADCASTS;
-        sender.sendMessage((Object)ChatColor.GOLD + "Crate keys " + (newBroadcasts ? "now" : "no longer") + " broadcasts reward messages.");
+        sender.sendMessage(ChatColor.GOLD + "Crate keys " + (newBroadcasts ? "now" : "no longer") + " broadcasts reward messages.");
         return true;
     }
 }

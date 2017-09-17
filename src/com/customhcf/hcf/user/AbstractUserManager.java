@@ -43,7 +43,7 @@ public abstract class AbstractUserManager
   {
     Player player = event.getPlayer();
     UUID uuid = player.getUniqueId();
-    FactionUser factionUser = (FactionUser)this.inMemoryStorage.get(uuid);
+    FactionUser factionUser = this.inMemoryStorage.get(uuid);
     if (factionUser == null)
     {
       factionUser = new FactionUser(uuid);
@@ -70,14 +70,14 @@ public abstract class AbstractUserManager
   {
     Preconditions.checkNotNull(uuid);
     FactionUser factionUser;
-    return (factionUser = (FactionUser)this.inMemoryStorage.get(uuid)) != null ? factionUser : (factionUser = (FactionUser)this.onlineStorage.get(uuid)) != null ? factionUser : insertAndReturn(uuid, new FactionUser(uuid));
+    return (factionUser = this.inMemoryStorage.get(uuid)) != null ? factionUser : (factionUser = this.onlineStorage.get(uuid)) != null ? factionUser : insertAndReturn(uuid, new FactionUser(uuid));
   }
   
   public FactionUser getIfContainedOffline(UUID uuid)
   {
     Preconditions.checkNotNull(uuid);
     FactionUser factionUser;
-    return (factionUser = (FactionUser)this.onlineStorage.get(uuid)) != null ? factionUser : (FactionUser)this.inMemoryStorage.get(uuid);
+    return (factionUser = this.onlineStorage.get(uuid)) != null ? factionUser : this.inMemoryStorage.get(uuid);
   }
   
   public FactionUser insertAndReturn(UUID uuid, FactionUser factionUser)
@@ -88,7 +88,7 @@ public abstract class AbstractUserManager
   
   public FactionUser getIfContains(UUID uuid)
   {
-    return (FactionUser)this.onlineStorage.get(uuid);
+    return this.onlineStorage.get(uuid);
   }
   
   public UUID fetchUUID(String username)
@@ -98,7 +98,7 @@ public abstract class AbstractUserManager
       return player.getUniqueId();
     }
     if (USERNAME_REGEX.matcher(username).matches()) {
-      return (UUID)this.uuidCache.get(username);
+      return this.uuidCache.get(username);
     }
     return null;
   }

@@ -34,8 +34,8 @@ public class BardData {
     }
 
     public void setEnergy(double energy) {
-        Preconditions.checkArgument((boolean)(energy >= 0.0), (Object)"Energy cannot be less than 0.0");
-        Preconditions.checkArgument((boolean)(energy <= 120.0), (Object)"Energy cannot be more than 120.0");
+        Preconditions.checkArgument(energy >= 0.0, "Energy cannot be less than 0.0");
+        Preconditions.checkArgument(energy <= 120.0, "Energy cannot be more than 120.0");
         this.energyStart = (long)((double)System.currentTimeMillis() - 1000.0 * energy);
     }
 }

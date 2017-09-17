@@ -29,27 +29,27 @@ TabCompleter {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         int senderBalance;
         if (args.length < 2) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: /" + label + " <playerName> <amount>");
+            sender.sendMessage(ChatColor.RED + "Usage: /" + label + " <playerName> <amount>");
             return true;
         }
-        Integer amount = Ints.tryParse((String)args[1]);
+        Integer amount = Ints.tryParse(args[1]);
         if (amount == null) {
-            sender.sendMessage((Object)ChatColor.RED + "'" + args[1] + "' is not a valid number.");
+            sender.sendMessage(ChatColor.RED + "'" + args[1] + "' is not a valid number.");
             return true;
         }
         if (amount <= 0) {
-            sender.sendMessage((Object)ChatColor.RED + "You must send money in positive quantities.");
+            sender.sendMessage(ChatColor.RED + "You must send money in positive quantities.");
             return true;
         }
         Player senderPlayer = (Player)sender;
         int n = senderBalance = senderPlayer != null ? this.plugin.getEconomyManager().getBalance(senderPlayer.getUniqueId()) : 1024;
         if (senderBalance < amount) {
-            sender.sendMessage((Object)ChatColor.RED + "You do not have that much money, you have: " + (Object)ChatColor.GREEN + senderBalance);
+            sender.sendMessage(ChatColor.RED + "You do not have that much money, you have: " + ChatColor.GREEN + senderBalance);
             return true;
         }
-        OfflinePlayer target = Bukkit.getOfflinePlayer((String)args[0]);
-        if (sender.equals((Object)target)) {
-            sender.sendMessage((Object)ChatColor.RED + "You cannot send money to yourself.");
+        OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
+        if (sender.equals(target)) {
+            sender.sendMessage(ChatColor.RED + "You cannot send money to yourself.");
             return true;
         }
         Player targetPlayer = target.getPlayer();
@@ -64,8 +64,8 @@ TabCompleter {
             this.plugin.getEconomyManager().subtractBalance(senderPlayer.getUniqueId(), amount);
         }
         this.plugin.getEconomyManager().addBalance(targetPlayer.getUniqueId(), amount);
-        targetPlayer.sendMessage((Object)ChatColor.YELLOW + sender.getName() + " has sent you " + (Object)ChatColor.GREEN + '$' + amount + (Object)ChatColor.YELLOW + '.');
-        sender.sendMessage((Object)ChatColor.YELLOW + "You have sent " + (Object)ChatColor.GREEN + '$' + amount + (Object)ChatColor.YELLOW + " to " + target.getName() + '.');
+        targetPlayer.sendMessage(ChatColor.YELLOW + sender.getName() + " has sent you " + ChatColor.GREEN + '$' + amount + ChatColor.YELLOW + '.');
+        sender.sendMessage(ChatColor.YELLOW + "You have sent " + ChatColor.GREEN + '$' + amount + ChatColor.YELLOW + " to " + target.getName() + '.');
         return true;
     }
 

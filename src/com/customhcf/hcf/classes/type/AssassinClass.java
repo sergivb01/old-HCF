@@ -50,7 +50,7 @@ implements Listener {
             if (on.canSee(p) || on.hasPermission("base.command.vanish")) continue;
             on.showPlayer(p);
         }
-        this.firstAssassinEffects.remove((Object)p);
+        this.firstAssassinEffects.remove(p);
     }
 
     @EventHandler
@@ -64,7 +64,7 @@ implements Listener {
                 for (Entity entity : p.getNearbyEntities(20.0, 20.0, 20.0)) {
                     if (!(entity instanceof Player)) continue;
                     Player players = (Player)entity;
-                    players.sendMessage((Object)ChatColor.YELLOW + "An reaper has taken damage in stealth mode near you: " + (Object)ChatColor.GRAY + (Object)ChatColor.ITALIC + "(20 x 20)");
+                    players.sendMessage(ChatColor.YELLOW + "An reaper has taken damage in stealth mode near you: " + ChatColor.GRAY + ChatColor.ITALIC + "(20 x 20)");
                 }
             }
         }
@@ -91,14 +91,14 @@ implements Listener {
             }
             if (p.getItemInHand().getType() == Material.QUARTZ) {
                 if (Cooldowns.isOnCooldown("Assassin_item_cooldown", p)) {
-                    p.sendMessage((Object)ChatColor.RED + "You still have an " + (Object)ChatColor.GREEN + (Object)ChatColor.BOLD + "Reaper" + (Object)ChatColor.RED + " cooldown for another " + HCF.getRemaining(Cooldowns.getCooldownForPlayerLong("Assassin_item_cooldown", p), true) + (Object)ChatColor.RED + '.');
+                    p.sendMessage(ChatColor.RED + "You still have an " + ChatColor.GREEN + ChatColor.BOLD + "Reaper" + ChatColor.RED + " cooldown for another " + HCF.getRemaining(Cooldowns.getCooldownForPlayerLong("Assassin_item_cooldown", p), true) + ChatColor.RED + '.');
                     return;
                 }
                 if (p.getItemInHand().getAmount() == 1) {
                     p.getInventory().remove(p.getItemInHand());
                 }
                 p.getItemInHand().setAmount(p.getItemInHand().getAmount() - 1);
-                p.sendMessage((Object)ChatColor.YELLOW + "You are now in " + (Object)ChatColor.GRAY + "Stealth" + (Object)ChatColor.YELLOW + " Mode");
+                p.sendMessage(ChatColor.YELLOW + "You are now in " + ChatColor.GRAY + "Stealth" + ChatColor.YELLOW + " Mode");
                 for (Player on : Bukkit.getServer().getOnlinePlayers()) {
                     on.playEffect(p.getLocation().add(0.5, 2.0, 0.5), Effect.ENDER_SIGNAL, 5);
                     on.playEffect(p.getLocation().add(0.5, 1.5, 0.5), Effect.ENDER_SIGNAL, 5);
@@ -120,7 +120,7 @@ implements Listener {
                             AssassinClass.this.afterFiveSeconds(p, false);
                         }
                     }
-                }.runTaskLater((Plugin)this.plugin, 100);
+                }.runTaskLater(this.plugin, 100);
             }
         }
     }
@@ -143,7 +143,7 @@ implements Listener {
                 public void run() {
                     if (AssassinClass.this.firstAssassinEffects.containsKey(p.getName()) && AssassinClass.this.firstAssassinEffects.get(p.getName()) == 2) {
                         AssassinClass.this.firstAssassinEffects.remove(p.getName());
-                        p.sendMessage((Object)ChatColor.YELLOW + "You are now in " + (Object)ChatColor.GREEN + "Normal" + (Object)ChatColor.YELLOW + " Mode");
+                        p.sendMessage(ChatColor.YELLOW + "You are now in " + ChatColor.GREEN + "Normal" + ChatColor.YELLOW + " Mode");
                         if (AssassinClass.this.isApplicableFor(p)) {
                             p.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, Integer.MAX_VALUE, 0), true);
                             p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 1), true);
@@ -151,7 +151,7 @@ implements Listener {
                         }
                     }
                 }
-            }.runTaskLater((Plugin)this.plugin, 100);
+            }.runTaskLater(this.plugin, 100);
             if (force) {
                 p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 1), true);
                 p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0), true);
@@ -161,12 +161,12 @@ implements Listener {
                 p.removePotionEffect(PotionEffectType.INVISIBILITY);
                 this.firstAssassinEffects.remove(p.getName());
                 this.firstAssassinEffects.put(p.getName(), 2);
-                p.sendMessage((Object)ChatColor.YELLOW + "You have been forced into " + (Object)ChatColor.RED + "Power" + (Object)ChatColor.YELLOW + " Mode" + ChatColor.GRAY.toString() + (Object)ChatColor.ITALIC + " (5 Seconds)");
+                p.sendMessage(ChatColor.YELLOW + "You have been forced into " + ChatColor.RED + "Power" + ChatColor.YELLOW + " Mode" + ChatColor.GRAY.toString() + ChatColor.ITALIC + " (5 Seconds)");
                 return;
             }
             this.firstAssassinEffects.remove(p.getName());
             this.firstAssassinEffects.put(p.getName(), 2);
-            p.sendMessage((Object)ChatColor.YELLOW + "You are now in " + (Object)ChatColor.RED + "Power" + (Object)ChatColor.YELLOW + " Mode" + ChatColor.GRAY.toString() + (Object)ChatColor.ITALIC + " (5 Seconds)");
+            p.sendMessage(ChatColor.YELLOW + "You are now in " + ChatColor.RED + "Power" + ChatColor.YELLOW + " Mode" + ChatColor.GRAY.toString() + ChatColor.ITALIC + " (5 Seconds)");
             p.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 1), true);
             p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0), true);
             p.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 120, 1), true);

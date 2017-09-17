@@ -33,11 +33,11 @@ extends CommandArgument {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage((Object)ChatColor.RED + "This command is only executable by players.");
+            sender.sendMessage(ChatColor.RED + "This command is only executable by players.");
             return true;
         }
         if (args.length < 2) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
             return true;
         }
         Player player = (Player)sender;
@@ -45,21 +45,21 @@ extends CommandArgument {
         ItemStack stack = player.getItemInHand();
         Key key = this.plugin.getKeyManager().getKey(stack);
         if (key == null) {
-            sender.sendMessage((Object)ChatColor.RED + "You are not holding a crate key.");
+            sender.sendMessage(ChatColor.RED + "You are not holding a crate key.");
             return true;
         }
-        Integer quantity = Ints.tryParse((String)args[1]);
+        Integer quantity = Ints.tryParse(args[1]);
         if (quantity == null) {
-            sender.sendMessage((Object)ChatColor.RED + "'" + args[1] + "' is not a number.");
+            sender.sendMessage(ChatColor.RED + "'" + args[1] + "' is not a number.");
             return true;
         }
         if (quantity <= 0) {
-            sender.sendMessage((Object)ChatColor.RED + "You can only deposit crate keys in positive amounts.");
+            sender.sendMessage(ChatColor.RED + "You can only deposit crate keys in positive amounts.");
             return true;
         }
         String keyName = key.getName();
         if (quantity > stack.getAmount()) {
-            sender.sendMessage((Object)ChatColor.RED + "You tried to deposit " + quantity + ' ' + keyName + " keys, but you are only holding " + stack.getAmount() + '.');
+            sender.sendMessage(ChatColor.RED + "You tried to deposit " + quantity + ' ' + keyName + " keys, but you are only holding " + stack.getAmount() + '.');
             return true;
         }
         Map<String, Integer> crateKeyMap = this.plugin.getKeyManager().getDepositedCrateMap(uuid);
@@ -70,7 +70,7 @@ extends CommandArgument {
         } else {
             stack.setAmount(stack.getAmount() - quantity);
         }
-        sender.sendMessage((Object)ChatColor.YELLOW + "Successfully deposited " + quantity + ' ' + keyName + " key ".toString() + (quantity > 1 ? "s" : "") + ". You now have " + (Object)ChatColor.LIGHT_PURPLE + newAmount + (Object)ChatColor.YELLOW + " of these keys.");
+        sender.sendMessage(ChatColor.YELLOW + "Successfully deposited " + quantity + ' ' + keyName + " key ".toString() + (quantity > 1 ? "s" : "") + ". You now have " + ChatColor.LIGHT_PURPLE + newAmount + ChatColor.YELLOW + " of these keys.");
         return true;
     }
 }

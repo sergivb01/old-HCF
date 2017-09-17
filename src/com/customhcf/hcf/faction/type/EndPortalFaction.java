@@ -15,7 +15,7 @@ public class EndPortalFaction
         implements ConfigurationSerializable {
     public EndPortalFaction() {
         super("EndPortal");
-        World overworld = Bukkit.getWorld((String)"world");
+        World overworld = Bukkit.getWorld("world");
         int maxHeight = overworld.getMaxHeight();
         int min = 985;
         int max = 1015;
@@ -32,7 +32,7 @@ public class EndPortalFaction
 
     @Override
     public String getDisplayName(CommandSender sender) {
-        return (Object)ChatColor.DARK_AQUA + this.getName().replace("EndPortal", "End Portal");
+        return ChatColor.DARK_AQUA + this.getName().replace("EndPortal", "End Portal");
     }
 
     @Override

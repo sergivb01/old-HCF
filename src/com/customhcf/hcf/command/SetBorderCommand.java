@@ -53,7 +53,7 @@ public class SetBorderCommand
             sender.sendMessage(ChatColor.RED + "Maximum border size is " + 25000 + '.');
             return true;
         }
-        World.Environment environment = (World.Environment)optional.get();
+        World.Environment environment = optional.get();
         HCF.getPlugin().getServerHandler().setServerBorder(environment, amount);
         Command.broadcastCommandMessage(sender, ChatColor.YELLOW + "Set border size of environment " + environment.name() + " to " + amount + '.');
         return true;

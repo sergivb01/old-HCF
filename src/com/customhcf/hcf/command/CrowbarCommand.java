@@ -29,81 +29,81 @@ TabCompleter {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage((Object)ChatColor.RED + "This command is only executable by players.");
+            sender.sendMessage(ChatColor.RED + "This command is only executable by players.");
             return true;
         }
         if (args.length < 1) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: /" + label + " <spawn|setspawners|setendframes>");
+            sender.sendMessage(ChatColor.RED + "Usage: /" + label + " <spawn|setspawners|setendframes>");
             return true;
         }
         Player player = (Player)sender;
         if (args[0].equalsIgnoreCase("spawn")) {
             ItemStack stack = new Crowbar().getItemIfPresent();
-            player.getInventory().addItem(new ItemStack[]{stack});
-            sender.sendMessage((Object)ChatColor.YELLOW + "You have given yourself a " + stack.getItemMeta().getDisplayName() + (Object)ChatColor.YELLOW + '.');
+            player.getInventory().addItem(stack);
+            sender.sendMessage(ChatColor.YELLOW + "You have given yourself a " + stack.getItemMeta().getDisplayName() + ChatColor.YELLOW + '.');
             return true;
         }
 
         Optional<Crowbar> crowbarOptional = Crowbar.fromStack(player.getItemInHand());
         if (!crowbarOptional.isPresent()) {
-            sender.sendMessage((Object)ChatColor.RED + "You are not holding a Crowbar.");
+            sender.sendMessage(ChatColor.RED + "You are not holding a Crowbar.");
             return true;
         }
         if (args[0].equalsIgnoreCase("setspawners")) {
             if (args.length < 2) {
-                sender.sendMessage((Object)ChatColor.RED + "Usage: /" + label + ' ' + args[0].toLowerCase() + " <amount>");
+                sender.sendMessage(ChatColor.RED + "Usage: /" + label + ' ' + args[0].toLowerCase() + " <amount>");
                 return true;
             }
-            Integer amount = Ints.tryParse((String)args[1]);
+            Integer amount = Ints.tryParse(args[1]);
             if (amount == null) {
-                sender.sendMessage((Object)ChatColor.RED + "'" + args[1] + "' is not a number.");
+                sender.sendMessage(ChatColor.RED + "'" + args[1] + "' is not a number.");
                 return true;
             }
             if (amount < 0) {
-                sender.sendMessage((Object)ChatColor.RED + "You cannot set Spawner uses to an amount less than " + 0 + '.');
+                sender.sendMessage(ChatColor.RED + "You cannot set Spawner uses to an amount less than " + 0 + '.');
                 return true;
             }
             if (amount > 1) {
-                sender.sendMessage((Object)ChatColor.RED + "Crowbars have maximum Spawner uses of " + 1 + '.');
+                sender.sendMessage(ChatColor.RED + "Crowbars have maximum Spawner uses of " + 1 + '.');
                 return true;
             }
-            Crowbar crowbar = (Crowbar)crowbarOptional.get();
+            Crowbar crowbar = crowbarOptional.get();
             crowbar.setSpawnerUses(amount);
             player.setItemInHand(crowbar.getItemIfPresent());
-            sender.sendMessage((Object)ChatColor.YELLOW + "Set Spawner uses of held Crowbar to " + amount + '.');
+            sender.sendMessage(ChatColor.YELLOW + "Set Spawner uses of held Crowbar to " + amount + '.');
             return true;
         }
         if (!args[0].equalsIgnoreCase("setendframes")) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: /" + label + " <spawn|setspawners|setendframes>");
+            sender.sendMessage(ChatColor.RED + "Usage: /" + label + " <spawn|setspawners|setendframes>");
             return true;
         }
         if (args.length < 2) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: /" + label + ' ' + args[0].toLowerCase() + " <amount>");
+            sender.sendMessage(ChatColor.RED + "Usage: /" + label + ' ' + args[0].toLowerCase() + " <amount>");
             return true;
         }
-        Integer amount = Ints.tryParse((String)args[1]);
+        Integer amount = Ints.tryParse(args[1]);
         if (amount == null) {
-            sender.sendMessage((Object)ChatColor.RED + "'" + args[1] + "' is not a number.");
+            sender.sendMessage(ChatColor.RED + "'" + args[1] + "' is not a number.");
             return true;
         }
         if (amount < 0) {
-            sender.sendMessage((Object)ChatColor.RED + "You cannot set End Frame uses to an amount less than " + 0 + '.');
+            sender.sendMessage(ChatColor.RED + "You cannot set End Frame uses to an amount less than " + 0 + '.');
             return true;
         }
         if (amount > 5) {
-            sender.sendMessage((Object)ChatColor.RED + "Crowbars have maximum End Frame uses of " + 1 + '.');
+            sender.sendMessage(ChatColor.RED + "Crowbars have maximum End Frame uses of " + 1 + '.');
             return true;
         }
-        Crowbar crowbar = (Crowbar)crowbarOptional.get();
+        Crowbar crowbar = crowbarOptional.get();
         crowbar.setEndFrameUses(amount);
         player.setItemInHand(crowbar.getItemIfPresent());
-        sender.sendMessage((Object)ChatColor.YELLOW + "Set End Frame uses of held Crowbar to " + amount + '.');
+        sender.sendMessage(ChatColor.YELLOW + "Set End Frame uses of held Crowbar to " + amount + '.');
         return true;
     }
 
 
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-        return args.length == 1 ? BukkitUtils.getCompletions((String[])args, this.completions) : Collections.emptyList();
+        return args.length == 1 ? BukkitUtils.getCompletions(args, this.completions) : Collections.emptyList();
     }
 }
 

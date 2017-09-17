@@ -58,8 +58,8 @@ extends Key {
     public ItemStack getItemStack() {
         ItemStack stack = new ItemStack(Material.TRIPWIRE_HOOK, 1);
         ItemMeta meta = stack.getItemMeta();
-        meta.setDisplayName((Object)this.getColour() + this.getName() + " Key");
-        meta.setLore((List)Lists.newArrayList((Object[])new String[]{(Object)ChatColor.GRAY + "Click an Ender Chest in a safe claim to use this key."}));
+        meta.setDisplayName(this.getColour() + this.getName() + " Key");
+        meta.setLore((List)Lists.newArrayList((Object[])new String[]{ChatColor.GRAY + "Click an Ender Chest in a safe claim to use this key."}));
         stack.setItemMeta(meta);
         return stack;
     }

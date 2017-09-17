@@ -45,12 +45,12 @@ extends CommandArgument {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length < 4) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
             return true;
         }
-        long duration = JavaUtils.parse((String)args[3]);
+        long duration = JavaUtils.parse(args[3]);
         if (duration == -1) {
-            sender.sendMessage((Object)ChatColor.RED + "Invalid duration, use the correct format: 10m 1s");
+            sender.sendMessage(ChatColor.RED + "Invalid duration, use the correct format: 10m 1s");
             return true;
         }
         PlayerTimer playerTimer = null;
@@ -60,23 +60,23 @@ extends CommandArgument {
             break;
         }
         if (playerTimer == null) {
-            sender.sendMessage((Object)ChatColor.RED + "Timer '" + args[1] + "' not found.");
+            sender.sendMessage(ChatColor.RED + "Timer '" + args[1] + "' not found.");
             return true;
         }
         if (args[2].equalsIgnoreCase("all")) {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 playerTimer.setCooldown(player, player.getUniqueId(), duration, true);
             }
-            sender.sendMessage((Object)ChatColor.BLUE + "Set timer " + playerTimer.getName() + " for all to " + DurationFormatUtils.formatDurationWords((long)duration, (boolean)true, (boolean)true) + '.');
+            sender.sendMessage(ChatColor.BLUE + "Set timer " + playerTimer.getName() + " for all to " + DurationFormatUtils.formatDurationWords(duration, true, true) + '.');
         } else {
-            OfflinePlayer target = Bukkit.getOfflinePlayer((String)args[2]);
+            OfflinePlayer target = Bukkit.getOfflinePlayer(args[2]);
             Player targetPlayer = null;
             if (target == null || sender instanceof Player && (targetPlayer = target.getPlayer()) != null && !((Player)sender).canSee(targetPlayer)) {
-                sender.sendMessage((Object)ChatColor.GOLD + "Player '" + (Object)ChatColor.WHITE + args[1] + (Object)ChatColor.GOLD + "' not found.");
+                sender.sendMessage(ChatColor.GOLD + "Player '" + ChatColor.WHITE + args[1] + ChatColor.GOLD + "' not found.");
                 return true;
             }
             playerTimer.setCooldown(targetPlayer, target.getUniqueId(), duration, true);
-            sender.sendMessage((Object)ChatColor.BLUE + "Set timer " + playerTimer.getName() + " duration to " + DurationFormatUtils.formatDurationWords((long)duration, (boolean)true, (boolean)true) + " for " + target.getName() + '.');
+            sender.sendMessage(ChatColor.BLUE + "Set timer " + playerTimer.getName() + " duration to " + DurationFormatUtils.formatDurationWords(duration, true, true) + " for " + target.getName() + '.');
         }
         return true;
     }
@@ -88,7 +88,7 @@ extends CommandArgument {
                 public boolean apply(Timer timer) {
                     return timer instanceof PlayerTimer;
                 }
-            }).transform((Function)new Function<Timer, String>(){
+            }).transform(new Function<Timer, String>(){
 
                 @Nullable
                 public String apply(Timer timer) {

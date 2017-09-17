@@ -58,7 +58,7 @@ implements Listener {
     public void onInventoryClose(InventoryCloseEvent event) {
         Inventory inventory = event.getInventory();
         Inventory topInventory = event.getView().getTopInventory();
-        if (inventory != null && topInventory != null && topInventory.equals((Object)inventory) && topInventory.getTitle().endsWith(" 豆贝尔维")) {
+        if (inventory != null && topInventory != null && topInventory.equals(inventory) && topInventory.getTitle().endsWith(" 豆贝尔维")) {
             Player player = (Player)event.getPlayer();
             Location location = player.getLocation();
             World world = player.getWorld();
@@ -78,7 +78,7 @@ implements Listener {
     public void onInventoryDrag(InventoryDragEvent event) {
         Inventory inventory = event.getInventory();
         Inventory topInventory = event.getView().getTopInventory();
-        if (inventory != null && topInventory != null && topInventory.equals((Object)inventory) && topInventory.getTitle().endsWith(" 豆贝尔维")) {
+        if (inventory != null && topInventory != null && topInventory.equals(inventory) && topInventory.getTitle().endsWith(" 豆贝尔维")) {
             event.setCancelled(true);
         }
     }
@@ -91,9 +91,9 @@ implements Listener {
             return;
         }
         InventoryAction action = event.getAction();
-        if (!topInventory.equals((Object)clickedInventory) && action == InventoryAction.MOVE_TO_OTHER_INVENTORY) {
+        if (!topInventory.equals(clickedInventory) && action == InventoryAction.MOVE_TO_OTHER_INVENTORY) {
             event.setCancelled(true);
-        } else if (topInventory.equals((Object)clickedInventory) && (action == InventoryAction.PLACE_ALL || action == InventoryAction.PLACE_ONE || action == InventoryAction.PLACE_SOME)) {
+        } else if (topInventory.equals(clickedInventory) && (action == InventoryAction.PLACE_ALL || action == InventoryAction.PLACE_ONE || action == InventoryAction.PLACE_SOME)) {
             event.setCancelled(true);
         }
     }
@@ -130,11 +130,11 @@ implements Listener {
             EnderChestKey enderChestKey = (EnderChestKey)key;
             boolean broadcastLoot = enderChestKey.getBroadcastItems();
             int rolls = enderChestKey.getRolls();
-            int size = InventoryUtils.getSafestInventorySize((int)rolls);
-            Inventory inventory = Bukkit.createInventory((InventoryHolder)player, (int)size, (String)(enderChestKey.getName() + " 豆贝尔维"));
+            int size = InventoryUtils.getSafestInventorySize(rolls);
+            Inventory inventory = Bukkit.createInventory(player, size, enderChestKey.getName() + " 豆贝尔维");
             ItemStack[] loot = enderChestKey.getLoot();
             if (loot == null) {
-                player.sendMessage((Object)ChatColor.RED + "That key has no loot defined, please inform an admin.");
+                player.sendMessage(ChatColor.RED + "That key has no loot defined, please inform an admin.");
                 return;
             }
             ArrayList<ItemStack> finalLoot = new ArrayList<ItemStack>();
@@ -147,12 +147,12 @@ implements Listener {
             }
             if (broadcastLoot) {
                 Text text = new Text();
-                text.append((IChatBaseComponent)new Text(player.getName()).setColor(ChatColor.AQUA));
-                text.append((IChatBaseComponent)new Text(" has obtained").setColor(ChatColor.YELLOW));
-                text.append((IChatBaseComponent)TextUtils.joinItemList(finalLoot, (String)", ", (boolean)true));
-                text.append((IChatBaseComponent)new Text(" from a ").setColor(ChatColor.YELLOW));
-                text.append((IChatBaseComponent)new Text(enderChestKey.getDisplayName()).setColor(enderChestKey.getColour()));
-                text.append((IChatBaseComponent)new Text(" key.").setColor(ChatColor.YELLOW));
+                text.append(new Text(player.getName()).setColor(ChatColor.AQUA));
+                text.append(new Text(" has obtained").setColor(ChatColor.YELLOW));
+                text.append(TextUtils.joinItemList(finalLoot, ", ", true));
+                text.append(new Text(" from a ").setColor(ChatColor.YELLOW));
+                text.append(new Text(enderChestKey.getDisplayName()).setColor(enderChestKey.getColour()));
+                text.append(new Text(" key.").setColor(ChatColor.YELLOW));
                 text.broadcast();
             }
             Location location = block.getLocation();

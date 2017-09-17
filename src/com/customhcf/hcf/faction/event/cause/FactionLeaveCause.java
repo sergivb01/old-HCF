@@ -7,7 +7,7 @@ public enum FactionLeaveCause {
     DISBAND;
     
 
-    private FactionLeaveCause() {
+    FactionLeaveCause() {
     }
 }
 

@@ -48,7 +48,7 @@ public class MinerClass
 
     private void removeInvisibilitySafely(final Player player) {
         for (final PotionEffect active : player.getActivePotionEffects()) {
-            if (active.getType().equals((Object)PotionEffectType.INVISIBILITY) && active.getDuration() > MinerClass.DEFAULT_MAX_DURATION) {
+            if (active.getType().equals(PotionEffectType.INVISIBILITY) && active.getDuration() > MinerClass.DEFAULT_MAX_DURATION) {
                 player.sendMessage(ChatColor.RED + this.getName() + ChatColor.GOLD + " invisibility removed.");
                 player.removePotionEffect(active.getType());
                 break;
@@ -59,7 +59,7 @@ public class MinerClass
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onPlayerDamage(final EntityDamageByEntityEvent event) {
         final Entity entity = event.getEntity();
-        if (entity instanceof Player && BukkitUtils.getFinalAttacker((EntityDamageEvent)event, false) != null) {
+        if (entity instanceof Player && BukkitUtils.getFinalAttacker(event, false) != null) {
             final Player player = (Player)entity;
             if (this.plugin.getPvpClassManager().hasClassEquipped(player, this)) {
                 this.removeInvisibilitySafely(player);

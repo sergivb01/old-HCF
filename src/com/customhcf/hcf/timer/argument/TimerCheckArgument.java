@@ -32,7 +32,7 @@ extends CommandArgument {
 
     public boolean onCommand(final CommandSender sender, Command command, String label, final String[] args) {
         if (args.length < 3) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
             return true;
         }
         PlayerTimer temporaryTimer = null;
@@ -42,7 +42,7 @@ extends CommandArgument {
             break;
         }
         if (temporaryTimer == null) {
-            sender.sendMessage((Object)ChatColor.RED + "Timer '" + args[1] + "' not found.");
+            sender.sendMessage(ChatColor.RED + "Timer '" + args[1] + "' not found.");
             return true;
         }
         final PlayerTimer playerTimer = temporaryTimer;
@@ -54,17 +54,17 @@ extends CommandArgument {
                     uuid = UUIDFetcher.getUUIDOf(args[2]);
                 }
                 catch (Exception ex) {
-                    sender.sendMessage((Object)ChatColor.GOLD + "Player '" + (Object)ChatColor.WHITE + args[2] + (Object)ChatColor.GOLD + "' not found.");
+                    sender.sendMessage(ChatColor.GOLD + "Player '" + ChatColor.WHITE + args[2] + ChatColor.GOLD + "' not found.");
                     return;
                 }
                 if(uuid == null){
-                    sender.sendMessage((Object)ChatColor.GOLD + "Player '" + (Object)ChatColor.WHITE + args[2] + (Object)ChatColor.GOLD + "' not found.");
+                    sender.sendMessage(ChatColor.GOLD + "Player '" + ChatColor.WHITE + args[2] + ChatColor.GOLD + "' not found.");
                     return;
                 }
                 long remaining = playerTimer.getRemaining(uuid);
-                sender.sendMessage((Object)ChatColor.YELLOW + args[2] + " has timer " + playerTimer.getName() + " for another " + DurationFormatUtils.formatDurationWords((long)remaining, (boolean)true, (boolean)true));
+                sender.sendMessage(ChatColor.YELLOW + args[2] + " has timer " + playerTimer.getName() + " for another " + DurationFormatUtils.formatDurationWords(remaining, true, true));
             }
-        }.runTaskAsynchronously((Plugin)this.plugin);
+        }.runTaskAsynchronously(this.plugin);
         return true;
     }
 

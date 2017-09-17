@@ -60,12 +60,12 @@ implements Cancellable {
         return handlers;
     }
 
-    public static enum DtrUpdateCause {
+    public enum DtrUpdateCause {
         REGENERATION,
         MEMBER_DEATH;
         
 
-        private DtrUpdateCause() {
+        DtrUpdateCause() {
         }
     }
 

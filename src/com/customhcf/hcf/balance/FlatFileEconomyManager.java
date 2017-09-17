@@ -30,7 +30,7 @@ implements EconomyManager {
 
     @Override
     public int getBalance(UUID uuid) {
-        return this.balanceMap.get((Object)uuid);
+        return this.balanceMap.get(uuid);
     }
 
     @Override
@@ -56,7 +56,7 @@ implements EconomyManager {
         final Object object = this.balanceConfig.get("balances");
         if (object instanceof MemorySection) {
             final MemorySection section = (MemorySection)object;
-            final Set<String> keys = (Set<String>)section.getKeys(false);
+            final Set<String> keys = section.getKeys(false);
             for (final String id : keys) {
                 this.balanceMap.put(UUID.fromString(id), this.balanceConfig.getInt("balances." + id));
             }

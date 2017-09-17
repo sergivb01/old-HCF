@@ -7,7 +7,7 @@ public enum ClaimChangeCause {
     RESIZE;
     
 
-    private ClaimChangeCause() {
+    ClaimChangeCause() {
     }
 }
 

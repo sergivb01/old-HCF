@@ -33,7 +33,7 @@ extends CommandArgument {
         super("revive", "Revive a death-banned player");
         this.plugin = plugin;
         this.permission = "hcf.command.lives.argument." + this.getName();
-        plugin.getServer().getMessenger().registerOutgoingPluginChannel((Plugin)plugin, "BungeeCord");
+        plugin.getServer().getMessenger().registerOutgoingPluginChannel(plugin, "BungeeCord");
     }
 
     public String getUsage(String label) {
@@ -42,25 +42,25 @@ extends CommandArgument {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length < 2) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
             return true;
         }
-        OfflinePlayer target = Bukkit.getOfflinePlayer((String)args[1]);
+        OfflinePlayer target = Bukkit.getOfflinePlayer(args[1]);
         if (!target.hasPlayedBefore() && !target.isOnline()) {
-            sender.sendMessage((Object)ChatColor.GOLD + "Player '" + (Object)ChatColor.WHITE + args[1] + (Object)ChatColor.GOLD + "' not found.");
+            sender.sendMessage(ChatColor.GOLD + "Player '" + ChatColor.WHITE + args[1] + ChatColor.GOLD + "' not found.");
             return true;
         }
         UUID targetUUID = target.getUniqueId();
         FactionUser factionTarget = this.plugin.getUserManager().getUser(targetUUID);
         Deathban deathban = factionTarget.getDeathban();
         if (deathban == null || !deathban.isActive()) {
-            sender.sendMessage((Object)ChatColor.RED + target.getName() + " is not death-banned.");
+            sender.sendMessage(ChatColor.RED + target.getName() + " is not death-banned.");
             return true;
         }
         Relation relation = Relation.ENEMY;
         if (sender instanceof Player) {
             if (!sender.hasPermission("hcf.revive.bypass") && this.plugin.getEotwHandler().isEndOfTheWorld()) {
-                sender.sendMessage((Object)ChatColor.RED + "You cannot revive players during EOTW.");
+                sender.sendMessage(ChatColor.RED + "You cannot revive players during EOTW.");
                 return true;
             }
             if (!sender.hasPermission("hcf.revive.bypass")) {
@@ -68,23 +68,23 @@ extends CommandArgument {
                 UUID playerUUID = player.getUniqueId();
                 int selfLives = this.plugin.getDeathbanManager().getLives(playerUUID);
                 if (selfLives <= 0) {
-                    sender.sendMessage((Object)ChatColor.RED + "You do not have any lives.");
+                    sender.sendMessage(ChatColor.RED + "You do not have any lives.");
                     return true;
                 }
                 this.plugin.getDeathbanManager().setLives(playerUUID, selfLives - 1);
                 PlayerFaction playerFaction = this.plugin.getFactionManager().getPlayerFaction(player);
                 relation = playerFaction == null ? Relation.ENEMY : playerFaction.getFactionRelation(this.plugin.getFactionManager().getPlayerFaction(targetUUID));
-                sender.sendMessage((Object)ChatColor.YELLOW + "You have revived " + (Object)relation.toChatColour() + target.getName() + (Object)ChatColor.YELLOW + '.');
+                sender.sendMessage(ChatColor.YELLOW + "You have revived " + relation.toChatColour() + target.getName() + ChatColor.YELLOW + '.');
             } else if (sender.hasPermission("hcf.revive.dtr")) {
                 if (this.plugin.getFactionManager().getPlayerFaction(targetUUID) != null) {
                     this.plugin.getFactionManager().getPlayerFaction(targetUUID).setDeathsUntilRaidable(this.plugin.getFactionManager().getPlayerFaction(targetUUID).getDeathsUntilRaidable() + 1.0);
                 }
-                sender.sendMessage((Object)ChatColor.YELLOW + "You have revived and added DTR to " + (Object)relation.toChatColour() + target.getName() + (Object)ChatColor.YELLOW + '.');
+                sender.sendMessage(ChatColor.YELLOW + "You have revived and added DTR to " + relation.toChatColour() + target.getName() + ChatColor.YELLOW + '.');
             } else {
-                sender.sendMessage((Object)ChatColor.YELLOW + "You have revived " + (Object)relation.toChatColour() + target.getName() + (Object)ChatColor.YELLOW + '.');
+                sender.sendMessage(ChatColor.YELLOW + "You have revived " + relation.toChatColour() + target.getName() + ChatColor.YELLOW + '.');
             }
         } else {
-            sender.sendMessage((Object)ChatColor.YELLOW + "You have revived " + (Object)ConfigurationService.ENEMY_COLOUR + target.getName() + (Object)ChatColor.YELLOW + '.');
+            sender.sendMessage(ChatColor.YELLOW + "You have revived " + ConfigurationService.ENEMY_COLOUR + target.getName() + ChatColor.YELLOW + '.');
         }
         factionTarget.removeDeathban();
         return true;
@@ -100,7 +100,7 @@ extends CommandArgument {
             String offlineName;
             OfflinePlayer offlinePlayer;
             Deathban deathban = factionUser.getDeathban();
-            if (deathban == null || !deathban.isActive() || (offlineName = (offlinePlayer = Bukkit.getOfflinePlayer((UUID)factionUser.getUserUUID())).getName()) == null) continue;
+            if (deathban == null || !deathban.isActive() || (offlineName = (offlinePlayer = Bukkit.getOfflinePlayer(factionUser.getUserUUID())).getName()) == null) continue;
             results.add(offlinePlayer.getName());
         }
         return results;

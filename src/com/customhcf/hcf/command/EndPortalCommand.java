@@ -36,7 +36,7 @@ public class EndPortalCommand implements CommandExecutor, Listener {
         this.plugin = plugin;
         this.ITEM_DISPLAYNAME = ChatColor.GREEN + "Endportal Maker";
         this.playerSelections = new HashMap<UUID, LocationPair>();
-        this.plugin.getServer().getPluginManager().registerEvents((Listener) this, (Plugin) this.plugin);
+        this.plugin.getServer().getPluginManager().registerEvents(this, this.plugin);
     }
 
     @EventHandler
@@ -98,10 +98,10 @@ public class EndPortalCommand implements CommandExecutor, Listener {
                     e.setCancelled(true);
                     new BukkitRunnable() {
                         public void run() {
-                            e.getPlayer().setItemInHand((ItemStack) null);
+                            e.getPlayer().setItemInHand(null);
                             e.getPlayer().updateInventory();
                         }
-                    }.runTask((Plugin) this.plugin);
+                    }.runTask(this.plugin);
                     e.getPlayer().sendMessage(ChatColor.GREEN + "Created an end portal");
                     this.playerSelections.remove(p.getUniqueId());
                 }
@@ -144,7 +144,7 @@ public class EndPortalCommand implements CommandExecutor, Listener {
         final ItemMeta itemMeta = portalMaker.getItemMeta();
         itemMeta.setDisplayName(this.ITEM_DISPLAYNAME);
         portalMaker.setItemMeta(itemMeta);
-        p.getInventory().addItem(new ItemStack[] { portalMaker });
+        p.getInventory().addItem(portalMaker);
         return true;
     }
 

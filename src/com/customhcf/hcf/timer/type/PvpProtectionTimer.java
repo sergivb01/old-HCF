@@ -87,7 +87,7 @@ public class PvpProtectionTimer extends PlayerTimer implements Listener
         if (event.getTimer().equals(this)) {
             final Optional<UUID> optionalUserUUID = event.getUserUUID();
             if (optionalUserUUID.isPresent()) {
-                this.onExpire((UUID)optionalUserUUID.get());
+                this.onExpire(optionalUserUUID.get());
             }
         }
     }
@@ -99,7 +99,7 @@ public class PvpProtectionTimer extends PlayerTimer implements Listener
         }
         final Collection<Claim> claims = event.getAffectedClaims();
         for (final Claim claim : claims) {
-            final Collection<Player> players = (Collection<Player>)claim.getPlayers();
+            final Collection<Player> players = claim.getPlayers();
             for (final Player player : players) {
                 if (this.getRemaining(player) > 0L) {
                     Location location = player.getLocation();
@@ -133,7 +133,7 @@ public class PvpProtectionTimer extends PlayerTimer implements Listener
     public void onTimer(TimerStartEvent e) {
     	if(ConfigurationService.KIT_MAP){
     		if (e.getTimer() instanceof PvpProtectionTimer) {
-    			this.plugin.getTimerManager().pvpProtectionTimer.clearCooldown((UUID)e.getUserUUID().get());
+    			this.plugin.getTimerManager().pvpProtectionTimer.clearCooldown(e.getUserUUID().get());
     		}
     	}
     }
@@ -148,7 +148,7 @@ public class PvpProtectionTimer extends PlayerTimer implements Listener
         final Location location = player.getLocation();
         final Iterator<ItemStack> iterator = event.getDrops().iterator();
         while (iterator.hasNext()) {
-            this.itemUUIDPickupDelays.put(world.dropItemNaturally(location, (ItemStack)iterator.next()).getUniqueId(), System.currentTimeMillis() + PvpProtectionTimer.ITEM_PICKUP_DELAY);
+            this.itemUUIDPickupDelays.put(world.dropItemNaturally(location, iterator.next()).getUniqueId(), System.currentTimeMillis() + PvpProtectionTimer.ITEM_PICKUP_DELAY);
             iterator.remove();
         }
         this.clearCooldown(player);
@@ -263,7 +263,7 @@ public class PvpProtectionTimer extends PlayerTimer implements Listener
             }
             if (!toFaction.isSafezone() && !(toFaction instanceof RoadFaction)) {
                 event.setCancelled(true);
-                player.sendMessage(ChatColor.RED + "You cannot enter " + toFaction.getDisplayName((CommandSender)player) + ChatColor.RED + " whilst your " + this.getDisplayName() + ChatColor.RED + " timer is active [" + ChatColor.BOLD + HCF.getRemaining(remaining, true, false) + ChatColor.RED + " remaining]. " + "Use '" + ChatColor.GOLD + "/pvp enable" + ChatColor.RED + "' to remove this timer.");
+                player.sendMessage(ChatColor.RED + "You cannot enter " + toFaction.getDisplayName(player) + ChatColor.RED + " whilst your " + this.getDisplayName() + ChatColor.RED + " timer is active [" + ChatColor.BOLD + HCF.getRemaining(remaining, true, false) + ChatColor.RED + " remaining]. " + "Use '" + ChatColor.GOLD + "/pvp enable" + ChatColor.RED + "' to remove this timer.");
             }
         }
     }
@@ -272,7 +272,7 @@ public class PvpProtectionTimer extends PlayerTimer implements Listener
     public void onEntityDamageByEntity(final EntityDamageByEntityEvent event) {
         final Entity entity = event.getEntity();
         if (entity instanceof Player) {
-            final Player attacker = BukkitUtils.getFinalAttacker((EntityDamageEvent)event, true);
+            final Player attacker = BukkitUtils.getFinalAttacker(event, true);
             if (attacker == null) {
                 return;
             }

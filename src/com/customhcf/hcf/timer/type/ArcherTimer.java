@@ -50,12 +50,12 @@ public class ArcherTimer
         if ((e.getUserUUID().isPresent()) &&
                 (e.getTimer().equals(this)))
         {
-            UUID userUUID = (UUID)e.getUserUUID().get();
+            UUID userUUID = e.getUserUUID().get();
             Player player = Bukkit.getPlayer(userUUID);
             if (player == null) {
                 return;
             }
-            Bukkit.getPlayer((UUID) ArcherClass.tagged.get(userUUID)).sendMessage(ChatColor.GOLD + "Your archer mark on " + ChatColor.RED + player.getName() + ChatColor.GOLD + " has expired.");
+            Bukkit.getPlayer(ArcherClass.tagged.get(userUUID)).sendMessage(ChatColor.GOLD + "Your archer mark on " + ChatColor.RED + player.getName() + ChatColor.GOLD + " has expired.");
             player.sendMessage(ChatColor.GOLD + "You are no longer archer marked.");
             ArcherClass.tagged.remove(player.getUniqueId());
             for (Player players : Bukkit.getServer().getOnlinePlayers()) {
@@ -70,7 +70,7 @@ public class ArcherTimer
         if (((e.getEntity() instanceof Player)) && ((e.getDamager() instanceof Player)))
         {
             Player entity = (Player)e.getEntity();
-            Entity damager = (Player)e.getDamager();
+            Entity damager = e.getDamager();
             if (getRemaining(entity) > 0L)
             {
                 e.setDamage(e.getDamage() * 1.3D);
@@ -83,7 +83,7 @@ public class ArcherTimer
             if (((damager instanceof Player)) &&
                     (getRemaining(entity) > 0L))
             {
-                if (((UUID)ArcherClass.tagged.get(entity.getUniqueId())).equals(damager.getUniqueId())) {
+                if (ArcherClass.tagged.get(entity.getUniqueId()).equals(damager.getUniqueId())) {
                     setCooldown(entity, entity.getUniqueId());
                 }
                 e.setDamage(e.getDamage() * 1.3D);

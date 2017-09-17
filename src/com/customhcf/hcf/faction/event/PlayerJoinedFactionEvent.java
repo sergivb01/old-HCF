@@ -39,7 +39,7 @@ extends FactionEvent {
 
     public Optional<Player> getPlayer() {
         if (this.player == null) {
-            this.player = Optional.fromNullable(Bukkit.getPlayer((UUID)this.uniqueID));
+            this.player = Optional.fromNullable(Bukkit.getPlayer(this.uniqueID));
         }
         return this.player;
     }

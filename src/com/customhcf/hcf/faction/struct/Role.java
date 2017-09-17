@@ -9,7 +9,7 @@ public enum Role {
     private final String name;
     private final String astrix;
 
-    private Role(String name, String astrix) {
+    Role(String name, String astrix) {
         this.name = name;
         this.astrix = astrix;
     }

@@ -192,7 +192,7 @@ public final class ConfigurationService {
         GLOWSTONE_COLOUR = ChatColor.getByChar(config.getString("colors.glowstone", "&b").replace("&", "").trim());
         
         DTR_MILLIS_BETWEEN_UPDATES = TimeUnit.SECONDS.toMillis(45);
-        DTR_WORDS_BETWEEN_UPDATES = DurationFormatUtils.formatDurationWords((long)DTR_MILLIS_BETWEEN_UPDATES, (boolean)true, (boolean)true);
+        DTR_WORDS_BETWEEN_UPDATES = DurationFormatUtils.formatDurationWords(DTR_MILLIS_BETWEEN_UPDATES, true, true);
         
         CRATE_BROADCASTS = false;
         

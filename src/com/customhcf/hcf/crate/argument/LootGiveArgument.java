@@ -41,47 +41,47 @@ extends CommandArgument {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Integer quantity;
         if (args.length < 3) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
             return true;
         }
-        Player target = Bukkit.getPlayer((String)args[1]);
+        Player target = Bukkit.getPlayer(args[1]);
         if (target == null || sender instanceof Player && !((Player)sender).canSee(target)) {
-            sender.sendMessage((Object)ChatColor.GOLD + "Player '" + (Object)ChatColor.WHITE + args[1] + (Object)ChatColor.GOLD + "' not found.");
+            sender.sendMessage(ChatColor.GOLD + "Player '" + ChatColor.WHITE + args[1] + ChatColor.GOLD + "' not found.");
             return true;
         }
         Key key = this.plugin.getKeyManager().getKey(args[2]);
         if (key == null) {
-            sender.sendMessage((Object)ChatColor.RED + "There is no key type named '" + args[2] + "'.");
+            sender.sendMessage(ChatColor.RED + "There is no key type named '" + args[2] + "'.");
             return true;
         }
         if (args.length >= 4) {
-            quantity = Ints.tryParse((String)args[3]);
+            quantity = Ints.tryParse(args[3]);
             if (quantity == null) {
-                sender.sendMessage((Object)ChatColor.RED + "'" + args[3] + "' is not a number.");
+                sender.sendMessage(ChatColor.RED + "'" + args[3] + "' is not a number.");
                 return true;
             }
         } else {
             quantity = 1;
         }
         if (quantity <= 0) {
-            sender.sendMessage((Object)ChatColor.RED + "You can only give keys in positive quantities.");
+            sender.sendMessage(ChatColor.RED + "You can only give keys in positive quantities.");
             return true;
         }
         ItemStack stack = key.getItemStack().clone();
         int maxAmount = 16;
         if (quantity > 16) {
-            sender.sendMessage((Object)ChatColor.RED + "You cannot give keys in quantities more than " + 16 + '.');
+            sender.sendMessage(ChatColor.RED + "You cannot give keys in quantities more than " + 16 + '.');
             return true;
         }
         stack.setAmount(quantity.intValue());
         PlayerInventory inventory = target.getInventory();
         Location location = target.getLocation();
         World world = target.getWorld();
-        final Map<Integer, ItemStack> excess = (Map<Integer, ItemStack>)inventory.addItem(new ItemStack[] { stack });
+        final Map<Integer, ItemStack> excess = inventory.addItem(new ItemStack[] { stack });
         for (final ItemStack entry : excess.values()) {
             world.dropItemNaturally(location, entry);
         }
-        sender.sendMessage((Object)ChatColor.GREEN + "Given " + quantity + "x " + key.getDisplayName() + (Object)ChatColor.GREEN + " key to " + target.getName() + '.');
+        sender.sendMessage(ChatColor.GREEN + "Given " + quantity + "x " + key.getDisplayName() + ChatColor.GREEN + " key to " + target.getName() + '.');
         return true;
     }
 

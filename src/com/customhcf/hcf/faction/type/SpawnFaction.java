@@ -19,7 +19,7 @@ implements ConfigurationSerializable {
         for (World world : Bukkit.getWorlds()) {
             World.Environment environment = world.getEnvironment();
             if (environment == World.Environment.THE_END) continue;
-            double radius = ConfigurationService.SPAWN_RADIUS_MAP.get((Object)world.getEnvironment());
+            double radius = ConfigurationService.SPAWN_RADIUS_MAP.get(world.getEnvironment());
 //            this.addClaim(new Claim(this, new Location(world, radius, 0.0, radius), new Location(world, - radius, (double)world.getMaxHeight(), - radius)), null);
         }
     }

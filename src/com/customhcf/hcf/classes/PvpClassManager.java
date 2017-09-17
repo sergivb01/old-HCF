@@ -33,13 +33,13 @@ public class PvpClassManager {
         this.pvpClasses.put("Miner", new MinerClass(plugin));
         for (PvpClass pvpClass : this.pvpClasses.values()) {
             if (!(pvpClass instanceof Listener)) continue;
-            plugin.getServer().getPluginManager().registerEvents((Listener)pvpClass, (Plugin)plugin);
+            plugin.getServer().getPluginManager().registerEvents((Listener)pvpClass, plugin);
         }
     }
 
     public void onDisable() {
         for (Map.Entry<UUID, PvpClass> entry : new HashMap<UUID, PvpClass>(this.equippedClass).entrySet()) {
-            this.setEquippedClass(Bukkit.getPlayer((UUID)entry.getKey()), null);
+            this.setEquippedClass(Bukkit.getPlayer(entry.getKey()), null);
         }
         this.pvpClasses.clear();
         this.equippedClass.clear();
@@ -72,7 +72,7 @@ public class PvpClassManager {
             if (pvpClass == null) {
                 this.equippedClass.remove(player.getUniqueId());
                 equipped.onUnequip(player);
-                Bukkit.getPluginManager().callEvent((Event)new PvpClassUnequipEvent(player, equipped));
+                Bukkit.getPluginManager().callEvent(new PvpClassUnequipEvent(player, equipped));
                 return;
             }
         } else if (pvpClass == null) {
@@ -80,7 +80,7 @@ public class PvpClassManager {
         }
         if (pvpClass.onEquip(player)) {
             this.equippedClass.put(player.getUniqueId(), pvpClass);
-            Bukkit.getPluginManager().callEvent((Event)new PvpClassEquipEvent(player, pvpClass));
+            Bukkit.getPluginManager().callEvent(new PvpClassEquipEvent(player, pvpClass));
         }
     }
 }

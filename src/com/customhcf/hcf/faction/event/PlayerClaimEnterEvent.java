@@ -70,12 +70,12 @@ implements Cancellable {
         return handlers;
     }
 
-    public static enum EnterCause {
+    public enum EnterCause {
         TELEPORT,
         MOVEMENT;
         
 
-        private EnterCause() {
+        EnterCause() {
         }
     }
 

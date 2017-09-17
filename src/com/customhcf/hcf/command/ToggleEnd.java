@@ -26,7 +26,7 @@ TabCompleter {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         boolean newMode = !BasePlugin.getPlugin().getServerHandler().isEnd();
         BasePlugin.getPlugin().getServerHandler().setEnd(newMode);
-        Bukkit.broadcastMessage((String)((Object)ChatColor.YELLOW + "The End is now " + (!newMode ? new StringBuilder().append((Object)ChatColor.RED).append("closed").toString() : new StringBuilder().append((Object)ChatColor.GREEN).append("open").toString()) + (Object)ChatColor.YELLOW + '.'));
+        Bukkit.broadcastMessage(ChatColor.YELLOW + "The End is now " + (!newMode ? new StringBuilder().append(ChatColor.RED).append("closed").toString() : new StringBuilder().append(ChatColor.GREEN).append("open").toString()) + ChatColor.YELLOW + '.');
         return true;
     }
 

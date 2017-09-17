@@ -21,8 +21,8 @@ implements Cancellable {
 
     public CaptureZoneLeaveEvent(Player player, CapturableFaction capturableFaction, CaptureZone captureZone) {
         super(capturableFaction);
-        Preconditions.checkNotNull((Object)player, (Object)"Player cannot be null");
-        Preconditions.checkNotNull((Object)captureZone, (Object)"Capture zone cannot be null");
+        Preconditions.checkNotNull((Object)player, "Player cannot be null");
+        Preconditions.checkNotNull((Object)captureZone, "Capture zone cannot be null");
         this.captureZone = captureZone;
         this.player = player;
     }

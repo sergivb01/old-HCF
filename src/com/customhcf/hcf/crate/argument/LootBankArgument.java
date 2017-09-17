@@ -29,18 +29,18 @@ extends CommandArgument {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage((Object)ChatColor.RED + "This command is only executable by players.");
+            sender.sendMessage(ChatColor.RED + "This command is only executable by players.");
             return true;
         }
         Player player = (Player)sender;
         UUID uuid = player.getUniqueId();
         Map<String, Integer> crateKeyMap = this.plugin.getKeyManager().getDepositedCrateMap(uuid);
         if (crateKeyMap.isEmpty()) {
-            sender.sendMessage((Object)ChatColor.RED + "There are no keys in your bank account.");
+            sender.sendMessage(ChatColor.RED + "There are no keys in your bank account.");
             return true;
         }
         for (Map.Entry<String, Integer> entry : crateKeyMap.entrySet()) {
-            sender.sendMessage((Object)ChatColor.YELLOW + entry.getKey() + ": " + (Object)ChatColor.GOLD + entry.getValue());
+            sender.sendMessage(ChatColor.YELLOW + entry.getKey() + ": " + ChatColor.GOLD + entry.getValue());
         }
         return true;
     }

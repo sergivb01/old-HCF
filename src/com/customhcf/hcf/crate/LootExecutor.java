@@ -14,12 +14,12 @@ public class LootExecutor
 extends ArgumentExecutor {
     public LootExecutor(HCF plugin) {
         super("loot");
-        this.addArgument((CommandArgument)new LootBankArgument(plugin));
-        this.addArgument((CommandArgument)new LootBroadcastsArgument());
-        this.addArgument((CommandArgument)new LootDepositArgument(plugin));
-        this.addArgument((CommandArgument)new LootGiveArgument(plugin));
-        this.addArgument((CommandArgument)new LootListArgument(plugin));
-        this.addArgument((CommandArgument)new LootWithdrawArgument(plugin));
+        this.addArgument(new LootBankArgument(plugin));
+        this.addArgument(new LootBroadcastsArgument());
+        this.addArgument(new LootDepositArgument(plugin));
+        this.addArgument(new LootGiveArgument(plugin));
+        this.addArgument(new LootListArgument(plugin));
+        this.addArgument(new LootWithdrawArgument(plugin));
     }
 }
 

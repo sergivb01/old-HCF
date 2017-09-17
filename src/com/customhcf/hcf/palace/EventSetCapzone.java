@@ -99,14 +99,14 @@ public class EventSetCapzone extends CommandArgument
             final ConquestFaction.ConquestZone conquestZone = ConquestFaction.ConquestZone.getByName(args[2]);
             if (conquestZone == null) {
                 sender.sendMessage(ChatColor.RED + "There is no conquest zone named '" + args[2] + "'.");
-                sender.sendMessage(ChatColor.RED + "Did you mean?: " + StringUtils.join((Iterable)ConquestFaction.ConquestZone.getNames(), ", "));
+                sender.sendMessage(ChatColor.RED + "Did you mean?: " + StringUtils.join(ConquestFaction.ConquestZone.getNames(), ", "));
                 return true;
             }
-            captureZone = new CaptureZone(conquestZone.getName(), conquestZone.getColor().toString(), (Cuboid)claim, ConquestTracker.DEFAULT_CAP_MILLIS);
+            captureZone = new CaptureZone(conquestZone.getName(), conquestZone.getColor().toString(), claim, ConquestTracker.DEFAULT_CAP_MILLIS);
             conquestFaction.setZone(conquestZone, captureZone);
         }
         else {
-            ((PalaceFaction)capturableFaction).setCaptureZone(captureZone = new CaptureZone(capturableFaction.getName(), (Cuboid)claim, PalaceTracker.DEFAULT_CAP_MILLIS1));
+            ((PalaceFaction)capturableFaction).setCaptureZone(captureZone = new CaptureZone(capturableFaction.getName(), claim, PalaceTracker.DEFAULT_CAP_MILLIS1));
         }
         sender.sendMessage(ConfigurationService.BASECOLOUR + "Set capture zone " + captureZone.getDisplayName() + ConfigurationService.BASECOLOUR + " for faction " + faction.getName() + ConfigurationService.BASECOLOUR + '.');
         return true;
@@ -115,7 +115,7 @@ public class EventSetCapzone extends CommandArgument
     public List<String> onTabComplete(final CommandSender sender, final Command command, final String label, final String[] args) {
         switch (args.length) {
             case 2: {
-                return (List<String>)(List)this.plugin.getFactionManager().getFactions().stream().filter(faction -> faction instanceof EventFaction);
+                return (List<String>) this.plugin.getFactionManager().getFactions().stream().filter(faction -> faction instanceof EventFaction);
             }
             case 3: {
                 final Faction faction2 = this.plugin.getFactionManager().getFaction(args[1]);

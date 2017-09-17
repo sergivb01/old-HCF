@@ -68,7 +68,7 @@ implements Listener {
         if (action == Action.RIGHT_CLICK_AIR) {
             this.plugin.getClaimHandler().clearClaimSelection(player);
             player.setItemInHand(new ItemStack(Material.AIR, 1));
-            player.sendMessage((Object)ChatColor.RED + "You have cleared your claim selection.");
+            player.sendMessage(ChatColor.RED + "You have cleared your claim selection.");
             return;
         }
         PlayerFaction playerFaction = this.plugin.getFactionManager().getPlayerFaction(uuid);
@@ -117,7 +117,7 @@ implements Listener {
                         int xDiff = Math.abs(opposite.getBlockX() - blockX) + 1;
                         int zDiff = Math.abs(opposite.getBlockZ() - blockZ) + 1;
                         if (xDiff < 5 || zDiff < 5) {
-                            player.sendMessage((Object)ChatColor.RED + "Claim selections must be at least " + 5 + 'x' + 5 + " blocks.");
+                            player.sendMessage(ChatColor.RED + "Claim selections must be at least " + 5 + 'x' + 5 + " blocks.");
                             return;
                         }
                     }
@@ -137,11 +137,11 @@ implements Listener {
                     if (selectionId == 2) {
                         claimSelection.setPos2(blockLocation);
                     }
-                    player.sendMessage((Object)ChatColor.GREEN + "Set the location of claim selection " + (Object)ChatColor.YELLOW + selectionId + (Object)ChatColor.GREEN + " to: " + (Object)ChatColor.GOLD + '(' + (Object)ChatColor.YELLOW + blockX + ", " + blockZ + (Object)ChatColor.GOLD + ')');
+                    player.sendMessage(ChatColor.GREEN + "Set the location of claim selection " + ChatColor.YELLOW + selectionId + ChatColor.GREEN + " to: " + ChatColor.GOLD + '(' + ChatColor.YELLOW + blockX + ", " + blockZ + ChatColor.GOLD + ')');
                     if (claimSelection.hasBothPositionsSet()) {
                         int selectionPrice;
                         Claim claim = claimSelection.toClaim(playerFaction);
-                        player.sendMessage((Object)ChatColor.AQUA + "Claim selection cost: " + (Object)((selectionPrice = claimSelection.getPrice(playerFaction, false)) > playerFaction.getBalance() ? ChatColor.RED : ChatColor.GREEN) + '$' + selectionPrice + (Object)ChatColor.AQUA + ". Current size: (" + (Object)ChatColor.WHITE + claim.getWidth() + ", " + claim.getLength() + (Object)ChatColor.AQUA + "), " + (Object)ChatColor.WHITE + claim.getArea() + (Object)ChatColor.AQUA + " blocks.");
+                        player.sendMessage(ChatColor.AQUA + "Claim selection cost: " + ((selectionPrice = claimSelection.getPrice(playerFaction, false)) > playerFaction.getBalance() ? ChatColor.RED : ChatColor.GREEN) + '$' + selectionPrice + ChatColor.AQUA + ". Current size: (" + ChatColor.WHITE + claim.getWidth() + ", " + claim.getLength() + ChatColor.AQUA + "), " + ChatColor.WHITE + claim.getArea() + ChatColor.AQUA + " blocks.");
                     }
                     int blockY = block.getY();
                     int maxHeight = player.getWorld().getMaxHeight();
@@ -156,14 +156,14 @@ implements Listener {
                         public void run() {
                             ClaimWandListener.this.plugin.getVisualiseHandler().generate(player, locations, VisualType.CREATE_CLAIM_SELECTION, true);
                         }
-                    }.runTask((Plugin)this.plugin);
+                    }.runTask(this.plugin);
                 }
             }
             return;
         }
         ClaimSelection claimSelection2 = (ClaimSelection)this.plugin.getClaimHandler().claimSelectionMap.get(uuid);
         if (claimSelection2 == null || !claimSelection2.hasBothPositionsSet()) {
-            player.sendMessage((Object)ChatColor.RED + "You have not set both positions of this claim selection.");
+            player.sendMessage(ChatColor.RED + "You have not set both positions of this claim selection.");
             return;
         }
         if (this.plugin.getClaimHandler().tryPurchasing(player, claimSelection2.toClaim(playerFaction))) {
@@ -218,7 +218,7 @@ implements Listener {
 
     @EventHandler(ignoreCancelled=false, priority=EventPriority.NORMAL)
     public void onPlayerDeath(PlayerDeathEvent event) {
-        if (event.getDrops().remove((Object)ClaimHandler.CLAIM_WAND)) {
+        if (event.getDrops().remove(ClaimHandler.CLAIM_WAND)) {
             this.plugin.getClaimHandler().clearClaimSelection(event.getEntity());
         }
     }

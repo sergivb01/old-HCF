@@ -54,7 +54,7 @@ implements Listener {
         Player player = event.getPlayer();
         if (!event.isForce() && (remaining = this.getRemaining(player)) > 0) {
             event.setCancelled(true);
-            player.sendMessage((Object)ChatColor.RED + "You cannot apply kits whilst your " + this.getDisplayName() + (Object)ChatColor.RED + " timer is active [" + (Object)ChatColor.BOLD + HCF.getRemaining(remaining, true, false) + (Object)ChatColor.RED + " remaining]");
+            player.sendMessage(ChatColor.RED + "You cannot apply kits whilst your " + this.getDisplayName() + ChatColor.RED + " timer is active [" + ChatColor.BOLD + HCF.getRemaining(remaining, true, false) + ChatColor.RED + " remaining]");
         }
     }
 
@@ -62,13 +62,13 @@ implements Listener {
     public void onTimerStop(TimerClearEvent event) {
         Optional<UUID> optionalUserUUID;
         if (event.getTimer().equals(this) && (optionalUserUUID = event.getUserUUID()).isPresent()) {
-            this.onExpire((UUID)optionalUserUUID.get());
+            this.onExpire(optionalUserUUID.get());
         }
     }
 
     @Override
     public void onExpire(UUID userUUID) {
-        Player player = Bukkit.getPlayer((UUID)userUUID);
+        Player player = Bukkit.getPlayer(userUUID);
         if (player == null) {
             return;
         }
@@ -80,9 +80,9 @@ implements Listener {
         long remaining;
         Player player;
         Optional<Player> optional = event.getPlayer();
-        if (optional.isPresent() && (remaining = this.getRemaining(player = (Player)optional.get())) > 0) {
+        if (optional.isPresent() && (remaining = this.getRemaining(player = optional.get())) > 0) {
             event.setCancelled(true);
-            player.sendMessage((Object)ChatColor.RED + "You cannot join factions whilst your " + this.getDisplayName() + (Object)ChatColor.RED + " timer is active [" + (Object)ChatColor.BOLD + HCF.getRemaining(this.getRemaining(player), true, false) + (Object)ChatColor.RED + " remaining]");
+            player.sendMessage(ChatColor.RED + "You cannot join factions whilst your " + this.getDisplayName() + ChatColor.RED + " timer is active [" + ChatColor.BOLD + HCF.getRemaining(this.getRemaining(player), true, false) + ChatColor.RED + " remaining]");
         }
     }
 
@@ -90,9 +90,9 @@ implements Listener {
     public void onFactionLeave(PlayerLeaveFactionEvent event) {
         Player player;
         Optional<Player> optional = event.getPlayer();
-        if (optional.isPresent() && this.getRemaining(player = (Player)optional.get()) > 0) {
+        if (optional.isPresent() && this.getRemaining(player = optional.get()) > 0) {
             event.setCancelled(true);
-            player.sendMessage((Object)ChatColor.RED + "You cannot join factions whilst your " + this.getDisplayName() + (Object)ChatColor.RED + " timer is active [" + (Object)ChatColor.BOLD + HCF.getRemaining(this.getRemaining(player), true, false) + (Object)ChatColor.RED + " remaining]");
+            player.sendMessage(ChatColor.RED + "You cannot join factions whilst your " + this.getDisplayName() + ChatColor.RED + " timer is active [" + ChatColor.BOLD + HCF.getRemaining(this.getRemaining(player), true, false) + ChatColor.RED + " remaining]");
         }
     }
 
@@ -104,14 +104,14 @@ implements Listener {
         Player player = event.getPlayer();
         if (!event.getFromFaction().isSafezone() && event.getToFaction().isSafezone() && this.getRemaining(player) > 0) {
             event.setCancelled(true);
-            player.sendMessage((Object)ChatColor.RED + "You cannot enter " + event.getToFaction().getDisplayName((CommandSender)player) + (Object)ChatColor.RED + " whilst your " + this.getDisplayName() + (Object)ChatColor.RED + " timer is active [" + (Object)ChatColor.BOLD + HCF.getRemaining(this.getRemaining(player), true, false) + (Object)ChatColor.RED + " remaining]");
+            player.sendMessage(ChatColor.RED + "You cannot enter " + event.getToFaction().getDisplayName(player) + ChatColor.RED + " whilst your " + this.getDisplayName() + ChatColor.RED + " timer is active [" + ChatColor.BOLD + HCF.getRemaining(this.getRemaining(player), true, false) + ChatColor.RED + " remaining]");
         }
     }
 
     @EventHandler(ignoreCancelled=true, priority=EventPriority.MONITOR)
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
         Entity entity;
-        Player attacker = BukkitUtils.getFinalAttacker((EntityDamageEvent)event, (boolean)true);
+        Player attacker = BukkitUtils.getFinalAttacker(event, true);
         if (attacker != null && (entity = event.getEntity()) instanceof Player) {
             Player attacked = (Player)entity;
             boolean weapon = event.getDamager() instanceof Arrow;
@@ -129,9 +129,9 @@ implements Listener {
     public void onTimerStart(TimerStartEvent event) {
         Optional<Player> optional;
         if (event.getTimer().equals(this) && (optional = event.getPlayer()).isPresent()) {
-            Player player = (Player)optional.get();
+            Player player = optional.get();
           //  player.sendMessage(ConfigurationService.SPAWN_TAGGED.replace("%time%", DurationFormatUtils.formatDurationWords((long)event.getDuration(), (boolean)true, (boolean)true)));
-            player.sendMessage((Object)ChatColor.YELLOW + "You are now spawn-tagged for " + (Object)ChatColor.RED + DurationFormatUtils.formatDurationWords((long)event.getDuration(), (boolean)true, (boolean)true) + (Object)ChatColor.YELLOW + '.');
+            player.sendMessage(ChatColor.YELLOW + "You are now spawn-tagged for " + ChatColor.RED + DurationFormatUtils.formatDurationWords(event.getDuration(), true, true) + ChatColor.YELLOW + '.');
         }
     }
 

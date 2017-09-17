@@ -33,7 +33,7 @@ extends CommandArgument {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         List keyNames = this.plugin.getKeyManager().getKeys().stream().map(Key::getDisplayName).collect(Collectors.toList());
-        sender.sendMessage((Object)ChatColor.GRAY + "List of key types: " + StringUtils.join(keyNames, (String)new StringBuilder().append((Object)ChatColor.GRAY).append(", ").toString()));
+        sender.sendMessage(ChatColor.GRAY + "List of key types: " + StringUtils.join(keyNames, new StringBuilder().append(ChatColor.GRAY).append(", ").toString()));
         return true;
     }
 }

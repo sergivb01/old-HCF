@@ -46,7 +46,7 @@ extends Timer {
     public void onTimerExpireLoadReduce(TimerExpireEvent event) {
         Optional<UUID> optionalUserUUID;
         if (event.getTimer().equals(this) && (optionalUserUUID = event.getUserUUID()).isPresent()) {
-            UUID userUUID = (UUID)optionalUserUUID.get();
+            UUID userUUID = optionalUserUUID.get();
             this.onExpire(userUUID);
             this.clearCooldown(userUUID);
         }
@@ -60,7 +60,7 @@ extends Timer {
         TimerRunnable runnable = this.cooldowns.remove(playerUUID);
         if (runnable != null) {
             runnable.cancel();
-            Bukkit.getPluginManager().callEvent((Event)new TimerClearEvent(playerUUID, this));
+            Bukkit.getPluginManager().callEvent(new TimerClearEvent(playerUUID, this));
             return runnable;
         }
         return null;
@@ -85,7 +85,7 @@ extends Timer {
         TimerRunnable runnable = this.cooldowns.get(playerUUID);
         if (runnable != null && runnable.isPaused() != paused) {
             TimerPauseEvent event = new TimerPauseEvent(playerUUID, this, paused);
-            Bukkit.getPluginManager().callEvent((Event)event);
+            Bukkit.getPluginManager().callEvent(event);
             if (!event.isCancelled()) {
                 runnable.setPaused(paused);
             }
@@ -117,13 +117,13 @@ extends Timer {
                 return false;
             }
             TimerExtendEvent event = new TimerExtendEvent(player, playerUUID, this, remaining, duration);
-            Bukkit.getPluginManager().callEvent((Event)event);
+            Bukkit.getPluginManager().callEvent(event);
             if (event.isCancelled()) {
                 return false;
             }
             runnable.setRemaining(duration);
         } else {
-            Bukkit.getPluginManager().callEvent((Event)new TimerStartEvent(player, playerUUID, this, duration));
+            Bukkit.getPluginManager().callEvent(new TimerStartEvent(player, playerUUID, this, duration));
             runnable = new TimerRunnable(playerUUID, this, duration);
         }
         this.cooldowns.put(playerUUID, runnable);

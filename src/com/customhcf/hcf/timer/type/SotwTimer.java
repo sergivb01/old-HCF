@@ -24,7 +24,7 @@ public class SotwTimer
 
     public void start(final long millis) {
         if (this.sotwRunnable == null) {
-            (this.sotwRunnable = new SotwRunnable(this, millis)).runTaskLater((Plugin) HCF.getPlugin(), millis / 50L);
+            (this.sotwRunnable = new SotwRunnable(this, millis)).runTaskLater(HCF.getPlugin(), millis / 50L);
         }
     }
 

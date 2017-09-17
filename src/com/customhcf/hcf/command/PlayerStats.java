@@ -21,19 +21,19 @@ implements CommandExecutor {
     public boolean onCommand(CommandSender cs, Command cmd, String s, String[] args) {
         Player player = (Player)cs;
         if (args.length == 0) {
-            player.sendMessage((Object)ChatColor.RED + "Usage: /" + s + " [player]");
+            player.sendMessage(ChatColor.RED + "Usage: /" + s + " [player]");
             return true;
         }
         if (args.length == 1) {
-            if (Bukkit.getPlayer((String)args[0]) == null) {
-                if (Bukkit.getOfflinePlayer((String)args[0]) == null) {
-                    player.sendMessage((Object)ChatColor.GOLD + "Player named or with UUID '" + (Object)ChatColor.WHITE + args[0] + (Object)ChatColor.GOLD + "' not found");
+            if (Bukkit.getPlayer(args[0]) == null) {
+                if (Bukkit.getOfflinePlayer(args[0]) == null) {
+                    player.sendMessage(ChatColor.GOLD + "Player named or with UUID '" + ChatColor.WHITE + args[0] + ChatColor.GOLD + "' not found");
                     return true;
                 }
-                this.sendInformation(player, Bukkit.getOfflinePlayer((String)args[0]));
+                this.sendInformation(player, Bukkit.getOfflinePlayer(args[0]));
                 return true;
             }
-            this.sendInformation(player, (OfflinePlayer)Bukkit.getPlayer((String)args[0]));
+            this.sendInformation(player, Bukkit.getPlayer(args[0]));
             return true;
         }
         return false;
@@ -46,32 +46,32 @@ implements CommandExecutor {
         final int targetLives = HCF.getPlugin().getDeathbanManager().getLives(target.getUniqueId());
         player.sendMessage(ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH + "----------------------------------------------------");
         if (HCF.getPlugin().getFactionManager().getPlayerFaction(target.getUniqueId()) != null) {
-            player.sendMessage((Object)HCF.getPlugin().getFactionManager().getPlayerFaction(target.getUniqueId()).getRelation((CommandSender)player).toChatColour() + target.getName());
-            new Text((Object)ChatColor.YELLOW + "  Faction: " + HCF.getPlugin().getFactionManager().getPlayerFaction(target.getUniqueId()).getDisplayName((CommandSender)player)).setHoverText((Object)ChatColor.GRAY + "Click to view Faction").setClick(ClickAction.RUN_COMMAND, "/f who " + HCF.getPlugin().getFactionManager().getPlayerFaction(target.getUniqueId()).getName()).send((CommandSender)player);
+            player.sendMessage(HCF.getPlugin().getFactionManager().getPlayerFaction(target.getUniqueId()).getRelation(player).toChatColour() + target.getName());
+            new Text(ChatColor.YELLOW + "  Faction: " + HCF.getPlugin().getFactionManager().getPlayerFaction(target.getUniqueId()).getDisplayName(player)).setHoverText(ChatColor.GRAY + "Click to view Faction").setClick(ClickAction.RUN_COMMAND, "/f who " + HCF.getPlugin().getFactionManager().getPlayerFaction(target.getUniqueId()).getName()).send(player);
         } else {
-            player.sendMessage((Object)ChatColor.RED + target.getName());
+            player.sendMessage(ChatColor.RED + target.getName());
         }
         if (targetLives > 0) {
             player.sendMessage(ChatColor.YELLOW + "  Available Lives: " + targetLives );
         }
-        player.sendMessage((Object)ChatColor.YELLOW + "  Playtime: " + (Object)ChatColor.RED + DurationFormatUtils.formatDurationWords((long)BasePlugin.getPlugin().getPlayTimeManager().getTotalPlayTime(target.getUniqueId()), (boolean)true, (boolean)true));
+        player.sendMessage(ChatColor.YELLOW + "  Playtime: " + ChatColor.RED + DurationFormatUtils.formatDurationWords(BasePlugin.getPlugin().getPlayTimeManager().getTotalPlayTime(target.getUniqueId()), true, true));
         if (hcf.getDiamondsMined() > 0) {
-            player.sendMessage((Object)ChatColor.YELLOW + "  Diamonds Mined: " + (Object)ChatColor.AQUA + hcf.getDiamondsMined());
+            player.sendMessage(ChatColor.YELLOW + "  Diamonds Mined: " + ChatColor.AQUA + hcf.getDiamondsMined());
         }
         if (hcf.getDeathban() != null) {
-            new Text((Object)ChatColor.YELLOW + "  Deathbanned: " + (hcf.getDeathban().isActive() ? new StringBuilder().append((Object)ChatColor.GREEN).append("true").toString() : new StringBuilder().append((Object)ChatColor.RED).append("false").toString())).setHoverText((Object)ChatColor.AQUA + "Un-Deathbanned at: " + HCF.getRemaining(hcf.getDeathban().getExpiryMillis(), true, true)).send((CommandSender)player);
+            new Text(ChatColor.YELLOW + "  Deathbanned: " + (hcf.getDeathban().isActive() ? new StringBuilder().append(ChatColor.GREEN).append("true").toString() : new StringBuilder().append(ChatColor.RED).append("false").toString())).setHoverText(ChatColor.AQUA + "Un-Deathbanned at: " + HCF.getRemaining(hcf.getDeathban().getExpiryMillis(), true, true)).send(player);
         } else {
             if (!ConfigurationService.KIT_MAP) {
-                player.sendMessage((Object) ChatColor.YELLOW + "  Deathbanned: " + (Object) ChatColor.RED + "false");
+                player.sendMessage(ChatColor.YELLOW + "  Deathbanned: " + ChatColor.RED + "false");
             }
         }
         if (hcf.getKills() > 0) {
-            player.sendMessage((Object)ChatColor.YELLOW + "  Kills: " + (Object)ChatColor.GREEN + hcf.getKills());
+            player.sendMessage(ChatColor.YELLOW + "  Kills: " + ChatColor.GREEN + hcf.getKills());
         }
         if (hcf.getDeaths() > 0) {
-            player.sendMessage((Object)ChatColor.YELLOW + "  Deaths: " + (Object)ChatColor.RED + hcf.getDeaths());
+            player.sendMessage(ChatColor.YELLOW + "  Deaths: " + ChatColor.RED + hcf.getDeaths());
         }
-        player.sendMessage((Object)ChatColor.YELLOW + "  Balance: " + (Object)ChatColor.RED + HCF.getPlugin().getEconomyManager().getBalance(target.getUniqueId()));
+        player.sendMessage(ChatColor.YELLOW + "  Balance: " + ChatColor.RED + HCF.getPlugin().getEconomyManager().getBalance(target.getUniqueId()));
         player.sendMessage(ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH + "----------------------------------------------------");
     }
 

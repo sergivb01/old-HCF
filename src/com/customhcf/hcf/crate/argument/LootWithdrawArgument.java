@@ -44,25 +44,25 @@ extends CommandArgument {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage((Object)ChatColor.RED + "This command is only executable by players.");
+            sender.sendMessage(ChatColor.RED + "This command is only executable by players.");
             return true;
         }
         if (args.length < 3) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
             return true;
         }
         Key key = this.plugin.getKeyManager().getKey(args[1]);
         if (key == null) {
-            sender.sendMessage((Object)ChatColor.RED + "There is no key type named '" + args[1] + "'.");
+            sender.sendMessage(ChatColor.RED + "There is no key type named '" + args[1] + "'.");
             return true;
         }
-        Integer quantity = Ints.tryParse((String)args[2]);
+        Integer quantity = Ints.tryParse(args[2]);
         if (quantity == null) {
-            sender.sendMessage((Object)ChatColor.RED + "'" + args[3] + "' is not a number.");
+            sender.sendMessage(ChatColor.RED + "'" + args[3] + "' is not a number.");
             return true;
         }
         if (quantity <= 0) {
-            sender.sendMessage((Object)ChatColor.RED + "You can only withdraw crate keys in positive amounts.");
+            sender.sendMessage(ChatColor.RED + "You can only withdraw crate keys in positive amounts.");
             return true;
         }
         Player player = (Player)sender;
@@ -71,7 +71,7 @@ extends CommandArgument {
         String keyName = key.getName();
         int keyBalance = crateKeyMap.getOrDefault(keyName, 0);
         if (quantity > keyBalance) {
-            sender.sendMessage((Object)ChatColor.RED + "You tried to withdraw " + quantity + ' ' + keyName + " keys, but you only have " + keyBalance + " in your bank account.");
+            sender.sendMessage(ChatColor.RED + "You tried to withdraw " + quantity + ' ' + keyName + " keys, but you only have " + keyBalance + " in your bank account.");
             return true;
         }
         int newBalance = keyBalance - quantity;
@@ -83,7 +83,7 @@ extends CommandArgument {
         for (Map.Entry entry : player.getInventory().addItem(new ItemStack[]{stack}).entrySet()) {
             world.dropItemNaturally(location, (ItemStack)entry.getValue());
         }
-        sender.sendMessage((Object)ChatColor.YELLOW + "Successfully withdraw " + quantity + ' ' + keyName + " keys from bank account. You now " + newBalance + " of these keys.");
+        sender.sendMessage(ChatColor.YELLOW + "Successfully withdraw " + quantity + ' ' + keyName + " keys from bank account. You now " + newBalance + " of these keys.");
         return true;
     }
 

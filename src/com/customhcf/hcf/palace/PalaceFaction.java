@@ -62,7 +62,7 @@ public class PalaceFaction
         {
             Location location = claim.getCenter();
             sender.sendMessage(ChatColor.YELLOW + "  Location: " + ChatColor.RED + '(' +
-                    (String)ClaimableFaction.ENVIRONMENT_MAPPINGS.get(location.getWorld().getEnvironment()) + ", " + location.getBlockX() + " | " + location.getBlockZ() + ')');
+                    ClaimableFaction.ENVIRONMENT_MAPPINGS.get(location.getWorld().getEnvironment()) + ", " + location.getBlockX() + " | " + location.getBlockZ() + ')');
         }
         if (this.captureZone != null)
         {

@@ -35,10 +35,10 @@ extends CommandArgument {
             for (FactionUser user : this.plugin.getUserManager().getUsers().values()) {
                 user.removeDeathban();
             }
-            Command.broadcastCommandMessage((CommandSender)sender, (String)((Object)ChatColor.YELLOW + "All death-bans have been cleared."));
+            Command.broadcastCommandMessage(sender, ChatColor.YELLOW + "All death-bans have been cleared.");
             return true;
         }
-        sender.sendMessage((Object)ChatColor.RED + "Must be console");
+        sender.sendMessage(ChatColor.RED + "Must be console");
         return false;
     }
 }

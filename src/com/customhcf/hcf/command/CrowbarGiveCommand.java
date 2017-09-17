@@ -26,7 +26,7 @@ public class CrowbarGiveCommand implements CommandExecutor {
                 }
 
                 ItemStack stack = new Crowbar().getItemIfPresent();
-                target.getInventory().addItem(new ItemStack[]{stack});
+                target.getInventory().addItem(stack);
                 target.sendMessage(ChatColor.GREEN + "You were given a CROWBAR from " + sender.getName() + ".");
                 p.sendMessage(ChatColor.GREEN + "You have given " + target.getName() + " a CROWBAR.");
             return true;

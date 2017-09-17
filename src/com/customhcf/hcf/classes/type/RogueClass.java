@@ -43,9 +43,9 @@ implements Listener {
             PvpClass equipped = this.plugin.getPvpClassManager().getEquippedClass(attacker);
             if (equipped != null && equipped.equals(this) && (stack = attacker.getItemInHand()) != null && stack.getType() == Material.GOLD_SWORD && stack.getEnchantments().isEmpty()) {
                 Player player = (Player)entity;
-                player.sendMessage((Object)ConfigurationService.ENEMY_COLOUR + attacker.getName() + (Object)ChatColor.YELLOW + " has backstabbed you.");
+                player.sendMessage(ConfigurationService.ENEMY_COLOUR + attacker.getName() + ChatColor.YELLOW + " has backstabbed you.");
                 player.playSound(player.getLocation(), Sound.ITEM_BREAK, 1.0f, 1.0f);
-                attacker.sendMessage((Object)ChatColor.YELLOW + "You have backstabbed " + (Object)ConfigurationService.ENEMY_COLOUR + player.getName() + (Object)ChatColor.YELLOW + '.');
+                attacker.sendMessage(ChatColor.YELLOW + "You have backstabbed " + ConfigurationService.ENEMY_COLOUR + player.getName() + ChatColor.YELLOW + '.');
                 attacker.setItemInHand(new ItemStack(Material.AIR, 1));
                 attacker.playSound(player.getLocation(), Sound.ITEM_BREAK, 1.0f, 1.0f);
                 event.setDamage(3.0);

@@ -36,19 +36,19 @@ implements Listener {
         if (stack != null && stack.getType() == Material.GOLDEN_APPLE && stack.getDurability() == 1) {
             Player player = event.getPlayer();
             if (this.setCooldown(player, player.getUniqueId(), this.defaultCooldown, false)) {
-                player.sendMessage(ChatColor.translateAlternateColorCodes((char)'&', (String)"&c\u2588\u2588\u2588\u2588\u2588&c\u2588\u2588\u2588"));
-                player.sendMessage(ChatColor.translateAlternateColorCodes((char)'&', (String)"&c\u2588\u2588\u2588&e\u2588\u2588&c\u2588\u2588\u2588"));
-                player.sendMessage(ChatColor.translateAlternateColorCodes((char)'&', (String)("&c\u2588\u2588\u2588&e\u2588&c\u2588\u2588\u2588\u2588 &6&l " + this.name + ": ")));
-                player.sendMessage(ChatColor.translateAlternateColorCodes((char)'&', (String)"&c\u2588\u2588&6\u2588\u2588\u2588\u2588&c\u2588\u2588 &7  Consumed"));
-                player.sendMessage(ChatColor.translateAlternateColorCodes((char)'&', (String)"&c\u2588&6\u2588\u2588&f\u2588&6\u2588&6\u2588\u2588&c\u2588"));
-                player.sendMessage(ChatColor.translateAlternateColorCodes((char)'&', (String)"&c\u2588&6\u2588&f\u2588&6\u2588&6\u2588&6\u2588\u2588&c\u2588 &6 Cooldown Remaining:"));
-                player.sendMessage(ChatColor.translateAlternateColorCodes((char)'&', (String)("&c\u2588&6\u2588\u2588&6\u2588&6\u2588&6\u2588\u2588&c\u2588 &7  " + HCF.getRemaining(this.defaultCooldown, true, true))));
-                player.sendMessage(ChatColor.translateAlternateColorCodes((char)'&', (String)"&c\u2588&6\u2588\u2588&6\u2588&6\u2588&6\u2588\u2588&c\u2588"));
-                player.sendMessage(ChatColor.translateAlternateColorCodes((char)'&', (String)"&c\u2588\u2588&6\u2588\u2588\u2588\u2588&c\u2588\u2588"));
-                player.sendMessage(ChatColor.translateAlternateColorCodes((char)'&', (String)"&c\u2588\u2588\u2588\u2588\u2588&c\u2588\u2588\u2588"));
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c\u2588\u2588\u2588\u2588\u2588&c\u2588\u2588\u2588"));
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c\u2588\u2588\u2588&e\u2588\u2588&c\u2588\u2588\u2588"));
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c\u2588\u2588\u2588&e\u2588&c\u2588\u2588\u2588\u2588 &6&l " + this.name + ": "));
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c\u2588\u2588&6\u2588\u2588\u2588\u2588&c\u2588\u2588 &7  Consumed"));
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c\u2588&6\u2588\u2588&f\u2588&6\u2588&6\u2588\u2588&c\u2588"));
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c\u2588&6\u2588&f\u2588&6\u2588&6\u2588&6\u2588\u2588&c\u2588 &6 Cooldown Remaining:"));
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c\u2588&6\u2588\u2588&6\u2588&6\u2588&6\u2588\u2588&c\u2588 &7  " + HCF.getRemaining(this.defaultCooldown, true, true)));
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c\u2588&6\u2588\u2588&6\u2588&6\u2588&6\u2588\u2588&c\u2588"));
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c\u2588\u2588&6\u2588\u2588\u2588\u2588&c\u2588\u2588"));
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c\u2588\u2588\u2588\u2588\u2588&c\u2588\u2588\u2588"));
             } else {
                 event.setCancelled(true);
-                player.sendMessage((Object)ChatColor.RED + "You still have a " + this.getDisplayName() + (Object)ChatColor.RED + " cooldown for another " + (Object)ChatColor.BOLD + HCF.getRemaining(this.getRemaining(player), true, false) + (Object)ChatColor.RED + '.');
+                player.sendMessage(ChatColor.RED + "You still have a " + this.getDisplayName() + ChatColor.RED + " cooldown for another " + ChatColor.BOLD + HCF.getRemaining(this.getRemaining(player), true, false) + ChatColor.RED + '.');
             }
         }
     }

@@ -29,7 +29,7 @@ public class GlowstoneFaction
 
     @Override
     public String getDisplayName(CommandSender sender) {
-        return (Object)ChatColor.GOLD + this.getName().replace("Glowstone", "Glowstone");
+        return ChatColor.GOLD + this.getName().replace("Glowstone", "Glowstone");
     }
 
     @Override

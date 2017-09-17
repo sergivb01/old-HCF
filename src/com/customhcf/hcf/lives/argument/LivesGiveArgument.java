@@ -35,19 +35,19 @@ extends CommandArgument {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length < 3) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
             return true;
         }
-        Integer amount = Ints.tryParse((String)args[2]);
+        Integer amount = Ints.tryParse(args[2]);
         if (amount == null) {
-            sender.sendMessage((Object)ChatColor.RED + "'" + args[2] + "' is not a number.");
+            sender.sendMessage(ChatColor.RED + "'" + args[2] + "' is not a number.");
             return true;
         }
         if (amount <= 0) {
-            sender.sendMessage((Object)ChatColor.RED + "The amount of lives must be positive.");
+            sender.sendMessage(ChatColor.RED + "The amount of lives must be positive.");
             return true;
         }
-        OfflinePlayer target = Bukkit.getOfflinePlayer((String)args[1]);
+        OfflinePlayer target = Bukkit.getOfflinePlayer(args[1]);
         if (!target.hasPlayedBefore() && !target.isOnline()) {
             sender.sendMessage(String.format(BaseConstants.PLAYER_WITH_NAME_OR_UUID_NOT_FOUND, args[1]));
             return true;
@@ -57,17 +57,17 @@ extends CommandArgument {
             Player player = (Player)sender;
             int ownedLives = this.plugin.getDeathbanManager().getLives(player.getUniqueId());
             if (amount > ownedLives) {
-                sender.sendMessage((Object)ChatColor.RED + "You tried to give " + target.getName() + ' ' + amount + " lives, but you only have " + ownedLives + '.');
+                sender.sendMessage(ChatColor.RED + "You tried to give " + target.getName() + ' ' + amount + " lives, but you only have " + ownedLives + '.');
                 return true;
             }
             this.plugin.getDeathbanManager().takeLives(player.getUniqueId(), amount);
         }
         final int targetLives = this.plugin.getDeathbanManager().getLives(target.getUniqueId());
         this.plugin.getDeathbanManager().addLives(target.getUniqueId(), amount);
-        sender.sendMessage((Object)ChatColor.YELLOW + "You have sent " + (Object)ChatColor.GOLD + target.getName() + (Object)ChatColor.YELLOW + ' ' + amount + ' ' + (amount > 1 ? "life" : "lives") + '.');
+        sender.sendMessage(ChatColor.YELLOW + "You have sent " + ChatColor.GOLD + target.getName() + ChatColor.YELLOW + ' ' + amount + ' ' + (amount > 1 ? "life" : "lives") + '.');
         sender.sendMessage(ChatColor.GREEN + "Remaining Lives: " + ChatColor.RED + targetLives +  ChatColor.RED + ' ' + ((targetLives == 1) ? "life" : "lives") + '.');
         if (onlineTarget != null) {
-            onlineTarget.sendMessage((Object)ChatColor.GOLD + sender.getName() + (Object)ChatColor.YELLOW + " has sent you " + (Object)ChatColor.GOLD + amount + ' ' + (amount > 1 ? "life" : "lives") + '.');
+            onlineTarget.sendMessage(ChatColor.GOLD + sender.getName() + ChatColor.YELLOW + " has sent you " + ChatColor.GOLD + amount + ' ' + (amount > 1 ? "life" : "lives") + '.');
         }
         return true;
     }

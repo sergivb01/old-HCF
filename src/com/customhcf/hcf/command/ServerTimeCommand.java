@@ -20,7 +20,7 @@ TabCompleter {
     private static final FastDateFormat FORMAT = FastDateFormat.getInstance((String)"E MMM dd h:mm:ssa z yyyy", (TimeZone)ConfigurationService.SERVER_TIME_ZONE);
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        sender.sendMessage((Object)ChatColor.YELLOW + "The server time is " + (Object)ChatColor.AQUA + FORMAT.format(System.currentTimeMillis()) + (Object)ChatColor.AQUA + '.');
+        sender.sendMessage(ChatColor.YELLOW + "The server time is " + ChatColor.AQUA + FORMAT.format(System.currentTimeMillis()) + ChatColor.AQUA + '.');
         return true;
     }
 

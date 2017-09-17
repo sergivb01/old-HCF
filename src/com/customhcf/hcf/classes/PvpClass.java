@@ -51,7 +51,7 @@ public abstract class PvpClass {
     public void onUnequip(Player player) {
         block0 : for (PotionEffect effect : this.passiveEffects) {
             for (PotionEffect active : player.getActivePotionEffects()) {
-                if ((long)active.getDuration() <= DEFAULT_MAX_DURATION || !active.getType().equals((Object)effect.getType()) || active.getAmplifier() != effect.getAmplifier()) continue;
+                if ((long)active.getDuration() <= DEFAULT_MAX_DURATION || !active.getType().equals(effect.getType()) || active.getAmplifier() != effect.getAmplifier()) continue;
                 player.removePotionEffect(effect.getType());
                 continue block0;
             }

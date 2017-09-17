@@ -24,11 +24,11 @@ implements Cancellable {
     private boolean cancelled;
 
     public FactionClaimChangeEvent(CommandSender sender, ClaimChangeCause cause, Collection<Claim> affectedClaims, ClaimableFaction claimableFaction) {
-        Preconditions.checkNotNull((Object)sender, (Object)"CommandSender cannot be null");
-        Preconditions.checkNotNull((Object)((Object)cause), (Object)"Cause cannot be null");
-        Preconditions.checkNotNull(affectedClaims, (Object)"Affected claims cannot be null");
-        Preconditions.checkNotNull((Object)affectedClaims.isEmpty(), (Object)"Affected claims cannot be empty");
-        Preconditions.checkNotNull((Object)claimableFaction, (Object)"ClaimableFaction cannot be null");
+        Preconditions.checkNotNull((Object)sender, "CommandSender cannot be null");
+        Preconditions.checkNotNull(cause, "Cause cannot be null");
+        Preconditions.checkNotNull(affectedClaims, "Affected claims cannot be null");
+        Preconditions.checkNotNull((Object)affectedClaims.isEmpty(), "Affected claims cannot be empty");
+        Preconditions.checkNotNull((Object)claimableFaction, "ClaimableFaction cannot be null");
         this.sender = sender;
         this.cause = cause;
         this.affectedClaims = ImmutableList.copyOf(affectedClaims);

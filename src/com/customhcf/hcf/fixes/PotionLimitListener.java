@@ -29,7 +29,7 @@ public class PotionLimitListener
   
   public boolean isPotionDisabled(ItemStack item)
   {
-    return item.getType() == Material.POTION ? disabledPotions.contains(Short.valueOf(item.getDurability())) : false;
+    return item.getType() == Material.POTION && disabledPotions.contains(Short.valueOf(item.getDurability()));
   }
   
   public static void init() {}

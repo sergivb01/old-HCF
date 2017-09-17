@@ -76,7 +76,7 @@ implements Listener {
     @Override
     public void onExpire(UUID userUUID) {
         super.onExpire(userUUID);
-        Player player = Bukkit.getPlayer((UUID)userUUID);
+        Player player = Bukkit.getPlayer(userUUID);
         if (player != null) {
             player.sendMessage(ConfigurationService.ENDERPEARL_COOLDOWN_EXPIRED);
         }
@@ -99,7 +99,7 @@ implements Listener {
     }
 
     public void refund(Player player) {
-        player.getInventory().addItem(new org.bukkit.inventory.ItemStack[]{new org.bukkit.inventory.ItemStack(Material.ENDER_PEARL, 1)});
+        player.getInventory().addItem(new org.bukkit.inventory.ItemStack(Material.ENDER_PEARL, 1));
         this.clearCooldown(player);
     }
 
@@ -112,7 +112,7 @@ implements Listener {
             Player shooter = (Player)source;
             long remaining = this.getRemaining(shooter);
             if (remaining > 0) {
-                shooter.sendMessage((Object)ChatColor.RED + "You cannot use" + ChatColor.YELLOW + " Enderpearl" + ChatColor.RED + " for another " + (Object)ChatColor.BOLD + HCF.getRemaining(remaining, true, false) + (Object)ChatColor.RED + '.');
+                shooter.sendMessage(ChatColor.RED + "You cannot use" + ChatColor.YELLOW + " Enderpearl" + ChatColor.RED + " for another " + ChatColor.BOLD + HCF.getRemaining(remaining, true, false) + ChatColor.RED + '.');
                
                 event.setCancelled(true);
                 return;
@@ -136,7 +136,7 @@ implements Listener {
     @EventHandler(ignoreCancelled=true, priority=EventPriority.MONITOR)
     public void onPlayerItemHeld(PlayerItemHeldEvent event) {
         Player player = event.getPlayer();
-        PearlNameFaker pearlNameFaker = (PearlNameFaker)((Object)this.itemNameFakes.get(player.getUniqueId()));
+        PearlNameFaker pearlNameFaker = (PearlNameFaker) this.itemNameFakes.get(player.getUniqueId());
         if (pearlNameFaker != null) {
             int previousSlot = event.getPreviousSlot();
             org.bukkit.inventory.ItemStack item = player.getInventory().getItem(previousSlot);
@@ -152,13 +152,13 @@ implements Listener {
         HumanEntity humanEntity = event.getWhoClicked();
         if (humanEntity instanceof Player) {
             Player player = (Player)humanEntity;
-            PearlNameFaker pearlNameFaker = (PearlNameFaker)((Object)this.itemNameFakes.get(player.getUniqueId()));
+            PearlNameFaker pearlNameFaker = (PearlNameFaker) this.itemNameFakes.get(player.getUniqueId());
             if (pearlNameFaker == null) {
                 return;
             }
             for (Map.Entry entry : event.getNewItems().entrySet()) {
                 if (((Integer)entry.getKey()).intValue() != player.getInventory().getHeldItemSlot()) continue;
-                pearlNameFaker.setFakeItem(CraftItemStack.asNMSCopy((org.bukkit.inventory.ItemStack)player.getItemInHand()), player.getInventory().getHeldItemSlot());
+                pearlNameFaker.setFakeItem(CraftItemStack.asNMSCopy(player.getItemInHand()), player.getInventory().getHeldItemSlot());
                 break;
             }
         }
@@ -169,21 +169,21 @@ implements Listener {
         HumanEntity humanEntity = event.getWhoClicked();
         if (humanEntity instanceof Player) {
             final Player player = (Player)humanEntity;
-            PearlNameFaker pearlNameFaker = (PearlNameFaker)((Object)this.itemNameFakes.get(player.getUniqueId()));
+            PearlNameFaker pearlNameFaker = (PearlNameFaker) this.itemNameFakes.get(player.getUniqueId());
             if (pearlNameFaker == null) {
                 return;
             }
             int heldSlot = player.getInventory().getHeldItemSlot();
             if (event.getSlot() == heldSlot) {
-                pearlNameFaker.setFakeItem(CraftItemStack.asNMSCopy((org.bukkit.inventory.ItemStack)player.getItemInHand()), heldSlot);
+                pearlNameFaker.setFakeItem(CraftItemStack.asNMSCopy(player.getItemInHand()), heldSlot);
             } else if (event.getHotbarButton() == heldSlot) {
-                pearlNameFaker.setFakeItem(CraftItemStack.asNMSCopy((org.bukkit.inventory.ItemStack)event.getCurrentItem()), event.getSlot());
+                pearlNameFaker.setFakeItem(CraftItemStack.asNMSCopy(event.getCurrentItem()), event.getSlot());
                 new BukkitRunnable(){
 
                     public void run() {
                         player.updateInventory();
                     }
-                }.runTask((Plugin)this.plugin);
+                }.runTask(this.plugin);
             }
         }
     }
@@ -191,15 +191,15 @@ implements Listener {
     public void startDisplaying(Player player) {
         if (this.getRemaining(player) > 0) {
             PearlNameFaker pearlNameFaker = new PearlNameFaker(this, player);
-            if (this.itemNameFakes.putIfAbsent(player.getUniqueId(), (Object)pearlNameFaker) == null) {
+            if (this.itemNameFakes.putIfAbsent(player.getUniqueId(), pearlNameFaker) == null) {
                 long ticks = ((CraftPlayer)player).getHandle().playerConnection.networkManager.getVersion() >= 47 ? 20 : 2;
-                pearlNameFaker.runTaskTimerAsynchronously((Plugin)this.plugin, ticks, ticks);
+                pearlNameFaker.runTaskTimerAsynchronously(this.plugin, ticks, ticks);
             }
         }
     }
 
     public void stopDisplaying(Player player) {
-        PearlNameFaker pearlNameFaker = (PearlNameFaker)((Object)this.itemNameFakes.remove(player.getUniqueId()));
+        PearlNameFaker pearlNameFaker = (PearlNameFaker) this.itemNameFakes.remove(player.getUniqueId());
         if (pearlNameFaker != null) {
             pearlNameFaker.cancel();
         }
@@ -233,7 +233,7 @@ implements Listener {
 
         public synchronized void cancel() throws IllegalStateException {
             super.cancel();
-            this.setFakeItem(CraftItemStack.asNMSCopy((org.bukkit.inventory.ItemStack)this.player.getItemInHand()), this.player.getInventory().getHeldItemSlot());
+            this.setFakeItem(CraftItemStack.asNMSCopy(this.player.getItemInHand()), this.player.getInventory().getHeldItemSlot());
         }
 
         public void setFakeItem(ItemStack nms, int index) {
@@ -243,7 +243,7 @@ implements Listener {
             } else if (index > 35) {
                 index = 8 - (index - 36);
             }
-            entityPlayer.playerConnection.sendPacket((Packet)new PacketPlayOutSetSlot(entityPlayer.activeContainer.windowId, index, nms));
+            entityPlayer.playerConnection.sendPacket(new PacketPlayOutSetSlot(entityPlayer.activeContainer.windowId, index, nms));
         }
     }
 

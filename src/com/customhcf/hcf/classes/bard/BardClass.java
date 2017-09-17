@@ -89,7 +89,7 @@ implements Listener {
                     if (bardEffect != null && !BardClass.this.plugin.getFactionManager().getFactionAt(player.getLocation()).isSafezone()) {
                         final PlayerFaction playerFaction = BardClass.this.plugin.getFactionManager().getPlayerFaction(player);
                         if (playerFaction != null) {
-                            final Collection<Entity> nearbyEntities = (Collection<Entity>)player.getNearbyEntities(25.0, 25.0, 25.0);
+                            final Collection<Entity> nearbyEntities = player.getNearbyEntities(25.0, 25.0, 25.0);
                             for (final Entity nearby : nearbyEntities) {
                                 if (nearby instanceof Player && !player.equals(nearby)) {
                                     final Player target = (Player)nearby;
@@ -108,7 +108,7 @@ implements Listener {
                     player.sendMessage(ChatColor.AQUA.toString() + ChatColor.BOLD + BardClass.this.name + " Energy: " + ChatColor.AQUA.toString() + ChatColor.BOLD + energy);
                 }
             }
-        }.runTaskTimer((Plugin)this.plugin, 0L, 20L);
+        }.runTaskTimer(this.plugin, 0L, 20L);
         return true;
     }
 
@@ -144,7 +144,7 @@ implements Listener {
             return;
         }
         UUID uuid = player.getUniqueId();
-        long lastMessage = this.msgCooldowns.get((Object)uuid);
+        long lastMessage = this.msgCooldowns.get(uuid);
         long millis = System.currentTimeMillis();
         if (lastMessage != this.msgCooldowns.getNoEntryValue() && lastMessage - millis > 0) {
             return;
@@ -159,7 +159,7 @@ implements Listener {
         Action action = event.getAction();
         if (action == Action.RIGHT_CLICK_AIR || !event.isCancelled() && action == Action.RIGHT_CLICK_BLOCK) {
             ItemStack stack = event.getItem();
-            BardEffect bardEffect = this.bardEffects.get((Object)stack.getType());
+            BardEffect bardEffect = this.bardEffects.get(stack.getType());
             if (bardEffect == null || bardEffect.clickable == null) {
                 return;
             }
@@ -177,8 +177,8 @@ implements Listener {
                 }
                 if (bardEffect != null && !this.plugin.getFactionManager().getFactionAt(player.getLocation()).isSafezone()) {
                     final PlayerFaction playerFaction = this.plugin.getFactionManager().getPlayerFaction(player);
-                    if (playerFaction != null && !bardEffect.clickable.getType().equals((Object)PotionEffectType.WITHER)) {
-                        final Collection<Entity> nearbyEntities = (Collection<Entity>)player.getNearbyEntities(25.0, 25.0, 25.0);
+                    if (playerFaction != null && !bardEffect.clickable.getType().equals(PotionEffectType.WITHER)) {
+                        final Collection<Entity> nearbyEntities = player.getNearbyEntities(25.0, 25.0, 25.0);
                         for (final Entity nearby : nearbyEntities) {
                             if (nearby instanceof Player && !player.equals(nearby)) {
                                 final Player target = (Player)nearby;
@@ -189,8 +189,8 @@ implements Listener {
                             }
                         }
                     }
-                    else if (playerFaction != null && bardEffect.clickable.getType().equals((Object)PotionEffectType.WITHER)) {
-                        final Collection<Entity> nearbyEntities = (Collection<Entity>)player.getNearbyEntities(25.0, 25.0, 25.0);
+                    else if (playerFaction != null && bardEffect.clickable.getType().equals(PotionEffectType.WITHER)) {
+                        final Collection<Entity> nearbyEntities = player.getNearbyEntities(25.0, 25.0, 25.0);
                         for (final Entity nearby : nearbyEntities) {
                             if (nearby instanceof Player && !player.equals(nearby)) {
                                 final Player target = (Player)nearby;
@@ -201,8 +201,8 @@ implements Listener {
                             }
                         }
                     }
-                    else if (bardEffect.clickable.getType().equals((Object)PotionEffectType.WITHER)) {
-                        final Collection<Entity> nearbyEntities = (Collection<Entity>)player.getNearbyEntities(25.0, 25.0, 25.0);
+                    else if (bardEffect.clickable.getType().equals(PotionEffectType.WITHER)) {
+                        final Collection<Entity> nearbyEntities = player.getNearbyEntities(25.0, 25.0, 25.0);
                         for (final Entity nearby : nearbyEntities) {
                             if (nearby instanceof Player && !player.equals(nearby)) {
                                 final Player target = (Player)nearby;
@@ -225,13 +225,13 @@ implements Listener {
         String errorFeedback = null;
         double currentEnergy = bardData.getEnergy();
         if ((double)bardEffect.energyCost > currentEnergy) {
-            errorFeedback = (Object)ChatColor.RED + "You need at least " + (Object)ChatColor.BOLD + bardEffect.energyCost + (Object)ChatColor.RED + " energy to use this Bard buff, whilst you only have " + (Object)ChatColor.BOLD + currentEnergy + (Object)ChatColor.RED + '.';
+            errorFeedback = ChatColor.RED + "You need at least " + ChatColor.BOLD + bardEffect.energyCost + ChatColor.RED + " energy to use this Bard buff, whilst you only have " + ChatColor.BOLD + currentEnergy + ChatColor.RED + '.';
         }
         if ((remaining = bardData.getRemainingBuffDelay()) > 0) {
-            errorFeedback = (Object)ChatColor.RED + "You still have a cooldown on this " + (Object)ChatColor.GREEN + (Object)ChatColor.BOLD + "Bard" + (Object)ChatColor.RED + " buff for another " + HCF.getRemaining(remaining, true, false) + (Object)ChatColor.RED + '.';
+            errorFeedback = ChatColor.RED + "You still have a cooldown on this " + ChatColor.GREEN + ChatColor.BOLD + "Bard" + ChatColor.RED + " buff for another " + HCF.getRemaining(remaining, true, false) + ChatColor.RED + '.';
         }
         if ((factionAt = this.plugin.getFactionManager().getFactionAt(player.getLocation())).isSafezone()) {
-            errorFeedback = (Object)ChatColor.RED + "You may not use Bard buffs in safe-zones.";
+            errorFeedback = ChatColor.RED + "You may not use Bard buffs in safe-zones.";
         }
         if (sendFeedback && errorFeedback != null) {
             player.sendMessage(errorFeedback);

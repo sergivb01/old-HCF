@@ -32,7 +32,7 @@ implements Listener {
 
     public TimerManager(HCF plugin) {
         this.plugin = plugin;
-        plugin.getServer().getPluginManager().registerEvents((Listener)this, (Plugin)plugin);
+        plugin.getServer().getPluginManager().registerEvents(this, plugin);
         this.archerTimer = new ArcherTimer(plugin);
         this.registerTimer(this.archerTimer);
         this.sotwTimer = new SOTWTimer();
@@ -76,7 +76,7 @@ implements Listener {
     	
         this.timers.add(timer);
         if (timer instanceof Listener) {
-            this.plugin.getServer().getPluginManager().registerEvents((Listener)timer, (Plugin)this.plugin);
+            this.plugin.getServer().getPluginManager().registerEvents((Listener)timer, this.plugin);
         }
     }
 

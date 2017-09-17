@@ -27,7 +27,7 @@ extends ArgumentExecutor {
     }
 
     public static boolean checkNull(CommandSender sender, String player) {
-        Player target = BukkitUtils.playerWithNameOrUUID((String)player);
+        Player target = BukkitUtils.playerWithNameOrUUID(player);
         if (target == null || !HCFCommand.canSee(sender, target)) {
             sender.sendMessage(String.format(BaseConstants.PLAYER_WITH_NAME_OR_UUID_NOT_FOUND, player));
             return true;
@@ -59,7 +59,7 @@ extends ArgumentExecutor {
         if (this.usage == null) {
             this.usage = "";
         }
-        return (Object)ChatColor.RED + "Usage: " + USAGE_REPLACER_PATTERN.matcher(this.usage).replaceAll(this.name) + (Object)ChatColor.GRAY + " - " + this.description;
+        return ChatColor.RED + "Usage: " + USAGE_REPLACER_PATTERN.matcher(this.usage).replaceAll(this.name) + ChatColor.GRAY + " - " + this.description;
     }
 
     public void setUsage(String usage) {
@@ -67,7 +67,7 @@ extends ArgumentExecutor {
     }
 
     public String getUsage(String label) {
-        return (Object)ChatColor.RED + "Usage: " + USAGE_REPLACER_PATTERN.matcher(this.usage).replaceAll(label) + (Object)ChatColor.GRAY + " - " + this.description;
+        return ChatColor.RED + "Usage: " + USAGE_REPLACER_PATTERN.matcher(this.usage).replaceAll(label) + ChatColor.GRAY + " - " + this.description;
     }
 
     public String[] getAliases() {

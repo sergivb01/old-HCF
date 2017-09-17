@@ -25,17 +25,17 @@ TabCompleter {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage((Object)ChatColor.RED + "This command is only executable by players.");
+            sender.sendMessage(ChatColor.RED + "This command is only executable by players.");
             return true;
         }
         NotchAppleTimer timer = this.plugin.getTimerManager().notchAppleTimer;
         Player player = (Player)sender;
         long remaining = timer.getRemaining(player);
         if (remaining <= 0) {
-            sender.sendMessage((Object)ChatColor.RED + "No active Gopple timer.");
+            sender.sendMessage(ChatColor.RED + "No active Gopple timer.");
             return true;
         }
-        sender.sendMessage((Object)ChatColor.YELLOW + "Your " + timer.getDisplayName() + (Object)ChatColor.YELLOW + " timer is active for another " + (Object)ChatColor.BOLD + HCF.getRemaining(remaining, true, false) + (Object)ChatColor.YELLOW + '.');
+        sender.sendMessage(ChatColor.YELLOW + "Your " + timer.getDisplayName() + ChatColor.YELLOW + " timer is active for another " + ChatColor.BOLD + HCF.getRemaining(remaining, true, false) + ChatColor.YELLOW + '.');
         return true;
     }
 

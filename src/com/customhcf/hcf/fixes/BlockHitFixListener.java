@@ -26,8 +26,8 @@ public class BlockHitFixListener
         implements Listener
 {
     private static final long THRESHOLD = 850L;
-    private static final ImmutableSet<Material> NON_TRANSPARENT_ATTACK_BREAK_TYPES = Sets.immutableEnumSet(Material.GLASS, new Material[] { Material.STAINED_GLASS, Material.STAINED_GLASS_PANE });
-    private static final ImmutableSet<Material> NON_TRANSPARENT_ATTACK_INTERACT_TYPES = Sets.immutableEnumSet(Material.IRON_DOOR_BLOCK, new Material[] { Material.IRON_DOOR, Material.WOODEN_DOOR, Material.WOOD_DOOR, Material.TRAP_DOOR, Material.FENCE_GATE });
+    private static final ImmutableSet<Material> NON_TRANSPARENT_ATTACK_BREAK_TYPES = Sets.immutableEnumSet(Material.GLASS, Material.STAINED_GLASS, Material.STAINED_GLASS_PANE);
+    private static final ImmutableSet<Material> NON_TRANSPARENT_ATTACK_INTERACT_TYPES = Sets.immutableEnumSet(Material.IRON_DOOR_BLOCK, Material.IRON_DOOR, Material.WOODEN_DOOR, Material.WOOD_DOOR, Material.TRAP_DOOR, Material.FENCE_GATE);
     private final ConcurrentMap<Object, Object> lastInteractTimes;
 
     public BlockHitFixListener()

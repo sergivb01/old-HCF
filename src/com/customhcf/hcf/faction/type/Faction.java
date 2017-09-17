@@ -71,7 +71,7 @@ implements ConfigurationSerializable {
     }
 
     public boolean setName(String name) {
-        return this.setName(name, (CommandSender)Bukkit.getConsoleSender());
+        return this.setName(name, Bukkit.getConsoleSender());
     }
 
     public boolean setName(String name, CommandSender sender) {
@@ -79,7 +79,7 @@ implements ConfigurationSerializable {
             return false;
         }
         FactionRenameEvent event = new FactionRenameEvent(this, sender, this.name, name);
-        Bukkit.getPluginManager().callEvent((Event)event);
+        Bukkit.getPluginManager().callEvent(event);
         if (event.isCancelled()) {
             return false;
         }
@@ -113,11 +113,11 @@ implements ConfigurationSerializable {
     }
 
     public String getDisplayName(CommandSender sender) {
-        return (Object)(this.safezone ? ConfigurationService.SAFEZONE_COLOUR : this.getRelation(sender).toChatColour()) + this.name;
+        return (this.safezone ? ConfigurationService.SAFEZONE_COLOUR : this.getRelation(sender).toChatColour()) + this.name;
     }
 
     public String getDisplayName(Faction other) {
-        return (Object)this.getFactionRelation(other).toChatColour() + this.name;
+        return this.getFactionRelation(other).toChatColour() + this.name;
     }
 
     public void printDetails(CommandSender sender) {
@@ -141,7 +141,7 @@ implements ConfigurationSerializable {
     }
 
     public void setDeathbanMultiplier(double deathbanMultiplier) {
-        Preconditions.checkArgument((boolean)(deathbanMultiplier >= 0.0), (Object)"Deathban multiplier may not be negative");
+        Preconditions.checkArgument(deathbanMultiplier >= 0.0, "Deathban multiplier may not be negative");
         this.deathbanMultiplier = deathbanMultiplier;
     }
 
@@ -191,10 +191,7 @@ implements ConfigurationSerializable {
         if (!(this.uniqueID != null ? this.uniqueID.equals(faction.uniqueID) : faction.uniqueID == null)) {
             return false;
         }
-        if (this.name != null ? !this.name.equals(faction.name) : faction.name != null) {
-            return false;
-        }
-        return true;
+        return this.name != null ? this.name.equals(faction.name) : faction.name == null;
     }
 
     public int hashCode() {

@@ -68,9 +68,9 @@ public class TimerRunnable {
 
                 public void run() {
                     TimerExpireEvent expireEvent = new TimerExpireEvent(TimerRunnable.this.represented, TimerRunnable.this.timer);
-                    Bukkit.getPluginManager().callEvent((Event)expireEvent);
+                    Bukkit.getPluginManager().callEvent(expireEvent);
                 }
-            }.runTaskLater((Plugin)HCF.getPlugin(), remainingMillis / 50);
+            }.runTaskLater(HCF.getPlugin(), remainingMillis / 50);
         }
     }
 

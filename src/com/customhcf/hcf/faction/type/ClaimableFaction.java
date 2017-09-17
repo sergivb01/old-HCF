@@ -31,7 +31,7 @@ extends Faction {
 
     public ClaimableFaction(Map<String, Object> map) {
         super(map);
-        this.claims.addAll(GenericUtils.createList((Object)map.get("claims"), (Class)Claim.class));
+        this.claims.addAll(GenericUtils.createList(map.get("claims"), (Class)Claim.class));
     }
 
     @Override
@@ -47,7 +47,7 @@ extends Faction {
         sender.sendMessage(this.getDisplayName(sender));
         for (Claim claim : this.claims) {
             Location location = claim.getCenter();
-            sender.sendMessage((Object)ChatColor.YELLOW + "  Location: " + ChatColor.WHITE.toString() + (String)ENVIRONMENT_MAPPINGS.get((Object)location.getWorld().getEnvironment()) + ", " + location.getBlockX() + " | " + location.getBlockZ());
+            sender.sendMessage(ChatColor.YELLOW + "  Location: " + ChatColor.WHITE.toString() + ENVIRONMENT_MAPPINGS.get(location.getWorld().getEnvironment()) + ", " + location.getBlockX() + " | " + location.getBlockZ());
         }
         sender.sendMessage(ChatColor.GOLD.toString() + ChatColor.STRIKETHROUGH + "-----------------------------------------------------");
     }
@@ -65,11 +65,11 @@ extends Faction {
             sender = Bukkit.getConsoleSender();
         }
         FactionClaimChangeEvent event = new FactionClaimChangeEvent(sender, ClaimChangeCause.CLAIM, adding, this);
-        Bukkit.getPluginManager().callEvent((Event)event);
+        Bukkit.getPluginManager().callEvent(event);
         if (event.isCancelled() || !this.claims.addAll(adding)) {
             return false;
         }
-        Bukkit.getPluginManager().callEvent((Event)new FactionClaimChangedEvent(sender, ClaimChangeCause.CLAIM, adding));
+        Bukkit.getPluginManager().callEvent(new FactionClaimChangedEvent(sender, ClaimChangeCause.CLAIM, adding));
         return true;
     }
 
@@ -83,7 +83,7 @@ extends Faction {
         }
         int previousClaims = this.claims.size();
         FactionClaimChangeEvent event = new FactionClaimChangeEvent(sender, ClaimChangeCause.UNCLAIM, removing, this);
-        Bukkit.getPluginManager().callEvent((Event)event);
+        Bukkit.getPluginManager().callEvent(event);
         
         if (event.isCancelled()) {
             return false;
@@ -99,19 +99,19 @@ extends Faction {
             HCF plugin = HCF.getPlugin();
             int refund = 0;
             for (Claim claim : removing) {
-                refund += plugin.getClaimHandler().calculatePrice((Cuboid)claim, previousClaims, true);
+                refund += plugin.getClaimHandler().calculatePrice(claim, previousClaims, true);
                 if (previousClaims > 0) {
                     --previousClaims;
                 }
                 if (home == null || !claim.contains(home)) continue;
                 playerFaction.setHome(null);
-                playerFaction.broadcast(ChatColor.RED.toString() + (Object)ChatColor.BOLD + "Your factions' home was unset as its residing claim was removed.");
+                playerFaction.broadcast(ChatColor.RED.toString() + ChatColor.BOLD + "Your factions' home was unset as its residing claim was removed.");
                 break;
             }
             plugin.getEconomyManager().addBalance(playerFaction.getLeader().getUniqueId(), refund);
-            playerFaction.broadcast((Object)ChatColor.YELLOW + "Faction leader was refunded " + (Object)ChatColor.GREEN + '$' + refund + (Object)ChatColor.YELLOW + " due to a land unclaim.");
+            playerFaction.broadcast(ChatColor.YELLOW + "Faction leader was refunded " + ChatColor.GREEN + '$' + refund + ChatColor.YELLOW + " due to a land unclaim.");
         }
-        Bukkit.getPluginManager().callEvent((Event)new FactionClaimChangedEvent(sender, ClaimChangeCause.UNCLAIM, removing));
+        Bukkit.getPluginManager().callEvent(new FactionClaimChangedEvent(sender, ClaimChangeCause.UNCLAIM, removing));
         return true;
     }
 }

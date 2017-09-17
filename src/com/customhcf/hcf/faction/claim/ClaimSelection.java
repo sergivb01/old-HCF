@@ -41,12 +41,12 @@ implements Cloneable {
     }
 
     public int getPrice(PlayerFaction playerFaction, boolean selling) {
-        Preconditions.checkNotNull((Object)playerFaction, (Object)"Player faction cannot be null");
+        Preconditions.checkNotNull((Object)playerFaction, "Player faction cannot be null");
         return this.pos1 == null || this.pos2 == null ? 0 : HCF.getPlugin().getClaimHandler().calculatePrice(new Cuboid(this.pos1, this.pos2), playerFaction.getClaims().size(), selling);
     }
 
     public Claim toClaim(Faction faction) {
-        Preconditions.checkNotNull((Object)faction, (Object)"Faction cannot be null");
+        Preconditions.checkNotNull((Object)faction, "Faction cannot be null");
         return this.pos1 == null || this.pos2 == null ? null : new Claim(faction, this.pos1, this.pos2);
     }
 
@@ -59,7 +59,7 @@ implements Cloneable {
     }
 
     public void setPos1(Location location) {
-        Preconditions.checkNotNull((Object)location, (Object)"The location cannot be null");
+        Preconditions.checkNotNull((Object)location, "The location cannot be null");
         this.pos1 = location;
         this.lastUpdateMillis = System.currentTimeMillis();
     }
@@ -69,7 +69,7 @@ implements Cloneable {
     }
 
     public void setPos2(Location location) {
-        Preconditions.checkNotNull((Object)location, (Object)"The location is null");
+        Preconditions.checkNotNull((Object)location, "The location is null");
         this.pos2 = location;
         this.lastUpdateMillis = System.currentTimeMillis();
     }
@@ -89,16 +89,13 @@ implements Cloneable {
         if (!(this.uuid != null ? this.uuid.equals(that.uuid) : that.uuid == null)) {
             return false;
         }
-        if (!(this.world != null ? this.world.equals((Object)that.world) : that.world == null)) {
+        if (!(this.world != null ? this.world.equals(that.world) : that.world == null)) {
             return false;
         }
-        if (!(this.pos1 != null ? this.pos1.equals((Object)that.pos1) : that.pos1 == null)) {
+        if (!(this.pos1 != null ? this.pos1.equals(that.pos1) : that.pos1 == null)) {
             return false;
         }
-        if (this.pos2 != null ? !this.pos2.equals((Object)that.pos2) : that.pos2 != null) {
-            return false;
-        }
-        return true;
+        return this.pos2 != null ? this.pos2.equals(that.pos2) : that.pos2 == null;
     }
 
     public int hashCode() {

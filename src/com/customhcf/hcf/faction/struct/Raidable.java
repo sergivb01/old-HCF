@@ -4,18 +4,18 @@ package com.customhcf.hcf.faction.struct;
 import com.customhcf.hcf.faction.struct.RegenStatus;
 
 public interface Raidable {
-    public boolean isRaidable();
+    boolean isRaidable();
 
-    public double getDeathsUntilRaidable();
+    double getDeathsUntilRaidable();
 
-    public double getMaximumDeathsUntilRaidable();
+    double getMaximumDeathsUntilRaidable();
 
-    public double setDeathsUntilRaidable(double var1);
+    double setDeathsUntilRaidable(double var1);
 
-    public long getRemainingRegenerationTime();
+    long getRemainingRegenerationTime();
 
-    public void setRemainingRegenerationTime(long var1);
+    void setRemainingRegenerationTime(long var1);
 
-    public RegenStatus getRegenStatus();
+    RegenStatus getRegenStatus();
 }
 

@@ -34,11 +34,11 @@ TabCompleter {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage((Object)  ChatColor.RED + "This command is only executable by players.");
+            sender.sendMessage(ChatColor.RED + "This command is only executable by players.");
             return true;
         }
         if (((Player)sender).getLocation().getWorld().getEnvironment() != World.Environment.THE_END) {
-            sender.sendMessage((Object) ChatColor.RED + "You must be in the end.");
+            sender.sendMessage(ChatColor.RED + "You must be in the end.");
             return true;
         }
         ((Player)sender).getWorld().spawnCreature(((Player)sender).getLocation(), EntityType.ENDER_DRAGON);
@@ -48,7 +48,7 @@ TabCompleter {
             }
             try {
                 BufferedImage imageToSend = ImageIO.read(this.plugin.getResource("enderdragon-art.png"));
-                new ImageMessage(imageToSend, 15, ImageChar.BLOCK.getChar()).appendText(new String[]{"", "", "", "", "", "", (Object) ChatColor.RED + "[EnderDragon]", (Object)ChatColor.YELLOW + "Spawned"}).sendToPlayer(on);
+                new ImageMessage(imageToSend, 15, ImageChar.BLOCK.getChar()).appendText("", "", "", "", "", "", ChatColor.RED + "[EnderDragon]", ChatColor.YELLOW + "Spawned").sendToPlayer(on);
             }
             catch (Exception e) {
                 e.printStackTrace();

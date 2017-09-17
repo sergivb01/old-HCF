@@ -33,22 +33,22 @@ implements CommandExecutor {
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (args.length <= 0) {
-			sender.sendMessage((Object)ChatColor.RED + "Usage: /focus <name>");
+			sender.sendMessage(ChatColor.RED + "Usage: /focus <name>");
 			return true;
 		}
 		PlayerFaction namedFaction = this.plugin.getFactionManager().getPlayerFaction(((Player)sender).getUniqueId());
 		if (namedFaction == null) {
-			sender.sendMessage((Object)ChatColor.RED + "You are not in a faction.");
+			sender.sendMessage(ChatColor.RED + "You are not in a faction.");
 			return true;
 		}
 		Player target = Bukkit.getPlayer(args[0]);
 		if(target == null){
-			sender.sendMessage((Object)ChatColor.RED + args[0] + " is not online.");
+			sender.sendMessage(ChatColor.RED + args[0] + " is not online.");
 			return true;
 		}
 		PlayerFaction targetFaction = this.plugin.getFactionManager().getPlayerFaction(target.getUniqueId());
 		if(namedFaction  == targetFaction){
-			sender.sendMessage((Object)ChatColor.RED + "You can not focus your own faction.");
+			sender.sendMessage(ChatColor.RED + "You can not focus your own faction.");
 			return true;
 		}
 		Player previous = null;

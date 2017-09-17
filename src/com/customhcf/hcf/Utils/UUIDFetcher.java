@@ -76,7 +76,7 @@ implements Callable<Map<String, UUID>> {
     }
 
     public static UUID getUUIDOf(String name) throws Exception {
-        return (UUID)new UUIDFetcher(Collections.singletonList(name)).call().get(name);
+        return new UUIDFetcher(Collections.singletonList(name)).call().get(name);
     }
 
     @Override
@@ -87,11 +87,11 @@ implements Callable<Map<String, UUID>> {
             HttpURLConnection connection = UUIDFetcher.createConnection();
             String body = JSONArray.toJSONString(this.names.subList(i * 100, Math.min((i + 1) * 100, this.names.size())));
             UUIDFetcher.writeBody(connection, body);
-            JSONArray array = (JSONArray)this.jsonParser.parse((Reader)new InputStreamReader(connection.getInputStream()));
+            JSONArray array = (JSONArray)this.jsonParser.parse(new InputStreamReader(connection.getInputStream()));
             for (Object profile : array) {
                 JSONObject jsonProfile = (JSONObject)profile;
-                String id = (String)jsonProfile.get((Object)"id");
-                String name = (String)jsonProfile.get((Object)"name");
+                String id = (String)jsonProfile.get("id");
+                String name = (String)jsonProfile.get("name");
                 UUID uuid = UUIDFetcher.getUUID(id);
                 uuidMap.put(name, uuid);
             }
