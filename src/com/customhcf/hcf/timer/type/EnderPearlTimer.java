@@ -6,7 +6,7 @@ import com.customhcf.hcf.Utils.ConfigurationService;
 import com.customhcf.hcf.timer.PlayerTimer;
 import com.customhcf.hcf.timer.TimerRunnable;
 import com.customhcf.util.Config;
-import com.google.common.cache.CacheBuilder;
+import net.minecraft.util.com.google.common.cache.CacheBuilder;
 import net.minecraft.server.v1_7_R4.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

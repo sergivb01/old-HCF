@@ -10,7 +10,7 @@ import com.customhcf.hcf.timer.TimerRunnable;
 import com.customhcf.util.Config;
 import com.google.common.base.Preconditions;
 import com.google.common.cache.Cache;
-import com.google.common.cache.CacheBuilder;
+import net.minecraft.util.com.google.common.cache.CacheBuilder;
 
 import java.util.Collection;
 import java.util.UUID;

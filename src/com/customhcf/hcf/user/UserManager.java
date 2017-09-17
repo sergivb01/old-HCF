@@ -2,22 +2,16 @@
 package com.customhcf.hcf.user;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.user.FactionUser;
 import com.customhcf.util.Config;
-import com.google.common.base.MoreObjects;
-
-import java.util.*;
-
-import org.bukkit.Server;
+import com.google.common.base.MoreObjects; //TODO: Need to move it to net.minecraft....
 import org.bukkit.configuration.MemorySection;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.PluginManager;
-import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.*;
 
 public class UserManager
 implements Listener {
@@ -47,14 +41,14 @@ implements Listener {
         synchronized (map) {
             FactionUser revert = new FactionUser(uuid);
             FactionUser user = this.users.putIfAbsent(uuid, revert);
-            return (FactionUser)MoreObjects.firstNonNull((Object)user, (Object)revert);
+            return (FactionUser) MoreObjects.firstNonNull((Object)user, (Object)revert);
         }
     }
 
     public FactionUser getUser(UUID uuid) {
         FactionUser revert = new FactionUser(uuid);
         FactionUser user = this.users.putIfAbsent(uuid, revert);
-        return (FactionUser)MoreObjects.firstNonNull((Object)user, (Object)revert);
+        return (FactionUser)MoreObjects.firstNonNull((Object)user, (Object)revert); //TODO: This line crashes
     }
 
     public void reloadUserData() {

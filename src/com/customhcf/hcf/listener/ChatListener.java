@@ -7,7 +7,7 @@ import com.customhcf.hcf.faction.event.FactionChatEvent;
 import com.customhcf.hcf.faction.struct.ChatChannel;
 import com.customhcf.hcf.faction.type.PlayerFaction;
 import com.google.common.cache.Cache;
-import com.google.common.cache.CacheBuilder;
+import net.minecraft.util.com.google.common.cache.CacheBuilder;
 import com.google.common.collect.ImmutableSet;
 
 import java.util.Collection;

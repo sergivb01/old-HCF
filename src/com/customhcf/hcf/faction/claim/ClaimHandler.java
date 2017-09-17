@@ -5,20 +5,12 @@ import com.customhcf.hcf.HCF;
 import com.customhcf.hcf.Utils.ConfigurationService;
 import com.customhcf.hcf.faction.FactionManager;
 import com.customhcf.hcf.faction.struct.Role;
-import com.customhcf.hcf.faction.type.ClaimableFaction;
-import com.customhcf.hcf.faction.type.Faction;
-import com.customhcf.hcf.faction.type.PlayerFaction;
-import com.customhcf.hcf.faction.type.RoadFaction;
-import com.customhcf.hcf.faction.type.WildernessFaction;
+import com.customhcf.hcf.faction.type.*;
 import com.customhcf.hcf.visualise.VisualType;
 import com.customhcf.util.ItemBuilder;
 import com.customhcf.util.cuboid.Cuboid;
 import com.google.common.base.Preconditions;
-import com.google.common.cache.CacheBuilder;
-
-import java.util.Set;
-import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.TimeUnit;
+import net.minecraft.util.com.google.common.cache.CacheBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -26,6 +18,12 @@ import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.Set;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.TimeUnit;
+
+//import net.minecraft.util.com.google.common.cache.CacheBuilder;
 
 public class ClaimHandler {
     public static final int MIN_CLAIM_HEIGHT = 0;

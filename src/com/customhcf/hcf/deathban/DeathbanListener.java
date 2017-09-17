@@ -8,7 +8,7 @@ import com.customhcf.hcf.HCF;
 import com.customhcf.hcf.Utils.ConfigurationService;
 import com.customhcf.hcf.user.FactionUser;
 import com.customhcf.util.BukkitUtils;
-import com.google.common.cache.CacheBuilder;
+import net.minecraft.util.com.google.common.cache.CacheBuilder;
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

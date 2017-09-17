@@ -3,7 +3,7 @@ package com.customhcf.hcf.fixes;
 
 import com.customhcf.util.BukkitUtils;
 import com.google.common.cache.Cache;
-import com.google.common.cache.CacheBuilder;
+import net.minecraft.util.com.google.common.cache.CacheBuilder;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import java.util.UUID;

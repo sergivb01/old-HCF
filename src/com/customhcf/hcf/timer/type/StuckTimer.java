@@ -8,7 +8,7 @@ import com.customhcf.hcf.faction.LandMap;
 import com.customhcf.hcf.timer.PlayerTimer;
 import com.customhcf.hcf.timer.TimerRunnable;
 import com.google.common.cache.Cache;
-import com.google.common.cache.CacheBuilder;
+import net.minecraft.util.com.google.common.cache.CacheBuilder;
 
 import java.util.UUID;
 import java.util.concurrent.ConcurrentMap;

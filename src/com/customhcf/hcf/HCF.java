@@ -284,7 +284,7 @@ public class HCF extends JavaPlugin {
         manager.registerEvents((Listener)new HitDetectionListener(), (Plugin)this);
         this.foundDiamondsListener = new FoundDiamondsListener(this);
         manager.registerEvents((Listener)this.foundDiamondsListener, (Plugin)this);
-        manager.registerEvents((Listener)new FurnaceSmeltSpeederListener(), (Plugin)this);
+        manager.registerEvents((Listener)new FurnaceSmeltSpeederListener(this), (Plugin)this);
         manager.registerEvents((Listener)new InfinityArrowFixListener(), (Plugin)this);
         manager.registerEvents((Listener)new KitListener(this), (Plugin)this);
         manager.registerEvents((Listener)new ItemStatTrackingListener(), (Plugin)this);

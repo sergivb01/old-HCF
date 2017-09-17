@@ -19,7 +19,7 @@ import com.customhcf.hcf.visualise.VisualType;
 import com.customhcf.util.BukkitUtils;
 import com.customhcf.util.Config;
 import com.google.common.base.Optional;
-import com.google.common.cache.CacheBuilder;
+import net.minecraft.util.com.google.common.cache.CacheBuilder;
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
