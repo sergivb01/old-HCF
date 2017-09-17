@@ -3,7 +3,6 @@ package com.customhcf.hcf.scoreboard.provider;
 import com.customhcf.base.BasePlugin;
 import com.customhcf.hcf.HCF;
 import com.customhcf.hcf.Utils.ConfigurationService;
-import com.customhcf.hcf.Utils.Cooldowns;
 import com.customhcf.hcf.Utils.DateTimeFormats;
 import com.customhcf.hcf.Utils.DurationFormatter;
 import com.customhcf.hcf.classes.PvpClass;
@@ -25,7 +24,6 @@ import com.customhcf.hcf.timer.type.NotchAppleTimer;
 import com.customhcf.hcf.timer.type.SotwTimer;
 import com.customhcf.hcf.user.FactionUser;
 import com.customhcf.util.BukkitUtils;
-import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -151,15 +149,14 @@ public class TimerSidebarProvider implements SidebarProvider
 					if (timerName1.length() > 14) {
 						timerName1 = timerName1.substring(0, timerName1.length());
 					}
-                    lines.add(new SidebarEntry(playerTimer3.getScoreboardPrefix(), playerTimer3 + ChatColor.GRAY, ": " + ChatColor.RED + (playerTimer.getName().equalsIgnoreCase("SpawnTag") ? DurationFormatUtils.formatDuration(remaining, "mm:ss") : DurationFormatter.getRemaining(remaining, true))));
 					lines.add(new SidebarEntry(ChatColor.RED.toString() + "" + playerTimer3.getScoreboardPrefix(), timerName1, ChatColor.GRAY + ": " + ChatColor.RED + HCF.getRemaining(remaining3, true)));
 				}
 			}
 		}
 
-		if (Cooldowns.isOnCooldown("revive_cooldown", player)) {
+		/*if (Cooldowns.isOnCooldown("revive_cooldown", player)) {
 			lines.add(new SidebarEntry(ChatColor.BLUE + "Revive", ChatColor.GRAY + ": " + ChatColor.RED, "00:" + Cooldowns.getCooldownForPlayerInt("revive_cooldown", player) / 60));
-		}
+		} */
 
 		if (eotwRunnable != null) {
 			long remaining3 = eotwRunnable.getTimeUntilStarting();
