@@ -2,25 +2,21 @@
 package com.customhcf.hcf.classes.bard;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.classes.bard.BardClass;
 import com.customhcf.hcf.classes.event.PvpClassUnequipEvent;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
-
-import java.util.Collection;
-import java.util.Set;
-import java.util.UUID;
-import org.bukkit.Server;
+import me.sergivb01.event.PotionEffectExpiresEvent;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.PotionEffectExpireEvent;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.PluginManager;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+
+import java.util.Collection;
+import java.util.UUID;
 
 public class BardRestorer
 implements Listener {
@@ -58,7 +54,7 @@ implements Listener {
         }
     }
     @EventHandler(ignoreCancelled=true, priority=EventPriority.MONITOR)
-    public void onPotionEffectExpire(PotionEffectExpireEvent event) {
+    public void onPotionEffectExpire(PotionEffectExpiresEvent event) {
         PotionEffect previous;
         Player player;
         LivingEntity livingEntity = event.getEntity();

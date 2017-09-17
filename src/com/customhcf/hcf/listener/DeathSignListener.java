@@ -4,15 +4,7 @@ package com.customhcf.hcf.listener;
 import com.customhcf.hcf.HCF;
 import com.customhcf.hcf.Utils.DateTimeFormats;
 import com.google.common.collect.Lists;
-
-import java.util.Arrays;
-import java.util.List;
-
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Sign;
@@ -28,6 +20,9 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class DeathSignListener
 implements Listener {
@@ -97,7 +92,7 @@ implements Listener {
                     }
                 }
                 sign.update();
-                sign.setEditible(false);
+                //sign.setEditible(false);
             }
         }
     }

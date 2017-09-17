@@ -1,13 +1,8 @@
 package com.customhcf.hcf.classes.archer;
 
-import java.util.HashMap;
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
-
-import net.minecraft.util.gnu.trove.map.TObjectLongMap;
-import net.minecraft.util.gnu.trove.map.hash.TObjectLongHashMap;
-import net.minecraft.util.org.apache.commons.lang3.time.DurationFormatUtils;
-
+import com.customhcf.hcf.HCF;
+import com.customhcf.hcf.Utils.Cooldowns;
+import com.customhcf.hcf.classes.PvpClass;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -31,9 +26,9 @@ import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
-import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.Utils.Cooldowns;
-import com.customhcf.hcf.classes.PvpClass;
+import java.util.HashMap;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class ArcherClass
         extends PvpClass
@@ -141,11 +136,11 @@ public class ArcherClass
                     for(Player player : Bukkit.getOnlinePlayers()) {
                     	HCF.getPlugin().getScoreboardHandler().getPlayerBoard(player.getUniqueId()).addUpdate(damaged);
                     }
-                    Player[] arrayOfPlayer;
+                    /*Player[] arrayOfPlayer;
                     int j = (arrayOfPlayer = Bukkit.getOnlinePlayers()).length;
                     for (int i = 0; i < j; i++) {
                         Player localPlayer1 = arrayOfPlayer[i];
-                    }
+                    }*/
                     shooter.sendMessage(ChatColor.GOLD + "You have hit a player (" + ChatColor.GRAY + damaged.getName() + ChatColor.GOLD + ")");
                     damaged.sendMessage(ChatColor.GOLD + "§c§lMarked! §eAn archer has hit you and §dArcher Tagged§e you. §7(Taken damage will be increased by +25% for 10 seconds.)");
                     damaged.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 5, 1 ));

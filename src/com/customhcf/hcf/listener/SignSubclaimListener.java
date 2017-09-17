@@ -7,19 +7,11 @@ import com.customhcf.hcf.faction.struct.Role;
 import com.customhcf.hcf.faction.type.Faction;
 import com.customhcf.hcf.faction.type.PlayerFaction;
 import com.google.common.collect.Lists;
-
-import java.util.*;
-import java.util.stream.Collectors;
-
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
-import org.bukkit.block.BlockState;
-import org.bukkit.block.Chest;
-import org.bukkit.block.DoubleChest;
+import org.bukkit.block.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -34,6 +26,9 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.material.MaterialData;
 import org.bukkit.material.Sign;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class SignSubclaimListener implements Listener {
     private static final int MAX_SIGN_LINE_CHARS = 16;
@@ -78,7 +73,7 @@ public class SignSubclaimListener implements Listener {
                         while(memberList.hasNext()) {
                             org.bukkit.block.Sign leaderChest = (org.bukkit.block.Sign)memberList.next();
                             if(leaderChest.getLine(0).equals(SUBCLAIM_PREFIX)) {
-                                player.sendMessage(ChatColor.RED + "There is already a subclaim sign on this " + attatchedBlock.getName() + '.');
+                                player.sendMessage(ChatColor.RED + "There is already a subclaim sign on this " + attatchedBlock.getType().getData().getName() + '.');
                                 return;
                             }
                         }
@@ -120,7 +115,7 @@ public class SignSubclaimListener implements Listener {
                         List actualMembers = (List)var16.stream().filter((member) -> {
                             return playerFaction.getMember((UUID) member) != null;
                         }).collect(Collectors.toList());
-                        playerFaction.broadcast(ConfigurationService.TEAMMATE_COLOUR + player.getName() + ChatColor.YELLOW + " has created a subclaim on block type " + ChatColor.LIGHT_PURPLE + attatchedBlock.getName() + ChatColor.YELLOW + " at " + ChatColor.WHITE + '[' + attatchedBlock.getX() + ", " + attatchedBlock.getZ() + ']' + ChatColor.YELLOW + " for " + (var18?"leaders":(actualMembers.isEmpty()?"captains":"members " + ChatColor.GRAY + '[' + ChatColor.DARK_GREEN + StringUtils.join(actualMembers, ", ") + ChatColor.GRAY + ']')));
+                        playerFaction.broadcast(ConfigurationService.TEAMMATE_COLOUR + player.getName() + ChatColor.YELLOW + " has created a subclaim on block type " + ChatColor.LIGHT_PURPLE + attatchedBlock.getType().getData().getName() + ChatColor.YELLOW + " at " + ChatColor.WHITE + '[' + attatchedBlock.getX() + ", " + attatchedBlock.getZ() + ']' + ChatColor.YELLOW + " for " + (var18?"leaders":(actualMembers.isEmpty()?"captains":"members " + ChatColor.GRAY + '[' + ChatColor.DARK_GREEN + StringUtils.join(actualMembers, ", ") + ChatColor.GRAY + ']')));
                     }
                 }
             }
@@ -183,7 +178,7 @@ public class SignSubclaimListener implements Listener {
                             }
 
                             event.setCancelled(true);
-                            player.sendMessage(ChatColor.RED + "You cannot break this subclaimed " + block.getName() + '.');
+                            player.sendMessage(ChatColor.RED + "You cannot break this subclaimed " + block.getType().getData().getName() + '.');
                         }
                     }
                 }
@@ -289,10 +284,10 @@ public class SignSubclaimListener implements Listener {
                                         }
 
                                         event.setCancelled(true);
-                                        player.sendMessage(ChatColor.RED + "You do not have access to this subclaimed " + block.getName() + '.');
+                                        player.sendMessage(ChatColor.RED + "You do not have access to this subclaimed " + block.getType().getData().getName() + '.');
                                     } else {
                                         event.setCancelled(true);
-                                        player.sendMessage(ChatColor.RED + "You do not have access to this subclaimed " + block.getName() + '.');
+                                        player.sendMessage(ChatColor.RED + "You do not have access to this subclaimed " + block.getType().getData().getName() + '.');
                                     }
                                     break;
                                 }
