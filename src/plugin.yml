@@ -5,7 +5,7 @@
 #
 ################################################################################
 name: HCF
-version: VEILMC-3.4
+version: VEILMC-3.5
 main: com.customhcf.hcf.HCF
 # depend: [Construct]
 softdepend: [ProtocolLib]
