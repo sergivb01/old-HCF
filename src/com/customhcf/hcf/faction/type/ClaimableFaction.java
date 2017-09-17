@@ -2,29 +2,14 @@
 package com.customhcf.hcf.faction.type;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.balance.EconomyManager;
-import com.customhcf.hcf.faction.FactionMember;
 import com.customhcf.hcf.faction.claim.Claim;
-import com.customhcf.hcf.faction.claim.ClaimHandler;
 import com.customhcf.hcf.faction.event.FactionClaimChangeEvent;
 import com.customhcf.hcf.faction.event.FactionClaimChangedEvent;
 import com.customhcf.hcf.faction.event.cause.ClaimChangeCause;
-import com.customhcf.hcf.faction.type.Faction;
-import com.customhcf.hcf.faction.type.PlayerFaction;
-import com.customhcf.util.BukkitUtils;
 import com.customhcf.util.GenericUtils;
 import com.customhcf.util.cuboid.Cuboid;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -32,9 +17,12 @@ import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.Event;
 
+import java.util.*;
+
 public class ClaimableFaction
 extends Faction {
-    protected static final ImmutableMap<World.Environment, String> ENVIRONMENT_MAPPINGS = Maps.immutableEnumMap((Map)ImmutableMap.of((Object)World.Environment.NETHER, (Object)"Nether", (Object)World.Environment.NORMAL, (Object)"Overworld", (Object)World.Environment.THE_END, (Object)"The End"));
+    protected static final ImmutableMap<World.Environment, String> ENVIRONMENT_MAPPINGS =
+            (ImmutableMap.of(World.Environment.NETHER, "Nether", World.Environment.NORMAL, "Overworld", World.Environment.THE_END, "The End"));
     protected final Set<Claim> claims = new HashSet<Claim>();
 
     public ClaimableFaction(String name) {

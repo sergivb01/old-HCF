@@ -1,12 +1,10 @@
 package com.customhcf.hcf.listener;
 
-import java.util.List;
-
+import com.customhcf.hcf.Utils.ConfigurationService;
 import org.apache.commons.lang3.text.WordUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.SkullType;
-import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Skull;
 import org.bukkit.entity.Player;
@@ -17,10 +15,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
-
-import com.customhcf.hcf.Utils.ConfigurationService;
 
 public class SkullListener
 implements Listener {
@@ -34,10 +29,10 @@ implements Listener {
         Player player = event.getEntity();
         Player killer = player.getKiller();
         if (killer != null && killer.hasPermission("hcf.kill.behead")) {
-            ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (short)SkullType.PLAYER.getData());
-            SkullMeta meta = (SkullMeta)skull.getItemMeta();
+            ItemStack skull = new ItemStack(Material.SKULL_ITEM, 1, (byte) 3);
+            SkullMeta meta = (SkullMeta) skull.getItemMeta();
             meta.setOwner(player.getName());
-            skull.setItemMeta((ItemMeta)meta);
+            skull.setItemMeta(meta);
             event.getDrops().add(skull);
         }
     }

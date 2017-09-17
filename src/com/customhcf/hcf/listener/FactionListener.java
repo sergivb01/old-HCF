@@ -23,8 +23,8 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.metadata.MetadataValue;
-import org.bukkit.plugin.Plugin;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class FactionListener
@@ -89,14 +89,17 @@ implements Listener {
         }
     }
 
+
     private long getLastLandChangedMeta(Player player) {
-        long remaining;
-        MetadataValue value = player.getMetadata("landChangedMessage", (Plugin)this.plugin);
+        List<MetadataValue> value = player.getMetadata(LAND_CHANGED_META_KEY);
+
         long millis = System.currentTimeMillis();
-        long l = remaining = value == null ? 0 : value.asLong() - millis;
-        if (remaining <= 0) {
-            player.setMetadata("landChangedMessage", (MetadataValue)new FixedMetadataValue((Plugin)this.plugin, (Object)(millis + 225)));
+        long remaining = value == null || value.isEmpty() ? 0L : value.get(0).asLong() - millis;
+
+        if (remaining <= 0L) { // update the metadata.
+            player.setMetadata(LAND_CHANGED_META_KEY, new FixedMetadataValue(plugin, millis + LAND_CHANGE_MSG_THRESHOLD));
         }
+
         return remaining;
     }
 

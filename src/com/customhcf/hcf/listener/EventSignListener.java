@@ -4,10 +4,6 @@ package com.customhcf.hcf.listener;
 import com.customhcf.hcf.HCF;
 import com.customhcf.hcf.Utils.DateTimeFormats;
 import com.google.common.collect.Lists;
-
-import java.util.Arrays;
-import java.util.List;
-
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -24,6 +20,9 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class EventSignListener
 implements Listener {
@@ -85,7 +84,7 @@ implements Listener {
                     }
                 }
                 sign.update();
-                sign.setEditible(false);
+                //sign.setEditible(false);
             }
         }
     }

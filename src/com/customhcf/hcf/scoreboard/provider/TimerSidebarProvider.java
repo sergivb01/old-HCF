@@ -279,12 +279,7 @@ public class TimerSidebarProvider implements SidebarProvider
 	}
 
 	static {
-		CONQUEST_FORMATTER = new ThreadLocal<DecimalFormat>() {
-			@Override
-			protected DecimalFormat initialValue() {
-				return new DecimalFormat("##.#");
-			}
-		};
+		CONQUEST_FORMATTER = ThreadLocal.withInitial(() -> new DecimalFormat("##.#"));
 		EMPTY_ENTRY_FILLER = new SidebarEntry(" ", " ", " ");
 		STRAIGHT_LINE = BukkitUtils.STRAIGHT_LINE_DEFAULT.substring(0, 14);
 	}

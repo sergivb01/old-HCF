@@ -144,18 +144,18 @@ package com.customhcf.hcf.listener;
 //}
 
 import com.customhcf.hcf.HCF;
-import me.joeleoli.construct.ConstructLibrary;
+/*import me.joeleoli.construct.ConstructLibrary;
 import me.joeleoli.construct.api.IConstruct;
 import me.joeleoli.construct.util.TaskUtil;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventHandler;*/
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class TabListener implements Listener {
     private HCF plugin;
-    private IConstruct construct;
+    /*private IConstruct construct;
 
     public TabListener(HCF plugin){
         this.plugin = plugin;
@@ -186,6 +186,6 @@ public class TabListener implements Listener {
         for(int i = 1; i < 60; i++){
             this.construct.setPosition(player, i, "Position #" + i);
         }
-    }
+    }*/
 
 }

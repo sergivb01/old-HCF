@@ -2,7 +2,7 @@ package com.customhcf.hcf.timer.type;
 
 import com.customhcf.hcf.HCF;
 import com.customhcf.hcf.Utils.ConfigurationService;
-import com.customhcf.hcf.faction.FactionManager;
+import com.customhcf.hcf.Utils.DurationFormatter;
 import com.customhcf.hcf.faction.claim.Claim;
 import com.customhcf.hcf.faction.event.FactionClaimChangedEvent;
 import com.customhcf.hcf.faction.event.PlayerClaimEnterEvent;
@@ -11,38 +11,15 @@ import com.customhcf.hcf.faction.type.ClaimableFaction;
 import com.customhcf.hcf.faction.type.Faction;
 import com.customhcf.hcf.faction.type.PlayerFaction;
 import com.customhcf.hcf.faction.type.RoadFaction;
-import com.customhcf.hcf.kothgame.eotw.EOTWHandler;
 import com.customhcf.hcf.timer.PlayerTimer;
-import com.customhcf.hcf.timer.Timer;
 import com.customhcf.hcf.timer.TimerRunnable;
 import com.customhcf.hcf.timer.event.TimerClearEvent;
 import com.customhcf.hcf.timer.event.TimerStartEvent;
-import com.customhcf.hcf.visualise.VisualBlock;
 import com.customhcf.hcf.visualise.VisualType;
-import com.customhcf.hcf.visualise.VisualiseHandler;
 import com.customhcf.util.BukkitUtils;
 import com.customhcf.util.Config;
-import com.customhcf.util.GenericUtils;
 import com.google.common.base.Optional;
-import com.google.common.base.Predicate;
-import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.TimeUnit;
-import java.util.function.Function;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import javax.annotation.Nullable;
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -50,7 +27,6 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.ThrownPotion;
@@ -62,18 +38,16 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.entity.PotionSplashEvent;
-import org.bukkit.event.player.PlayerBucketEmptyEvent;
-import org.bukkit.event.player.PlayerPickupItemEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
-import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.metadata.MetadataValue;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.projectiles.ProjectileSource;
-import org.bukkit.util.Vector;
 import org.spigotmc.event.player.PlayerSpawnLocationEvent;
+
+import javax.annotation.Nullable;
+import java.util.*;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.TimeUnit;
 
 public class PvpProtectionTimer extends PlayerTimer implements Listener
 {
@@ -214,17 +188,16 @@ public class PvpProtectionTimer extends PlayerTimer implements Listener
                 return;
             }
             final long millis = System.currentTimeMillis();
-            if (delay - millis > 0L) {
+            if ((delay - millis) > 0L) {
                 event.setCancelled(true);
-                final MetadataValue value = player.getMetadata("pickupMessageDelay", this.plugin);
-                if (value != null && value.asLong() - millis <= 0L) {
-                    player.setMetadata("pickupMessageDelay", (MetadataValue)new FixedMetadataValue((Plugin)this.plugin, (Object)(millis + 1250L)));
-                    player.sendMessage(ChatColor.RED + "You cannot pick this item up for another " + ChatColor.BOLD + DurationFormatUtils.formatDurationWords(remaining, true, true) + ChatColor.RED + " as your " + this.getDisplayName() + ChatColor.RED + " timer is active [" + ChatColor.BOLD + HCF.getRemaining(remaining, true, false) + ChatColor.RED + " remaining]");
+
+                // Don't let the pickup event spam the player.
+                List<MetadataValue> value = player.getMetadata(ITEM_PICKUP_MESSAGE_META_KEY);
+                if (value != null && !value.isEmpty() && value.get(0).asLong() - millis <= 0L) {
+                    player.setMetadata(ITEM_PICKUP_MESSAGE_META_KEY, new FixedMetadataValue(plugin, millis + ITEM_PICKUP_MESSAGE_DELAY));
+                    player.sendMessage(ChatColor.RED + "You cannot pick this item up for another " + ChatColor.BOLD + DurationFormatUtils.formatDurationWords(remaining, true, true) + ChatColor.RED + " as your " + getDisplayName() + ChatColor.RED + " timer is active [" + ChatColor.BOLD + DurationFormatter.getRemaining(remaining, true, false) + ChatColor.RED + " remaining]");
                 }
-            }
-            else {
-                this.itemUUIDPickupDelays.remove(itemUUID);
-            }
+            } else itemUUIDPickupDelays.remove(itemUUID);
         }
     }
 

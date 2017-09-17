@@ -143,7 +143,7 @@ implements Listener {
             if (item == null) {
                 return;
             }
-            pearlNameFaker.setFakeItem(((CraftItemStack)item).handle, previousSlot);
+            pearlNameFaker.setFakeItem(CraftItemStack.asNMSCopy(item), previousSlot);
         }
     }
 
@@ -219,7 +219,7 @@ implements Listener {
             org.bukkit.inventory.ItemStack stack = this.player.getItemInHand();
             if (stack != null && stack.getType() == Material.ENDER_PEARL) {
                 long remaining = this.timer.getRemaining(this.player);
-                ItemStack item = ((CraftItemStack)stack).handle;
+                ItemStack item = CraftItemStack.asNMSCopy(stack);
                 if (remaining > 0) {
                     item = item.cloneItemStack();
                     item.c(ConfigurationService.ENDERPEARL_ITEM.replace("%time%", HCF.getRemaining(remaining, true, true)));
