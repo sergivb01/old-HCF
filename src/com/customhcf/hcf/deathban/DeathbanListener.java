@@ -68,47 +68,38 @@ public class DeathbanListener
     }
 
     @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGH)
-    public void onPlayerLogin(PlayerLoginEvent event)
-    {
+    public void onPlayerLogin(PlayerLoginEvent event){
         Player player = event.getPlayer();
         FactionUser user = this.plugin.getUserManager().getUser(player.getUniqueId());
         Deathban deathban = user.getDeathban();
-        if ((deathban == null) || (!deathban.isActive())) {
-            return;
-        }
-        if (player.hasPermission("hcf.deathban.bypass"))
-        {
+
+        if ((deathban == null) || (!deathban.isActive())) return;
+
+        if (player.hasPermission("hcf.deathban.bypass")){
             //new LoginMessageRunnable(player, ChatColor.RED + "You would be death-banned for " + deathban.getReason() + ChatColor.RED + ", but you have access to bypass.").runTask(this.plugin);
             //new LoginMessageRunnable(player, ConfigurationService.DEATHBAN_BYPASS.replace("%reason%", deathban.getReason()));
             return;
         }
-        if (this.plugin.getEotwHandler().isEndOfTheWorld())
-        {
+        if (this.plugin.getEotwHandler().isEndOfTheWorld()){
             //event.disallow(PlayerLoginEvent.Result.KICK_OTHER, ChatColor.RED + "Deathbanned for the entirety of the map due to EOTW.\nCome back for SOTW.");
             event.disallow(PlayerLoginEvent.Result.KICK_OTHER, ConfigurationService.DEATHBANNED_EOTW);
-        }
-        else
-        {
+        }else{
             UUID uuid = player.getUniqueId();
             int lives = this.plugin.getDeathbanManager().getLives(uuid);
             String formattedDuration = HCF.getRemaining(deathban.getRemaining(), true, false);
             String reason = deathban.getReason();
             //String prefix = ChatColor.RED + "You are currently death-banned" + (reason != null ? " for " + reason + ".\n" : ".") + ChatColor.WHITE + formattedDuration + " remaining.\n" + ChatColor.RED + "You currently have " + (lives <= 0 ? "no" : Integer.valueOf(lives)) + " lives.";
             String prefix = ConfigurationService.DEATHBANNED_ACTIVE.replace("%reason%", reason).replace("%time%", formattedDuration)+ ChatColor.RED + " You currently have " + (lives <= 0 ? "no" : Integer.valueOf(lives)) + " lives.";
-            if (lives > 0)
-            {
+            if (lives > 0){
                 long millis = System.currentTimeMillis();
                 Long lastAttemptedJoinMillis = (Long)this.lastAttemptedJoinMap.get(uuid);
-                if ((lastAttemptedJoinMillis != null) && (lastAttemptedJoinMillis.longValue() - System.currentTimeMillis() < LIFE_USE_DELAY_MILLIS))
-                {
+                if ((lastAttemptedJoinMillis != null) && (lastAttemptedJoinMillis - System.currentTimeMillis() < LIFE_USE_DELAY_MILLIS)){
                     this.lastAttemptedJoinMap.remove(uuid);
                     user.removeDeathban();
                     lives = this.plugin.getDeathbanManager().takeLives(uuid, 1);
                     event.setResult(PlayerLoginEvent.Result.ALLOWED);
                     new LoginMessageRunnable(player, ChatColor.GRAY + "You have used a life bypass your death. You now have " + ChatColor.YELLOW + lives + ChatColor.GRAY + " lives.").runTask(this.plugin);
-                }
-                else
-                {
+                }else{
                     this.lastAttemptedJoinMap.put(uuid, Long.valueOf(millis + LIFE_USE_DELAY_MILLIS));
                     event.disallow(PlayerLoginEvent.Result.KICK_OTHER, prefix + ChatColor.GOLD + "\n\n" + "You may use a life by reconnecting within " + ChatColor.WHITE + LIFE_USE_DELAY_WORDS + ChatColor.GOLD + '.');
                 }
@@ -121,24 +112,22 @@ public class DeathbanListener
     }
 
     @EventHandler(ignoreCancelled=true, priority=EventPriority.LOW)
-    public void onPlayerDeath(PlayerDeathEvent event)
-    {
+    public void onPlayerDeath(PlayerDeathEvent event){
     	if(ConfigurationService.KIT_MAP){
     		return;
     	}
     	
-        
-    	
         final Player player = event.getEntity();
 
-        if (player.hasPermission("hcf.deathban.bypass")){
-        	return;
-        }
+        if (player.hasPermission("hcf.deathban.bypass")) return;
+
         final Deathban deathban = this.plugin.getDeathbanManager().applyDeathBan(player, event.getDeathMessage());
         final String durationString = HCF.getRemaining(deathban.getRemaining(), true, false);
         FactionUser user = this.plugin.getUserManager().getUser(player.getUniqueId());
+
         Deathban deathban2 = user.getDeathban();
         String formattedDuration = HCF.getRemaining(deathban.getRemaining(), true, false);
+
         new BukkitRunnable()
         {
             public void run()
