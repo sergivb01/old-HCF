@@ -28,9 +28,9 @@ implements ConfigurationSerializable {
     }
 
     public FactionMember(Map<String, Object> map) {
-        this.uniqueID = UUID.fromString((String)map.get("uniqueID"));
-        this.chatChannel = (ChatChannel)((Object)Enums.getIfPresent((Class)ChatChannel.class, (String)((String)map.get("chatChannel"))).or((Object)ChatChannel.PUBLIC));
-        this.role = (Role)((Object)Enums.getIfPresent((Class)Role.class, (String)((String)map.get("role"))).or((Object)Role.MEMBER));
+        this.uniqueID = UUID.fromString((String) map.get("uniqueID"));
+        this.chatChannel = Enums.getIfPresent(ChatChannel.class, (String) map.get("chatChannel")).or(ChatChannel.PUBLIC);
+        this.role = Enums.getIfPresent(Role.class, (String) map.get("role")).or(Role.MEMBER);
     }
 
     public Map<String, Object> serialize() {
