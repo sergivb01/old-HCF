@@ -52,9 +52,10 @@ public class ArcherTimer
         {
             UUID userUUID = e.getUserUUID().get();
             Player player = Bukkit.getPlayer(userUUID);
-            if (player == null) {
-                return;
-            }
+            if (player == null) return;
+
+            if(!player.isOnline()) return;
+
             Bukkit.getPlayer(ArcherClass.tagged.get(userUUID)).sendMessage(ChatColor.GOLD + "Your archer mark on " + ChatColor.RED + player.getName() + ChatColor.GOLD + " has expired.");
             player.sendMessage(ChatColor.GOLD + "You are no longer archer marked.");
             ArcherClass.tagged.remove(player.getUniqueId());
