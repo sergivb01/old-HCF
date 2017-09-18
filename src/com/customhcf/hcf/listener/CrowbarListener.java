@@ -53,20 +53,20 @@ implements Listener {
             Player player = event.getPlayer();
             World world = player.getWorld();
             if (world.getEnvironment() != World.Environment.NORMAL) {
-                player.sendMessage((Object)ChatColor.RED + "Crowbars may only be used in the overworld.");
+                player.sendMessage(ChatColor.RED + "Crowbars may only be used in the overworld.");
                 return;
             }
             Block block = event.getClickedBlock();
             Location blockLocation = block.getLocation();
-            if (!FactionsCoreListener.attemptBuild((Entity)player, blockLocation, (Object)ChatColor.YELLOW + "You cannot do this in the territory of %1$s" + (Object)ChatColor.YELLOW + '.')) {
+            if (!FactionsCoreListener.attemptBuild(player, blockLocation, ChatColor.YELLOW + "You cannot do this in the territory of %1$s" + ChatColor.YELLOW + '.')) {
                 return;
             }
-            Crowbar crowbar = (Crowbar)crowbarOptional.get();
+            Crowbar crowbar = crowbarOptional.get();
             BlockState blockState = block.getState();
             if (blockState instanceof CreatureSpawner) {
                 int remainingUses = crowbar.getSpawnerUses();
                 if (remainingUses <= 0) {
-                    player.sendMessage((Object)ChatColor.RED + "This crowbar has no more Spawner uses.");
+                    player.sendMessage(ChatColor.RED + "This crowbar has no more Spawner uses.");
                     return;
                 }
                 crowbar.setSpawnerUses(remainingUses - 1);
@@ -74,14 +74,14 @@ implements Listener {
                 CreatureSpawner spawner = (CreatureSpawner)blockState;
                 block.setType(Material.AIR);
                 blockState.update();
-                world.dropItemNaturally(blockLocation, new ItemBuilder(Material.MOB_SPAWNER).displayName((Object)ChatColor.GREEN + "Spawner").data((short)spawner.getData().getData()).loreLine((Object)ChatColor.WHITE + WordUtils.capitalizeFully((String)spawner.getSpawnedType().name())).build());
+                world.dropItemNaturally(blockLocation, new ItemBuilder(Material.MOB_SPAWNER).displayName(ChatColor.GREEN + "Spawner").data((short)spawner.getData().getData()).loreLine(ChatColor.WHITE + WordUtils.capitalizeFully(spawner.getSpawnedType().name())).build());
             } else if (block.getType() == Material.ENDER_PORTAL_FRAME) {
                 if (block.getType() != Material.ENDER_PORTAL_FRAME) {
                     return;
                 }
                 int remainingUses = crowbar.getEndFrameUses();
                 if (remainingUses <= 0) {
-                    player.sendMessage((Object)ChatColor.RED + "This crowbar has no more End Portal Frame uses.");
+                    player.sendMessage(ChatColor.RED + "This crowbar has no more End Portal Frame uses.");
                     return;
                 }
                 boolean destroyed = false;
@@ -100,7 +100,7 @@ implements Listener {
                 }
                 if (destroyed) {
                     PlayerFaction playerFaction = this.plugin.getFactionManager().getPlayerFaction(player);
-                    player.sendMessage(ChatColor.RED.toString() + (Object)ChatColor.BOLD + "Ender Portal is no longer active");
+                    player.sendMessage(ChatColor.RED.toString() + ChatColor.BOLD + "Ender Portal is no longer active");
                     if (playerFaction != null) {
                         boolean informFaction = false;
                         for (Claim claim : playerFaction.getClaims()) {
@@ -111,7 +111,7 @@ implements Listener {
                         if (informFaction) {
                             FactionMember factionMember = playerFaction.getMember(player);
                             String astrix = factionMember.getRole().getAstrix();
-                            playerFaction.broadcast(astrix + (Object)ConfigurationService.TEAMMATE_COLOUR + " has used a Crowbar de-activating one of the factions' end portals.", player.getUniqueId());
+                            playerFaction.broadcast(astrix + ConfigurationService.TEAMMATE_COLOUR + " has used a Crowbar de-activating one of the factions' end portals.", player.getUniqueId());
                         }
                     }
                 }
@@ -126,7 +126,7 @@ implements Listener {
                 }
                 int remainingUses = crowbar.getEndDragonUses();
                 if (remainingUses != 1) {
-                    player.sendMessage((Object)ChatColor.RED + "This crowbar has no more Dragon egg uses.");
+                    player.sendMessage(ChatColor.RED + "This crowbar has no more Dragon egg uses.");
                     return;
                 }
                 crowbar.setEndDragonUses(0);
@@ -134,8 +134,8 @@ implements Listener {
                 block.setType(Material.AIR);
                 blockState.update();
                 String[] arrstring = new String[1];
-                arrstring[0] = (Object)ChatColor.YELLOW + player.getName() + (Object)ChatColor.WHITE + " took from " + (this.plugin.getFactionManager().getFactionAt(blockLocation) != null ? this.plugin.getFactionManager().getFactionAt(blockLocation).getName() : "wilderness");
-                world.dropItemNaturally(blockLocation, new ItemBuilder(Material.DRAGON_EGG).displayName((Object)ChatColor.WHITE + "Dragon Egg").lore(arrstring).build());
+                arrstring[0] = ChatColor.YELLOW + player.getName() + ChatColor.WHITE + " took from " + (this.plugin.getFactionManager().getFactionAt(blockLocation) != null ? this.plugin.getFactionManager().getFactionAt(blockLocation).getName() : "wilderness");
+                world.dropItemNaturally(blockLocation, new ItemBuilder(Material.DRAGON_EGG).displayName(ChatColor.WHITE + "Dragon Egg").lore(arrstring).build());
             }
             if (event.getItem().getType() == Material.AIR) {
                 player.playSound(blockLocation, Sound.ITEM_BREAK, 1.0f, 1.0f);
@@ -157,10 +157,10 @@ implements Listener {
             String spawnerName;
             CreatureSpawner spawner = (CreatureSpawner)block.getState();
             List lore = meta.getLore();
-            if (!lore.isEmpty() && (entityTypeOptional = Enums.getIfPresent((Class)EntityType.class, (String)(spawnerName = ChatColor.stripColor((String)((String)lore.get(0)).toUpperCase())))).isPresent()) {
+            if (!lore.isEmpty() && (entityTypeOptional = Enums.getIfPresent((Class)EntityType.class, spawnerName = ChatColor.stripColor(((String)lore.get(0)).toUpperCase()))).isPresent()) {
                 spawner.setSpawnedType((EntityType)entityTypeOptional.get());
                 spawner.update(true, true);
-                player.sendMessage((Object)ChatColor.AQUA + "Placed a " + (Object)ChatColor.BLUE + spawnerName + (Object)ChatColor.AQUA + " spawner.");
+                player.sendMessage(ChatColor.AQUA + "Placed a " + ChatColor.BLUE + spawnerName + ChatColor.AQUA + " spawner.");
             }
         }
     }
@@ -178,7 +178,7 @@ implements Listener {
             for (ItemStack ingredient : matrix2) {
                 Optional<Crowbar> crowbarOptional = Crowbar.fromStack(ingredient);
                 if (!crowbarOptional.isPresent()) continue;
-                Crowbar crowbar = (Crowbar)crowbarOptional.get();
+                Crowbar crowbar = crowbarOptional.get();
                 spawnerUses += crowbar.getSpawnerUses();
                 dragonUses += crowbar.getEndDragonUses();
                 endFrameUses += crowbar.getEndFrameUses();

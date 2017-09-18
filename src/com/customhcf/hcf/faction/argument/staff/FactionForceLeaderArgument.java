@@ -30,21 +30,21 @@ extends CommandArgument {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length < 2) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
             return true;
         }
         PlayerFaction playerFaction = this.plugin.getFactionManager().getContainingPlayerFaction(args[1]);
         if (playerFaction == null) {
-            sender.sendMessage((Object)ChatColor.RED + "Faction containing member with IGN or UUID " + args[1] + " not found.");
+            sender.sendMessage(ChatColor.RED + "Faction containing member with IGN or UUID " + args[1] + " not found.");
             return true;
         }
         FactionMember factionMember = playerFaction.getMember(args[1]);
         if (factionMember == null) {
-            sender.sendMessage((Object)ChatColor.RED + "Faction containing member with IGN or UUID " + args[1] + " not found.");
+            sender.sendMessage(ChatColor.RED + "Faction containing member with IGN or UUID " + args[1] + " not found.");
             return true;
         }
         if (factionMember.getRole() == Role.LEADER) {
-            sender.sendMessage((Object)ChatColor.RED + factionMember.getName() + " is already the leader of " + playerFaction.getDisplayName(sender) + (Object)ChatColor.RED + '.');
+            sender.sendMessage(ChatColor.RED + factionMember.getName() + " is already the leader of " + playerFaction.getDisplayName(sender) + ChatColor.RED + '.');
             return true;
         }
         FactionMember leader = playerFaction.getLeader();
@@ -54,8 +54,8 @@ extends CommandArgument {
             leader.setRole(Role.CAPTAIN);
         }
         factionMember.setRole(Role.LEADER);
-        playerFaction.broadcast((Object)ChatColor.YELLOW + sender.getName() + " has forcefully set the leader to " + newLeaderName + '.');
-        sender.sendMessage(ChatColor.GOLD.toString() + (Object)ChatColor.BOLD + "Leader of " + playerFaction.getName() + "was forcefully set from " + oldLeaderName + " to " + newLeaderName + '.');
+        playerFaction.broadcast(ChatColor.YELLOW + sender.getName() + " has forcefully set the leader to " + newLeaderName + '.');
+        sender.sendMessage(ChatColor.GOLD.toString() + ChatColor.BOLD + "Leader of " + playerFaction.getName() + "was forcefully set from " + oldLeaderName + " to " + newLeaderName + '.');
         return true;
     }
 

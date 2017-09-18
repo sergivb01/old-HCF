@@ -47,7 +47,7 @@ implements Listener {
             PlayerFaction faction = HCF.getPlugin().getFactionManager().getPlayerFaction(event.getEntity().getKiller().getUniqueId());
             String factionName = faction == null ? "Player: " + event.getEntity().getKiller().getName() : "Faction: " + faction.getName();
             for (int i = 0; i < 5; ++i) {
-                Bukkit.broadcastMessage((String)"");
+                Bukkit.broadcastMessage("");
             }
             for (Player on : Bukkit.getOnlinePlayers()) {
                 try {
@@ -59,10 +59,10 @@ implements Listener {
                     arrstring[3] = "";
                     arrstring[4] = "";
                     arrstring[5] = "";
-                    arrstring[6] = (Object)ChatColor.RED + "[EnderDragon]";
-                    arrstring[7] = (Object)ChatColor.YELLOW + "Slain by";
-                    arrstring[8] = ChatColor.YELLOW.toString() + (Object)ChatColor.BOLD + factionName;
-                    arrstring[9] = (Object)ChatColor.GRAY + (!factionName.contains("Faction: ") ? "" : event.getEntity().getKiller().getName());
+                    arrstring[6] = ChatColor.RED + "[EnderDragon]";
+                    arrstring[7] = ChatColor.YELLOW + "Slain by";
+                    arrstring[8] = ChatColor.YELLOW.toString() + ChatColor.BOLD + factionName;
+                    arrstring[9] = ChatColor.GRAY + (!factionName.contains("Faction: ") ? "" : event.getEntity().getKiller().getName());
                     new ImageMessage(imageToSend, 15, ImageChar.BLOCK.getChar()).appendText(arrstring).sendToPlayer(on);
                 }
                 catch (Exception e) {
@@ -72,9 +72,9 @@ implements Listener {
             ItemStack dragonEgg = new ItemStack(Material.DRAGON_EGG);
             ItemMeta itemMeta = dragonEgg.getItemMeta();
             SimpleDateFormat sdf = new SimpleDateFormat("M/d HH:mm:ss");
-            itemMeta.setLore(Arrays.asList(ChatColor.DARK_PURPLE.toString() + (Object)ChatColor.BOLD + "Enderdragon " + (Object)ChatColor.YELLOW + "slain by " + (Object)ChatColor.AQUA + event.getEntity().getKiller().getName(), (Object)ChatColor.YELLOW + sdf.format(new Date()).replace(" AM", "").replace(" PM", "")));
+            itemMeta.setLore(Arrays.asList(ChatColor.DARK_PURPLE.toString() + ChatColor.BOLD + "Enderdragon " + ChatColor.YELLOW + "slain by " + ChatColor.AQUA + event.getEntity().getKiller().getName(), ChatColor.YELLOW + sdf.format(new Date()).replace(" AM", "").replace(" PM", "")));
             dragonEgg.setItemMeta(itemMeta);
-            event.getEntity().getKiller().getInventory().addItem(new ItemStack[]{dragonEgg});
+            event.getEntity().getKiller().getInventory().addItem(dragonEgg);
             if (!event.getEntity().getKiller().getInventory().contains(Material.DRAGON_EGG)) {
                 event.getDrops().add(dragonEgg);
             }
@@ -93,15 +93,15 @@ implements Listener {
             Random random = new Random();
             Integer breaks = random.nextInt(1200) + 1;
             if (breaks == 185) {
-                e.getClickedBlock().setMetadata("broken", (MetadataValue)new FixedMetadataValue((Plugin)HCF.getPlugin(), (Object)"broken"));
+                e.getClickedBlock().setMetadata("broken", new FixedMetadataValue(HCF.getPlugin(), "broken"));
                 if (HCF.getPlugin().getFactionManager().getPlayerFaction(player.getUniqueId()) != null) {
-                    HCF.getPlugin().getFactionManager().getPlayerFaction(player.getUniqueId()).broadcast((Object)ChatColor.YELLOW + "Your ender-dragon egg has been broken. It will " + (Object)ChatColor.RED + "no longer " + (Object)ChatColor.YELLOW + "drop items.");
+                    HCF.getPlugin().getFactionManager().getPlayerFaction(player.getUniqueId()).broadcast(ChatColor.YELLOW + "Your ender-dragon egg has been broken. It will " + ChatColor.RED + "no longer " + ChatColor.YELLOW + "drop items.");
                 } else {
-                    player.sendMessage((Object)ChatColor.YELLOW + "Your ender-dragon egg has been broken. It will " + (Object)ChatColor.RED + "no longer " + (Object)ChatColor.YELLOW + "drop items.");
+                    player.sendMessage(ChatColor.YELLOW + "Your ender-dragon egg has been broken. It will " + ChatColor.RED + "no longer " + ChatColor.YELLOW + "drop items.");
                 }
                 for (Entity nearby : player.getNearbyEntities(20.0, 350.0, 20.0)) {
                     if (!(nearby instanceof Player)) continue;
-                    ((Player)nearby).sendMessage((Object)ChatColor.YELLOW + "Your ender-dragon egg has been broken. It will " + (Object)ChatColor.RED + "no longer " + (Object)ChatColor.YELLOW + "drop items.");
+                    ((Player)nearby).sendMessage(ChatColor.YELLOW + "Your ender-dragon egg has been broken. It will " + ChatColor.RED + "no longer " + ChatColor.YELLOW + "drop items.");
                     ((Player)nearby).playSound(e.getClickedBlock().getLocation(), Sound.ANVIL_BREAK, 10.0f, 10.0f);
                 }
             }
@@ -151,14 +151,14 @@ implements Listener {
     @EventHandler
     public void onEnderDragonSpawn(CreatureSpawnEvent event) {
         if (event.getEntity().getType() == EntityType.ENDER_DRAGON) {
-            ((EnderDragon)event.getEntity()).setCustomName((Object)ChatColor.YELLOW + "Ender Dragon");
+            event.getEntity().setCustomName(ChatColor.YELLOW + "Ender Dragon");
         }
     }
 
     @EventHandler
     public void onEntityDamage(EntityDamageEvent event) {
         if (event.getEntity() instanceof EnderDragon && event.getEntity().getWorld().getEnvironment() == World.Environment.THE_END) {
-            ((EnderDragon)event.getEntity()).setCustomName((Object)ChatColor.YELLOW + "Ender Dragon");
+            ((EnderDragon)event.getEntity()).setCustomName(ChatColor.YELLOW + "Ender Dragon");
         }
     }
 
@@ -193,22 +193,22 @@ implements Listener {
             if (event.getFrom().getWorld().getEntitiesByClass((Class)EnderDragon.class).size() != 0) {
                 event.setCancelled(true);
                 event.setTo(event.getFrom());
-                HCF.getPlugin().getMessage().sendMessage(event.getPlayer(), (Object)ChatColor.RED + "You cannot leave the end before the dragon is killed.");
+                HCF.getPlugin().getMessage().sendMessage(event.getPlayer(), ChatColor.RED + "You cannot leave the end before the dragon is killed.");
             }
             event.useTravelAgent(false);
             event.setTo(HCF.getPlugin().getServerHandler().getEndExit());
         } else if (event.getTo().getWorld().getEnvironment() == World.Environment.THE_END) {
             if (HCF.getPlugin().getTimerManager().spawnTagTimer.hasCooldown(player)) {
                 event.setCancelled(true);
-                HCF.getPlugin().getMessage().sendMessage(event.getPlayer(), (Object)ChatColor.RED + "You cannot enter the end while spawn tagged.");
+                HCF.getPlugin().getMessage().sendMessage(event.getPlayer(), ChatColor.RED + "You cannot enter the end while spawn tagged.");
             }
             if (HCF.getPlugin().getTimerManager().pvpProtectionTimer.hasCooldown(player)) {
                 event.setCancelled(true);
-                HCF.getPlugin().getMessage().sendMessage(event.getPlayer(), (Object)ChatColor.RED + "You cannot enter the end while you have pvp protection.");
+                HCF.getPlugin().getMessage().sendMessage(event.getPlayer(), ChatColor.RED + "You cannot enter the end while you have pvp protection.");
             }
             if ((!HCF.getPlugin().getServerHandler().isEnd() || HCF.getPlugin().getEotwHandler().isEndOfTheWorld()) && event.getPlayer().getGameMode() != GameMode.CREATIVE) {
                 event.setCancelled(true);
-                HCF.getPlugin().getMessage().sendMessage(event.getPlayer(), (Object)ChatColor.RED + "The End is currently disabled.");
+                HCF.getPlugin().getMessage().sendMessage(event.getPlayer(), ChatColor.RED + "The End is currently disabled.");
             }
             event.useTravelAgent(false);
             event.setTo(event.getTo().getWorld().getSpawnLocation());
@@ -216,7 +216,7 @@ implements Listener {
         if (event.getPlayer().hasPotionEffect(PotionEffectType.INCREASE_DAMAGE)) {
             boolean found = false;
             for (PotionEffect potionEffect : event.getPlayer().getActivePotionEffects()) {
-                if (!potionEffect.getType().equals((Object)PotionEffectType.INCREASE_DAMAGE)) continue;
+                if (!potionEffect.getType().equals(PotionEffectType.INCREASE_DAMAGE)) continue;
                 found = true;
             }
             if (found) {

@@ -71,7 +71,7 @@ public class FlatFileFactionManager implements Listener, FactionManager
         this.factionUUIDMap = new HashMap<UUID, Faction>();
         this.factionNameMap = new CaseInsensitiveMap<String, UUID>();
         this.plugin = plugin;
-        plugin.getServer().getPluginManager().registerEvents((Listener)this, (Plugin)plugin);
+        plugin.getServer().getPluginManager().registerEvents(this, plugin);
         this.warzone = new WarzoneFaction();
         this.wilderness = new WildernessFaction();
         this.reloadFactionData();
@@ -186,7 +186,7 @@ public class FlatFileFactionManager implements Listener, FactionManager
     }
 
     public boolean createFaction(final Faction faction) {
-        return this.createFaction(faction, (CommandSender)Bukkit.getConsoleSender());
+        return this.createFaction(faction, Bukkit.getConsoleSender());
     }
 
     public boolean createFaction(final Faction faction, final CommandSender sender) {
@@ -202,7 +202,7 @@ public class FlatFileFactionManager implements Listener, FactionManager
             }
         }
         final FactionCreateEvent createEvent = new FactionCreateEvent(faction, sender);
-        Bukkit.getPluginManager().callEvent((Event)createEvent);
+        Bukkit.getPluginManager().callEvent(createEvent);
         return !createEvent.isCancelled();
     }
 
@@ -212,7 +212,7 @@ public class FlatFileFactionManager implements Listener, FactionManager
         }
         this.factionNameMap.remove(faction.getName());
         final FactionRemoveEvent removeEvent = new FactionRemoveEvent(faction, sender);
-        Bukkit.getPluginManager().callEvent((Event) removeEvent);
+        Bukkit.getPluginManager().callEvent(removeEvent);
         if (removeEvent.isCancelled()) {
             return false;
         }
@@ -336,7 +336,7 @@ public class FlatFileFactionManager implements Listener, FactionManager
     }
 
     public void saveFactionData() {
-        this.config.set("factions", (Object)new ArrayList(this.factionUUIDMap.values()));
+        this.config.set("factions", new ArrayList(this.factionUUIDMap.values()));
         this.config.save();
     }
 }

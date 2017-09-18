@@ -47,9 +47,9 @@ public class FactionInvitesArgument extends CommandArgument
         final String delimiter = ChatColor.WHITE + ", " + ChatColor.GRAY;
         if (playerFaction != null) {
             final Set<String> sentInvites = playerFaction.getInvitedPlayerNames();
-            sender.sendMessage(ChatColor.YELLOW + "Sent by " + playerFaction.getDisplayName(sender) + ChatColor.YELLOW + " (" + sentInvites.size() + ')' + ChatColor.YELLOW + ": " + ChatColor.GRAY + (sentInvites.isEmpty() ? "Your faction has not invited anyone." : (StringUtils.join((Iterable)sentInvites, delimiter) + '.')));
+            sender.sendMessage(ChatColor.YELLOW + "Sent by " + playerFaction.getDisplayName(sender) + ChatColor.YELLOW + " (" + sentInvites.size() + ')' + ChatColor.YELLOW + ": " + ChatColor.GRAY + (sentInvites.isEmpty() ? "Your faction has not invited anyone." : (StringUtils.join(sentInvites, delimiter) + '.')));
         }
-        sender.sendMessage(ChatColor.YELLOW + "Requested (" + receivedInvites.size() + ')' + ChatColor.YELLOW + ": " + ChatColor.GRAY + (receivedInvites.isEmpty() ? "No factions have invited you." : (StringUtils.join((Iterable)receivedInvites, ChatColor.WHITE + delimiter) + '.')));
+        sender.sendMessage(ChatColor.YELLOW + "Requested (" + receivedInvites.size() + ')' + ChatColor.YELLOW + ": " + ChatColor.GRAY + (receivedInvites.isEmpty() ? "No factions have invited you." : (StringUtils.join(receivedInvites, ChatColor.WHITE + delimiter) + '.')));
         return true;
     }
 }

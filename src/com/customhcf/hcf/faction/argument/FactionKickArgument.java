@@ -35,40 +35,40 @@ extends CommandArgument {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage((Object)ChatColor.RED + "Only players can kick from a faction.");
+            sender.sendMessage(ChatColor.RED + "Only players can kick from a faction.");
             return true;
         }
         if (args.length < 2) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
             return true;
         }
         Player player = (Player)sender;
         PlayerFaction playerFaction = this.plugin.getFactionManager().getPlayerFaction(player);
         if (playerFaction == null) {
-            sender.sendMessage((Object)ChatColor.RED + "You are not in a faction.");
+            sender.sendMessage(ChatColor.RED + "You are not in a faction.");
             return true;
         }
         if (playerFaction.isRaidable() && !this.plugin.getEotwHandler().isEndOfTheWorld()) {
-            sender.sendMessage((Object)ChatColor.RED + "You cannot kick players whilst your faction is raidable.");
+            sender.sendMessage(ChatColor.RED + "You cannot kick players whilst your faction is raidable.");
             return true;
         }
         FactionMember targetMember = playerFaction.getMember(args[1]);
         if (targetMember == null) {
-            sender.sendMessage((Object)ChatColor.RED + "Your faction does not have a member named '" + args[1] + "'.");
+            sender.sendMessage(ChatColor.RED + "Your faction does not have a member named '" + args[1] + "'.");
             return true;
         }
         Role selfRole = playerFaction.getMember(player.getUniqueId()).getRole();
         if (selfRole == Role.MEMBER) {
-            sender.sendMessage((Object)ChatColor.RED + "You must be a faction officer to kick members.");
+            sender.sendMessage(ChatColor.RED + "You must be a faction officer to kick members.");
             return true;
         }
         Role targetRole = targetMember.getRole();
         if (targetRole == Role.LEADER) {
-            sender.sendMessage((Object)ChatColor.RED + "You cannot kick the faction leader.");
+            sender.sendMessage(ChatColor.RED + "You cannot kick the faction leader.");
             return true;
         }
         if (targetRole == Role.CAPTAIN && selfRole == Role.CAPTAIN) {
-            sender.sendMessage((Object)ChatColor.RED + "You must be a faction leader to kick captains.");
+            sender.sendMessage(ChatColor.RED + "You must be a faction leader to kick captains.");
             return true;
         }
         if (playerFaction.setMember(targetMember.getUniqueId(), null, true)) {
@@ -76,7 +76,7 @@ extends CommandArgument {
             if (onlineTarget != null) {
                 onlineTarget.sendMessage(ChatColor.RED.toString() + "You were kicked from " + playerFaction.getName() + '.');
             }
-            playerFaction.broadcast((Object)ConfigurationService.ENEMY_COLOUR + targetMember.getName() + (Object)ChatColor.YELLOW + " has been kicked by " + (Object)ConfigurationService.TEAMMATE_COLOUR + playerFaction.getMember(player).getRole().getAstrix() + sender.getName() + (Object)ChatColor.YELLOW + '.');
+            playerFaction.broadcast(ConfigurationService.ENEMY_COLOUR + targetMember.getName() + ChatColor.YELLOW + " has been kicked by " + ConfigurationService.TEAMMATE_COLOUR + playerFaction.getMember(player).getRole().getAstrix() + sender.getName() + ChatColor.YELLOW + '.');
         }
         return true;
     }
@@ -99,7 +99,7 @@ extends CommandArgument {
             String targetName;
             OfflinePlayer target;
             Role targetRole = playerFaction.getMember(entry).getRole();
-            if (targetRole == Role.LEADER || targetRole == Role.CAPTAIN && memberRole != Role.LEADER || (targetName = (target = Bukkit.getOfflinePlayer((UUID)entry)).getName()) == null || results.contains(targetName)) continue;
+            if (targetRole == Role.LEADER || targetRole == Role.CAPTAIN && memberRole != Role.LEADER || (targetName = (target = Bukkit.getOfflinePlayer(entry)).getName()) == null || results.contains(targetName)) continue;
             results.add(targetName);
         }
         return results;

@@ -37,7 +37,7 @@ implements Listener {
     @EventHandler
     public void onTimer(TimerStartEvent e) {
         if (e.getTimer() instanceof PvpProtectionTimer) {
-            this.plugin.getTimerManager().pvpProtectionTimer.clearCooldown((UUID)e.getUserUUID().get());
+            this.plugin.getTimerManager().pvpProtectionTimer.clearCooldown(e.getUserUUID().get());
         }
     }
 

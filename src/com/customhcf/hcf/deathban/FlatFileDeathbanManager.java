@@ -39,7 +39,7 @@ public class FlatFileDeathbanManager implements DeathbanManager
 
     @Override
     public int getLives(final UUID uuid) {
-        return this.livesMap.get((Object)uuid);
+        return this.livesMap.get(uuid);
     }
 
     @Override
@@ -180,7 +180,7 @@ public class FlatFileDeathbanManager implements DeathbanManager
         final Object object = this.livesConfig.get("lives");
         if (object instanceof MemorySection) {
             final MemorySection section = (MemorySection)object;
-            final Set<String> keys = (Set<String>)section.getKeys(false);
+            final Set<String> keys = section.getKeys(false);
             this.livesMap = (TObjectIntMap<UUID>)new TObjectIntHashMap(keys.size(), 0.5f, 0);
             for (final String id : keys) {
             	this.livesMap.put(UUID.fromString(id), this.livesConfig.getInt(section.getCurrentPath() + "." + id));
@@ -198,7 +198,7 @@ public class FlatFileDeathbanManager implements DeathbanManager
             saveMap.put(uuid.toString(), i);
             return true;
         });
-        this.livesConfig.set("lives", (Object)saveMap);
+        this.livesConfig.set("lives", saveMap);
         this.livesConfig.save();
     }
 }

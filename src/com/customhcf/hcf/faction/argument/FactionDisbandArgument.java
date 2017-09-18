@@ -31,21 +31,21 @@ extends CommandArgument {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage((Object)ChatColor.RED + "This command is only executable by players.");
+            sender.sendMessage(ChatColor.RED + "This command is only executable by players.");
             return true;
         }
         Player player = (Player)sender;
         PlayerFaction playerFaction = this.plugin.getFactionManager().getPlayerFaction(player);
         if (playerFaction == null) {
-            sender.sendMessage((Object)ChatColor.RED + "You are not in a faction.");
+            sender.sendMessage(ChatColor.RED + "You are not in a faction.");
             return true;
         }
         if (playerFaction.isRaidable() && !this.plugin.getEotwHandler().isEndOfTheWorld()) {
-            sender.sendMessage((Object)ChatColor.RED + "You cannot disband your faction while it is raidable.");
+            sender.sendMessage(ChatColor.RED + "You cannot disband your faction while it is raidable.");
             return true;
         }
         if (playerFaction.getMember(player.getUniqueId()).getRole() != Role.LEADER) {
-            sender.sendMessage((Object)ChatColor.RED + "You must be a leader to disband the faction.");
+            sender.sendMessage(ChatColor.RED + "You must be a leader to disband the faction.");
             return true;
         }
         this.plugin.getFactionManager().removeFaction(playerFaction, sender);

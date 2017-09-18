@@ -38,31 +38,31 @@ extends CommandArgument {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage((Object)ChatColor.RED + "Only players can join factions.");
+            sender.sendMessage(ChatColor.RED + "Only players can join factions.");
             return true;
         }
         if (args.length < 2) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
             return true;
         }
         Player player = (Player)sender;
         PlayerFaction playerFaction = this.plugin.getFactionManager().getPlayerFaction(player);
         if (playerFaction != null) {
-            sender.sendMessage((Object)ChatColor.RED + "You are already in a faction.");
+            sender.sendMessage(ChatColor.RED + "You are already in a faction.");
             return true;
         }
         Faction faction = this.plugin.getFactionManager().getContainingFaction(args[1]);
         if (faction == null) {
-            sender.sendMessage((Object)ChatColor.RED + "Faction named or containing member with IGN or UUID " + args[1] + " not found.");
+            sender.sendMessage(ChatColor.RED + "Faction named or containing member with IGN or UUID " + args[1] + " not found.");
             return true;
         }
         if (!(faction instanceof PlayerFaction)) {
-            sender.sendMessage((Object)ChatColor.RED + "You can only join player factions.");
+            sender.sendMessage(ChatColor.RED + "You can only join player factions.");
             return true;
         }
         playerFaction = (PlayerFaction)faction;
         if (playerFaction.setMember(player, new FactionMember(player, ChatChannel.PUBLIC, Role.MEMBER), true)) {
-            playerFaction.broadcast(ChatColor.GOLD.toString() + (Object)ChatColor.BOLD + sender.getName() + " has forcefully joined the faction.");
+            playerFaction.broadcast(ChatColor.GOLD.toString() + ChatColor.BOLD + sender.getName() + " has forcefully joined the faction.");
         }
         return true;
     }

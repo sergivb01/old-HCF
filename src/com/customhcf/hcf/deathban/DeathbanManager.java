@@ -8,26 +8,26 @@ import org.bukkit.entity.Player;
 import com.customhcf.hcf.deathban.Deathban;
 
 public interface DeathbanManager {
-    public static final long MAX_DEATHBAN_TIME = TimeUnit.HOURS.toMillis(8);
+    long MAX_DEATHBAN_TIME = TimeUnit.HOURS.toMillis(8);
 
-    public TObjectIntMap<UUID> getLivesMap();
+    TObjectIntMap<UUID> getLivesMap();
 
-    public int getLives(UUID var1);
+    int getLives(UUID var1);
 
-    public int setLives(UUID var1, int var2);
+    int setLives(UUID var1, int var2);
 
-    public int addLives(UUID var1, int var2);
+    int addLives(UUID var1, int var2);
 
-    public int takeLives(UUID var1, int var2);
+    int takeLives(UUID var1, int var2);
 
-    public long getDeathBanMultiplier(Player var1);
+    long getDeathBanMultiplier(Player var1);
 
-    public Deathban applyDeathBan(Player var1, String var2);
+    Deathban applyDeathBan(Player var1, String var2);
 
-    public Deathban applyDeathBan(UUID var1, Deathban var2);
+    Deathban applyDeathBan(UUID var1, Deathban var2);
 
-    public void reloadDeathbanData();
+    void reloadDeathbanData();
 
-    public void saveDeathbanData();
+    void saveDeathbanData();
 }
 

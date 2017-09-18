@@ -95,8 +95,8 @@ public class SignSubclaimListener implements Listener {
                         boolean var18 = lines[1].equals(Role.LEADER.getAstrix()) || StringUtils.containsIgnoreCase(lines[1], "leader");
                         boolean var19 = lines[1].equals(Role.CAPTAIN.getAstrix()) || StringUtils.containsIgnoreCase(lines[1], "captain");
                         if(var19) {
-                            event.setLine(2, (String)null);
-                            event.setLine(3, (String)null);
+                            event.setLine(2, null);
+                            event.setLine(3, null);
                             event.setLine(1, ChatColor.YELLOW + "Captains Only");
                         }
 
@@ -203,7 +203,7 @@ public class SignSubclaimListener implements Listener {
                 }
 
                 DoubleChest doubleChest = (DoubleChest)holder;
-                sourceBlocks = Lists.newArrayList(new Block[]{((Chest)doubleChest.getLeftSide()).getBlock(), ((Chest)doubleChest.getRightSide()).getBlock()});
+                sourceBlocks = Lists.newArrayList(((Chest)doubleChest.getLeftSide()).getBlock(), ((Chest)doubleChest.getRightSide()).getBlock());
             }
 
             Iterator doubleChest1 = ((Collection)sourceBlocks).iterator();

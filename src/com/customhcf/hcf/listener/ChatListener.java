@@ -50,8 +50,8 @@ implements Listener {
         Player player = event.getPlayer();
         String lastMessage = (String)this.messageHistory.get(player.getUniqueId());
         String cleanedMessage = PATTERN.matcher(message).replaceAll("");
-        if (lastMessage != null && (message.equals(lastMessage) || StringUtils.getLevenshteinDistance((String)cleanedMessage, (String)lastMessage) <= 1) && !player.hasPermission("hcf.doublepost.bypass")) {
-            player.sendMessage((Object)ChatColor.RED + "Double posting is prohibited.");
+        if (lastMessage != null && (message.equals(lastMessage) || StringUtils.getLevenshteinDistance(cleanedMessage, lastMessage) <= 1) && !player.hasPermission("hcf.doublepost.bypass")) {
+            player.sendMessage(ChatColor.RED + "Double posting is prohibited.");
             event.setCancelled(true);
             return;
         }
@@ -70,7 +70,7 @@ implements Listener {
                 }
                 recipients.retainAll(online);
                 event.setFormat(chatChannel.getRawFormat(player));
-                Bukkit.getPluginManager().callEvent((Event)new FactionChatEvent(true, playerFaction, player, chatChannel, recipients, event.getMessage()));
+                Bukkit.getPluginManager().callEvent(new FactionChatEvent(true, playerFaction, player, chatChannel, recipients, event.getMessage()));
                 return;
             }
             message = message.substring(1, message.length()).trim();
@@ -82,15 +82,15 @@ implements Listener {
         if (player.hasPermission("faction.removetag")) {
             isTag = true;
         }
-        String rank = ChatColor.translateAlternateColorCodes((char)'&', (String)("&e" + PermissionsEx.getUser((Player)player).getPrefix())).replace("_", " ");
+        String rank = ChatColor.translateAlternateColorCodes('&', "&e" + PermissionsEx.getUser(player).getPrefix()).replace("_", " ");
         String displayName = player.getDisplayName();
         displayName = rank + displayName;
         ConsoleCommandSender console = Bukkit.getConsoleSender();
-        String tag = playerFaction == null ? "" : ChatColor.GOLD + "[" + playerFaction.getDisplayName((CommandSender)console) + ChatColor.RED + "] ";
-        console.sendMessage( tag +  displayName + ChatColor.GOLD + ": " + (Object)ChatColor.GRAY + message);
+        String tag = playerFaction == null ? "" : ChatColor.GOLD + "[" + playerFaction.getDisplayName(console) + ChatColor.RED + "] ";
+        console.sendMessage( tag +  displayName + ChatColor.GOLD + ": " + ChatColor.GRAY + message);
         for (Player recipient : event.getRecipients()) {
-        	tag = playerFaction == null ? ChatColor.GOLD + "[" + ChatColor.RED + "*" + ChatColor.GOLD + "] " :ChatColor.GOLD + "[" +  playerFaction.getDisplayName((CommandSender)recipient) + (Object)ChatColor.GOLD + "] ";
-            recipient.sendMessage(tag + displayName + ChatColor.GRAY + ": " + (Object)ChatColor.WHITE + message);
+        	tag = playerFaction == null ? ChatColor.GOLD + "[" + ChatColor.RED + "*" + ChatColor.GOLD + "] " :ChatColor.GOLD + "[" +  playerFaction.getDisplayName(recipient) + ChatColor.GOLD + "] ";
+            recipient.sendMessage(tag + displayName + ChatColor.GRAY + ": " + ChatColor.WHITE + message);
         }
     }
 

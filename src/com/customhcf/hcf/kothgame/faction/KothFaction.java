@@ -62,20 +62,20 @@ implements ConfigurationSerializable {
         sender.sendMessage(this.getDisplayName(sender));
         for (Claim claim : this.claims) {
             Location location = claim.getCenter();
-            sender.sendMessage((Object)ChatColor.YELLOW + "  Location: " + (Object)ChatColor.RED + '(' + (String)ENVIRONMENT_MAPPINGS.get((Object)location.getWorld().getEnvironment()) + ", " + location.getBlockX() + " | " + location.getBlockZ() + ')');
+            sender.sendMessage(ChatColor.YELLOW + "  Location: " + ChatColor.RED + '(' + ENVIRONMENT_MAPPINGS.get(location.getWorld().getEnvironment()) + ", " + location.getBlockX() + " | " + location.getBlockZ() + ')');
         }
         if (this.captureZone != null) {
             long remainingCaptureMillis = this.captureZone.getRemainingCaptureMillis();
             long defaultCaptureMillis = this.captureZone.getDefaultCaptureMillis();
             if (remainingCaptureMillis > 0 && remainingCaptureMillis != defaultCaptureMillis) {
-                sender.sendMessage((Object)ChatColor.YELLOW + "  Remaining Time: " + (Object)ChatColor.RED + DurationFormatUtils.formatDurationWords((long)remainingCaptureMillis, (boolean)true, (boolean)true));
+                sender.sendMessage(ChatColor.YELLOW + "  Remaining Time: " + ChatColor.RED + DurationFormatUtils.formatDurationWords(remainingCaptureMillis, true, true));
             }
-            sender.sendMessage((Object)ChatColor.YELLOW + "  Capture Delay: " + (Object)ChatColor.RED + this.captureZone.getDefaultCaptureWords());
+            sender.sendMessage(ChatColor.YELLOW + "  Capture Delay: " + ChatColor.RED + this.captureZone.getDefaultCaptureWords());
             if (this.captureZone.getCappingPlayer() != null && sender.hasPermission("hcf.koth.checkcapper")) {
                 PlayerFaction playerFaction;
                 Player capping = this.captureZone.getCappingPlayer();
                 String factionTag = "[" + ((playerFaction = HCF.getPlugin().getFactionManager().getPlayerFaction(capping)) == null ? "*" : playerFaction.getName()) + "]";
-                sender.sendMessage((Object)ChatColor.YELLOW + "  Current Capper: " + (Object)ChatColor.RED + capping.getName() + (Object)ChatColor.GOLD + factionTag);
+                sender.sendMessage(ChatColor.YELLOW + "  Current Capper: " + ChatColor.RED + capping.getName() + ChatColor.GOLD + factionTag);
             }
         }
         sender.sendMessage(ChatColor.GOLD.toString() + ChatColor.STRIKETHROUGH + "----*------------------------------------------*----");

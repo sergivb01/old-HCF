@@ -41,14 +41,14 @@ implements Listener {
         synchronized (map) {
             FactionUser revert = new FactionUser(uuid);
             FactionUser user = this.users.putIfAbsent(uuid, revert);
-            return (FactionUser) ObjectUtils.firstNonNull(user, revert);
+            return ObjectUtils.firstNonNull(user, revert);
         }
     }
 
     public FactionUser getUser(UUID uuid) {
         FactionUser revert = new FactionUser(uuid);
         FactionUser user = this.users.putIfAbsent(uuid, revert);
-        return (FactionUser) ObjectUtils.firstNonNull(user, revert);
+        return ObjectUtils.firstNonNull(user, revert);
     }
 
     public void reloadUserData() {

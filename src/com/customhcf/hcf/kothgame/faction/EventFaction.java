@@ -32,17 +32,17 @@ extends ClaimableFaction {
     @Override
     public String getDisplayName(Faction faction) {
         if (this.getEventType() == EventType.KOTH) {
-            return (Object)ChatColor.BLUE + this.getName() + " KOTH";
+            return ChatColor.BLUE + this.getName() + " KOTH";
         }
-        return (Object)ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + this.getEventType().getDisplayName();
+        return ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + this.getEventType().getDisplayName();
     }
 
     @Override
     public String getDisplayName(CommandSender sender) {
         if (this.getEventType() == EventType.KOTH) {
-            return (Object)ChatColor.BLUE + this.getName() + " KOTH";
+            return ChatColor.BLUE + this.getName() + " KOTH";
         }
-        return (Object)ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + this.getEventType().getDisplayName();
+        return ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + this.getEventType().getDisplayName();
     }
 
     public String getDisplayName1(Faction faction)

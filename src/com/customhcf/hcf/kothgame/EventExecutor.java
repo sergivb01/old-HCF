@@ -19,14 +19,14 @@ public class EventExecutor
 extends ArgumentExecutor {
     public EventExecutor(HCF plugin) {
         super("event");
-        this.addArgument((CommandArgument)new EventCancelArgument(plugin));
-        this.addArgument((CommandArgument)new EventCreateArgument(plugin));
-        this.addArgument((CommandArgument)new EventDeleteArgument(plugin));
-        this.addArgument((CommandArgument)new EventRenameArgument(plugin));
-        this.addArgument((CommandArgument)new EventSetAreaArgument(plugin));
-        this.addArgument((CommandArgument)new EventSetCapzoneArgument(plugin));
-        this.addArgument((CommandArgument)new EventStartArgument(plugin));
-        this.addArgument((CommandArgument)new EventUptimeArgument(plugin));
+        this.addArgument(new EventCancelArgument(plugin));
+        this.addArgument(new EventCreateArgument(plugin));
+        this.addArgument(new EventDeleteArgument(plugin));
+        this.addArgument(new EventRenameArgument(plugin));
+        this.addArgument(new EventSetAreaArgument(plugin));
+        this.addArgument(new EventSetCapzoneArgument(plugin));
+        this.addArgument(new EventStartArgument(plugin));
+        this.addArgument(new EventUptimeArgument(plugin));
         this.addArgument(new EventSetCapzone(plugin));
     }
 }

@@ -46,7 +46,7 @@ public class ConquestTracker implements EventTracker, Listener
         super();
         this.factionPointsMap = Collections.synchronizedMap(new LinkedHashMap<PlayerFaction, Integer>());
         this.plugin = ins;
-        Bukkit.getPluginManager().registerEvents((Listener)this, (Plugin)this.plugin);
+        Bukkit.getPluginManager().registerEvents(this, this.plugin);
     }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
@@ -65,7 +65,7 @@ public class ConquestTracker implements EventTracker, Listener
 
     public int getPoints(final PlayerFaction faction) {
         synchronized (this.factionPointsMap) {
-            return (int)MoreObjects.firstNonNull((Object)this.factionPointsMap.get(faction), (Object)0);
+            return (int)MoreObjects.firstNonNull(this.factionPointsMap.get(faction), 0);
         }
     }
 
@@ -75,7 +75,7 @@ public class ConquestTracker implements EventTracker, Listener
         }
         synchronized (this.factionPointsMap) {
             this.factionPointsMap.put(faction, amount);
-            final List<Map.Entry<PlayerFaction, Integer>> entries = (List<Map.Entry<PlayerFaction, Integer>>)Ordering.from((Comparator)ConquestTracker.POINTS_COMPARATOR).sortedCopy((Iterable)this.factionPointsMap.entrySet());
+            final List<Map.Entry<PlayerFaction, Integer>> entries = (List<Map.Entry<PlayerFaction, Integer>>)Ordering.from((Comparator)ConquestTracker.POINTS_COMPARATOR).sortedCopy(this.factionPointsMap.entrySet());
             this.factionPointsMap.clear();
             for (final Map.Entry<PlayerFaction, Integer> entry : entries) {
                 this.factionPointsMap.put(entry.getKey(), entry.getValue());

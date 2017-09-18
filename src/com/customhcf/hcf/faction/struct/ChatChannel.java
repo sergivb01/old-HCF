@@ -14,7 +14,7 @@ public enum ChatChannel {
     
     private final String name;
 
-    private ChatChannel(String name) {
+    ChatChannel(String name) {
         this.name = name;
     }
 
@@ -105,10 +105,10 @@ public enum ChatChannel {
     public String getRawFormat(Player player) {
         switch (this) {
             case FACTION: {
-                return (Object)ConfigurationService.TEAMMATE_COLOUR + "(" + this.getDisplayName() + (Object)ConfigurationService.TEAMMATE_COLOUR + ") " + player.getName() + (Object)ChatColor.GRAY + ": " + (Object)ChatColor.YELLOW + "%2$s";
+                return ConfigurationService.TEAMMATE_COLOUR + "(" + this.getDisplayName() + ConfigurationService.TEAMMATE_COLOUR + ") " + player.getName() + ChatColor.GRAY + ": " + ChatColor.YELLOW + "%2$s";
             }
             case ALLIANCE: {
-                return (Object)ConfigurationService.ALLY_COLOUR + "(" + this.getDisplayName() + (Object)ConfigurationService.ALLY_COLOUR + ") " + player.getName() + (Object)ChatColor.GRAY + ": " + (Object)ChatColor.YELLOW + "%2$s";
+                return ConfigurationService.ALLY_COLOUR + "(" + this.getDisplayName() + ConfigurationService.ALLY_COLOUR + ") " + player.getName() + ChatColor.GRAY + ": " + ChatColor.YELLOW + "%2$s";
             }
         }
         throw new IllegalArgumentException("Cannot get the raw format for public chat channel");

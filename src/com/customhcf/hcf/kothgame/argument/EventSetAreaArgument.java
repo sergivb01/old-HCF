@@ -42,35 +42,35 @@ extends CommandArgument {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage((Object)ChatColor.RED + "Only players can set event claim areas");
+            sender.sendMessage(ChatColor.RED + "Only players can set event claim areas");
             return true;
         }
         if (args.length < 2) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
             return true;
         }
         WorldEditPlugin worldEditPlugin = this.plugin.getWorldEdit();
         if (worldEditPlugin == null) {
-            sender.sendMessage((Object)ChatColor.RED + "WorldEdit must be installed to set event claim areas.");
+            sender.sendMessage(ChatColor.RED + "WorldEdit must be installed to set event claim areas.");
             return true;
         }
         Player player = (Player)sender;
         Selection selection = worldEditPlugin.getSelection(player);
         if (selection == null) {
-            sender.sendMessage((Object)ChatColor.RED + "You must make a WorldEdit selection to do this.");
+            sender.sendMessage(ChatColor.RED + "You must make a WorldEdit selection to do this.");
             return true;
         }
         if (selection.getWidth() < 8 || selection.getLength() < 8) {
-            sender.sendMessage((Object)ChatColor.RED + "Event claim areas must be at least " + 8 + 'x' + 8 + '.');
+            sender.sendMessage(ChatColor.RED + "Event claim areas must be at least " + 8 + 'x' + 8 + '.');
             return true;
         }
         Faction faction = this.plugin.getFactionManager().getFaction(args[1]);
         if (!(faction instanceof EventFaction)) {
-            sender.sendMessage((Object)ChatColor.RED + "There is not an event faction named '" + args[1] + "'.");
+            sender.sendMessage(ChatColor.RED + "There is not an event faction named '" + args[1] + "'.");
             return true;
         }
-        ((EventFaction)faction).setClaim(new Cuboid(selection.getMinimumPoint(), selection.getMaximumPoint()), (CommandSender)player);
-        sender.sendMessage((Object)ChatColor.YELLOW + "Updated the claim for event " + faction.getName() + (Object)ChatColor.YELLOW + '.');
+        ((EventFaction)faction).setClaim(new Cuboid(selection.getMinimumPoint(), selection.getMaximumPoint()), player);
+        sender.sendMessage(ChatColor.YELLOW + "Updated the claim for event " + faction.getName() + ChatColor.YELLOW + '.');
         return true;
     }
 

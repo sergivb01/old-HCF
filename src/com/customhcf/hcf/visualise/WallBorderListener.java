@@ -71,18 +71,18 @@ public class WallBorderListener implements Listener
     public void onPlayerJoin(final PlayerJoinEvent event) {
         final Player player = event.getPlayer();
         if (this.useTaskInstead) {
-            this.wallBorderTask.put(player.getUniqueId(), new WarpTimerRunnable(this, player).runTaskTimer((Plugin)this.plugin, 3L, 3L));
+            this.wallBorderTask.put(player.getUniqueId(), new WarpTimerRunnable(this, player).runTaskTimer(this.plugin, 3L, 3L));
             return;
         }
         final Location now = player.getLocation();
         new BukkitRunnable() {
             public void run() {
                 final Location location = player.getLocation();
-                if (now.equals((Object)location)) {
+                if (now.equals(location)) {
                     WallBorderListener.this.handlePositionChanged(player, location.getWorld(), location.getBlockX(), location.getBlockY(), location.getBlockZ());
                 }
             }
-        }.runTaskLater((Plugin)this.plugin, 4L);
+        }.runTaskLater(this.plugin, 4L);
     }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
@@ -102,7 +102,7 @@ public class WallBorderListener implements Listener
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onPlayerTeleport(final PlayerTeleportEvent event) {
-        this.onPlayerMove((PlayerMoveEvent)event);
+        this.onPlayerMove(event);
     }
 
     private void handlePositionChanged(final Player player, final World toWorld, final int toX, final int toY, final int toZ) {
@@ -121,7 +121,7 @@ public class WallBorderListener implements Listener
             visualType = VisualType.CLAIM_BORDER;
             final Object relevantTimer = this.plugin.getTimerManager().pvpProtectionTimer;
         }
-        this.plugin.getVisualiseHandler().clearVisualBlocks(player, visualType, (Predicate<VisualBlock>)new Predicate<VisualBlock>() {
+        this.plugin.getVisualiseHandler().clearVisualBlocks(player, visualType, new Predicate<VisualBlock>() {
             public boolean apply(final VisualBlock visualBlock) {
                 final Location other = visualBlock.getLocation();
                 return other.getWorld().equals(toWorld) && (Math.abs(toX - other.getBlockX()) > 7 || Math.abs(toY - other.getBlockY()) > 4 || Math.abs(toZ - other.getBlockZ()) > 7);
@@ -165,7 +165,7 @@ public class WallBorderListener implements Listener
             final Iterator<Claim> iterator = added.iterator();
             while (iterator.hasNext()) {
                 final Claim claim2 = iterator.next();
-                final List<Vector> edges = (List<Vector>)claim2.edges();
+                final List<Vector> edges = claim2.edges();
                 for (final Vector edge : edges) {
                     if (Math.abs(edge.getBlockX() - toX) > 7) {
                         continue;

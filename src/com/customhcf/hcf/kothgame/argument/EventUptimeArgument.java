@@ -30,10 +30,10 @@ extends CommandArgument {
         EventFaction eventFaction;
         EventTimer eventTimer = this.plugin.getTimerManager().eventTimer;
         if (eventTimer.getRemaining() <= 0) {
-            sender.sendMessage((Object)ChatColor.RED + "There is not a running event.");
+            sender.sendMessage(ChatColor.RED + "There is not a running event.");
             return true;
         }
-        sender.sendMessage((Object)ChatColor.YELLOW + "Up-time of " + eventTimer.getName() + " timer" + ((eventFaction = eventTimer.getEventFaction()) == null ? "" : new StringBuilder().append(": ").append((Object)ChatColor.BLUE).append('(').append(eventFaction.getDisplayName(sender)).append((Object)ChatColor.BLUE).append(')').toString()) + (Object)ChatColor.YELLOW + " is " + (Object)ChatColor.GRAY + DurationFormatUtils.formatDurationWords((long)eventTimer.getUptime(), (boolean)true, (boolean)true) + (Object)ChatColor.YELLOW + ", started at " + (Object)ChatColor.GOLD + DateTimeFormats.HR_MIN_AMPM_TIMEZONE.format(eventTimer.getStartStamp()) + (Object)ChatColor.YELLOW + '.');
+        sender.sendMessage(ChatColor.YELLOW + "Up-time of " + eventTimer.getName() + " timer" + ((eventFaction = eventTimer.getEventFaction()) == null ? "" : new StringBuilder().append(": ").append(ChatColor.BLUE).append('(').append(eventFaction.getDisplayName(sender)).append(ChatColor.BLUE).append(')').toString()) + ChatColor.YELLOW + " is " + ChatColor.GRAY + DurationFormatUtils.formatDurationWords(eventTimer.getUptime(), true, true) + ChatColor.YELLOW + ", started at " + ChatColor.GOLD + DateTimeFormats.HR_MIN_AMPM_TIMEZONE.format(eventTimer.getStartStamp()) + ChatColor.YELLOW + '.');
         return true;
     }
 }

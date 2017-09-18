@@ -43,50 +43,50 @@ extends CommandArgument {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage((Object)ChatColor.RED + "Only players can invite to a faction.");
+            sender.sendMessage(ChatColor.RED + "Only players can invite to a faction.");
             return true;
         }
         if (args.length < 2) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
             return true;
         }
         if (!USERNAME_REGEX.matcher(args[1]).matches()) {
-            sender.sendMessage((Object)ChatColor.RED + "'" + args[1] + "' is an invalid username.");
+            sender.sendMessage(ChatColor.RED + "'" + args[1] + "' is an invalid username.");
             return true;
         }
         Player player = (Player)sender;
         PlayerFaction playerFaction = this.plugin.getFactionManager().getPlayerFaction(player);
         if (playerFaction == null) {
-            sender.sendMessage((Object)ChatColor.RED + "You are not in a faction.");
+            sender.sendMessage(ChatColor.RED + "You are not in a faction.");
             return true;
         }
         if (playerFaction.getMember(player.getUniqueId()).getRole() == Role.MEMBER) {
-            sender.sendMessage((Object)ChatColor.RED + "You must a faction officer to invite members.");
+            sender.sendMessage(ChatColor.RED + "You must a faction officer to invite members.");
             return true;
         }
         Set<String> invitedPlayerNames = playerFaction.getInvitedPlayerNames();
         String name = args[1];
         if (playerFaction.getMember(name) != null) {
-            sender.sendMessage((Object)ChatColor.RED + "'" + name + "' is already in your faction.");
+            sender.sendMessage(ChatColor.RED + "'" + name + "' is already in your faction.");
             return true;
         }
         if (!this.plugin.getEotwHandler().isEndOfTheWorld() && playerFaction.isRaidable()) {
-            sender.sendMessage((Object)ChatColor.RED + "You may not invite players whilst your faction is raidable.");
+            sender.sendMessage(ChatColor.RED + "You may not invite players whilst your faction is raidable.");
             return true;
         }
         if (!invitedPlayerNames.add(name)) {
-            sender.sendMessage((Object)ChatColor.RED + name + " has already been invited.");
+            sender.sendMessage(ChatColor.RED + name + " has already been invited.");
             return true;
         }
-        Player target = Bukkit.getPlayer((String)name);
+        Player target = Bukkit.getPlayer(name);
         if (target != null) {
             name = target.getName();
-            Text text = new Text(sender.getName()).setColor(Relation.ENEMY.toChatColour()).append((IChatBaseComponent)new Text(" has invited you to join ").setColor(ChatColor.YELLOW));
-            text.append((IChatBaseComponent)new Text(playerFaction.getName()).setColor(Relation.ENEMY.toChatColour())).append((IChatBaseComponent)new Text(". ").setColor(ChatColor.YELLOW));
-            text.append((IChatBaseComponent)new Text("Click here").setColor(ChatColor.GREEN).setClick(ClickAction.RUN_COMMAND, "" + '/' + label + " accept " + playerFaction.getName()).setHoverText((Object)ChatColor.AQUA + "Click to join " + playerFaction.getDisplayName((CommandSender)target) + (Object)ChatColor.AQUA + '.')).append((IChatBaseComponent)new Text(" to accept this invitation.").setColor(ChatColor.YELLOW));
-            text.send((CommandSender)target);
+            Text text = new Text(sender.getName()).setColor(Relation.ENEMY.toChatColour()).append(new Text(" has invited you to join ").setColor(ChatColor.YELLOW));
+            text.append(new Text(playerFaction.getName()).setColor(Relation.ENEMY.toChatColour())).append(new Text(". ").setColor(ChatColor.YELLOW));
+            text.append(new Text("Click here").setColor(ChatColor.GREEN).setClick(ClickAction.RUN_COMMAND, "" + '/' + label + " accept " + playerFaction.getName()).setHoverText(ChatColor.AQUA + "Click to join " + playerFaction.getDisplayName(target) + ChatColor.AQUA + '.')).append(new Text(" to accept this invitation.").setColor(ChatColor.YELLOW));
+            text.send(target);
         }
-        playerFaction.broadcast((Object)Relation.MEMBER.toChatColour() + sender.getName() + (Object)ChatColor.YELLOW + " has invited " + (Object)Relation.ENEMY.toChatColour() + name + (Object)ChatColor.YELLOW + " to the faction.");
+        playerFaction.broadcast(Relation.MEMBER.toChatColour() + sender.getName() + ChatColor.YELLOW + " has invited " + Relation.ENEMY.toChatColour() + name + ChatColor.YELLOW + " to the faction.");
         return true;
     }
 

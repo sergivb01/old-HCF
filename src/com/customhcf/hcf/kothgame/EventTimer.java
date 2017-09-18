@@ -74,10 +74,10 @@ implements Listener {
                 int hour = now.getHour();
                 int minute = now.getMinute();
                 Iterator<Map.Entry<LocalDateTime, String>> iterator = plugin.eventScheduler.getScheduleMap().entrySet().iterator();
-                while (!(!iterator.hasNext() || day == (scheduledTime = (entry = iterator.next()).getKey()).getDayOfYear() && hour == scheduledTime.getHour() && minute == scheduledTime.getMinute() && (faction = plugin.getFactionManager().getFaction(entry.getValue())) instanceof EventFaction && EventTimer.this.tryContesting((EventFaction) faction, (CommandSender) Bukkit.getConsoleSender()))) {
+                while (!(!iterator.hasNext() || day == (scheduledTime = (entry = iterator.next()).getKey()).getDayOfYear() && hour == scheduledTime.getHour() && minute == scheduledTime.getMinute() && (faction = plugin.getFactionManager().getFaction(entry.getValue())) instanceof EventFaction && EventTimer.this.tryContesting((EventFaction) faction, Bukkit.getConsoleSender()))) {
                 }
             }
-        }.runTaskTimer((Plugin) plugin, 20, 20);
+        }.runTaskTimer(plugin, 20, 20);
     }
 
     public EventFaction getEventFaction() {
@@ -229,7 +229,7 @@ implements Listener {
         final Collection<CaptureZone> captureZones = eventFaction.getCaptureZones();
         for (final CaptureZone captureZone : captureZones) {
             if (captureZone.isActive()) {
-                final Player player = (Player) Iterables.getFirst((Iterable) captureZone.getCuboid().getPlayers(), (Object) null);
+                final Player player = (Player) Iterables.getFirst(captureZone.getCuboid().getPlayers(), null);
                 if (player == null) {
                     continue;
                 }
@@ -258,7 +258,7 @@ implements Listener {
         }
         final Collection<CaptureZone> captureZones = this.eventFaction.getCaptureZones();
         for (final CaptureZone captureZone : captureZones) {
-            if (Objects.equal((Object) captureZone.getCappingPlayer(), (Object) player)) {
+            if (Objects.equal(captureZone.getCappingPlayer(), player)) {
                 this.eventFaction.getEventType().getEventTracker().onControlLoss(player, captureZone, this.eventFaction);
                 captureZone.setCappingPlayer(null);
                 break;
@@ -309,10 +309,10 @@ implements Listener {
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onCaptureZoneLeave(final CaptureZoneLeaveEvent event) {
-        if (Objects.equal((Object) event.getFaction(), (Object) this.eventFaction)) {
+        if (Objects.equal(event.getFaction(), this.eventFaction)) {
             final Player player = event.getPlayer();
             final CaptureZone captureZone = event.getCaptureZone();
-            if (Objects.equal((Object) player, (Object) captureZone.getCappingPlayer()) && this.eventFaction.getEventType().getEventTracker().onControlLoss(player, captureZone, this.eventFaction)) {
+            if (Objects.equal(player, captureZone.getCappingPlayer()) && this.eventFaction.getEventType().getEventTracker().onControlLoss(player, captureZone, this.eventFaction)) {
                 captureZone.setCappingPlayer(null);
                 for (final Player target : captureZone.getCuboid().getPlayers()) {
                     if (target != null && !target.equals(player) && this.eventFaction.getEventType().getEventTracker().onControlTake(target, captureZone)) {

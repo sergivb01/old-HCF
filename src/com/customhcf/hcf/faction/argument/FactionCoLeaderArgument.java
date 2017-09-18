@@ -98,9 +98,9 @@ public class FactionCoLeaderArgument
     List<String> results = new ArrayList();
     Map<UUID, FactionMember> members = playerFaction.getMembers();
     for (Map.Entry<UUID, FactionMember> entry : members.entrySet()) {
-      if (((FactionMember)entry.getValue()).getRole() != Role.LEADER)
+      if (entry.getValue().getRole() != Role.LEADER)
       {
-        OfflinePlayer target = Bukkit.getOfflinePlayer((UUID)entry.getKey());
+        OfflinePlayer target = Bukkit.getOfflinePlayer(entry.getKey());
         String targetName = target.getName();
         if ((targetName != null) && 
           (!results.contains(targetName))) {

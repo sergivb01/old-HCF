@@ -30,7 +30,7 @@ extends CommandArgument {
         EventTimer eventTimer = this.plugin.getTimerManager().eventTimer;
         EventFaction eventFaction = eventTimer.getEventFaction();
         if (!eventTimer.clearCooldown()) {
-            sender.sendMessage((Object)ChatColor.RED + "There is not a running event.");
+            sender.sendMessage(ChatColor.RED + "There is not a running event.");
             return true;
         }
 //        Bukkit.broadcastMessage((String)(sender.getName() + (Object)ChatColor.YELLOW + " has cancelled " + (eventFaction == null ? "the active event" : new StringBuilder().append((Object)ChatColor.AQUA).append(eventFaction.getName()).append((Object)ChatColor.YELLOW).toString()) + "."));

@@ -31,10 +31,10 @@ extends CommandArgument {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         long millis = System.currentTimeMillis();
-        sender.sendMessage((Object)ChatColor.YELLOW + "The current server time is " + (Object)ChatColor.GREEN + DateTimeFormats.DAY_MTH_HR_MIN_AMPM.format(millis) + (Object)ChatColor.GOLD + '.');
+        sender.sendMessage(ChatColor.YELLOW + "The current server time is " + ChatColor.GREEN + DateTimeFormats.DAY_MTH_HR_MIN_AMPM.format(millis) + ChatColor.GOLD + '.');
         Map<LocalDateTime, String> scheduleMap = this.plugin.eventScheduler.getScheduleMap();
         if (scheduleMap.isEmpty()) {
-            sender.sendMessage((Object)ChatColor.RED + "There is not an event schedule for after now.");
+            sender.sendMessage(ChatColor.RED + "There is not an event schedule for after now.");
             return true;
         }
         LocalDateTime now = LocalDateTime.now(DateTimeFormats.SERVER_ZONE_ID);
@@ -47,10 +47,10 @@ extends CommandArgument {
             String monthName = scheduleDateTime.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
             String weekName = scheduleDateTime.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
             ChatColor colour = dayDifference == 0 ? ChatColor.GREEN : ChatColor.RED;
-            sender.sendMessage("  " + (Object)colour + WordUtils.capitalizeFully((String)eventName) + (Object)ChatColor.GRAY + " is the next event: " + (Object)ChatColor.YELLOW + weekName + ' ' + scheduleDateTime.getDayOfMonth() + ' ' + monthName + (Object)ChatColor.GREEN + " (" + KothScheduleArgument.HHMMA.format(scheduleDateTime) + ')');
+            sender.sendMessage("  " + colour + WordUtils.capitalizeFully(eventName) + ChatColor.GRAY + " is the next event: " + ChatColor.YELLOW + weekName + ' ' + scheduleDateTime.getDayOfMonth() + ' ' + monthName + ChatColor.GREEN + " (" + KothScheduleArgument.HHMMA.format(scheduleDateTime) + ')');
             return true;
         }
-        sender.sendMessage((Object)ChatColor.RED + "There is not an event scheduled after now.");
+        sender.sendMessage(ChatColor.RED + "There is not an event scheduled after now.");
         return true;
     }
 }

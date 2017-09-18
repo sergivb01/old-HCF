@@ -19,10 +19,10 @@ extends CommandArgument {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args[1].isEmpty()) {
-            sender.sendMessage((Object)ChatColor.RED + "FAIL: No koth");
+            sender.sendMessage(ChatColor.RED + "FAIL: No koth");
             return true;
         }
-        Bukkit.dispatchCommand((CommandSender)sender, (String)("f who " + args[1]));
+        Bukkit.dispatchCommand(sender, "f who " + args[1]);
         return true;
     }
 }

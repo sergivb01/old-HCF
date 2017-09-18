@@ -33,7 +33,7 @@ implements Listener {
     private static final String BOTTLED_EXP_DISPLAY_NAME = ChatColor.AQUA.toString() + "Bottled Exp";
 
     public BottledExpListener() {
-        Bukkit.addRecipe((Recipe)new ShapelessRecipe(this.createExpBottle(1)).addIngredient(Material.GLASS_BOTTLE));
+        Bukkit.addRecipe(new ShapelessRecipe(this.createExpBottle(1)).addIngredient(Material.GLASS_BOTTLE));
     }
 
     @EventHandler(ignoreCancelled=false, priority=EventPriority.HIGH)
@@ -49,7 +49,7 @@ implements Listener {
             List lore = meta.getLore();
             Integer amount = null;
             Iterator iterator = lore.iterator();
-            while (iterator.hasNext() && (amount = Ints.tryParse((String)ChatColor.stripColor((String)(loreLine = (String)iterator.next())).split(" ")[0])) == null) {
+            while (iterator.hasNext() && (amount = Ints.tryParse(ChatColor.stripColor(loreLine = (String)iterator.next()).split(" ")[0])) == null) {
             }
             if (amount != null) {
                 event.setCancelled(true);
@@ -96,7 +96,7 @@ implements Listener {
         ItemStack stack = new ItemStack(Material.EXP_BOTTLE, 1);
         ItemMeta meta = stack.getItemMeta();
         meta.setDisplayName(BOTTLED_EXP_DISPLAY_NAME);
-        meta.setLore((List)Lists.newArrayList((Object[])new String[]{ChatColor.WHITE.toString() + experience + (Object)ChatColor.GOLD + " Experience"}));
+        meta.setLore((List)Lists.newArrayList((Object[])new String[]{ChatColor.WHITE.toString() + experience + ChatColor.GOLD + " Experience"}));
         stack.setItemMeta(meta);
         return stack;
     }

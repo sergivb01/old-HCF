@@ -43,7 +43,7 @@ implements Listener {
     public void onBucketEmpty(PlayerBucketFillEvent event) {
         if (!BorderListener.isWithinBorder(event.getBlockClicked().getLocation())) {
             event.setCancelled(true);
-            event.getPlayer().sendMessage((Object)ChatColor.RED + "You cannot fill buckets past the border.");
+            event.getPlayer().sendMessage(ChatColor.RED + "You cannot fill buckets past the border.");
         }
     }
 
@@ -51,7 +51,7 @@ implements Listener {
     public void onBucketEmpty(PlayerBucketEmptyEvent event) {
         if (!BorderListener.isWithinBorder(event.getBlockClicked().getLocation())) {
             event.setCancelled(true);
-            event.getPlayer().sendMessage((Object)ChatColor.RED + "You cannot empty buckets past the border.");
+            event.getPlayer().sendMessage(ChatColor.RED + "You cannot empty buckets past the border.");
         }
     }
 
@@ -59,7 +59,7 @@ implements Listener {
     public void onBlockPlace(BlockPlaceEvent event) {
         if (!BorderListener.isWithinBorder(event.getBlock().getLocation())) {
             event.setCancelled(true);
-            event.getPlayer().sendMessage((Object)ChatColor.RED + "You cannot place blocks past the border.");
+            event.getPlayer().sendMessage(ChatColor.RED + "You cannot place blocks past the border.");
         }
     }
 
@@ -67,7 +67,7 @@ implements Listener {
     public void onBlockBreak(BlockBreakEvent event) {
         if (!BorderListener.isWithinBorder(event.getBlock().getLocation())) {
             event.setCancelled(true);
-            event.getPlayer().sendMessage((Object)ChatColor.RED + "You cannot break blocks past the border.");
+            event.getPlayer().sendMessage(ChatColor.RED + "You cannot break blocks past the border.");
         }
     }
 
@@ -80,13 +80,13 @@ implements Listener {
         }
         if (!BorderListener.isWithinBorder(to) && BorderListener.isWithinBorder(from)) {
             Player player = event.getPlayer();
-            player.sendMessage((Object)ChatColor.RED + "You cannot go past the border.");
+            player.sendMessage(ChatColor.RED + "You cannot go past the border.");
             event.setTo(from);
             Entity vehicle = player.getVehicle();
             if (vehicle != null) {
                 vehicle.eject();
                 vehicle.teleport(from);
-                vehicle.setPassenger((Entity)player);
+                vehicle.setPassenger(player);
             }
         }
     }
@@ -98,7 +98,7 @@ implements Listener {
             PlayerTeleportEvent.TeleportCause cause = event.getCause();
             if (cause != PlayerTeleportEvent.TeleportCause.NETHER_PORTAL || cause == PlayerTeleportEvent.TeleportCause.ENDER_PEARL && BorderListener.isWithinBorder(event.getFrom())) {
                 event.setCancelled(true);
-                event.getPlayer().sendMessage((Object)ChatColor.RED + "You cannot go past the border.");
+                event.getPlayer().sendMessage(ChatColor.RED + "You cannot go past the border.");
             } else {
                 World.Environment toEnvironment = to.getWorld().getEnvironment();
                 if (toEnvironment != World.Environment.NORMAL) {
@@ -119,7 +119,7 @@ implements Listener {
                 if (extended) {
                     to.add(0.5, 0.0, 0.5);
                     event.setTo(to);
-                    event.getPlayer().sendMessage((Object)ChatColor.RED + "This portals travel location was over the border. It has been moved inwards.");
+                    event.getPlayer().sendMessage(ChatColor.RED + "This portals travel location was over the border. It has been moved inwards.");
                 }
             }
         }

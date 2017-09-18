@@ -29,23 +29,23 @@ extends CommandArgument {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage((Object)ChatColor.RED + "This command is only executable by players.");
+            sender.sendMessage(ChatColor.RED + "This command is only executable by players.");
             return true;
         }
         Player player = (Player)sender;
         PlayerFaction playerFaction = this.plugin.getFactionManager().getPlayerFaction(player);
         if (playerFaction == null) {
-            sender.sendMessage((Object)ChatColor.RED + "You are not in a faction.");
+            sender.sendMessage(ChatColor.RED + "You are not in a faction.");
             return true;
         }
         FactionMember factionMember = playerFaction.getMember(player.getUniqueId());
         if (factionMember.getRole() != Role.LEADER) {
-            sender.sendMessage((Object)ChatColor.RED + "You must be a faction leader to do this.");
+            sender.sendMessage(ChatColor.RED + "You must be a faction leader to do this.");
             return true;
         }
         boolean newOpen = !playerFaction.isOpen();
         playerFaction.setOpen(newOpen);
-        playerFaction.broadcast((Object)ChatColor.YELLOW + sender.getName() + " has " + (newOpen ? new StringBuilder().append((Object)ChatColor.GREEN).append("opened").toString() : new StringBuilder().append((Object)ChatColor.RED).append("closed").toString()) + (Object)ChatColor.YELLOW + " the faction to public.");
+        playerFaction.broadcast(ChatColor.YELLOW + sender.getName() + " has " + (newOpen ? new StringBuilder().append(ChatColor.GREEN).append("opened").toString() : new StringBuilder().append(ChatColor.RED).append("closed").toString()) + ChatColor.YELLOW + " the faction to public.");
         return true;
     }
 }

@@ -30,7 +30,7 @@ implements Listener {
     @EventHandler
     public void onTimer(TimerStartEvent e) {
         if (ConfigurationService.KIT_MAP && e.getTimer() instanceof PvpProtectionTimer) {
-            this.plugin.getTimerManager().pvpProtectionTimer.clearCooldown((UUID)e.getUserUUID().get());
+            this.plugin.getTimerManager().pvpProtectionTimer.clearCooldown(e.getUserUUID().get());
         }
     }
     @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGHEST)
@@ -40,7 +40,7 @@ implements Listener {
         Location location = player.getLocation();
         Faction factionAt = this.plugin.getFactionManager().getFactionAt(location);
         if (!(factionAt.isSafezone() || (playerFaction = this.plugin.getFactionManager().getPlayerFaction(player)) != null && playerFaction.equals(factionAt))) {
-            player.sendMessage((Object)ChatColor.RED + "Kits can only be applied in safe-zones or your own claims.");
+            player.sendMessage(ChatColor.RED + "Kits can only be applied in safe-zones or your own claims.");
             event.setCancelled(true);
         }
     }

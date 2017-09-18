@@ -14,7 +14,7 @@ public enum Relation {
     
     private final int value;
 
-    private Relation(int value) {
+    Relation(int value) {
         this.value = value;
     }
 
@@ -45,10 +45,10 @@ public enum Relation {
     public String getDisplayName() {
         switch (this) {
             case ALLY: {
-                return (Object)this.toChatColour() + "alliance";
+                return this.toChatColour() + "alliance";
             }
         }
-        return (Object)this.toChatColour() + this.name().toLowerCase();
+        return this.toChatColour() + this.name().toLowerCase();
     }
 
     public ChatColor toChatColour() {

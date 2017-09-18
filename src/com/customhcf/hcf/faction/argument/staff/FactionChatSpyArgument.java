@@ -44,11 +44,11 @@ implements Listener {
         this.plugin = plugin;
         this.aliases = new String[]{"cs"};
         this.permission = "hcf.command.faction.argument." + this.getName();
-        plugin.getServer().getPluginManager().registerEvents((Listener)this, (Plugin)plugin);
+        plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
     public String getUsage(String label) {
-        return "" + '/' + label + ' ' + this.getName() + " <" + StringUtils.join(COMPLETIONS, (char)'|') + "> [factionName]";
+        return "" + '/' + label + ' ' + this.getName() + " <" + StringUtils.join(COMPLETIONS, '|') + "> [factionName]";
     }
 
     @EventHandler(ignoreCancelled=true, priority=EventPriority.MONITOR)
@@ -84,78 +84,78 @@ implements Listener {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage((Object)ChatColor.RED + "This command is only executable by players.");
+            sender.sendMessage(ChatColor.RED + "This command is only executable by players.");
             return true;
         }
         if (args.length < 2) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
             return true;
         }
         Player player = (Player)sender;
         Set<UUID> currentSpies = this.plugin.getUserManager().getUser(player.getUniqueId()).getFactionChatSpying();
         if (args[1].equalsIgnoreCase("list")) {
             if (currentSpies.isEmpty()) {
-                sender.sendMessage((Object)ChatColor.RED + "You are not spying on the chat of any factions.");
+                sender.sendMessage(ChatColor.RED + "You are not spying on the chat of any factions.");
                 return true;
             }
-            sender.sendMessage((Object)ChatColor.GRAY + "You are currently spying on the chat of (" + currentSpies.size() + " factions): " + (Object)ChatColor.RED + StringUtils.join(currentSpies, (String)new StringBuilder().append((Object)ChatColor.GRAY).append(", ").append((Object)ChatColor.RED).toString()) + (Object)ChatColor.GRAY + '.');
+            sender.sendMessage(ChatColor.GRAY + "You are currently spying on the chat of (" + currentSpies.size() + " factions): " + ChatColor.RED + StringUtils.join(currentSpies, new StringBuilder().append(ChatColor.GRAY).append(", ").append(ChatColor.RED).toString()) + ChatColor.GRAY + '.');
             return true;
         }
         if (args[1].equalsIgnoreCase("add")) {
             if (args.length < 3) {
-                sender.sendMessage((Object)ChatColor.RED + "Usage: /" + label + ' ' + args[1].toLowerCase() + " <all|factionName|playerName>");
+                sender.sendMessage(ChatColor.RED + "Usage: /" + label + ' ' + args[1].toLowerCase() + " <all|factionName|playerName>");
                 return true;
             }
             Faction faction = this.plugin.getFactionManager().getFaction(args[2]);
             if (!(faction instanceof PlayerFaction)) {
-                sender.sendMessage((Object)ChatColor.RED + "Player based faction named or containing member with IGN or UUID " + args[2] + " not found.");
+                sender.sendMessage(ChatColor.RED + "Player based faction named or containing member with IGN or UUID " + args[2] + " not found.");
                 return true;
             }
             if (currentSpies.contains(ALL_UUID) || currentSpies.contains(faction.getUniqueID())) {
-                sender.sendMessage((Object)ChatColor.RED + "You are already spying on the chat of " + (args[2].equalsIgnoreCase("all") ? "all factions" : args[2]) + '.');
+                sender.sendMessage(ChatColor.RED + "You are already spying on the chat of " + (args[2].equalsIgnoreCase("all") ? "all factions" : args[2]) + '.');
                 return true;
             }
             if (args[2].equalsIgnoreCase("all")) {
                 currentSpies.clear();
                 currentSpies.add(ALL_UUID);
-                sender.sendMessage((Object)ChatColor.GREEN + "You are now spying on the chat of all factions.");
+                sender.sendMessage(ChatColor.GREEN + "You are now spying on the chat of all factions.");
                 return true;
             }
             if (currentSpies.add(faction.getUniqueID())) {
-                sender.sendMessage((Object)ChatColor.GREEN + "You are now spying on the chat of " + faction.getDisplayName(sender) + (Object)ChatColor.GREEN + '.');
+                sender.sendMessage(ChatColor.GREEN + "You are now spying on the chat of " + faction.getDisplayName(sender) + ChatColor.GREEN + '.');
             } else {
-                sender.sendMessage((Object)ChatColor.RED + "You are already spying on the chat of " + faction.getDisplayName(sender) + (Object)ChatColor.RED + '.');
+                sender.sendMessage(ChatColor.RED + "You are already spying on the chat of " + faction.getDisplayName(sender) + ChatColor.RED + '.');
             }
             return true;
         }
         if (args[1].equalsIgnoreCase("del") || args[1].equalsIgnoreCase("delete") || args[1].equalsIgnoreCase("remove")) {
             if (args.length < 3) {
-                sender.sendMessage((Object)ChatColor.RED + "Usage: /" + label + ' ' + args[1].toLowerCase() + " <playerName>");
+                sender.sendMessage(ChatColor.RED + "Usage: /" + label + ' ' + args[1].toLowerCase() + " <playerName>");
                 return true;
             }
             if (args[2].equalsIgnoreCase("all")) {
                 currentSpies.remove(ALL_UUID);
-                sender.sendMessage((Object)ChatColor.RED + "No longer spying on the chat of all factions.");
+                sender.sendMessage(ChatColor.RED + "No longer spying on the chat of all factions.");
                 return true;
             }
             Faction faction = this.plugin.getFactionManager().getContainingFaction(args[2]);
             if (faction == null) {
-                sender.sendMessage((Object)ChatColor.GOLD + "Faction '" + (Object)ChatColor.WHITE + args[2] + (Object)ChatColor.GOLD + "' not found.");
+                sender.sendMessage(ChatColor.GOLD + "Faction '" + ChatColor.WHITE + args[2] + ChatColor.GOLD + "' not found.");
                 return true;
             }
             if (currentSpies.remove(faction.getUniqueID())) {
-                sender.sendMessage((Object)ChatColor.RED + "You are no longer spying on the chat of " + faction.getDisplayName(sender) + (Object)ChatColor.RED + '.');
+                sender.sendMessage(ChatColor.RED + "You are no longer spying on the chat of " + faction.getDisplayName(sender) + ChatColor.RED + '.');
             } else {
-                sender.sendMessage((Object)ChatColor.RED + "You will still not be spying on the chat of " + faction.getDisplayName(sender) + (Object)ChatColor.RED + '.');
+                sender.sendMessage(ChatColor.RED + "You will still not be spying on the chat of " + faction.getDisplayName(sender) + ChatColor.RED + '.');
             }
             return true;
         }
         if (args[1].equalsIgnoreCase("clear")) {
             currentSpies.clear();
-            sender.sendMessage((Object)ChatColor.YELLOW + "You are no longer spying the chat of any faction.");
+            sender.sendMessage(ChatColor.YELLOW + "You are no longer spying the chat of any faction.");
             return true;
         }
-        sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+        sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
         return true;
     }
 }

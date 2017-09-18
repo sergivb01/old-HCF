@@ -36,35 +36,35 @@ extends CommandArgument {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage((Object)ChatColor.RED + "Only players can un-invite from a faction.");
+            sender.sendMessage(ChatColor.RED + "Only players can un-invite from a faction.");
             return true;
         }
         if (args.length < 2) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
             return true;
         }
         Player player = (Player)sender;
         PlayerFaction playerFaction = this.plugin.getFactionManager().getPlayerFaction(player);
         if (playerFaction == null) {
-            sender.sendMessage((Object)ChatColor.RED + "You are not in a faction.");
+            sender.sendMessage(ChatColor.RED + "You are not in a faction.");
             return true;
         }
         FactionMember factionMember = playerFaction.getMember(player);
         if (factionMember.getRole() == Role.MEMBER) {
-            sender.sendMessage((Object)ChatColor.RED + "You must be a faction officer to un-invite players.");
+            sender.sendMessage(ChatColor.RED + "You must be a faction officer to un-invite players.");
             return true;
         }
         Set<String> invitedPlayerNames = playerFaction.getInvitedPlayerNames();
         if (args[1].equalsIgnoreCase("all")) {
             invitedPlayerNames.clear();
-            sender.sendMessage((Object)ChatColor.YELLOW + "You have cleared all pending invitations.");
+            sender.sendMessage(ChatColor.YELLOW + "You have cleared all pending invitations.");
             return true;
         }
         if (!invitedPlayerNames.remove(args[1])) {
-            sender.sendMessage((Object)ChatColor.RED + "There is not a pending invitation for " + args[1] + '.');
+            sender.sendMessage(ChatColor.RED + "There is not a pending invitation for " + args[1] + '.');
             return true;
         }
-        playerFaction.broadcast((Object)ChatColor.YELLOW + factionMember.getRole().getAstrix() + sender.getName() + " has uninvited " + (Object)ConfigurationService.ENEMY_COLOUR + args[1] + (Object)ChatColor.YELLOW + " from the faction.");
+        playerFaction.broadcast(ChatColor.YELLOW + factionMember.getRole().getAstrix() + sender.getName() + " has uninvited " + ConfigurationService.ENEMY_COLOUR + args[1] + ChatColor.YELLOW + " from the faction.");
         return true;
     }
 
@@ -77,7 +77,7 @@ extends CommandArgument {
         if (playerFaction == null || playerFaction.getMember(player.getUniqueId()).getRole() == Role.MEMBER) {
             return Collections.emptyList();
         }
-        ArrayList<String> results = new ArrayList<String>((Collection<String>)COMPLETIONS);
+        ArrayList<String> results = new ArrayList<String>(COMPLETIONS);
         results.addAll(playerFaction.getInvitedPlayerNames());
         return results;
     }

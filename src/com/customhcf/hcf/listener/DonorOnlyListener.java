@@ -17,7 +17,7 @@ implements Listener {
     @EventHandler
     public void onJoinServerWhileNotDonor(PlayerLoginEvent e) {
         if (HCF.getPlugin().getServerHandler().isDonorOnly() && !e.getPlayer().hasPermission(DONOR_ONLY_PERMISSION)) {
-            e.disallow(PlayerLoginEvent.Result.KICK_OTHER, (Object)ChatColor.RED + "The server is currently in Donor-Only mode. \n\n " + (Object)ChatColor.YELLOW + "store.veilhcf.us");
+            e.disallow(PlayerLoginEvent.Result.KICK_OTHER, ChatColor.RED + "The server is currently in Donor-Only mode. \n\n " + ChatColor.YELLOW + "store.veilhcf.us");
             return;
         }
     }

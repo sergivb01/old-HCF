@@ -52,18 +52,18 @@ extends CommandArgument {
             String monthName = scheduleDateTime.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH);
             String weekName = scheduleDateTime.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
             ChatColor colour = dayDifference == 0 ? ChatColor.GREEN : ChatColor.RED;
-            shownEvents.add("  " + (Object)colour + WordUtils.capitalizeFully((String)eventName) + ": " + (Object)ChatColor.YELLOW + weekName + ' ' + scheduleDateTime.getDayOfMonth() + ' ' + monthName + (Object)ChatColor.RED + " (" + HHMMA.format(scheduleDateTime) + ')' + (Object)ChatColor.GRAY + " - " + (Object)ChatColor.GOLD + DurationFormatUtils.formatDuration((long)now.until(scheduleDateTime, ChronoUnit.MILLIS), (String)"d'd' H'h' mm'm'"));
+            shownEvents.add("  " + colour + WordUtils.capitalizeFully(eventName) + ": " + ChatColor.YELLOW + weekName + ' ' + scheduleDateTime.getDayOfMonth() + ' ' + monthName + ChatColor.RED + " (" + HHMMA.format(scheduleDateTime) + ')' + ChatColor.GRAY + " - " + ChatColor.GOLD + DurationFormatUtils.formatDuration(now.until(scheduleDateTime, ChronoUnit.MILLIS), "d'd' H'h' mm'm'"));
         }
         if (shownEvents.isEmpty()) {
-            sender.sendMessage((Object)ChatColor.RED + "There are no event schedules defined.");
+            sender.sendMessage(ChatColor.RED + "There are no event schedules defined.");
             return true;
         }
-        String monthName2 = WordUtils.capitalizeFully((String)now.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH));
-        String weekName2 = WordUtils.capitalizeFully((String)now.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.ENGLISH));
-        sender.sendMessage((Object)ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
-        sender.sendMessage((Object)ChatColor.YELLOW + "Current Server time " + (Object)ChatColor.GREEN + weekName2 + ' ' + now.getDayOfMonth() + ' ' + monthName2 + ' ' + HHMMA.format(now) + (Object)ChatColor.YELLOW + '.');
+        String monthName2 = WordUtils.capitalizeFully(now.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH));
+        String weekName2 = WordUtils.capitalizeFully(now.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.ENGLISH));
+        sender.sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
+        sender.sendMessage(ChatColor.YELLOW + "Current Server time " + ChatColor.GREEN + weekName2 + ' ' + now.getDayOfMonth() + ' ' + monthName2 + ' ' + HHMMA.format(now) + ChatColor.YELLOW + '.');
         sender.sendMessage(shownEvents.toArray(new String[shownEvents.size()]));
-        sender.sendMessage((Object)ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
+        sender.sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
         return true;
     }
 

@@ -10,7 +10,7 @@ public class ConquestExecutor
 extends ArgumentExecutor {
     public ConquestExecutor(HCF plugin) {
         super("conquest");
-        this.addArgument((CommandArgument)new ConquestSetpointsArgument(plugin));
+        this.addArgument(new ConquestSetpointsArgument(plugin));
     }
 }
 

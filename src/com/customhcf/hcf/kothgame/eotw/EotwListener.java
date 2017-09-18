@@ -53,7 +53,7 @@ implements Listener {
     public void KitApplyEvent(KitApplyEvent event) {
         if (!event.isForce() && this.plugin.getEotwHandler().isEndOfTheWorld()) {
             event.setCancelled(true);
-            event.getPlayer().sendMessage((Object)ChatColor.RED + "Kits cannot be applied during EOTW.");
+            event.getPlayer().sendMessage(ChatColor.RED + "Kits cannot be applied during EOTW.");
         }
     }
 
@@ -62,7 +62,7 @@ implements Listener {
         ClaimableFaction faction;
         if (this.plugin.getEotwHandler().isEndOfTheWorld() && event.getCause() == ClaimChangeCause.CLAIM && (faction = event.getClaimableFaction()) instanceof PlayerFaction) {
             event.setCancelled(true);
-            event.getSender().sendMessage((Object)ChatColor.RED + "Player based faction land cannot be claimed during EOTW.");
+            event.getSender().sendMessage(ChatColor.RED + "Player based faction land cannot be claimed during EOTW.");
         }
     }
 

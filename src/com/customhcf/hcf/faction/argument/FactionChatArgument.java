@@ -48,13 +48,13 @@ extends CommandArgument {
         final ChatChannel currentChannel = member.getChatChannel();
         final ChatChannel parsed = (args.length >= 2) ? ChatChannel.parse(args[1], null) : currentChannel.getRotation();
         if (parsed == null && currentChannel != ChatChannel.PUBLIC) {
-            final Collection<Player> recipients = (Collection<Player>)playerFaction.getOnlinePlayers();
+            final Collection<Player> recipients = playerFaction.getOnlinePlayers();
             if (currentChannel == ChatChannel.ALLIANCE) {
                 for (final PlayerFaction ally : playerFaction.getAlliedFactions()) {
                     recipients.addAll(ally.getOnlinePlayers());
                 }
             }
-            final String format = String.format(currentChannel.getRawFormat(player), "", StringUtils.join((Object[])args, ' ', 1, args.length));
+            final String format = String.format(currentChannel.getRawFormat(player), "", StringUtils.join(args, ' ', 1, args.length));
             for (final Player recipient : recipients) {
                 recipient.sendMessage(format);
             }

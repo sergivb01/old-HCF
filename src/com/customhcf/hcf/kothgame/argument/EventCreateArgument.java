@@ -35,12 +35,12 @@ extends CommandArgument {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         String upperCase;
         if (args.length < 3) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
             return true;
         }
         Faction faction = this.plugin.getFactionManager().getFaction(args[1]);
         if (faction != null) {
-            sender.sendMessage((Object)ChatColor.RED + "There is already a faction named " + args[1] + '.');
+            sender.sendMessage(ChatColor.RED + "There is already a faction named " + args[1] + '.');
             return true;
         }
         switch (upperCase = args[2].toUpperCase()) {
@@ -62,7 +62,7 @@ extends CommandArgument {
             }
         }
         this.plugin.getFactionManager().createFaction(faction, sender);
-        sender.sendMessage((Object)ChatColor.YELLOW + "Created event faction " + (Object)ChatColor.WHITE + faction.getDisplayName(sender) + (Object)ChatColor.YELLOW + " with type " + WordUtils.capitalizeFully((String)args[2]) + '.');
+        sender.sendMessage(ChatColor.YELLOW + "Created event faction " + ChatColor.WHITE + faction.getDisplayName(sender) + ChatColor.YELLOW + " with type " + WordUtils.capitalizeFully(args[2]) + '.');
         return true;
     }
 

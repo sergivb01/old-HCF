@@ -30,23 +30,23 @@ extends CommandArgument {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage((Object)ChatColor.RED + "Only players can leave faction.");
+            sender.sendMessage(ChatColor.RED + "Only players can leave faction.");
             return true;
         }
         Player player = (Player)sender;
         PlayerFaction playerFaction = this.plugin.getFactionManager().getPlayerFaction(player);
         if (playerFaction == null) {
-            sender.sendMessage((Object)ChatColor.RED + "You are not in a faction.");
+            sender.sendMessage(ChatColor.RED + "You are not in a faction.");
             return true;
         }
         UUID uuid = player.getUniqueId();
         if (playerFaction.getMember(uuid).getRole() == Role.LEADER) {
-            sender.sendMessage((Object)ChatColor.RED + "You cannot leave factions as a leader. Either use " + (Object)ChatColor.GOLD + '/' + label + " disband" + (Object)ChatColor.RED + " or " + (Object)ChatColor.GOLD + '/' + label + " leader" + (Object)ChatColor.RED + '.');
+            sender.sendMessage(ChatColor.RED + "You cannot leave factions as a leader. Either use " + ChatColor.GOLD + '/' + label + " disband" + ChatColor.RED + " or " + ChatColor.GOLD + '/' + label + " leader" + ChatColor.RED + '.');
             return true;
         }
         if (playerFaction.setMember(player, null)) {
-            sender.sendMessage((Object)ChatColor.YELLOW + "Successfully left the faction.");
-            playerFaction.broadcast((Object)Relation.ENEMY.toChatColour() + sender.getName() + (Object)ChatColor.YELLOW + " has left the faction.");
+            sender.sendMessage(ChatColor.YELLOW + "Successfully left the faction.");
+            playerFaction.broadcast(Relation.ENEMY.toChatColour() + sender.getName() + ChatColor.YELLOW + " has left the faction.");
         }
         return true;
     }

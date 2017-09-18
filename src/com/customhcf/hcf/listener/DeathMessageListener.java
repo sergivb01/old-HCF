@@ -129,16 +129,16 @@ implements Listener {
 	}
 
 	private String getEntityName(org.bukkit.entity.Entity entity) {
-		Preconditions.checkNotNull((Object)entity, (Object)"Entity cannot be null");
+		Preconditions.checkNotNull((Object)entity, "Entity cannot be null");
 		return entity instanceof Player ? ((Player)entity).getName() : ((CraftEntity)entity).getHandle().getName();
 	}
 
 	private String getDisplayName(org.bukkit.entity.Entity entity) {
-		Preconditions.checkNotNull((Object)entity, (Object)"Entity cannot be null");
+		Preconditions.checkNotNull((Object)entity, "Entity cannot be null");
 		if (entity instanceof Player) {
 			Player player = (Player)entity;
-			return player.getName() + (Object)ChatColor.GOLD + '[' + (Object)ChatColor.WHITE + this.plugin.getUserManager().getUser(player.getUniqueId()).getKills() + (Object)ChatColor.GOLD + ']';
+			return player.getName() + ChatColor.GOLD + '[' + ChatColor.WHITE + this.plugin.getUserManager().getUser(player.getUniqueId()).getKills() + ChatColor.GOLD + ']';
 		}
-		return WordUtils.capitalizeFully((String)entity.getType().name().replace('_', ' '));
+		return WordUtils.capitalizeFully(entity.getType().name().replace('_', ' '));
 	}
 }

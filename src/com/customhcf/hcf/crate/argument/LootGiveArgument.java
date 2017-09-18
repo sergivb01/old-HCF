@@ -77,7 +77,7 @@ extends CommandArgument {
         PlayerInventory inventory = target.getInventory();
         Location location = target.getLocation();
         World world = target.getWorld();
-        final Map<Integer, ItemStack> excess = inventory.addItem(new ItemStack[] { stack });
+        final Map<Integer, ItemStack> excess = inventory.addItem(stack);
         for (final ItemStack entry : excess.values()) {
             world.dropItemNaturally(location, entry);
         }

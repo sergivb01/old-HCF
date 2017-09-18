@@ -31,25 +31,25 @@ extends CommandArgument {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length < 2) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
             return true;
         }
         PlayerFaction playerFaction = this.plugin.getFactionManager().getContainingPlayerFaction(args[1]);
         if (playerFaction == null) {
-            sender.sendMessage((Object)ChatColor.RED + "Faction containing member with IGN or UUID " + args[1] + " not found.");
+            sender.sendMessage(ChatColor.RED + "Faction containing member with IGN or UUID " + args[1] + " not found.");
             return true;
         }
         FactionMember factionMember = playerFaction.getMember(args[1]);
         if (factionMember == null) {
-            sender.sendMessage((Object)ChatColor.RED + "Faction containing member with IGN or UUID " + args[1] + " not found.");
+            sender.sendMessage(ChatColor.RED + "Faction containing member with IGN or UUID " + args[1] + " not found.");
             return true;
         }
         if (factionMember.getRole() == Role.LEADER) {
-            sender.sendMessage((Object)ChatColor.RED + "You cannot forcefully kick faction leaders.");
+            sender.sendMessage(ChatColor.RED + "You cannot forcefully kick faction leaders.");
             return true;
         }
         if (playerFaction.setMember(factionMember.getUniqueId(), null, true)) {
-            playerFaction.broadcast(ChatColor.GOLD.toString() + (Object)ChatColor.BOLD + factionMember.getName() + " has been forcefully kicked by " + sender.getName() + '.');
+            playerFaction.broadcast(ChatColor.GOLD.toString() + ChatColor.BOLD + factionMember.getName() + " has been forcefully kicked by " + sender.getName() + '.');
         }
         return true;
     }

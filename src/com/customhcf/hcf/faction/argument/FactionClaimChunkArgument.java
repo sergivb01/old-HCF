@@ -34,21 +34,21 @@ extends CommandArgument {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage((Object)ChatColor.RED + "This command is only executable by players.");
+            sender.sendMessage(ChatColor.RED + "This command is only executable by players.");
             return true;
         }
         Player player = (Player)sender;
         PlayerFaction playerFaction = this.plugin.getFactionManager().getPlayerFaction(player);
         if (playerFaction == null) {
-            sender.sendMessage((Object)ChatColor.RED + "You are not in a faction.");
+            sender.sendMessage(ChatColor.RED + "You are not in a faction.");
             return true;
         }
         if (playerFaction.isRaidable()) {
-            sender.sendMessage((Object)ChatColor.RED + "You cannot claim land for your faction while raidable.");
+            sender.sendMessage(ChatColor.RED + "You cannot claim land for your faction while raidable.");
             return true;
         }
         if (playerFaction.getMember(player.getUniqueId()).getRole() == Role.MEMBER) {
-            sender.sendMessage((Object)ChatColor.RED + "You must be an officer to claim land.");
+            sender.sendMessage(ChatColor.RED + "You must be an officer to claim land.");
             return true;
         }
         Location location = player.getLocation();

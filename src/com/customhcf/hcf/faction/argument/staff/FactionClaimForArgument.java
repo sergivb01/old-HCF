@@ -48,16 +48,16 @@ extends CommandArgument {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage((Object)ChatColor.RED + "This command is only executable by players.");
+            sender.sendMessage(ChatColor.RED + "This command is only executable by players.");
             return true;
         }
         if (args.length < 2) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
             return true;
         }
         Faction targetFaction = this.plugin.getFactionManager().getFaction(args[1]);
         if (!(targetFaction instanceof ClaimableFaction)) {
-            sender.sendMessage((Object)ChatColor.RED + "Claimable faction named " + args[1] + " not found.");
+            sender.sendMessage(ChatColor.RED + "Claimable faction named " + args[1] + " not found.");
             return true;
         }
         Player player = (Player)sender;

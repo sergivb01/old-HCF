@@ -62,17 +62,17 @@ implements Listener {
 
     @EventHandler(ignoreCancelled=true, priority=EventPriority.LOWEST)
     public void onPlayerJoin(PlayerJoinEvent event) {
-        event.setJoinMessage((String)null);
+        event.setJoinMessage(null);
     }
 
     @EventHandler(ignoreCancelled=true, priority=EventPriority.LOWEST)
     public void onPlayerQuit(PlayerKickEvent event) {
-        event.setLeaveMessage((String)null);
+        event.setLeaveMessage(null);
     }
 
     @EventHandler(ignoreCancelled=true, priority=EventPriority.LOWEST)
     public void onPlayerQuit(PlayerQuitEvent event) {
-        event.setQuitMessage((String)null);
+        event.setQuitMessage(null);
         Player player = event.getPlayer();
         this.plugin.getVisualiseHandler().clearVisualBlocks(player, null, null, false);
         this.plugin.getUserManager().getUser(player.getUniqueId()).setShowClaimMap(false);

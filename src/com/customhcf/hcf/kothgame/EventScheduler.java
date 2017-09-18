@@ -41,32 +41,32 @@ public class EventScheduler {
         if (args.length != 5) {
             return null;
         }
-        Integer year = Ints.tryParse((String)args[0]);
+        Integer year = Ints.tryParse(args[0]);
         if (year == null) {
             return null;
         }
-        Integer month = Ints.tryParse((String)args[1]);
+        Integer month = Ints.tryParse(args[1]);
         if (month == null) {
             return null;
         }
-        Integer day = Ints.tryParse((String)args[2]);
+        Integer day = Ints.tryParse(args[2]);
         if (day == null) {
             return null;
         }
-        Integer hour = Ints.tryParse((String)args[3]);
+        Integer hour = Ints.tryParse(args[3]);
         if (hour == null) {
             return null;
         }
-        Integer minute = Ints.tryParse((String)args[4]);
+        Integer minute = Ints.tryParse(args[4]);
         if (minute == null) {
             return null;
         }
-        return LocalDateTime.of((int)year, month, (int)day, (int)hour, (int)minute);
+        return LocalDateTime.of(year, month, day, hour, minute);
     }
 
     private void reloadSchedules() {
         try {
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader((InputStream)new FileInputStream(new File(this.plugin.getDataFolder(), "event-schedules.txt")), StandardCharsets.UTF_8));
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(new File(this.plugin.getDataFolder(), "event-schedules.txt")), StandardCharsets.UTF_8));
             Throwable throwable = null;
             try {
                 String currentLine;

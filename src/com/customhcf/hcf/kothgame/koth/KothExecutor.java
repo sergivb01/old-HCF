@@ -18,11 +18,11 @@ extends ArgumentExecutor {
 
     public KothExecutor(HCF plugin) {
         super("koth");
-        this.addArgument((CommandArgument)new KothNextArgument(plugin));
-        this.addArgument((CommandArgument)new KothShowArgument());
+        this.addArgument(new KothNextArgument(plugin));
+        this.addArgument(new KothShowArgument());
         this.kothScheduleArgument = new KothScheduleArgument(plugin);
-        this.addArgument((CommandArgument)this.kothScheduleArgument);
-        this.addArgument((CommandArgument)new KothSetCapDelayArgument(plugin));
+        this.addArgument(this.kothScheduleArgument);
+        this.addArgument(new KothSetCapDelayArgument(plugin));
     }
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {

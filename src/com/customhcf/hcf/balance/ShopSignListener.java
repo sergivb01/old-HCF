@@ -88,7 +88,7 @@ public class ShopSignListener implements Listener
                         this.plugin.getEconomyManager().subtractBalance(player.getUniqueId(), price);
                         final World world = player.getWorld();
                         final Location location = player.getLocation();
-                        final Map<Integer, ItemStack> excess = player.getInventory().addItem(new ItemStack[] { stack });
+                        final Map<Integer, ItemStack> excess = player.getInventory().addItem(stack);
                         for (final Map.Entry<Integer, ItemStack> excessItemStack : excess.entrySet()) {
                             world.dropItemNaturally(location, excessItemStack.getValue());
                         }

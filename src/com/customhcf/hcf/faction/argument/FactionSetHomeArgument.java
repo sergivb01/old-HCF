@@ -30,18 +30,18 @@ extends CommandArgument {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage((Object)ChatColor.RED + "This command is only executable by players.");
+            sender.sendMessage(ChatColor.RED + "This command is only executable by players.");
             return true;
         }
         Player player = (Player)sender;
         PlayerFaction playerFaction = this.plugin.getFactionManager().getPlayerFaction(player);
         if (playerFaction == null) {
-            sender.sendMessage((Object)ChatColor.RED + "You are not in a faction.");
+            sender.sendMessage(ChatColor.RED + "You are not in a faction.");
             return true;
         }
         FactionMember factionMember = playerFaction.getMember(player);
         if (factionMember.getRole() == Role.MEMBER) {
-            sender.sendMessage((Object)ChatColor.RED + "You must be a faction officer to set the home.");
+            sender.sendMessage(ChatColor.RED + "You must be a faction officer to set the home.");
             return true;
         }
         Location location = player.getLocation();
@@ -52,11 +52,11 @@ extends CommandArgument {
             break;
         }
         if (!insideTerritory) {
-            player.sendMessage((Object)ChatColor.RED + "You may only set your home in your territory.");
+            player.sendMessage(ChatColor.RED + "You may only set your home in your territory.");
             return true;
         }
         playerFaction.setHome(location);
-        playerFaction.broadcast((Object)ConfigurationService.TEAMMATE_COLOUR + factionMember.getRole().getAstrix() + sender.getName() + (Object)ChatColor.YELLOW + " has set the faction home.");
+        playerFaction.broadcast(ConfigurationService.TEAMMATE_COLOUR + factionMember.getRole().getAstrix() + sender.getName() + ChatColor.YELLOW + " has set the faction home.");
         return true;
     }
 }

@@ -97,7 +97,7 @@ implements Listener {
     @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGH)
     public void onBedEnter(PlayerBedEnterEvent event) {
         event.setCancelled(true);
-        event.getPlayer().sendMessage((Object)ChatColor.RED + "Beds are disabled on this server.");
+        event.getPlayer().sendMessage(ChatColor.RED + "Beds are disabled on this server.");
     }
 
     @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGHEST)
@@ -120,7 +120,7 @@ implements Listener {
 
     @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGH)
     public void onPlayerRespawn(PlayerRespawnEvent event) {
-        event.setRespawnLocation(Bukkit.getWorld((String)"world").getSpawnLocation().add(0.5, 0.0, 0.5));
+        event.setRespawnLocation(Bukkit.getWorld("world").getSpawnLocation().add(0.5, 0.0, 0.5));
     }
 
     @EventHandler(ignoreCancelled=true, priority=EventPriority.NORMAL)
@@ -128,7 +128,7 @@ implements Listener {
         Player player = event.getPlayer();
         if (!player.hasPlayedBefore()) {
             this.plugin.getEconomyManager().addBalance(player.getUniqueId(), 250);
-            event.setSpawnLocation(Bukkit.getWorld((String)"world").getSpawnLocation().add(0.5, 0.0, 0.5));
+            event.setSpawnLocation(Bukkit.getWorld("world").getSpawnLocation().add(0.5, 0.0, 0.5));
         }
     }
 

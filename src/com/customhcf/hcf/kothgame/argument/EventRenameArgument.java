@@ -35,22 +35,22 @@ extends CommandArgument {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length < 3) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
             return true;
         }
         Faction faction = this.plugin.getFactionManager().getFaction(args[2]);
         if (faction != null) {
-            sender.sendMessage((Object)ChatColor.RED + "There is already a faction named " + args[2] + '.');
+            sender.sendMessage(ChatColor.RED + "There is already a faction named " + args[2] + '.');
             return true;
         }
         faction = this.plugin.getFactionManager().getFaction(args[1]);
         if (!(faction instanceof EventFaction)) {
-            sender.sendMessage((Object)ChatColor.RED + "There is not an event faction named '" + args[1] + "'.");
+            sender.sendMessage(ChatColor.RED + "There is not an event faction named '" + args[1] + "'.");
             return true;
         }
         String oldName = faction.getName();
         faction.setName(args[2], sender);
-        sender.sendMessage((Object)ChatColor.YELLOW + "Renamed event " + (Object)ChatColor.WHITE + oldName + (Object)ChatColor.YELLOW + " to " + (Object)ChatColor.WHITE + faction.getName() + (Object)ChatColor.YELLOW + '.');
+        sender.sendMessage(ChatColor.YELLOW + "Renamed event " + ChatColor.WHITE + oldName + ChatColor.YELLOW + " to " + ChatColor.WHITE + faction.getName() + ChatColor.YELLOW + '.');
         return true;
     }
 

@@ -40,30 +40,30 @@ extends CommandArgument {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length < 3) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
             return true;
         }
         Faction faction = this.plugin.getFactionManager().getFaction(args[1]);
         if (faction == null || !(faction instanceof KothFaction)) {
-            sender.sendMessage((Object)ChatColor.RED + "There is not a KOTH arena named '" + args[1] + "'.");
+            sender.sendMessage(ChatColor.RED + "There is not a KOTH arena named '" + args[1] + "'.");
             return true;
         }
-        long duration = JavaUtils.parse((String)StringUtils.join((Object[])args, (char)' ', (int)2, (int)args.length));
+        long duration = JavaUtils.parse(StringUtils.join(args, ' ', 2, args.length));
         if (duration == -1) {
-            sender.sendMessage((Object)ChatColor.RED + "Invalid duration, use the correct format: 10m 1s");
+            sender.sendMessage(ChatColor.RED + "Invalid duration, use the correct format: 10m 1s");
             return true;
         }
         KothFaction kothFaction = (KothFaction)faction;
         CaptureZone captureZone = kothFaction.getCaptureZone();
         if (captureZone == null) {
-            sender.sendMessage((Object)ChatColor.RED + kothFaction.getDisplayName(sender) + (Object)ChatColor.RED + " does not have a capture zone.");
+            sender.sendMessage(ChatColor.RED + kothFaction.getDisplayName(sender) + ChatColor.RED + " does not have a capture zone.");
             return true;
         }
         if (captureZone.isActive() && duration < captureZone.getRemainingCaptureMillis()) {
             captureZone.setRemainingCaptureMillis(duration);
         }
         captureZone.setDefaultCaptureMillis(duration);
-        sender.sendMessage((Object)ChatColor.YELLOW + "Set the capture delay of KOTH arena " + (Object)ChatColor.WHITE + kothFaction.getDisplayName(sender) + (Object)ChatColor.YELLOW + " to " + (Object)ChatColor.WHITE + DurationFormatUtils.formatDurationWords((long)duration, (boolean)true, (boolean)true) + (Object)ChatColor.WHITE + '.');
+        sender.sendMessage(ChatColor.YELLOW + "Set the capture delay of KOTH arena " + ChatColor.WHITE + kothFaction.getDisplayName(sender) + ChatColor.YELLOW + " to " + ChatColor.WHITE + DurationFormatUtils.formatDurationWords(duration, true, true) + ChatColor.WHITE + '.');
         return true;
     }
 

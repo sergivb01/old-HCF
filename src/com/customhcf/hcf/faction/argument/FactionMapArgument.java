@@ -40,7 +40,7 @@ extends CommandArgument {
         boolean newShowingMap;
         VisualType visualType;
         if (!(sender instanceof Player)) {
-            sender.sendMessage((Object)ChatColor.RED + "This command is only executable by players.");
+            sender.sendMessage(ChatColor.RED + "This command is only executable by players.");
             return true;
         }
         Player player = (Player)sender;
@@ -49,9 +49,9 @@ extends CommandArgument {
         if (args.length <= 1) {
             visualType = VisualType.CLAIM_MAP;
         } else {
-            visualType = (VisualType)((Object)Enums.getIfPresent((Class)VisualType.class, (String)args[1]).orNull());
+            visualType = (VisualType) Enums.getIfPresent((Class)VisualType.class, args[1]).orNull();
             if (visualType == null) {
-                player.sendMessage((Object)ChatColor.RED + "Visual type " + args[1] + " not found.");
+                player.sendMessage(ChatColor.RED + "Visual type " + args[1] + " not found.");
                 return true;
             }
         }
@@ -62,7 +62,7 @@ extends CommandArgument {
             }
         } else {
             this.plugin.getVisualiseHandler().clearVisualBlocks(player, visualType, null);
-            sender.sendMessage((Object)ChatColor.RED + "Claim pillars are no longer shown.");
+            sender.sendMessage(ChatColor.RED + "Claim pillars are no longer shown.");
         }
         factionUser.setShowClaimMap(newShowingMap);
         return true;

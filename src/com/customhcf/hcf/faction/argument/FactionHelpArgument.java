@@ -39,9 +39,9 @@ extends CommandArgument {
             this.showPage(sender, label, 1);
             return true;
         }
-        Integer page = Ints.tryParse((String)args[1]);
+        Integer page = Ints.tryParse(args[1]);
         if (page == null) {
-            sender.sendMessage((Object)ChatColor.RED + "'" + args[1] + "' is not a valid number.");
+            sender.sendMessage(ChatColor.RED + "'" + args[1] + "' is not a valid number.");
             return true;
         }
         this.showPage(sender, label, page);
@@ -56,24 +56,24 @@ extends CommandArgument {
             ArrayListMultimap pages = ArrayListMultimap.create();
             for (CommandArgument argument : this.executor.getArguments()) {
                 String permission;
-                if (argument.equals((Object)this) || (permission = argument.getPermission()) != null && !sender.hasPermission(permission) || argument.isPlayerOnly() && !isPlayer) continue;
-                pages.get((Object)val).add(new Text((Object)ChatColor.YELLOW + "  /" + label + ' ' + argument.getName() + (Object)ChatColor.WHITE + " - " + (Object)ChatColor.GREEN + argument.getDescription()).setColor(ChatColor.GRAY).setClick(ClickAction.SUGGEST_COMMAND, "/" + label + " " + argument.getName()));
+                if (argument.equals(this) || (permission = argument.getPermission()) != null && !sender.hasPermission(permission) || argument.isPlayerOnly() && !isPlayer) continue;
+                pages.get(val).add(new Text(ChatColor.YELLOW + "  /" + label + ' ' + argument.getName() + ChatColor.WHITE + " - " + ChatColor.GREEN + argument.getDescription()).setColor(ChatColor.GRAY).setClick(ClickAction.SUGGEST_COMMAND, "/" + label + " " + argument.getName()));
                 if (++count % 10 != 0) continue;
                 ++val;
             }
-            this.pages = ImmutableMultimap.copyOf((Multimap)pages);
+            this.pages = ImmutableMultimap.copyOf(pages);
         }
         int totalPageCount = this.pages.size() / 10 + 1;
         if (pageNumber < 1) {
-            sender.sendMessage((Object)ChatColor.RED + "You cannot view a page less than 1.");
+            sender.sendMessage(ChatColor.RED + "You cannot view a page less than 1.");
             return;
         }
         if (pageNumber > totalPageCount) {
-            sender.sendMessage((Object)ChatColor.RED + "There are only " + totalPageCount + " pages.");
+            sender.sendMessage(ChatColor.RED + "There are only " + totalPageCount + " pages.");
             return;
         }
         sender.sendMessage(ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH + "----------------------------------------------------");
-        sender.sendMessage((Object)ChatColor.YELLOW + "" + ChatColor.BOLD + " Faction Help " + (Object)ChatColor.GRAY + "(" + pageNumber + " out of " + totalPageCount + " pages)");
+        sender.sendMessage(ChatColor.YELLOW + "" + ChatColor.BOLD + " Faction Help " + ChatColor.GRAY + "(" + pageNumber + " out of " + totalPageCount + " pages)");
         sender.sendMessage(" ");
         for (Text message : this.pages.get(pageNumber)) {
             message.send(sender);
@@ -81,7 +81,7 @@ extends CommandArgument {
         //sender.sendMessage((Object)ChatColor.GRAY + " Use " + (Object)ChatColor.GREEN + '/' + label + ' ' + this.getName() + " <#>" + (Object)ChatColor.GRAY + " to view other pages.");
         //if (pageNumber == 1) {
         	sender.sendMessage(" ");
-        	sender.sendMessage(ChatColor.GRAY + " » " + (Object)ChatColor.YELLOW + "You are currently on page " + ChatColor.GREEN + pageNumber + "/" + ChatColor.GREEN + totalPageCount);
+        	sender.sendMessage(ChatColor.GRAY + " » " + ChatColor.YELLOW + "You are currently on page " + ChatColor.GREEN + pageNumber + "/" + ChatColor.GREEN + totalPageCount);
             //sender.sendMessage((Object)ChatColor.GRAY + "Click a command to '" + (Object)ChatColor.ITALIC + "instantly" + (Object)ChatColor.GRAY + "' preform it.");
         
         sender.sendMessage(ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH + "----------------------------------------------------");

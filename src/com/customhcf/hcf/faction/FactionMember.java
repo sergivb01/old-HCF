@@ -42,7 +42,7 @@ implements ConfigurationSerializable {
     }
 
     public String getName() {
-        OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer((UUID)this.uniqueID);
+        OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(this.uniqueID);
         return offlinePlayer.hasPlayedBefore() || offlinePlayer.isOnline() ? offlinePlayer.getName() : null;
     }
 
@@ -55,7 +55,7 @@ implements ConfigurationSerializable {
     }
 
     public void setChatChannel(ChatChannel chatChannel) {
-        Preconditions.checkNotNull((Object)((Object)chatChannel), (Object)"ChatChannel cannot be null");
+        Preconditions.checkNotNull(chatChannel, "ChatChannel cannot be null");
         this.chatChannel = chatChannel;
     }
 
@@ -68,7 +68,7 @@ implements ConfigurationSerializable {
     }
 
     public Player toOnlinePlayer() {
-        return Bukkit.getPlayer((UUID)this.uniqueID);
+        return Bukkit.getPlayer(this.uniqueID);
     }
 }
 

@@ -38,16 +38,16 @@ extends CommandArgument {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length < 2) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
             return true;
         }
         Faction faction = this.plugin.getFactionManager().getFaction(args[1]);
         if (!(faction instanceof EventFaction)) {
-            sender.sendMessage((Object)ChatColor.RED + "There is not an event faction named '" + args[1] + "'.");
+            sender.sendMessage(ChatColor.RED + "There is not an event faction named '" + args[1] + "'.");
             return true;
         }
         if (this.plugin.getTimerManager().eventTimer.tryContesting((EventFaction)faction, sender)) {
-            sender.sendMessage((Object)ChatColor.YELLOW + "Successfully contested " + faction.getName() + '.');
+            sender.sendMessage(ChatColor.YELLOW + "Successfully contested " + faction.getName() + '.');
         }
         return true;
     }

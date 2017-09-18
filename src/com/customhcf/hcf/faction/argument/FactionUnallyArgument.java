@@ -48,21 +48,21 @@ extends CommandArgument {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage((Object)ChatColor.RED + "This command is only executable by players.");
+            sender.sendMessage(ChatColor.RED + "This command is only executable by players.");
             return true;
         }
         if (args.length < 2) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
             return true;
         }
         Player player = (Player)sender;
         PlayerFaction playerFaction = this.plugin.getFactionManager().getPlayerFaction(player);
         if (playerFaction == null) {
-            sender.sendMessage((Object)ChatColor.RED + "You are not in a faction.");
+            sender.sendMessage(ChatColor.RED + "You are not in a faction.");
             return true;
         }
         if (playerFaction.getMember(player.getUniqueId()).getRole() == Role.MEMBER) {
-            sender.sendMessage((Object)ChatColor.RED + "You must be a faction officer to edit relations.");
+            sender.sendMessage(ChatColor.RED + "You must be a faction officer to edit relations.");
             return true;
         }
         Relation relation = Relation.ALLY;
@@ -70,31 +70,31 @@ extends CommandArgument {
         if (args[1].equalsIgnoreCase("all")) {
             List<PlayerFaction> allies = playerFaction.getAlliedFactions();
             if (allies.isEmpty()) {
-                sender.sendMessage((Object)ChatColor.RED + "Your faction has no allies.");
+                sender.sendMessage(ChatColor.RED + "Your faction has no allies.");
                 return true;
             }
             targetFactions.addAll(allies);
         } else {
             Faction searchedFaction = this.plugin.getFactionManager().getContainingFaction(args[1]);
             if (!(searchedFaction instanceof PlayerFaction)) {
-                sender.sendMessage((Object)ChatColor.RED + "Player faction named or containing member with IGN or UUID " + args[1] + " not found.");
+                sender.sendMessage(ChatColor.RED + "Player faction named or containing member with IGN or UUID " + args[1] + " not found.");
                 return true;
             }
             targetFactions.add((PlayerFaction)searchedFaction);
         }
         for (PlayerFaction targetFaction : targetFactions) {
             if (playerFaction.getRelations().remove(targetFaction.getUniqueID()) == null || targetFaction.getRelations().remove(playerFaction.getUniqueID()) == null) {
-                sender.sendMessage((Object)ChatColor.RED + "Your faction is not " + relation.getDisplayName() + (Object)ChatColor.RED + " with " + targetFaction.getDisplayName(playerFaction) + (Object)ChatColor.RED + '.');
+                sender.sendMessage(ChatColor.RED + "Your faction is not " + relation.getDisplayName() + ChatColor.RED + " with " + targetFaction.getDisplayName(playerFaction) + ChatColor.RED + '.');
                 return true;
             }
             FactionRelationRemoveEvent event = new FactionRelationRemoveEvent(playerFaction, targetFaction, Relation.ALLY);
-            Bukkit.getPluginManager().callEvent((Event)event);
+            Bukkit.getPluginManager().callEvent(event);
             if (event.isCancelled()) {
-                sender.sendMessage((Object)ChatColor.RED + "Could not drop " + relation.getDisplayName() + " with " + targetFaction.getDisplayName(playerFaction) + (Object)ChatColor.RED + ".");
+                sender.sendMessage(ChatColor.RED + "Could not drop " + relation.getDisplayName() + " with " + targetFaction.getDisplayName(playerFaction) + ChatColor.RED + ".");
                 return true;
             }
-            playerFaction.broadcast((Object)ChatColor.YELLOW + "Your faction has broken its " + relation.getDisplayName() + (Object)ChatColor.YELLOW + " with " + targetFaction.getDisplayName(playerFaction) + (Object)ChatColor.YELLOW + '.');
-            targetFaction.broadcast((Object)ChatColor.YELLOW + playerFaction.getDisplayName(targetFaction) + (Object)ChatColor.YELLOW + " has dropped their " + relation.getDisplayName() + (Object)ChatColor.YELLOW + " with your faction.");
+            playerFaction.broadcast(ChatColor.YELLOW + "Your faction has broken its " + relation.getDisplayName() + ChatColor.YELLOW + " with " + targetFaction.getDisplayName(playerFaction) + ChatColor.YELLOW + '.');
+            targetFaction.broadcast(ChatColor.YELLOW + playerFaction.getDisplayName(targetFaction) + ChatColor.YELLOW + " has dropped their " + relation.getDisplayName() + ChatColor.YELLOW + " with your faction.");
         }
         return true;
     }
@@ -108,7 +108,7 @@ extends CommandArgument {
         if (playerFaction == null) {
             return Collections.emptyList();
         }
-        return Lists.newArrayList((Iterable)Iterables.concat(COMPLETIONS, (Iterable)playerFaction.getAlliedFactions().stream().map(Faction::getName).collect(Collectors.toList())));
+        return Lists.newArrayList(Iterables.concat(COMPLETIONS, (Iterable)playerFaction.getAlliedFactions().stream().map(Faction::getName).collect(Collectors.toList())));
     }
 }
 

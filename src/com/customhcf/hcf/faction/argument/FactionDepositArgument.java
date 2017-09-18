@@ -37,17 +37,17 @@ extends CommandArgument {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Integer amount;
         if (!(sender instanceof Player)) {
-            sender.sendMessage((Object)ChatColor.RED + "This command is only executable by players.");
+            sender.sendMessage(ChatColor.RED + "This command is only executable by players.");
             return true;
         }
         if (args.length < 2) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
             return true;
         }
         Player player = (Player)sender;
         PlayerFaction playerFaction = this.plugin.getFactionManager().getPlayerFaction(player);
         if (playerFaction == null) {
-            sender.sendMessage((Object)ChatColor.RED + "You are not in a faction.");
+            sender.sendMessage(ChatColor.RED + "You are not in a faction.");
             return true;
         }
         UUID uuid = player.getUniqueId();
@@ -55,23 +55,23 @@ extends CommandArgument {
         if (args[1].equalsIgnoreCase("all")) {
             amount = playerBalance;
         } else {
-            amount = Ints.tryParse((String)args[1]);
+            amount = Ints.tryParse(args[1]);
             if (amount == null) {
-                sender.sendMessage((Object)ChatColor.RED + "'" + args[1] + "' is not a valid number.");
+                sender.sendMessage(ChatColor.RED + "'" + args[1] + "' is not a valid number.");
                 return true;
             }
         }
         if (amount <= 0) {
-            sender.sendMessage((Object)ChatColor.RED + "Amount must be positive.");
+            sender.sendMessage(ChatColor.RED + "Amount must be positive.");
             return true;
         }
         if (playerBalance < amount) {
-            sender.sendMessage((Object)ChatColor.RED + "You need at least " + '$' + JavaUtils.format((Number)amount) + " to do this, you only have " + '$' + JavaUtils.format((Number)playerBalance) + '.');
+            sender.sendMessage(ChatColor.RED + "You need at least " + '$' + JavaUtils.format(amount) + " to do this, you only have " + '$' + JavaUtils.format(playerBalance) + '.');
             return true;
         }
         this.plugin.getEconomyManager().subtractBalance(uuid, amount);
         playerFaction.setBalance(playerFaction.getBalance() + amount);
-        playerFaction.broadcast((Object)Relation.MEMBER.toChatColour() + playerFaction.getMember(player).getRole().getAstrix() + sender.getName() + (Object)ChatColor.YELLOW + " has deposited " + (Object)ChatColor.GREEN + '$' + JavaUtils.format((Number)amount) + (Object)ChatColor.YELLOW + " into the faction balance.");
+        playerFaction.broadcast(Relation.MEMBER.toChatColour() + playerFaction.getMember(player).getRole().getAstrix() + sender.getName() + ChatColor.YELLOW + " has deposited " + ChatColor.GREEN + '$' + JavaUtils.format(amount) + ChatColor.YELLOW + " into the faction balance.");
         return true;
     }
 

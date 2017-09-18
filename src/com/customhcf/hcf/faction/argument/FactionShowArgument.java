@@ -38,24 +38,24 @@ extends CommandArgument {
         Faction playerFaction = null;
         if (args.length < 2) {
             if (!(sender instanceof Player)) {
-                sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+                sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
                 return true;
             }
             namedFaction = this.plugin.getFactionManager().getPlayerFaction(((Player)sender).getUniqueId());
             if (namedFaction == null) {
-                sender.sendMessage((Object)ChatColor.RED + "You are not in a faction.");
+                sender.sendMessage(ChatColor.RED + "You are not in a faction.");
                 return true;
             }
         } else {
             namedFaction = this.plugin.getFactionManager().getFaction(args[1]);
             playerFaction = this.plugin.getFactionManager().getFaction(args[1]);
-            if (Bukkit.getPlayer((String)args[1]) != null) {
-                playerFaction = this.plugin.getFactionManager().getPlayerFaction(Bukkit.getPlayer((String)args[1]));
-            } else if (Bukkit.getOfflinePlayer((String)args[1]).hasPlayedBefore()) {
-                playerFaction = this.plugin.getFactionManager().getPlayerFaction(Bukkit.getOfflinePlayer((String)args[1]).getUniqueId());
+            if (Bukkit.getPlayer(args[1]) != null) {
+                playerFaction = this.plugin.getFactionManager().getPlayerFaction(Bukkit.getPlayer(args[1]));
+            } else if (Bukkit.getOfflinePlayer(args[1]).hasPlayedBefore()) {
+                playerFaction = this.plugin.getFactionManager().getPlayerFaction(Bukkit.getOfflinePlayer(args[1]).getUniqueId());
             }
             if (namedFaction == null && playerFaction == null) {
-                sender.sendMessage((Object)ChatColor.RED + "Faction named or containing member with IGN or UUID " + args[1] + " not found.");
+                sender.sendMessage(ChatColor.RED + "Faction named or containing member with IGN or UUID " + args[1] + " not found.");
                 return true;
             }
         }

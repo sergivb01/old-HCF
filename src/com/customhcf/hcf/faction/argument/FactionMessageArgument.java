@@ -48,11 +48,11 @@ extends CommandArgument {
             sender.sendMessage(ChatColor.RED + "You are not in a faction.");
             return true;
         }
-        String format = String.format(ChatChannel.FACTION.getRawFormat(player), new Object[] { "", StringUtils.join((Object[])args, ' ', 1, args.length) });
+        String format = String.format(ChatChannel.FACTION.getRawFormat(player), "", StringUtils.join(args, ' ', 1, args.length));
         Iterator<Player> iterator = playerFaction.getOnlinePlayers().iterator();
         while (iterator.hasNext())
         {
-            Player target = (Player)iterator.next();
+            Player target = iterator.next();
             target.sendMessage(format);
         }
         return true;

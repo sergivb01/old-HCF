@@ -43,7 +43,7 @@ public class LandMap {
         int maximumZ = locationZ + FACTION_MAP_RADIUS_BLOCKS;
         LinkedHashSet<Claim> board = new LinkedHashSet<Claim>();
         if (visualType != VisualType.CLAIM_MAP) {
-            player.sendMessage((Object)ChatColor.RED + "Not supported: " + visualType.name().toLowerCase() + '.');
+            player.sendMessage(ChatColor.RED + "Not supported: " + visualType.name().toLowerCase() + '.');
             return false;
         }
         for (int x = minimumX; x <= maximumX; ++x) {
@@ -54,7 +54,7 @@ public class LandMap {
             }
         }
         if (board.isEmpty()) {
-            player.sendMessage((Object)ChatColor.RED + "No claims are in your visual range to display.");
+            player.sendMessage(ChatColor.RED + "No claims are in your visual range to display.");
             return false;
         }
         for (Claim claim2 : board) {
@@ -68,14 +68,14 @@ public class LandMap {
             }
             LinkedHashMap<Location, VisualBlockData> dataMap = plugin.getVisualiseHandler().generate(player, shown, visualType, true);
             if (dataMap.isEmpty()) continue;
-            String materialName = (Object)ChatColor.RED + "Error!";
+            String materialName = ChatColor.RED + "Error!";
             for (VisualBlockData visualBlockData : dataMap.values()) {
                 if (visualBlockData.getItemType() == Material.STAINED_GLASS) continue;
                 materialName = BasePlugin.getPlugin().getItemDb().getName(new ItemStack(visualBlockData.getItemType()));
                 break;
             }
             if (!inform) continue;
-            player.sendMessage(claim2.getFaction().getDisplayName((CommandSender)player) + (Object)ChatColor.YELLOW + " owns claim displayed by the " + (Object)ChatColor.AQUA + materialName);
+            player.sendMessage(claim2.getFaction().getDisplayName(player) + ChatColor.YELLOW + " owns claim displayed by the " + ChatColor.AQUA + materialName);
         }
         return true;
     }
@@ -88,12 +88,12 @@ public class LandMap {
                 Location atPos = origin.clone().add((double)x, 0.0, (double)z);
                 Faction factionAtPos = factionManager.getFactionAt(atPos);
                 if (Objects.equals(factionAtPos, playerFaction) || !(factionAtPos instanceof PlayerFaction)) {
-                    return BukkitUtils.getHighestLocation((Location)atPos, (Location)atPos);
+                    return BukkitUtils.getHighestLocation(atPos, atPos);
                 }
                 Location atNeg = origin.clone().add((double)x, 0.0, (double)z);
                 Faction factionAtNeg = factionManager.getFactionAt(atNeg);
                 if (!Objects.equals(factionAtNeg, playerFaction) && factionAtNeg instanceof PlayerFaction) continue;
-                return BukkitUtils.getHighestLocation((Location)atNeg, (Location)atNeg);
+                return BukkitUtils.getHighestLocation(atNeg, atNeg);
             }
         }
         return null;

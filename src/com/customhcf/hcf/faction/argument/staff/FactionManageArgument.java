@@ -42,7 +42,7 @@ public class FactionManageArgument
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length < 2) {
-            sender.sendMessage((Object) ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
             return true;
         }
 
@@ -54,11 +54,11 @@ public class FactionManageArgument
 //        }
         this.faction = this.plugin.getFactionManager().getContainingFaction(args[1]);
         if (this.faction == null) {
-            sender.sendMessage((Object) ChatColor.RED + "Faction named or containing member with IGN or UUID " + args[1] + " not found.");
+            sender.sendMessage(ChatColor.RED + "Faction named or containing member with IGN or UUID " + args[1] + " not found.");
             return true;
         }
         if (!(this.faction instanceof PlayerFaction)) {
-            sender.sendMessage((Object) ChatColor.RED + "You can only manage player factions.");
+            sender.sendMessage(ChatColor.RED + "You can only manage player factions.");
             return true;
         }
         Page1((Player)sender);
@@ -66,7 +66,7 @@ public class FactionManageArgument
     }
 
     public void Page1(final Player sender) {
-        Player player = (Player) sender;
+        Player player = sender;
         this.page1 = Bukkit.createInventory(null, 27, "Faction Manager");
         this.page2 = Bukkit.createInventory(null, 36, "Faction Manager | DTR");
         player.openInventory(page1);

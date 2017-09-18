@@ -66,7 +66,7 @@ implements Listener {
             Faction factionAt = HCF.getPlugin().getFactionManager().getFactionAt(location);
             if (!(factionAt instanceof ClaimableFaction)) {
                 result = true;
-            } else if (factionAt instanceof Raidable && ((Raidable)((Object)factionAt)).isRaidable()) {
+            } else if (factionAt instanceof Raidable && ((Raidable) factionAt).isRaidable()) {
                 result = true;
             }
             if (player != null && factionAt instanceof PlayerFaction && (playerFaction = HCF.getPlugin().getFactionManager().getPlayerFaction(player)) != null && playerFaction.equals(factionAt)) {
@@ -80,7 +80,7 @@ implements Listener {
                     return false;
                 }
             } else if (denyMessage != null && player != null) {
-                player.sendMessage(String.format(denyMessage, factionAt.getDisplayName((CommandSender)player)));
+                player.sendMessage(String.format(denyMessage, factionAt.getDisplayName(player)));
             }
         }
         return result;
@@ -89,10 +89,7 @@ implements Listener {
     public static boolean canBuildAt(Location from, Location to) {
         Faction fromFactionAt;
         Faction toFactionAt = HCF.getPlugin().getFactionManager().getFactionAt(to);
-        if (toFactionAt instanceof Raidable && !((Raidable)((Object)toFactionAt)).isRaidable() && !toFactionAt.equals(fromFactionAt = HCF.getPlugin().getFactionManager().getFactionAt(from))) {
-            return false;
-        }
-        return true;
+        return !(toFactionAt instanceof Raidable) || ((Raidable) toFactionAt).isRaidable() || toFactionAt.equals(fromFactionAt = HCF.getPlugin().getFactionManager().getFactionAt(from));
     }
 
     private void handleMove(PlayerMoveEvent event, PlayerClaimEnterEvent.EnterCause enterCause) {
@@ -107,7 +104,7 @@ implements Listener {
         Faction fromFaction = this.plugin.getFactionManager().getFactionAt(from);
         if (!Objects.equals(fromFaction, toFaction = this.plugin.getFactionManager().getFactionAt(to))) {
             PlayerClaimEnterEvent calledEvent = new PlayerClaimEnterEvent(player, from, to, fromFaction, toFaction, enterCause);
-            Bukkit.getPluginManager().callEvent((Event)calledEvent);
+            Bukkit.getPluginManager().callEvent(calledEvent);
             cancelled = calledEvent.isCancelled();
         } else if (toFaction instanceof CapturableFaction) {
             CapturableFaction capturableFaction = (CapturableFaction)toFaction;
@@ -118,13 +115,13 @@ implements Listener {
                 boolean containsTo = cuboid.contains(to);
                 if (containsFrom && !containsTo) {
                     CaptureZoneLeaveEvent calledEvent2 = new CaptureZoneLeaveEvent(player, capturableFaction, captureZone);
-                    Bukkit.getPluginManager().callEvent((Event)calledEvent2);
+                    Bukkit.getPluginManager().callEvent(calledEvent2);
                     cancelled = calledEvent2.isCancelled();
                     break;
                 }
                 if (containsFrom || !containsTo) continue;
                 CaptureZoneEnterEvent calledEvent3 = new CaptureZoneEnterEvent(player, capturableFaction, captureZone);
-                Bukkit.getPluginManager().callEvent((Event)calledEvent3);
+                Bukkit.getPluginManager().callEvent(calledEvent3);
                 cancelled = calledEvent3.isCancelled();
                 break;
             }
@@ -146,7 +143,7 @@ implements Listener {
 
     @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGHEST)
     public void onPlayerMove(PlayerTeleportEvent event) {
-        this.handleMove((PlayerMoveEvent)event, PlayerClaimEnterEvent.EnterCause.TELEPORT);
+        this.handleMove(event, PlayerClaimEnterEvent.EnterCause.TELEPORT);
     }
 
     @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGH)
@@ -165,7 +162,7 @@ implements Listener {
         Faction targetFaction;
         Block block = event.getBlock();
         Block targetBlock = block.getRelative(event.getDirection(), event.getLength() + 1);
-        if ((targetBlock.isEmpty() || targetBlock.isLiquid()) && (targetFaction = this.plugin.getFactionManager().getFactionAt(targetBlock.getLocation())) instanceof Raidable && !((Raidable)((Object)targetFaction)).isRaidable() && !targetFaction.equals(this.plugin.getFactionManager().getFactionAt(block))) {
+        if ((targetBlock.isEmpty() || targetBlock.isLiquid()) && (targetFaction = this.plugin.getFactionManager().getFactionAt(targetBlock.getLocation())) instanceof Raidable && !((Raidable) targetFaction).isRaidable() && !targetFaction.equals(this.plugin.getFactionManager().getFactionAt(block))) {
             event.setCancelled(true);
         }
     }
@@ -180,7 +177,7 @@ implements Listener {
         if (!retractBlock.isEmpty() && !retractBlock.isLiquid()) {
             Block block = event.getBlock();
             Faction targetFaction = this.plugin.getFactionManager().getFactionAt(retractLocation);
-            if (targetFaction instanceof Raidable && !((Raidable)((Object)targetFaction)).isRaidable() && !targetFaction.equals(this.plugin.getFactionManager().getFactionAt(block))) {
+            if (targetFaction instanceof Raidable && !((Raidable) targetFaction).isRaidable() && !targetFaction.equals(this.plugin.getFactionManager().getFactionAt(block))) {
                 event.setCancelled(true);
             }
         }
@@ -239,7 +236,7 @@ implements Listener {
                     if (playerFaction != null && playerFaction.equals(factionAt)) {
                         return;
                     }
-                    player.sendMessage((Object)ChatColor.YELLOW + "Portal would have created portal in territory of " + factionAt.getDisplayName((CommandSender)player) + (Object)ChatColor.YELLOW + '.');
+                    player.sendMessage(ChatColor.YELLOW + "Portal would have created portal in territory of " + factionAt.getDisplayName(player) + ChatColor.YELLOW + '.');
                     event.setCancelled(true);
                 }
             }
@@ -270,7 +267,7 @@ implements Listener {
             if (playerFactionAt.isSafezone() && cause != EntityDamageEvent.DamageCause.SUICIDE) {
                 event.setCancelled(true);
             }
-            if ((attacker = BukkitUtils.getFinalAttacker((EntityDamageEvent)event, (boolean)true)) != null) {
+            if ((attacker = BukkitUtils.getFinalAttacker(event, true)) != null) {
                 PlayerFaction attackerFaction;
                 Faction attackerFactionAt = this.plugin.getFactionManager().getFactionAt(attacker.getLocation());
                 if (attackerFactionAt.isSafezone()) {
@@ -304,8 +301,8 @@ implements Listener {
         AnimalTamer owner;
         Horse horse;
         Entity entered = event.getEntered();
-        if (entered instanceof Player && (vehicle = event.getVehicle()) instanceof Horse && (owner = (horse = (Horse)event.getVehicle()).getOwner()) != null && !owner.equals((Object)entered)) {
-            ((Player)entered).sendMessage((Object)ChatColor.YELLOW + "You cannot enter a Horse that belongs to " + (Object)ChatColor.RED + owner.getName() + (Object)ChatColor.YELLOW + '.');
+        if (entered instanceof Player && (vehicle = event.getVehicle()) instanceof Horse && (owner = (horse = (Horse)event.getVehicle()).getOwner()) != null && !owner.equals(entered)) {
+            ((Player)entered).sendMessage(ChatColor.YELLOW + "You cannot enter a Horse that belongs to " + ChatColor.RED + owner.getName() + ChatColor.YELLOW + '.');
             event.setCancelled(true);
         }
     }
@@ -321,7 +318,7 @@ implements Listener {
     @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGHEST)
     public void onPotionSplash(PotionSplashEvent event) {
         ThrownPotion potion = event.getEntity();
-        if (!BukkitUtils.isDebuff((ThrownPotion)potion)) {
+        if (!BukkitUtils.isDebuff(potion)) {
             return;
         }
         Faction factionAt = this.plugin.getFactionManager().getFactionAt(potion.getLocation());
@@ -334,7 +331,7 @@ implements Listener {
             Player player = (Player)source;
             for (LivingEntity affected : event.getAffectedEntities()) {
                 Player target;
-                if (!(affected instanceof Player) || player.equals((Object)affected) || (target = (Player)affected).equals((Object)source) || !this.plugin.getFactionManager().getFactionAt(target.getLocation()).isSafezone()) continue;
+                if (!(affected instanceof Player) || player.equals(affected) || (target = (Player)affected).equals(source) || !this.plugin.getFactionManager().getFactionAt(target.getLocation()).isSafezone()) continue;
                 event.setIntensity(affected, 0.0);
             }
         }
@@ -362,16 +359,16 @@ implements Listener {
         }
         Block block = event.getClickedBlock();
         Action action = event.getAction();
-        if (action == Action.PHYSICAL && !FactionsCoreListener.attemptBuild((Entity)event.getPlayer(), block.getLocation(), null)) {
+        if (action == Action.PHYSICAL && !FactionsCoreListener.attemptBuild(event.getPlayer(), block.getLocation(), null)) {
             event.setCancelled(true);
         }
         if (action == Action.RIGHT_CLICK_BLOCK) {
             boolean canBuild;
-            boolean bl = canBuild = !BLOCK_INTERACTABLES.contains((Object)block.getType());
+            boolean bl = canBuild = !BLOCK_INTERACTABLES.contains(block.getType());
             if (canBuild) {
                 Material itemType;
                 Material material = itemType = event.hasItem() ? event.getItem().getType() : null;
-                if (itemType != null && ITEM_BLOCK_INTERACTABLES.containsKey((Object)itemType) && ITEM_BLOCK_INTERACTABLES.get((Object)itemType).contains((Object)event.getClickedBlock().getType())) {
+                if (itemType != null && ITEM_BLOCK_INTERACTABLES.containsKey(itemType) && ITEM_BLOCK_INTERACTABLES.get(itemType).contains(event.getClickedBlock().getType())) {
                     canBuild = false;
                 } else {
                     Cauldron cauldron;
@@ -383,7 +380,7 @@ implements Listener {
             }
             if(!block.getType().equals(Material.WORKBENCH)) {
 
-                if (!canBuild && !FactionsCoreListener.attemptBuild((Entity) event.getPlayer(), block.getLocation(), (Object) ChatColor.YELLOW + "You cannot do this in the territory of %1$s" + (Object) ChatColor.YELLOW + '.', true)) {
+                if (!canBuild && !FactionsCoreListener.attemptBuild(event.getPlayer(), block.getLocation(), ChatColor.YELLOW + "You cannot do this in the territory of %1$s" + ChatColor.YELLOW + '.', true)) {
                     event.setCancelled(true);
                 }
             }
@@ -393,7 +390,7 @@ implements Listener {
     @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGH)
     public void onBlockBurn(BlockBurnEvent event) {
         Faction factionAt = this.plugin.getFactionManager().getFactionAt(event.getBlock().getLocation());
-        if (factionAt instanceof WarzoneFaction || factionAt instanceof Raidable && !((Raidable)((Object)factionAt)).isRaidable()) {
+        if (factionAt instanceof WarzoneFaction || factionAt instanceof Raidable && !((Raidable) factionAt).isRaidable()) {
             event.setCancelled(true);
         }
     }
@@ -437,28 +434,28 @@ implements Listener {
         if(factionAt instanceof GlowstoneFaction && event.getBlock().getType()  == Material.GLOWSTONE){
         	return;
         }
-        if (!FactionsCoreListener.attemptBuild((Entity)event.getPlayer(), event.getBlock().getLocation(), (Object)ChatColor.YELLOW + "You cannot build in the territory of %1$s" + (Object)ChatColor.YELLOW + '.')) {
+        if (!FactionsCoreListener.attemptBuild(event.getPlayer(), event.getBlock().getLocation(), ChatColor.YELLOW + "You cannot build in the territory of %1$s" + ChatColor.YELLOW + '.')) {
             event.setCancelled(true);
         }
     }
 
     @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGH)
     public void onBlockPlace(BlockPlaceEvent event) {
-        if (!FactionsCoreListener.attemptBuild((Entity)event.getPlayer(), event.getBlockPlaced().getLocation(), (Object)ChatColor.YELLOW + "You cannot build in the territory of %1$s" + (Object)ChatColor.YELLOW + '.')) {
+        if (!FactionsCoreListener.attemptBuild(event.getPlayer(), event.getBlockPlaced().getLocation(), ChatColor.YELLOW + "You cannot build in the territory of %1$s" + ChatColor.YELLOW + '.')) {
             event.setCancelled(true);
         }
     }
 
     @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGH)
     public void onBucketFill(PlayerBucketFillEvent event) {
-        if (!FactionsCoreListener.attemptBuild((Entity)event.getPlayer(), event.getBlockClicked().getLocation(), (Object)ChatColor.YELLOW + "You cannot build in the territory of %1$s" + (Object)ChatColor.YELLOW + '.')) {
+        if (!FactionsCoreListener.attemptBuild(event.getPlayer(), event.getBlockClicked().getLocation(), ChatColor.YELLOW + "You cannot build in the territory of %1$s" + ChatColor.YELLOW + '.')) {
             event.setCancelled(true);
         }
     }
 
     @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGH)
     public void onBucketEmpty(PlayerBucketEmptyEvent event) {
-        if (!FactionsCoreListener.attemptBuild((Entity)event.getPlayer(), event.getBlockClicked().getLocation(), (Object)ChatColor.YELLOW + "You cannot build in the territory of %1$s" + (Object)ChatColor.YELLOW + '.')) {
+        if (!FactionsCoreListener.attemptBuild(event.getPlayer(), event.getBlockClicked().getLocation(), ChatColor.YELLOW + "You cannot build in the territory of %1$s" + ChatColor.YELLOW + '.')) {
             event.setCancelled(true);
         }
     }
@@ -466,14 +463,14 @@ implements Listener {
     @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGH)
     public void onHangingBreakByEntity(HangingBreakByEntityEvent event) {
         Entity remover = event.getRemover();
-        if (remover instanceof Player && !FactionsCoreListener.attemptBuild(remover, event.getEntity().getLocation(), (Object)ChatColor.YELLOW + "You cannot build in the territory of %1$s" + (Object)ChatColor.YELLOW + '.')) {
+        if (remover instanceof Player && !FactionsCoreListener.attemptBuild(remover, event.getEntity().getLocation(), ChatColor.YELLOW + "You cannot build in the territory of %1$s" + ChatColor.YELLOW + '.')) {
             event.setCancelled(true);
         }
     }
 
     @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGH)
     public void onHangingPlace(HangingPlaceEvent event) {
-        if (!FactionsCoreListener.attemptBuild((Entity)event.getPlayer(), event.getEntity().getLocation(), (Object)ChatColor.YELLOW + "You cannot build in the territory of %1$s" + (Object)ChatColor.YELLOW + '.')) {
+        if (!FactionsCoreListener.attemptBuild(event.getPlayer(), event.getEntity().getLocation(), ChatColor.YELLOW + "You cannot build in the territory of %1$s" + ChatColor.YELLOW + '.')) {
             event.setCancelled(true);
         }
     }
@@ -482,7 +479,7 @@ implements Listener {
     public void onHangingDamageByEntity(EntityDamageByEntityEvent event) {
         Player attacker;
         Entity entity = event.getEntity();
-        if (entity instanceof Hanging && !FactionsCoreListener.attemptBuild((Entity)(attacker = BukkitUtils.getFinalAttacker((EntityDamageEvent)event, (boolean)false)), entity.getLocation(), (Object)ChatColor.YELLOW + "You cannot build in the territory of %1$s" + (Object)ChatColor.YELLOW + '.')) {
+        if (entity instanceof Hanging && !FactionsCoreListener.attemptBuild(attacker = BukkitUtils.getFinalAttacker(event, false), entity.getLocation(), ChatColor.YELLOW + "You cannot build in the territory of %1$s" + ChatColor.YELLOW + '.')) {
             event.setCancelled(true);
         }
     }
@@ -490,13 +487,13 @@ implements Listener {
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOW)
     public void onHangingInteractByPlayer(final PlayerInteractEntityEvent event) {
         final Entity entity = event.getRightClicked();
-        if (entity instanceof Hanging && !attemptBuild((Entity)event.getPlayer(), entity.getLocation(), ChatColor.YELLOW + "You cannot build in the territory of %1$s" + ChatColor.YELLOW + '.')) {
+        if (entity instanceof Hanging && !attemptBuild(event.getPlayer(), entity.getLocation(), ChatColor.YELLOW + "You cannot build in the territory of %1$s" + ChatColor.YELLOW + '.')) {
             event.setCancelled(true);
         }
     }
 
     static {
-        ITEM_BLOCK_INTERACTABLES = ImmutableMultimap.builder().put((Object)Material.DIAMOND_HOE, (Object)Material.GRASS).put((Object)Material.GOLD_HOE, (Object)Material.GRASS).put((Object)Material.IRON_HOE, (Object)Material.GRASS).put((Object)Material.STONE_HOE, (Object)Material.GRASS).put((Object)Material.WOOD_HOE, (Object)Material.GRASS).build();
-        BLOCK_INTERACTABLES = Sets.immutableEnumSet(Material.BED, new Material[] { Material.BED_BLOCK, Material.BEACON, Material.FENCE_GATE, Material.IRON_DOOR, Material.TRAP_DOOR, Material.WOOD_DOOR, Material.WOODEN_DOOR, Material.IRON_DOOR_BLOCK, Material.CHEST, Material.TRAPPED_CHEST, Material.FURNACE, Material.BURNING_FURNACE, Material.BREWING_STAND, Material.HOPPER, Material.DROPPER, Material.DISPENSER, Material.STONE_BUTTON, Material.WOOD_BUTTON, Material.ENCHANTMENT_TABLE, Material.WORKBENCH, Material.ANVIL, Material.LEVER, Material.FIRE });
+        ITEM_BLOCK_INTERACTABLES = ImmutableMultimap.builder().put(Material.DIAMOND_HOE, Material.GRASS).put(Material.GOLD_HOE, Material.GRASS).put(Material.IRON_HOE, Material.GRASS).put(Material.STONE_HOE, Material.GRASS).put(Material.WOOD_HOE, Material.GRASS).build();
+        BLOCK_INTERACTABLES = Sets.immutableEnumSet(Material.BED, Material.BED_BLOCK, Material.BEACON, Material.FENCE_GATE, Material.IRON_DOOR, Material.TRAP_DOOR, Material.WOOD_DOOR, Material.WOODEN_DOOR, Material.IRON_DOOR_BLOCK, Material.CHEST, Material.TRAPPED_CHEST, Material.FURNACE, Material.BURNING_FURNACE, Material.BREWING_STAND, Material.HOPPER, Material.DROPPER, Material.DISPENSER, Material.STONE_BUTTON, Material.WOOD_BUTTON, Material.ENCHANTMENT_TABLE, Material.WORKBENCH, Material.ANVIL, Material.LEVER, Material.FIRE);
     }
 }

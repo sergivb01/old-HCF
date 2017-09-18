@@ -66,7 +66,7 @@ public class FactionListArgument extends CommandArgument
             public void run() {
                 FactionListArgument.this.showList(page, label, sender);
             }
-        }.runTaskAsynchronously((Plugin)this.plugin);
+        }.runTaskAsynchronously(this.plugin);
         return true;
     }
 
@@ -87,7 +87,7 @@ public class FactionListArgument extends CommandArgument
             }
         }
         final Map<Integer, List<BaseComponent[]>> pages = new HashMap<Integer, List<BaseComponent[]>>();
-        final List<Map.Entry<PlayerFaction, Integer>> sortedMap = (List<Map.Entry<PlayerFaction, Integer>>)MapSorting.sortedValues((Map)factionOnlineMap, (Comparator)Comparator.reverseOrder());
+        final List<Map.Entry<PlayerFaction, Integer>> sortedMap = (List<Map.Entry<PlayerFaction, Integer>>)MapSorting.sortedValues(factionOnlineMap, (Comparator)Comparator.reverseOrder());
         for (final Map.Entry<PlayerFaction, Integer> entry : sortedMap) {
             int currentPage = pages.size();
             List<BaseComponent[]> results = pages.get(currentPage);

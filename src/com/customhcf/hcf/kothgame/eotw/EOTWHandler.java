@@ -60,7 +60,7 @@ public class EOTWHandler {
         }
         if (yes) {
             this.runnable = new EotwRunnable(this.plugin.getServerHandler().getWorldBorder());
-            this.runnable.runTaskTimer((Plugin)this.plugin, 1, 100);
+            this.runnable.runTaskTimer(this.plugin, 1, 100);
         } else if (this.runnable != null) {
             this.runnable.cancel();
             this.runnable = null;
@@ -104,7 +104,7 @@ public class EOTWHandler {
                     if (!(faction instanceof ClaimableFaction)) continue;
                     ClaimableFaction claimableFaction = (ClaimableFaction)faction;
                     for (Claim claims : claimableFaction.getClaims()) {
-                        claimableFaction.removeClaim(claims, (CommandSender)Bukkit.getConsoleSender());
+                        claimableFaction.removeClaim(claims, Bukkit.getConsoleSender());
                     }
                     claimableFaction.getClaims().clear();
                 }
@@ -120,12 +120,12 @@ public class EOTWHandler {
                 return;
             }
             if (elapsedMillis < 0 && elapsedMillis >= - EOTWHandler.EOTW_WARMUP_WAIT_MILLIS) {
-                Bukkit.broadcastMessage(((String)(ChatColor.DARK_RED.toString() + (Object)ChatColor.BOLD + "End Of The World" + (Object)ChatColor.RED + " will start in " + HCF.getRemaining(Math.abs(elapsedMillis), true, false) + '.')));
+                Bukkit.broadcastMessage(ChatColor.DARK_RED.toString() + ChatColor.BOLD + "End Of The World" + ChatColor.RED + " will start in " + HCF.getRemaining(Math.abs(elapsedMillis), true, false) + '.');
                 return;
             }
             for (Player on : Bukkit.getOnlinePlayers()) {
                 if (BorderListener.isWithinBorder(on.getLocation())) continue;
-                on.sendMessage((Object)ChatColor.RED + "EOTW is active and your outside of the border. You will get wither.");
+                on.sendMessage(ChatColor.RED + "EOTW is active and your outside of the border. You will get wither.");
                 on.addPotionEffect(WITHER, true);
             }
             if (HCF.getPlugin().getServerHandler().getWorldBorder() <= 1000) {
@@ -140,9 +140,9 @@ public class EOTWHandler {
                 World.Environment normal = World.Environment.NORMAL;
                 this.borderSize = borderSize = newBorderSize;
                 HCF.getPlugin().getServerHandler().setServerBorder(normal, Integer.valueOf(borderSize));
-                Bukkit.broadcastMessage((String)((Object)ChatColor.RED + "Border has been decreased to " + (Object)ChatColor.RED + newBorderSize + (Object)ChatColor.RED + " blocks."));
+                Bukkit.broadcastMessage(ChatColor.RED + "Border has been decreased to " + ChatColor.RED + newBorderSize + ChatColor.RED + " blocks.");
             } else if ((long)elapsedSeconds % TimeUnit.MINUTES.toSeconds(5) == 0) {
-                Bukkit.broadcastMessage((String)((Object)ChatColor.RED + "Border decreasing to " + (Object)ChatColor.RED + newBorderSize + (Object)ChatColor.RED + " blocks in " + (Object)ChatColor.RED + EOTWHandler.BORDER_DECREASE_TIME_ALERT_WORDS + (Object)ChatColor.DARK_AQUA + '.'));
+                Bukkit.broadcastMessage(ChatColor.RED + "Border decreasing to " + ChatColor.RED + newBorderSize + ChatColor.RED + " blocks in " + ChatColor.RED + EOTWHandler.BORDER_DECREASE_TIME_ALERT_WORDS + ChatColor.DARK_AQUA + '.');
             }
         }
     }

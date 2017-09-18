@@ -30,25 +30,25 @@ extends CommandArgument {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length < 2) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
             return true;
         }
         PlayerFaction playerFaction = this.plugin.getFactionManager().getContainingPlayerFaction(args[1]);
         if (playerFaction == null) {
-            sender.sendMessage((Object)ChatColor.RED + "Faction containing member with IGN or UUID " + args[1] + " not found.");
+            sender.sendMessage(ChatColor.RED + "Faction containing member with IGN or UUID " + args[1] + " not found.");
             return true;
         }
         FactionMember factionMember = playerFaction.getMember(args[1]);
         if (factionMember == null) {
-            sender.sendMessage((Object)ChatColor.RED + "Faction containing member with IGN or UUID " + args[1] + " not found.");
+            sender.sendMessage(ChatColor.RED + "Faction containing member with IGN or UUID " + args[1] + " not found.");
             return true;
         }
         if (factionMember.getRole() != Role.MEMBER) {
-            sender.sendMessage((Object)ChatColor.RED + factionMember.getName() + " is already a " + factionMember.getRole().getName() + '.');
+            sender.sendMessage(ChatColor.RED + factionMember.getName() + " is already a " + factionMember.getRole().getName() + '.');
             return true;
         }
         factionMember.setRole(Role.CAPTAIN);
-        playerFaction.broadcast(ChatColor.GOLD.toString() + (Object)ChatColor.BOLD + sender.getName() + " has been forcefully assigned as a captain.");
+        playerFaction.broadcast(ChatColor.GOLD.toString() + ChatColor.BOLD + sender.getName() + " has been forcefully assigned as a captain.");
         return true;
     }
 

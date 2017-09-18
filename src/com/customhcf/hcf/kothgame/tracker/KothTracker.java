@@ -45,18 +45,18 @@ implements EventTracker {
         }
         int remainingSeconds = (int)(remainingMillis / 1000);
         if (remainingSeconds > 0 && remainingSeconds % 30 == 0) {
-            Bukkit.broadcastMessage((String)((Object)ChatColor.YELLOW + "§8[§6§l" + eventFaction.getEventType().getDisplayName() + "§8] " + (Object)ChatColor.GOLD + "Someone §eis controlling " + (Object)ChatColor.GOLD + captureZone.getDisplayName() + (Object)ChatColor.YELLOW + ". " + (Object)ChatColor.RED + '(' + DateTimeFormats.KOTH_FORMAT.format(remainingMillis) + ')'));
+            Bukkit.broadcastMessage(ChatColor.YELLOW + "§8[§6§l" + eventFaction.getEventType().getDisplayName() + "§8] " + ChatColor.GOLD + "Someone §eis controlling " + ChatColor.GOLD + captureZone.getDisplayName() + ChatColor.YELLOW + ". " + ChatColor.RED + '(' + DateTimeFormats.KOTH_FORMAT.format(remainingMillis) + ')');
         }
     }
 
     @Override
     public void onContest(EventFaction eventFaction, EventTimer eventTimer) {
-        Bukkit.broadcastMessage((String)((Object)ChatColor.YELLOW + "§8[§6§l" + eventFaction.getEventType().getDisplayName() + "§8] " + (Object)ChatColor.GOLD + eventFaction.getName() + (Object)ChatColor.YELLOW + " can now be contested. " + (Object)ChatColor.RED + '(' + DateTimeFormats.KOTH_FORMAT.format(eventTimer.getRemaining()) + ')'));
+        Bukkit.broadcastMessage(ChatColor.YELLOW + "§8[§6§l" + eventFaction.getEventType().getDisplayName() + "§8] " + ChatColor.GOLD + eventFaction.getName() + ChatColor.YELLOW + " can now be contested. " + ChatColor.RED + '(' + DateTimeFormats.KOTH_FORMAT.format(eventTimer.getRemaining()) + ')');
     }
 
     @Override
     public boolean onControlTake(Player player, CaptureZone captureZone) {
-        player.sendMessage((Object)ChatColor.YELLOW + "You are now in control of " + (Object)ChatColor.LIGHT_PURPLE + captureZone.getDisplayName() + (Object)ChatColor.YELLOW + '.');
+        player.sendMessage(ChatColor.YELLOW + "You are now in control of " + ChatColor.LIGHT_PURPLE + captureZone.getDisplayName() + ChatColor.YELLOW + '.');
         return true;
     }
 

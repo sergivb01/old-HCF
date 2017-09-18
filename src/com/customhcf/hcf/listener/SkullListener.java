@@ -44,7 +44,7 @@ implements Listener {
             BlockState state = event.getClickedBlock().getState();
             if (state instanceof Skull) {
                 Skull skull;
-                player.sendMessage((Object)ChatColor.YELLOW + "This head belongs to " + (Object)ChatColor.WHITE + ((skull = (Skull)state).getSkullType() == SkullType.PLAYER && skull.hasOwner() ? skull.getOwner() : new StringBuilder().append("a ").append(WordUtils.capitalizeFully((String)skull.getSkullType().name())).append(" skull").toString()) + (Object)ChatColor.YELLOW + '.');
+                player.sendMessage(ChatColor.YELLOW + "This head belongs to " + ChatColor.WHITE + ((skull = (Skull)state).getSkullType() == SkullType.PLAYER && skull.hasOwner() ? skull.getOwner() : new StringBuilder().append("a ").append(WordUtils.capitalizeFully(skull.getSkullType().name())).append(" skull").toString()) + ChatColor.YELLOW + '.');
             }
         }
     }

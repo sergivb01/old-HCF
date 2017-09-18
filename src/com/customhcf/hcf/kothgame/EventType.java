@@ -18,14 +18,14 @@ public enum EventType
     private final EventTracker eventTracker;
     private final String displayName;
 
-    private EventType(String displayName, EventTracker eventTracker) {
+    EventType(String displayName, EventTracker eventTracker) {
         this.displayName = displayName;
         this.eventTracker = eventTracker;
     }
 
     @Deprecated
     public static EventType getByDisplayName(String name) {
-        return (EventType)((Object)byDisplayName.get((Object)name.toLowerCase()));
+        return (EventType) byDisplayName.get(name.toLowerCase());
     }
 
     public EventTracker getEventTracker() {
@@ -39,7 +39,7 @@ public enum EventType
     static {
         ImmutableBiMap.Builder builder = new ImmutableBiMap.Builder();
         for (EventType eventType : EventType.values()) {
-            builder.put((Object)eventType.displayName.toLowerCase(), (Object)eventType);
+            builder.put(eventType.displayName.toLowerCase(), eventType);
         }
         byDisplayName = builder.build();
     }

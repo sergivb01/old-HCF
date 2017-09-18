@@ -26,12 +26,12 @@ import java.util.List;
 
 public class DeathSignListener
 implements Listener {
-    private static final String DEATH_SIGN_ITEM_NAME = (Object)ChatColor.GOLD + "Death Sign";
+    private static final String DEATH_SIGN_ITEM_NAME = ChatColor.GOLD + "Death Sign";
 
     public DeathSignListener(HCF plugin) {
         if (!plugin.getConfig().getBoolean("death-signs", true)) {
-            Bukkit.getScheduler().runTaskLater((Plugin)plugin, () -> {
-                HandlerList.unregisterAll((Listener)this);
+            Bukkit.getScheduler().runTaskLater(plugin, () -> {
+                HandlerList.unregisterAll(this);
             }
             , 5);
         }
@@ -41,7 +41,7 @@ implements Listener {
         ItemStack stack = new ItemStack(Material.SIGN, 1);
         ItemMeta meta = stack.getItemMeta();
         meta.setDisplayName(DEATH_SIGN_ITEM_NAME);
-        meta.setLore((List)Lists.newArrayList((Object[])new String[]{(Object)ChatColor.GREEN + playerName, (Object)ChatColor.GRAY + "slain by", (Object)ChatColor.GREEN + killerName, (Object)ChatColor.GRAY + DateTimeFormats.DAY_MTH_HR_MIN.format(System.currentTimeMillis())}));
+        meta.setLore((List)Lists.newArrayList((Object[])new String[]{ChatColor.GREEN + playerName, ChatColor.GRAY + "slain by", ChatColor.GREEN + killerName, ChatColor.GRAY + DateTimeFormats.DAY_MTH_HR_MIN.format(System.currentTimeMillis())}));
         stack.setItemMeta(meta);
         return stack;
     }
@@ -83,7 +83,7 @@ implements Listener {
             final ItemMeta meta = stack.getItemMeta();
             if (meta.hasDisplayName() && meta.getDisplayName().equals(DeathSignListener.DEATH_SIGN_ITEM_NAME)) {
                 final Sign sign = (Sign)state;
-                final List<String> lore = (List<String>)meta.getLore();
+                final List<String> lore = meta.getLore();
                 int count = 0;
                 for (final String loreLine : lore) {
                     sign.setLine(count++, loreLine);
@@ -101,7 +101,7 @@ implements Listener {
     public void onPlayerDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
         Player killer = player.getKiller();
-        if (killer == null || !killer.equals((Object)player) & true) {
+        if (killer == null || !killer.equals(player) & true) {
             // empty if block
         }
     }
@@ -110,7 +110,7 @@ implements Listener {
         BlockState state = block.getState();
         if (state instanceof Sign) {
             String[] lines = ((Sign)state).getLines();
-            return lines.length > 0 && lines[1] != null && lines[1].equals((Object)ChatColor.WHITE + "slain by");
+            return lines.length > 0 && lines[1] != null && lines[1].equals(ChatColor.WHITE + "slain by");
         }
         return false;
     }

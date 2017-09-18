@@ -35,42 +35,42 @@ extends CommandArgument {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage((Object)ChatColor.RED + "This command is only executable by players.");
+            sender.sendMessage(ChatColor.RED + "This command is only executable by players.");
             return true;
         }
         if (args.length < 2) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
             return true;
         }
         Player player = (Player)sender;
         if (this.plugin.getFactionManager().getPlayerFaction(player) != null) {
-            sender.sendMessage((Object)ChatColor.RED + "You are already in a faction.");
+            sender.sendMessage(ChatColor.RED + "You are already in a faction.");
             return true;
         }
         Faction faction = this.plugin.getFactionManager().getContainingFaction(args[1]);
         if (faction == null) {
-            sender.sendMessage((Object)ChatColor.RED + "Faction named or containing member with IGN or UUID " + args[1] + " not found.");
+            sender.sendMessage(ChatColor.RED + "Faction named or containing member with IGN or UUID " + args[1] + " not found.");
             return true;
         }
         if (!(faction instanceof PlayerFaction)) {
-            sender.sendMessage((Object)ChatColor.RED + "You can only join player factions.");
+            sender.sendMessage(ChatColor.RED + "You can only join player factions.");
             return true;
         }
         PlayerFaction targetFaction = (PlayerFaction)faction;
         if (targetFaction.getMembers().size() >= ConfigurationService.FACTION_PLAYER_LIMIT) {
-            sender.sendMessage(faction.getDisplayName(sender) + (Object)ChatColor.RED + " is full. Faction limits are at " + ConfigurationService.FACTION_PLAYER_LIMIT + '.');
+            sender.sendMessage(faction.getDisplayName(sender) + ChatColor.RED + " is full. Faction limits are at " + ConfigurationService.FACTION_PLAYER_LIMIT + '.');
             return true;
         }
         if (!targetFaction.isOpen() && !targetFaction.getInvitedPlayerNames().contains(player.getName())) {
-            sender.sendMessage((Object)ChatColor.RED + faction.getDisplayName(sender) + (Object)ChatColor.RED + " has not invited you.");
+            sender.sendMessage(ChatColor.RED + faction.getDisplayName(sender) + ChatColor.RED + " has not invited you.");
             return true;
         }
         if (targetFaction.isLocked()) {
-            sender.sendMessage((Object)ChatColor.RED + "You cannot join locked factions.");
+            sender.sendMessage(ChatColor.RED + "You cannot join locked factions.");
             return true;
         }
         if (targetFaction.setMember(player, new FactionMember(player, ChatChannel.PUBLIC, Role.MEMBER))) {
-            targetFaction.broadcast((Object)Relation.MEMBER.toChatColour() + sender.getName() + (Object)ChatColor.YELLOW + " has joined the faction.");
+            targetFaction.broadcast(Relation.MEMBER.toChatColour() + sender.getName() + ChatColor.YELLOW + " has joined the faction.");
         }
         return true;
     }

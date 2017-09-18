@@ -29,30 +29,30 @@ extends CommandArgument {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length < 3) {
-            sender.sendMessage((Object)ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
             return true;
         }
         Faction faction = this.plugin.getFactionManager().getContainingFaction(args[1]);
         if (faction == null) {
-            sender.sendMessage((Object)ChatColor.RED + "Faction named or containing member with IGN or UUID " + args[1] + " not found.");
+            sender.sendMessage(ChatColor.RED + "Faction named or containing member with IGN or UUID " + args[1] + " not found.");
             return true;
         }
-        Double multiplier = Doubles.tryParse((String)args[2]);
+        Double multiplier = Doubles.tryParse(args[2]);
         if (multiplier == null) {
-            sender.sendMessage((Object)ChatColor.RED + "'" + args[2] + "' is not a valid number.");
+            sender.sendMessage(ChatColor.RED + "'" + args[2] + "' is not a valid number.");
             return true;
         }
         if (multiplier < 0.0) {
-            sender.sendMessage((Object)ChatColor.RED + "Deathban multipliers may not be less than " + 0.0 + '.');
+            sender.sendMessage(ChatColor.RED + "Deathban multipliers may not be less than " + 0.0 + '.');
             return true;
         }
         if (multiplier > 5.0) {
-            sender.sendMessage((Object)ChatColor.RED + "Deathban multipliers may not be more than " + 5.0 + '.');
+            sender.sendMessage(ChatColor.RED + "Deathban multipliers may not be more than " + 5.0 + '.');
             return true;
         }
         double previousMultiplier = faction.getDeathbanMultiplier();
         faction.setDeathbanMultiplier(multiplier);
-        Command.broadcastCommandMessage((CommandSender)sender, (String)((Object)ChatColor.YELLOW + "Set deathban multiplier of " + faction.getName() + " from " + previousMultiplier + " to " + multiplier + '.'));
+        Command.broadcastCommandMessage(sender, ChatColor.YELLOW + "Set deathban multiplier of " + faction.getName() + " from " + previousMultiplier + " to " + multiplier + '.');
         return true;
     }
 }

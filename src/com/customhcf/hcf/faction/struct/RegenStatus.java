@@ -10,7 +10,7 @@ public enum RegenStatus {
     
     private final String symbol;
 
-    private RegenStatus(String symbol) {
+    RegenStatus(String symbol) {
         this.symbol = symbol;
     }
 
