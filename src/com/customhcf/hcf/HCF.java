@@ -54,10 +54,8 @@ import com.google.common.base.Joiner;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -306,6 +304,7 @@ public class HCF extends JavaPlugin {
     }
 
     private void registerCommands() {
+        this.getCommand("statreset").setExecutor(new StatResetCommand(this));
         this.getCommand("ffa").setExecutor(new FFACommand());
         this.getCommand("endportal").setExecutor(new EndPortalCommand(this));
         this.getCommand("toggleend").setExecutor(new ToggleEnd(this));
