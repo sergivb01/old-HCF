@@ -5,7 +5,10 @@ import com.customhcf.hcf.faction.type.Faction;
 import com.customhcf.hcf.faction.type.PlayerFaction;
 import com.customhcf.hcf.timer.PlayerTimer;
 import org.apache.commons.lang.StringUtils;
-import org.bukkit.*;
+import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
@@ -16,9 +19,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerTeleportEvent;
-
-import java.util.concurrent.TimeUnit;
 
 public class ElevatorListener implements Listener {
     private final HCF plugin;

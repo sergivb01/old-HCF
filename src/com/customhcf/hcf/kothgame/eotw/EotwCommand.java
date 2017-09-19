@@ -7,7 +7,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.*;
 import org.bukkit.conversations.*;
-import org.bukkit.plugin.Plugin;
 
 import java.util.Collections;
 import java.util.List;
@@ -56,11 +55,6 @@ TabCompleter {
                 Bukkit.broadcastMessage(ChatColor.YELLOW + "               unclaimed in 5 minutes!");
                 Bukkit.broadcastMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
 
-                if (conversable instanceof CommandSender) {
-                    Command.broadcastCommandMessage(conversable, ChatColor.GOLD + "Set EOTW mode to " + newStatus + '.');
-                } else {
-                    conversable.sendRawMessage(ChatColor.GOLD + "Set EOTW mode to " + newStatus + '.');
-                }
                 HCF.getPlugin().getEotwHandler().setEndOfTheWorld(newStatus);
             } else if (string.equalsIgnoreCase("no")) {
                 context.getForWhom().sendRawMessage(ChatColor.BLUE + "Cancelled the process of setting EOTW mode.");
