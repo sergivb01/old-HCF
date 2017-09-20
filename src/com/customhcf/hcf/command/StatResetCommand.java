@@ -8,6 +8,7 @@ import org.bukkit.Statistic;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 
 public class StatResetCommand
         implements CommandExecutor {
@@ -18,6 +19,9 @@ public class StatResetCommand
     }
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if(sender not instanceof ConsoleCommandSender) {
+
+        }
         if (args.length < 1) {
             sender.sendMessage(ChatColor.RED + "Usage: /" + label + " <player>");
             return true;
