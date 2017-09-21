@@ -1,8 +1,7 @@
 
-package com.customhcf.hcf.fixes;
+package com.customhcf.hcf.listener.fixes;
 
 import com.customhcf.util.BukkitUtils;
-import com.google.common.cache.Cache;
 import net.minecraft.util.com.google.common.cache.CacheBuilder;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
@@ -10,7 +9,6 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.TimeUnit;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

@@ -1,5 +1,5 @@
 
-package com.customhcf.hcf.fixes;
+package com.customhcf.hcf.listener.fixes;
 
 import org.bukkit.World;
 import org.bukkit.event.EventHandler;

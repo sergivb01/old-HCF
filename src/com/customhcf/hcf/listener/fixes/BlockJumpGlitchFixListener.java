@@ -1,11 +1,8 @@
 
-package com.customhcf.hcf.fixes;
+package com.customhcf.hcf.listener.fixes;
 
 import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockState;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

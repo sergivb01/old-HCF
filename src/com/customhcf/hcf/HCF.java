@@ -27,7 +27,7 @@ import com.customhcf.hcf.faction.claim.ClaimHandler;
 import com.customhcf.hcf.faction.claim.ClaimWandListener;
 import com.customhcf.hcf.faction.claim.Subclaim;
 import com.customhcf.hcf.faction.type.*;
-import com.customhcf.hcf.fixes.*;
+import com.customhcf.hcf.listener.fixes.*;
 import com.customhcf.hcf.kothgame.CaptureZone;
 import com.customhcf.hcf.kothgame.EventExecutor;
 import com.customhcf.hcf.kothgame.EventScheduler;

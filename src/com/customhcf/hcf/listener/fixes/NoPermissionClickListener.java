@@ -1,5 +1,5 @@
 
-package com.customhcf.hcf.fixes;
+package com.customhcf.hcf.listener.fixes;
 
 import org.bukkit.GameMode;
 import org.bukkit.entity.HumanEntity;

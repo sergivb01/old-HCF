@@ -1,7 +1,5 @@
-package com.customhcf.hcf.fixes;
+package com.customhcf.hcf.listener.fixes;
 
-import com.customhcf.hcf.HCF;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;

@@ -1,11 +1,6 @@
-package com.customhcf.hcf.fixes;
+package com.customhcf.hcf.listener.fixes;
 
-import com.customhcf.util.chat.ClickAction;
-import com.customhcf.util.chat.Text;
-import com.sk89q.minecraft.util.commands.Console;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

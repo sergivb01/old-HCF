@@ -1,24 +1,16 @@
 
-package com.customhcf.hcf.fixes;
+package com.customhcf.hcf.listener.fixes;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.faction.FactionManager;
-import com.customhcf.hcf.faction.struct.Relation;
 import com.customhcf.hcf.faction.type.ClaimableFaction;
 import com.customhcf.hcf.faction.type.Faction;
-import com.customhcf.hcf.faction.type.PlayerFaction;
-import com.customhcf.hcf.faction.type.WarzoneFaction;
-import com.customhcf.hcf.timer.TimerManager;
-import com.customhcf.hcf.timer.type.EnderPearlTimer;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 
-import java.util.UUID;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockState;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -27,9 +19,6 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.InventoryHolder;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.util.Vector;
-
 
 
 public class PearlGlitchListener implements Listener{

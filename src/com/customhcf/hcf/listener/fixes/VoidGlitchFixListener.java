@@ -1,4 +1,4 @@
-package com.customhcf.hcf.fixes;
+package com.customhcf.hcf.listener.fixes;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
