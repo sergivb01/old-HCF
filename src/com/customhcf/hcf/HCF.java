@@ -250,6 +250,7 @@ public class HCF extends JavaPlugin {
         manager.registerEvents(new ArcherClass(this), this);
         manager.registerEvents(new KeyListener(this), this);
         manager.registerEvents(new WeatherFixListener(), this);
+        manager.registerEvents(new EndermanFixListener(), this);
         manager.registerEvents(new MinecartElevatorListener(), this);
         manager.registerEvents(new StoreCommand(this), this);
         //manager.registerEvents((Listener)new NoPermissionClickListener(), (Plugin)this);
