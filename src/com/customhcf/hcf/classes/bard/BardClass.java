@@ -175,7 +175,7 @@ implements Listener {
                 } else {
                     player.setItemInHand(new ItemStack(Material.AIR, 1));
                 }
-                if (bardEffect != null && !this.plugin.getFactionManager().getFactionAt(player.getLocation()).isSafezone()) {
+                if (!this.plugin.getFactionManager().getFactionAt(player.getLocation()).isSafezone()) {
                     final PlayerFaction playerFaction = this.plugin.getFactionManager().getPlayerFaction(player);
                     if (playerFaction != null && !bardEffect.clickable.getType().equals(PotionEffectType.WITHER)) {
                         final Collection<Entity> nearbyEntities = player.getNearbyEntities(25.0, 25.0, 25.0);
