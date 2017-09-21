@@ -25,6 +25,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+
+import org.apache.commons.lang3.ObjectUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -65,7 +67,7 @@ public class ConquestTracker implements EventTracker, Listener
 
     public int getPoints(final PlayerFaction faction) {
         synchronized (this.factionPointsMap) {
-            return (int)MoreObjects.firstNonNull(this.factionPointsMap.get(faction), 0);
+            return (int) ObjectUtils.firstNonNull(this.factionPointsMap.get(faction), 0);
         }
     }
 
