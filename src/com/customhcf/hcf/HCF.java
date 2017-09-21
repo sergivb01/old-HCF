@@ -127,6 +127,7 @@ public class HCF extends JavaPlugin {
 
     public void onEnable() {
         plugin = this;
+
         CustomEntityRegistration.registerCustomEntities();
         Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[HCF] " + ChatColor.AQUA + "Registered custom entities");
         ProtocolLibHook.hook(this);
