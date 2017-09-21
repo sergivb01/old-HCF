@@ -57,7 +57,7 @@ TabCompleter {
                 Bukkit.broadcastMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
 
                 if (conversable instanceof CommandSender) {
-                    Command.broadcastCommandMessage(conversable, ChatColor.GOLD + "Set EOTW mode to " + newStatus + '.');
+                    Command.broadcastCommandMessage((CommandSender) conversable, ChatColor.GOLD + "Set EOTW mode to " + newStatus + '.');
                 } else {
                     conversable.sendRawMessage(ChatColor.GOLD + "Set EOTW mode to " + newStatus + '.');
                 }

@@ -1,17 +1,17 @@
-
 package com.customhcf.hcf.classes.bard;
+
 
 import org.bukkit.potion.PotionEffect;
 
-public class BardEffect {
+public class BardEffect
+{
     public final int energyCost;
     public final PotionEffect clickable;
     public final PotionEffect heldable;
 
-    public BardEffect(int energyCost, PotionEffect clickable, PotionEffect heldable) {
+    public BardEffect(final int energyCost, final PotionEffect clickable, final PotionEffect heldable) {
         this.energyCost = energyCost;
         this.clickable = clickable;
         this.heldable = heldable;
     }
 }
-
