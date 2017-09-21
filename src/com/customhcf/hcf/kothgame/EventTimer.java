@@ -2,8 +2,8 @@
 package com.customhcf.hcf.kothgame;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.Utils.ConfigurationService;
-import com.customhcf.hcf.Utils.DateTimeFormats;
+import com.customhcf.hcf.utils.ConfigurationService;
+import com.customhcf.hcf.utils.DateTimeFormats;
 import com.customhcf.hcf.crate.Key;
 import com.customhcf.hcf.faction.event.CaptureZoneEnterEvent;
 import com.customhcf.hcf.faction.event.CaptureZoneLeaveEvent;
@@ -12,7 +12,6 @@ import com.customhcf.hcf.faction.type.PlayerFaction;
 import com.customhcf.hcf.kothgame.faction.ConquestFaction;
 import com.customhcf.hcf.kothgame.faction.EventFaction;
 import com.customhcf.hcf.kothgame.faction.KothFaction;
-import com.customhcf.hcf.listener.EventSignListener;
 import com.customhcf.hcf.palace.PalaceFaction;
 import com.customhcf.hcf.timer.GlobalTimer;
 import com.google.common.base.Objects;
@@ -41,8 +40,6 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.scheduler.BukkitRunnable;
 

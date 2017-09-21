@@ -1,7 +1,7 @@
 package com.customhcf.hcf.palace;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.Utils.ConfigurationService;
+import com.customhcf.hcf.utils.ConfigurationService;
 import com.customhcf.hcf.faction.FactionManager;
 import com.customhcf.hcf.faction.claim.Claim;
 import com.customhcf.hcf.faction.type.Faction;
@@ -11,7 +11,6 @@ import com.customhcf.hcf.kothgame.faction.ConquestFaction;
 import com.customhcf.hcf.kothgame.faction.EventFaction;
 import com.customhcf.hcf.kothgame.tracker.ConquestTracker;
 import com.customhcf.util.command.CommandArgument;
-import com.customhcf.util.cuboid.Cuboid;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldedit.bukkit.selections.Selection;
 

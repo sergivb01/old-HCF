@@ -1,18 +1,13 @@
 
 package com.customhcf.hcf.listener;
 
-import java.util.List;
-import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.block.Block;
 import org.bukkit.block.CreatureSpawner;
 import org.bukkit.entity.EnderDragon;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Squid;
 import org.bukkit.entity.Wither;
@@ -32,13 +27,11 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.PlayerBedEnterEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.material.EnderChest;
 import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.Utils.ConfigurationService;
-import com.customhcf.hcf.balance.EconomyManager;
+import com.customhcf.hcf.utils.ConfigurationService;
 
 public class WorldListener
 implements Listener {

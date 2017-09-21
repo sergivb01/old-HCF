@@ -1,19 +1,14 @@
 
 package com.customhcf.hcf.classes;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import com.customhcf.hcf.Utils.Chat;
 import com.customhcf.util.BukkitUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
-
-import com.customhcf.hcf.Utils.ConfigurationService;
 
 public abstract class PvpClass {
     public static final long DEFAULT_MAX_DURATION = TimeUnit.MINUTES.toMillis(8);

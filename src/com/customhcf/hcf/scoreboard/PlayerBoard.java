@@ -2,7 +2,7 @@ package com.customhcf.hcf.scoreboard;
 
 import com.customhcf.base.BasePlugin;
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.Utils.ConfigurationService;
+import com.customhcf.hcf.utils.ConfigurationService;
 import com.customhcf.hcf.classes.archer.ArcherClass;
 import com.customhcf.hcf.faction.type.PlayerFaction;
 import org.bukkit.ChatColor;

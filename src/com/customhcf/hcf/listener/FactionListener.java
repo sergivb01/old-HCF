@@ -1,7 +1,7 @@
 package com.customhcf.hcf.listener;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.Utils.ConfigurationService;
+import com.customhcf.hcf.utils.ConfigurationService;
 import com.customhcf.hcf.faction.claim.Claim;
 import com.customhcf.hcf.faction.event.*;
 import com.customhcf.hcf.faction.struct.RegenStatus;

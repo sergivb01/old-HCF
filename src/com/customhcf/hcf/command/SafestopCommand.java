@@ -1,10 +1,6 @@
 package com.customhcf.hcf.command;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.Utils.ConfigurationService;
-import com.customhcf.hcf.combatlog.CombatLogListener;
-import com.customhcf.hcf.combatlog.CustomEntityRegistration;
-import org.apache.commons.lang3.time.FastDateFormat;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -15,7 +11,6 @@ import org.bukkit.entity.Player;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.TimeZone;
 
 public class SafestopCommand
         implements CommandExecutor,

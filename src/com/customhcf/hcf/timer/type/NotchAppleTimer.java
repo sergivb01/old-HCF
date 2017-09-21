@@ -1,7 +1,6 @@
 
 package com.customhcf.hcf.timer.type;
 
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import org.bukkit.ChatColor;
@@ -15,7 +14,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.Utils.ConfigurationService;
+import com.customhcf.hcf.utils.ConfigurationService;
 import com.customhcf.hcf.timer.PlayerTimer;
 
 public class NotchAppleTimer

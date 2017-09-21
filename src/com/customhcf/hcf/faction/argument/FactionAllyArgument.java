@@ -2,7 +2,7 @@
 package com.customhcf.hcf.faction.argument;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.Utils.ConfigurationService;
+import com.customhcf.hcf.utils.ConfigurationService;
 import com.customhcf.hcf.faction.event.FactionRelationCreateEvent;
 import com.customhcf.hcf.faction.struct.Relation;
 import com.customhcf.hcf.faction.struct.Role;
@@ -20,7 +20,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 
 public class FactionAllyArgument
 extends CommandArgument {

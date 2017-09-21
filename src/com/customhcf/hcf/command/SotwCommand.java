@@ -4,10 +4,8 @@ package com.customhcf.hcf.command;
 import java.util.Collections;
 import java.util.List;
 
-import com.mysql.jdbc.StringUtils;
-
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.Utils.ConfigurationService;
+import com.customhcf.hcf.utils.ConfigurationService;
 import com.customhcf.hcf.timer.type.SotwTimer;
 import com.customhcf.util.BukkitUtils;
 import com.customhcf.util.JavaUtils;
@@ -15,7 +13,6 @@ import com.customhcf.util.JavaUtils;
 import net.md_5.bungee.api.ChatColor;
 import net.minecraft.util.com.google.common.collect.ImmutableList;
 import net.minecraft.util.org.apache.commons.lang3.time.DurationFormatUtils;
-import org.bukkit.Statistic;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

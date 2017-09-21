@@ -1,5 +1,5 @@
 
-package com.customhcf.hcf.Utils;
+package com.customhcf.hcf.utils;
 
 import java.util.HashMap;
 import java.util.UUID;

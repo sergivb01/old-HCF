@@ -2,7 +2,7 @@
 package com.customhcf.hcf.timer.type;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.Utils.ConfigurationService;
+import com.customhcf.hcf.utils.ConfigurationService;
 import com.customhcf.hcf.timer.PlayerTimer;
 import com.customhcf.hcf.timer.TimerRunnable;
 import com.customhcf.util.Config;

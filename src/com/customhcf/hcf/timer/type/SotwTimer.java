@@ -1,13 +1,10 @@
 package com.customhcf.hcf.timer.type;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.Utils.ConfigurationService;
-
-import org.bukkit.plugin.Plugin;
+import com.customhcf.hcf.utils.ConfigurationService;
 
 public class SotwTimer
 {

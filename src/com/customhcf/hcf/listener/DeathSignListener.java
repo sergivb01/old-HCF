@@ -2,7 +2,7 @@
 package com.customhcf.hcf.listener;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.Utils.DateTimeFormats;
+import com.customhcf.hcf.utils.DateTimeFormats;
 import com.google.common.collect.Lists;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -19,7 +19,6 @@ import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.plugin.Plugin;
 
 import java.util.Arrays;
 import java.util.List;

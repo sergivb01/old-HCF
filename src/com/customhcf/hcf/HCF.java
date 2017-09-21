@@ -2,7 +2,7 @@ package com.customhcf.hcf;
 
 import com.customhcf.base.BasePlugin;
 import com.customhcf.base.ServerHandler;
-import com.customhcf.hcf.Utils.*;
+import com.customhcf.hcf.utils.*;
 import com.customhcf.hcf.balance.*;
 import com.customhcf.hcf.classes.PvpClassManager;
 import com.customhcf.hcf.classes.archer.ArcherClass;

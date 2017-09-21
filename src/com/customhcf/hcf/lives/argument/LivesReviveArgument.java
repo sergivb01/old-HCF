@@ -2,7 +2,7 @@
 package com.customhcf.hcf.lives.argument;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.Utils.ConfigurationService;
+import com.customhcf.hcf.utils.ConfigurationService;
 import com.customhcf.hcf.deathban.Deathban;
 import com.customhcf.hcf.faction.struct.Relation;
 import com.customhcf.hcf.faction.type.PlayerFaction;
@@ -20,7 +20,6 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 
 public class LivesReviveArgument
 extends CommandArgument {

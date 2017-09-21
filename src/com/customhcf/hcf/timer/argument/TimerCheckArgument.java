@@ -1,7 +1,7 @@
 package com.customhcf.hcf.timer.argument;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.Utils.UUIDFetcher;
+import com.customhcf.hcf.utils.UUIDFetcher;
 import com.customhcf.hcf.timer.PlayerTimer;
 import com.customhcf.hcf.timer.Timer;
 import com.customhcf.util.command.CommandArgument;
@@ -13,7 +13,6 @@ import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class TimerCheckArgument

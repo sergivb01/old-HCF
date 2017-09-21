@@ -1,8 +1,6 @@
 package com.customhcf.hcf.command;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.Utils.ConfigurationService;
-import com.customhcf.hcf.Utils.Cooldowns;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;

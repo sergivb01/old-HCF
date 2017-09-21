@@ -2,14 +2,12 @@
 package com.customhcf.hcf.timer.type;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.Utils.ConfigurationService;
+import com.customhcf.hcf.utils.ConfigurationService;
 import com.customhcf.hcf.classes.PvpClass;
-import com.customhcf.hcf.classes.PvpClassManager;
 import com.customhcf.hcf.timer.PlayerTimer;
 import com.customhcf.hcf.timer.TimerRunnable;
 import com.customhcf.util.Config;
 import com.google.common.base.Preconditions;
-import com.google.common.cache.Cache;
 import net.minecraft.util.com.google.common.cache.CacheBuilder;
 
 import java.util.Collection;
@@ -27,9 +25,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.EquipmentSetEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
 
 public class PvpClassWarmupTimer
 extends PlayerTimer

@@ -1,7 +1,7 @@
 package com.customhcf.hcf.classes.archer;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.Utils.Cooldowns;
+import com.customhcf.hcf.utils.Cooldowns;
 import com.customhcf.hcf.classes.PvpClass;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

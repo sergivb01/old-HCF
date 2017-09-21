@@ -1,8 +1,8 @@
 package com.customhcf.hcf.timer.type;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.Utils.ConfigurationService;
-import com.customhcf.hcf.Utils.DurationFormatter;
+import com.customhcf.hcf.utils.ConfigurationService;
+import com.customhcf.hcf.utils.DurationFormatter;
 import com.customhcf.hcf.faction.claim.Claim;
 import com.customhcf.hcf.faction.event.FactionClaimChangedEvent;
 import com.customhcf.hcf.faction.event.PlayerClaimEnterEvent;
@@ -25,7 +25,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -35,7 +34,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.entity.PotionSplashEvent;
 import org.bukkit.event.player.*;

@@ -1,12 +1,12 @@
 
-package com.customhcf.hcf.Utils;
+package com.customhcf.hcf.utils;
 
 import com.customhcf.hcf.HCF;
 import com.customhcf.util.chat.Text;
 
 import java.util.HashMap;
 import java.util.UUID;
-import org.bukkit.command.CommandSender;
+
 import org.bukkit.entity.Player;
 
 public final class Message {

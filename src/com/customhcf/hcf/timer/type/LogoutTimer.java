@@ -20,10 +20,9 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.Utils.ConfigurationService;
+import com.customhcf.hcf.utils.ConfigurationService;
 import com.customhcf.hcf.combatlog.CombatLogListener;
 import com.customhcf.hcf.timer.PlayerTimer;
-import com.customhcf.hcf.timer.TimerRunnable;
 
 public class LogoutTimer
 extends PlayerTimer

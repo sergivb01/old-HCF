@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.bukkit.command.CommandSender;
 
-import com.customhcf.hcf.Utils.ConfigurationService;
+import com.customhcf.hcf.utils.ConfigurationService;
 
 public class WarzoneFaction
 extends Faction {

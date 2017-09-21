@@ -18,14 +18,13 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.Utils.Cooldowns;
+import com.customhcf.hcf.utils.Cooldowns;
 import com.customhcf.hcf.classes.PvpClass;
 import com.customhcf.hcf.classes.event.PvpClassUnequipEvent;
 

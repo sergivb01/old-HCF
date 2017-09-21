@@ -1,12 +1,9 @@
 
 package com.customhcf.hcf.listener;
 
-import java.util.UUID;
-
 import com.customhcf.base.kit.event.KitApplyEvent;
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.Utils.ConfigurationService;
-import com.customhcf.hcf.faction.FactionManager;
+import com.customhcf.hcf.utils.ConfigurationService;
 import com.customhcf.hcf.faction.type.Faction;
 import com.customhcf.hcf.faction.type.PlayerFaction;
 import com.customhcf.hcf.timer.event.TimerStartEvent;

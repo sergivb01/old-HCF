@@ -3,7 +3,7 @@ package com.customhcf.hcf.command;
 
 import com.customhcf.base.BasePlugin;
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.Utils.ConfigurationService;
+import com.customhcf.hcf.utils.ConfigurationService;
 import com.customhcf.hcf.user.FactionUser;
 import com.customhcf.util.chat.ClickAction;
 import com.customhcf.util.chat.Text;

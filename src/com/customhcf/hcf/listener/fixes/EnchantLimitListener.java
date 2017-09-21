@@ -1,7 +1,7 @@
 
 package com.customhcf.hcf.listener.fixes;
 
-import com.customhcf.hcf.Utils.ConfigurationService;
+import com.customhcf.hcf.utils.ConfigurationService;
 import com.google.common.collect.ImmutableMap;
 import me.sergivb01.event.PrepareAnvilRepairEvent;
 import net.minecraft.server.v1_7_R4.*;

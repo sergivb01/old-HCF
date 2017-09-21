@@ -1,6 +1,6 @@
 package com.customhcf.hcf.crate.type;
 
-import com.customhcf.hcf.Utils.ConfigurationService;
+import com.customhcf.hcf.utils.ConfigurationService;
 import com.customhcf.hcf.crate.EnderChestKey;
 import com.customhcf.hcf.crowbar.Crowbar;
 import com.customhcf.util.ItemBuilder;

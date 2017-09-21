@@ -2,7 +2,7 @@
 package com.customhcf.hcf.kothgame.koth.argument;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.Utils.DateTimeFormats;
+import com.customhcf.hcf.utils.DateTimeFormats;
 import com.customhcf.util.BukkitUtils;
 import com.customhcf.util.command.CommandArgument;
 

@@ -1,4 +1,4 @@
-package com.customhcf.hcf.Utils;
+package com.customhcf.hcf.utils;
 
 import java.util.ArrayList;
 import java.util.List;

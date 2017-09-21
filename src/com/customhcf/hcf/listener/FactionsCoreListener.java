@@ -2,7 +2,7 @@
 package com.customhcf.hcf.listener;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.Utils.ConfigurationService;
+import com.customhcf.hcf.utils.ConfigurationService;
 import com.customhcf.hcf.faction.event.CaptureZoneEnterEvent;
 import com.customhcf.hcf.faction.event.CaptureZoneLeaveEvent;
 import com.customhcf.hcf.faction.event.PlayerClaimEnterEvent;
@@ -18,9 +18,7 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import org.bukkit.*;
 import org.bukkit.block.Block;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.*;
-import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;

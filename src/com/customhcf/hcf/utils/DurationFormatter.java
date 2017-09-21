@@ -1,9 +1,7 @@
-package com.customhcf.hcf.Utils;
+package com.customhcf.hcf.utils;
 
-import java.text.Format;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DurationFormatUtils;
 
 public class DurationFormatter

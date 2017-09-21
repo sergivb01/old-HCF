@@ -2,7 +2,7 @@
 package com.customhcf.hcf.faction.claim;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.Utils.ConfigurationService;
+import com.customhcf.hcf.utils.ConfigurationService;
 import com.customhcf.hcf.faction.FactionManager;
 import com.customhcf.hcf.faction.struct.Role;
 import com.customhcf.hcf.faction.type.*;
@@ -15,7 +15,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 

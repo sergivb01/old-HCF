@@ -5,8 +5,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.Utils.ConfigurationService;
-import com.customhcf.hcf.Utils.DateTimeFormats;
+import com.customhcf.hcf.utils.ConfigurationService;
+import com.customhcf.hcf.utils.DateTimeFormats;
 import com.customhcf.hcf.kothgame.CaptureZone;
 import com.customhcf.hcf.kothgame.EventTimer;
 import com.customhcf.hcf.kothgame.EventType;

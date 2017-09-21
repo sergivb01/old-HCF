@@ -2,7 +2,7 @@
 package com.customhcf.hcf.faction;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.Utils.ConfigurationService;
+import com.customhcf.hcf.utils.ConfigurationService;
 import com.customhcf.hcf.faction.claim.Claim;
 import com.customhcf.hcf.faction.event.FactionClaimChangedEvent;
 import com.customhcf.hcf.faction.event.FactionCreateEvent;
@@ -47,11 +47,9 @@ import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.plugin.Plugin;
 
 public class FlatFileFactionManager implements Listener, FactionManager
 {

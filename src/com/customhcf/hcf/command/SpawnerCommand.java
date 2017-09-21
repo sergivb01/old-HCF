@@ -1,6 +1,5 @@
 package com.customhcf.hcf.command;
 
-import com.customhcf.hcf.Utils.ConfigurationService;
 import com.customhcf.hcf.HCF;
 import com.customhcf.util.ItemBuilder;
 import java.util.Collections;
@@ -14,7 +13,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 
 public class SpawnerCommand
   implements CommandExecutor, TabCompleter

@@ -1,11 +1,10 @@
 
-package com.customhcf.hcf.Utils;
+package com.customhcf.hcf.utils;
 
 import com.google.common.collect.ImmutableList;
 
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.ByteBuffer;

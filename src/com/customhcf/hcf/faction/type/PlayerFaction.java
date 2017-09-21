@@ -3,7 +3,7 @@
 package com.customhcf.hcf.faction.type;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.Utils.ConfigurationService;
+import com.customhcf.hcf.utils.ConfigurationService;
 import com.customhcf.hcf.deathban.Deathban;
 import com.customhcf.hcf.faction.FactionMember;
 import com.customhcf.hcf.faction.event.FactionDtrChangeEvent;

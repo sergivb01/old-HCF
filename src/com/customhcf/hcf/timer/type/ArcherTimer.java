@@ -1,17 +1,11 @@
 package com.customhcf.hcf.timer.type;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.Utils.ConfigurationService;
+import com.customhcf.hcf.utils.ConfigurationService;
 import com.customhcf.hcf.classes.archer.ArcherClass;
-import com.customhcf.hcf.scoreboard.PlayerBoard;
-import com.customhcf.hcf.scoreboard.ScoreboardHandler;
 import com.customhcf.hcf.timer.PlayerTimer;
-import com.customhcf.hcf.timer.Timer;
 import com.customhcf.hcf.timer.event.TimerExpireEvent;
-import com.google.common.base.Optional;
 
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import org.bukkit.Bukkit;
@@ -22,7 +16,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.projectiles.ProjectileSource;
 
 public class ArcherTimer
         extends PlayerTimer

@@ -2,12 +2,11 @@
 package com.customhcf.hcf.timer.type;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.Utils.ConfigurationService;
+import com.customhcf.hcf.utils.ConfigurationService;
 import com.customhcf.hcf.combatlog.CombatLogListener;
 import com.customhcf.hcf.faction.LandMap;
 import com.customhcf.hcf.timer.PlayerTimer;
 import com.customhcf.hcf.timer.TimerRunnable;
-import com.google.common.cache.Cache;
 import net.minecraft.util.com.google.common.cache.CacheBuilder;
 
 import java.util.UUID;

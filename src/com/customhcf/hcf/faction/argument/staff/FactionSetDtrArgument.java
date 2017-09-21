@@ -2,19 +2,16 @@
 package com.customhcf.hcf.faction.argument.staff;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.Utils.ConfigurationService;
-import com.customhcf.hcf.faction.FactionManager;
+import com.customhcf.hcf.utils.ConfigurationService;
 import com.customhcf.hcf.faction.type.Faction;
 import com.customhcf.hcf.faction.type.PlayerFaction;
 import com.customhcf.util.command.CommandArgument;
 import com.google.common.primitives.Doubles;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;

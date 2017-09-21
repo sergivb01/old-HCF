@@ -2,10 +2,9 @@
 package com.customhcf.hcf.faction.type;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.Utils.ConfigurationService;
+import com.customhcf.hcf.utils.ConfigurationService;
 import com.customhcf.hcf.faction.event.FactionRenameEvent;
 import com.customhcf.hcf.faction.struct.Relation;
-import com.customhcf.util.BukkitUtils;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 
@@ -23,7 +22,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 
 public abstract class Faction
 implements ConfigurationSerializable {

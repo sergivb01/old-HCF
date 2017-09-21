@@ -2,16 +2,14 @@
 package com.customhcf.hcf.command;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.Utils.ConfigurationService;
-import com.customhcf.hcf.timer.TimerManager;
+import com.customhcf.hcf.utils.ConfigurationService;
 import com.customhcf.hcf.timer.type.PvpProtectionTimer;
 import com.customhcf.util.BukkitUtils;
 import com.google.common.collect.ImmutableList;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

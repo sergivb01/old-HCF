@@ -5,7 +5,7 @@ import com.customhcf.base.BasePlugin;
 import com.customhcf.base.user.BaseUser;
 import com.customhcf.base.user.ServerParticipator;
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.Utils.ConfigurationService;
+import com.customhcf.hcf.utils.ConfigurationService;
 import com.customhcf.hcf.user.FactionUser;
 import com.customhcf.util.BukkitUtils;
 import net.minecraft.util.com.google.common.cache.CacheBuilder;

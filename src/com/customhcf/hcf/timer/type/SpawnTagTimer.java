@@ -3,7 +3,7 @@ package com.customhcf.hcf.timer.type;
 
 import com.customhcf.base.kit.event.KitApplyEvent;
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.Utils.ConfigurationService;
+import com.customhcf.hcf.utils.ConfigurationService;
 import com.customhcf.hcf.faction.event.PlayerClaimEnterEvent;
 import com.customhcf.hcf.faction.event.PlayerJoinFactionEvent;
 import com.customhcf.hcf.faction.event.PlayerLeaveFactionEvent;
@@ -16,7 +16,6 @@ import com.google.common.base.Optional;
 import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.EnchantmentTarget;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
@@ -25,7 +24,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 

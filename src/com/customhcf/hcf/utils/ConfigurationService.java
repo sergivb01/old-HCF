@@ -1,4 +1,4 @@
-package com.customhcf.hcf.Utils;
+package com.customhcf.hcf.utils;
 
 import com.google.common.collect.ImmutableList;
 

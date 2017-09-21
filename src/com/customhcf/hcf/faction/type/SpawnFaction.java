@@ -3,12 +3,10 @@ package com.customhcf.hcf.faction.type;
 
 import java.util.Map;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 
-import com.customhcf.hcf.Utils.ConfigurationService;
-import com.customhcf.hcf.faction.claim.Claim;
+import com.customhcf.hcf.utils.ConfigurationService;
 
 public class SpawnFaction
 extends ClaimableFaction

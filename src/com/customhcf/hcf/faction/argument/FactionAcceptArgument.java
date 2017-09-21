@@ -2,8 +2,7 @@
 package com.customhcf.hcf.faction.argument;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.Utils.ConfigurationService;
-import com.customhcf.hcf.faction.FactionManager;
+import com.customhcf.hcf.utils.ConfigurationService;
 import com.customhcf.hcf.faction.FactionMember;
 import com.customhcf.hcf.faction.struct.ChatChannel;
 import com.customhcf.hcf.faction.struct.Relation;
@@ -12,9 +11,6 @@ import com.customhcf.hcf.faction.type.Faction;
 import com.customhcf.hcf.faction.type.PlayerFaction;
 import com.customhcf.util.command.CommandArgument;
 
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

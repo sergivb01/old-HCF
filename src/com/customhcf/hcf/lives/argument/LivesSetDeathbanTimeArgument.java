@@ -1,7 +1,7 @@
 
 package com.customhcf.hcf.lives.argument;
 
-import com.customhcf.hcf.Utils.ConfigurationService;
+import com.customhcf.hcf.utils.ConfigurationService;
 import com.customhcf.util.JavaUtils;
 import com.customhcf.util.command.CommandArgument;
 

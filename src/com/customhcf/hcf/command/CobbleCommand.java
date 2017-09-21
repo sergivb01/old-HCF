@@ -1,10 +1,5 @@
 package com.customhcf.hcf.command;
 
-import com.customhcf.base.BasePlugin;
-import com.customhcf.base.user.BaseUser;
-import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.combatlog.CombatLogListener;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -14,9 +9,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.inventory.ItemStack;
 
-import com.customhcf.hcf.Utils.ConfigurationService;
+import com.customhcf.hcf.utils.ConfigurationService;
 
 import java.util.ArrayList;
 

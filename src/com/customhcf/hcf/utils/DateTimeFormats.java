@@ -1,5 +1,5 @@
 
-package com.customhcf.hcf.Utils;
+package com.customhcf.hcf.utils;
 
 import java.text.DecimalFormat;
 import java.time.ZoneId;
