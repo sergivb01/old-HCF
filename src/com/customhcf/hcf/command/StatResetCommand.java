@@ -8,7 +8,7 @@ import org.bukkit.Statistic;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.entity.Player;
 
 public class StatResetCommand
         implements CommandExecutor {
@@ -19,8 +19,9 @@ public class StatResetCommand
     }
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(sender not instanceof ConsoleCommandSender) {
-
+        if (sender instanceof Player) {
+            sender.sendMessage(ChatColor.RED + "This command is only executable by console.");
+            return true;
         }
         if (args.length < 1) {
             sender.sendMessage(ChatColor.RED + "Usage: /" + label + " <player>");

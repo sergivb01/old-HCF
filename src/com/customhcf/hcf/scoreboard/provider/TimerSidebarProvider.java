@@ -1,6 +1,7 @@
 package com.customhcf.hcf.scoreboard.provider;
 
 import com.customhcf.base.BasePlugin;
+import com.customhcf.base.user.BaseUser;
 import com.customhcf.hcf.HCF;
 import com.customhcf.hcf.Utils.ConfigurationService;
 import com.customhcf.hcf.Utils.DateTimeFormats;
@@ -236,7 +237,8 @@ public class TimerSidebarProvider implements SidebarProvider
 
 
 		if (player.hasPermission("command.staffmode") && BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId()).isStaffUtil()) {
-			lines.add(new SidebarEntry(ChatColor.YELLOW + "" + ChatColor.BOLD + "Mod Mode: "));
+            BaseUser baseUser = BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId());
+				lines.add(new SidebarEntry(ChatColor.YELLOW + "" + ChatColor.BOLD + "Mod Mode: "));
 			if (player.hasPermission("command.vanish")) {
 				lines.add(new SidebarEntry(ChatColor.WHITE + " » " + ChatColor.YELLOW.toString(), "Vanished" + ChatColor.GRAY + ": ", BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId()).isVanished() ? (ChatColor.GREEN + "True") : (ChatColor.RED + "Visible")));
 			}
