@@ -5,7 +5,7 @@
 #
 ################################################################################
 name: HCF
-version: VEILMC-3.5
+version: VEILMC-3.7
 main: com.customhcf.hcf.HCF
 # depend: [Construct]
 softdepend: [ProtocolLib]
@@ -13,6 +13,7 @@ commands:
   savedata:
   spawner:
   ffa:
+  statreset:
   focus:
     description: Focus a player in another faction
   endportal:

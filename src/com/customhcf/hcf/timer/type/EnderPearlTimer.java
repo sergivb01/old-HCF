@@ -6,8 +6,11 @@ import com.customhcf.hcf.Utils.ConfigurationService;
 import com.customhcf.hcf.timer.PlayerTimer;
 import com.customhcf.hcf.timer.TimerRunnable;
 import com.customhcf.util.Config;
+import net.minecraft.server.v1_7_R4.EntityPlayer;
+import net.minecraft.server.v1_7_R4.ItemStack;
+import net.minecraft.server.v1_7_R4.PacketPlayOutSetSlot;
+import net.minecraft.server.v1_7_R4.PlayerInventory;
 import net.minecraft.util.com.google.common.cache.CacheBuilder;
-import net.minecraft.server.v1_7_R4.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -26,7 +29,6 @@ import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -113,8 +115,8 @@ implements Listener {
             long remaining = this.getRemaining(shooter);
             if (remaining > 0) {
                 shooter.sendMessage(ChatColor.RED + "You cannot use" + ChatColor.YELLOW + " Enderpearl" + ChatColor.RED + " for another " + ChatColor.BOLD + HCF.getRemaining(remaining, true, false) + ChatColor.RED + '.');
-               
                 event.setCancelled(true);
+                shooter.getInventory().addItem(new org.bukkit.inventory.ItemStack(Material.ENDER_PEARL));
                 return;
             }
             if (this.setCooldown(shooter, shooter.getUniqueId(), this.defaultCooldown, true)) {
