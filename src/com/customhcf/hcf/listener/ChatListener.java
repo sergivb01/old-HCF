@@ -1,36 +1,25 @@
 package com.customhcf.hcf.listener;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.faction.FactionManager;
-import com.customhcf.hcf.faction.FactionMember;
 import com.customhcf.hcf.faction.event.FactionChatEvent;
 import com.customhcf.hcf.faction.struct.ChatChannel;
 import com.customhcf.hcf.faction.type.PlayerFaction;
-import com.google.common.cache.Cache;
 import net.minecraft.util.com.google.common.cache.CacheBuilder;
-import com.google.common.collect.ImmutableSet;
-
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.TimeUnit;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-
 import ru.tehkode.permissions.bukkit.PermissionsEx;
+
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
 
 public class ChatListener
 implements Listener {
@@ -76,18 +65,16 @@ implements Listener {
             message = message.substring(1, message.length()).trim();
             event.setMessage(message);
         }
-        boolean usingRecipientVersion = false;
         event.setCancelled(true);
-        Boolean isTag = true;
-        if (player.hasPermission("faction.removetag")) {
-            isTag = true;
-        }
+
         String rank = ChatColor.translateAlternateColorCodes('&', "&e" + PermissionsEx.getUser(player).getPrefix()).replace("_", " ");
         String displayName = player.getDisplayName();
         displayName = rank + displayName;
-        ConsoleCommandSender console = Bukkit.getConsoleSender();
-        String tag = playerFaction == null ? "" : ChatColor.GOLD + "[" + playerFaction.getDisplayName(console) + ChatColor.RED + "] ";
-        console.sendMessage( tag +  displayName + ChatColor.GOLD + ": " + ChatColor.GRAY + message);
+
+        String tag = playerFaction == null ? "" : ChatColor.GOLD + "[" + playerFaction.getDisplayName(Bukkit.getConsoleSender()) + ChatColor.RED + "] ";
+
+        Bukkit.getConsoleSender().sendMessage( tag +  displayName + ChatColor.GOLD + ": " + ChatColor.GRAY + message);
+
         for (Player recipient : event.getRecipients()) {
         	tag = playerFaction == null ? ChatColor.GOLD + "[" + ChatColor.RED + "*" + ChatColor.GOLD + "] " :ChatColor.GOLD + "[" +  playerFaction.getDisplayName(recipient) + ChatColor.GOLD + "] ";
             recipient.sendMessage(tag + displayName + ChatColor.GRAY + ": " + ChatColor.WHITE + message);
@@ -111,7 +98,6 @@ implements Listener {
     }
 
     static {
-        ImmutableSet.Builder builder = ImmutableSet.builder();
         PATTERN = Pattern.compile("\\W");
     }
 }

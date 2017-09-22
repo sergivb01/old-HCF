@@ -56,6 +56,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -190,13 +191,27 @@ public class HCF extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[HCF] " + ChatColor.AQUA + "Set clearlag delay");
     }
 
-    private void saveData() {
-        this.deathbanManager.saveDeathbanData();
-        this.economyManager.saveEconomyData();
-        this.factionManager.saveFactionData();
-        this.userManager.saveUserData();
-        this.keyManager.saveKeyData();
-        this.deathbanManager.saveDeathbanData();
+    public void saveData() {
+        boolean error = false;
+
+        BasePlugin.getPlugin().getServerHandler().saveServerData(); //Base data
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "save-all"); //World
+
+        Bukkit.broadcastMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Starting backup of data");
+
+        for(Player p : Bukkit.getOnlinePlayers()){ //HCF player data stuff
+            try {
+                p.saveData();
+            }catch (Exception e) { if(!error) error = true; }
+        }
+
+        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&6&lAutoSave &eTask was completed " + (error ? "with &aerrors&e" : "successfully!")));
+
+        this.deathbanManager.saveDeathbanData(); //Deathbans
+        this.economyManager.saveEconomyData(); //Balance
+        this.factionManager.saveFactionData(); //Factions! :d
+        this.userManager.saveUserData(); //User settings
+        this.keyManager.saveKeyData(); //Key things
     }
 
     public void onDisable() {

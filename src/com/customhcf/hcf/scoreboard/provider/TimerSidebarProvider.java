@@ -1,11 +1,7 @@
 package com.customhcf.hcf.scoreboard.provider;
 
 import com.customhcf.base.BasePlugin;
-import com.customhcf.base.user.BaseUser;
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.utils.ConfigurationService;
-import com.customhcf.hcf.utils.DateTimeFormats;
-import com.customhcf.hcf.utils.DurationFormatter;
 import com.customhcf.hcf.classes.PvpClass;
 import com.customhcf.hcf.classes.bard.BardClass;
 import com.customhcf.hcf.classes.type.MinerClass;
@@ -24,6 +20,9 @@ import com.customhcf.hcf.timer.Timer;
 import com.customhcf.hcf.timer.type.NotchAppleTimer;
 import com.customhcf.hcf.timer.type.SotwTimer;
 import com.customhcf.hcf.user.FactionUser;
+import com.customhcf.hcf.utils.ConfigurationService;
+import com.customhcf.hcf.utils.DateTimeFormats;
+import com.customhcf.hcf.utils.DurationFormatter;
 import com.customhcf.util.BukkitUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -237,19 +236,15 @@ public class TimerSidebarProvider implements SidebarProvider
 
 
 		if (player.hasPermission("command.staffmode") && BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId()).isStaffUtil()) {
-            BaseUser baseUser = BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId());
 				lines.add(new SidebarEntry(ChatColor.YELLOW + "" + ChatColor.BOLD + "Mod Mode: "));
 			if (player.hasPermission("command.vanish")) {
 				lines.add(new SidebarEntry(ChatColor.WHITE + " » " + ChatColor.YELLOW.toString(), "Vanished" + ChatColor.GRAY + ": ", BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId()).isVanished() ? (ChatColor.GREEN + "True") : (ChatColor.RED + "Visible")));
 			}
 			if (HCF.getPlugin().getServerHandler().isChatDisabled()) {
 				lines.add(new SidebarEntry("§f » §eChat", "§7: §cLocked", "§c (" + HCF.getRemaining(HCF.getPlugin().getServerHandler().getChatDisabledMillis() - System.currentTimeMillis(), true) + ")"));
-			} else if (HCF.getPlugin().getServerHandler().isChatSlowed()) {
+			} else if (isChatSlowed()) {
                 lines.add(new SidebarEntry("§f » §eChat", "§7: §cSlowed ", "(" + BasePlugin.getPlugin().getServerHandler().getChatSlowedDelay() + "s)"));
             }
-//			} else {
-//				lines.add(new SidebarEntry("§f » §eChat", "§7: §7Normal ", ""));
-//			}
 			lines.add(new SidebarEntry("§f » §eGamemode" , "§7: ", (player.getGameMode() == GameMode.CREATIVE) ? (ChatColor.GREEN + "Creative") : (ChatColor.RED + "Survival")));
 		} else if(BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId()).isVanished()) {
             lines.add(new SidebarEntry(ChatColor.WHITE + " » " + ChatColor.YELLOW.toString(), "Vanished" + ChatColor.GRAY + ": ", BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId()).isVanished() ? (ChatColor.GREEN + "True") : (ChatColor.RED + "Visible")));
@@ -259,8 +254,8 @@ public class TimerSidebarProvider implements SidebarProvider
 //			double d = Integer.valueOf(player.getStatistic(Statistic.DEATHS));
 //			double kd = k / d;
 //			DecimalFormat df = new DecimalFormat("#.##");
-			lines.add(new SidebarEntry(ChatColor.GOLD.toString() + " ", ChatColor.GREEN + "Kills" + ": " + ChatColor.YELLOW, Integer.valueOf(player.getStatistic(Statistic.PLAYER_KILLS))));
-			lines.add(new SidebarEntry(ChatColor.GOLD.toString() + " ", ChatColor.GREEN + "Deaths" + ": " + ChatColor.YELLOW, Integer.valueOf(player.getStatistic(Statistic.DEATHS))));
+			lines.add(new SidebarEntry(ChatColor.GOLD.toString() + " ", ChatColor.GREEN + "Kills" + ": " + ChatColor.YELLOW, player.getStatistic(Statistic.PLAYER_KILLS)));
+			lines.add(new SidebarEntry(ChatColor.GOLD.toString() + " ", ChatColor.GREEN + "Deaths" + ": " + ChatColor.YELLOW, player.getStatistic(Statistic.DEATHS)));
 
 //			if (df.format(kd).matches(".*\\d+.*")){
 //				lines.add(new SidebarEntry(ChatColor.GOLD.toString() + " ", ChatColor.GREEN + "KDR" + ": " + ChatColor.YELLOW, df.format(kd)));
@@ -278,6 +273,10 @@ public class TimerSidebarProvider implements SidebarProvider
 			lines.add(lines.size(), new SidebarEntry(ChatColor.GRAY,ChatColor.STRIKETHROUGH + TimerSidebarProvider.STRAIGHT_LINE, TimerSidebarProvider.STRAIGHT_LINE));
 		}
 		return lines;
+	}
+
+	public boolean isChatSlowed() {
+		return BasePlugin.getPlugin().getServerHandler().getRemainingChatSlowedMillis() > 0;
 	}
 
 	static {
