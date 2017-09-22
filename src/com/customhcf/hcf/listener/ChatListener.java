@@ -4,6 +4,7 @@ import com.customhcf.hcf.HCF;
 import com.customhcf.hcf.faction.event.FactionChatEvent;
 import com.customhcf.hcf.faction.struct.ChatChannel;
 import com.customhcf.hcf.faction.type.PlayerFaction;
+import com.customhcf.hcf.utils.ConfigurationService;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.util.com.google.common.cache.CacheBuilder;
 import org.apache.commons.lang.StringUtils;
@@ -76,19 +77,29 @@ implements Listener {
             isTag = true;
         }
 
+        Integer k = Integer.valueOf(player.getStatistic(Statistic.PLAYER_KILLS));
+        double d = Integer.valueOf(player.getStatistic(Statistic.DEATHS));
+        double kd = k / d;
+        String kdr;
+        DecimalFormat df = new DecimalFormat("#.##");
 
+        if (df.format(kd).matches(".*\\d+.*")){
+            kdr = df.format(kd);
+        } else {
+            kdr = "0";
+        }
 
-        String kdrPrefix = (kdr > 2 ? ChatColor.RED + kdr : ChatColor.GREEN + kdr);
+        String kdrPrefix = (kd > 2) ? ChatColor.RED + kdr : ChatColor.GREEN + kdr;
 
 
         String rank = ChatColor.translateAlternateColorCodes('&', "&e" + PermissionsEx.getUser(player).getPrefix()).replace("_", " ");
         String displayName = player.getDisplayName();
         displayName = rank + displayName;
         ConsoleCommandSender console = Bukkit.getConsoleSender();
-        String tag = playerFaction == null ? "" : ChatColor.GOLD + "[" + playerFaction.getDisplayName(console) + ChatColor.RED + "] ";
+        String tag = playerFaction == null ? "" : ChatColor.GOLD + "[" + playerFaction.getDisplayName(console) + ChatColor.RED + "] " + ((ConfigurationService.KIT_MAP) ? ChatColor.GRAY + "(" + kdr + ChatColor.DARK_GRAY + ") " : "");
         console.sendMessage( tag +  displayName + ChatColor.GOLD + ": " + ChatColor.GRAY + message);
         for (Player recipient : event.getRecipients()) {
-        	tag = playerFaction == null ? ChatColor.GOLD + "[" + ChatColor.RED + "*" + ChatColor.GOLD + "] " :ChatColor.GOLD + "[" +  playerFaction.getDisplayName(recipient) + ChatColor.GOLD + "] ";
+        	tag = playerFaction == null ? ChatColor.GOLD + "[" + ChatColor.RED + "*" + ChatColor.GOLD + "] " :ChatColor.GOLD + "[" +  playerFaction.getDisplayName(recipient) + ChatColor.GOLD + "] " + ((ConfigurationService.KIT_MAP) ? ChatColor.GRAY + "(" + kdr + ChatColor.DARK_GRAY + ") " : "");
             recipient.sendMessage(tag + displayName + ChatColor.GRAY + ": " + ChatColor.WHITE + message);
         }
     }
