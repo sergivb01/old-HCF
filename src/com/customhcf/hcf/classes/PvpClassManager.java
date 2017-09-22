@@ -1,27 +1,22 @@
 
 package com.customhcf.hcf.classes;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
-import javax.annotation.Nullable;
-import org.bukkit.Bukkit;
-import org.bukkit.Server;
-import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
-import org.bukkit.event.Listener;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.PluginManager;
-
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.classes.PvpClass;
 import com.customhcf.hcf.classes.archer.ArcherClass;
 import com.customhcf.hcf.classes.bard.BardClass;
 import com.customhcf.hcf.classes.event.PvpClassEquipEvent;
 import com.customhcf.hcf.classes.event.PvpClassUnequipEvent;
 import com.customhcf.hcf.classes.type.MinerClass;
+import com.customhcf.hcf.classes.type.RogueClass;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
+
+import javax.annotation.Nullable;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class PvpClassManager {
     private final Map<UUID, PvpClass> equippedClass = new HashMap<UUID, PvpClass>();
@@ -31,6 +26,7 @@ public class PvpClassManager {
         this.pvpClasses.put("Archer", new ArcherClass(plugin));
         this.pvpClasses.put("Bard", new BardClass(plugin));
         this.pvpClasses.put("Miner", new MinerClass(plugin));
+        this.pvpClasses.put("Rouge", new RogueClass(plugin));
         for (PvpClass pvpClass : this.pvpClasses.values()) {
             if (!(pvpClass instanceof Listener)) continue;
             plugin.getServer().getPluginManager().registerEvents((Listener)pvpClass, plugin);
