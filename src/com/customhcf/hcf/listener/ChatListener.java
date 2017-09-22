@@ -4,10 +4,19 @@ import com.customhcf.hcf.HCF;
 import com.customhcf.hcf.faction.event.FactionChatEvent;
 import com.customhcf.hcf.faction.struct.ChatChannel;
 import com.customhcf.hcf.faction.type.PlayerFaction;
+<<<<<<< HEAD
+=======
+import com.google.common.collect.ImmutableSet;
+>>>>>>> 5a17b05045e48d8c4b475a0740bb01d22267b75c
 import net.minecraft.util.com.google.common.cache.CacheBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+<<<<<<< HEAD
+=======
+import org.bukkit.Statistic;
+import org.bukkit.command.ConsoleCommandSender;
+>>>>>>> 5a17b05045e48d8c4b475a0740bb01d22267b75c
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -15,6 +24,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 
+<<<<<<< HEAD
+=======
+import java.text.DecimalFormat;
+>>>>>>> 5a17b05045e48d8c4b475a0740bb01d22267b75c
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentMap;
@@ -66,6 +79,18 @@ implements Listener {
             event.setMessage(message);
         }
         event.setCancelled(true);
+<<<<<<< HEAD
+=======
+        Boolean isTag = true;
+        if (player.hasPermission("faction.removetag")) {
+            isTag = true;
+        }
+
+
+
+        String kdrPrefix = (kdr > 2 ? ChatColor.RED + kdr : ChatColor.GREEN + kdr);
+
+>>>>>>> 5a17b05045e48d8c4b475a0740bb01d22267b75c
 
         String rank = ChatColor.translateAlternateColorCodes('&', "&e" + PermissionsEx.getUser(player).getPrefix()).replace("_", " ");
         String displayName = player.getDisplayName();
