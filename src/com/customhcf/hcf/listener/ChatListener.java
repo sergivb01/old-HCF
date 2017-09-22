@@ -4,15 +4,12 @@ import com.customhcf.hcf.HCF;
 import com.customhcf.hcf.faction.event.FactionChatEvent;
 import com.customhcf.hcf.faction.struct.ChatChannel;
 import com.customhcf.hcf.faction.type.PlayerFaction;
-<<<<<<< HEAD
 import com.customhcf.hcf.utils.ConfigurationService;
-import com.google.common.collect.ImmutableSet;
-=======
->>>>>>> 9840e73dc859ed88166010ffeddcddd6aa1dbcab
 import net.minecraft.util.com.google.common.cache.CacheBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -20,6 +17,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentMap;
@@ -71,14 +69,9 @@ implements Listener {
             event.setMessage(message);
         }
         event.setCancelled(true);
-<<<<<<< HEAD
-        Boolean isTag = true;
-        if (player.hasPermission("faction.removetag")) {
-            isTag = true;
-        }
 
-        Integer k = Integer.valueOf(player.getStatistic(Statistic.PLAYER_KILLS));
-        double d = Integer.valueOf(player.getStatistic(Statistic.DEATHS));
+        Integer k = player.getStatistic(Statistic.PLAYER_KILLS);
+        double d = player.getStatistic(Statistic.DEATHS);
         double kd = k / d;
         String kdr;
         DecimalFormat df = new DecimalFormat("#.##");
@@ -90,27 +83,22 @@ implements Listener {
         }
 
         String kdrPrefix = (kd > 2) ? ChatColor.RED + kdr : ChatColor.GREEN + kdr;
-=======
->>>>>>> 9840e73dc859ed88166010ffeddcddd6aa1dbcab
 
         //String kdrPrefix = (kdr > 2 ? ChatColor.RED + kdr : ChatColor.GREEN + kdr);
 
         String rank = ChatColor.translateAlternateColorCodes('&', "&e" + PermissionsEx.getUser(player).getPrefix()).replace("_", " ");
         String displayName = player.getDisplayName();
         displayName = rank + displayName;
-<<<<<<< HEAD
-        ConsoleCommandSender console = Bukkit.getConsoleSender();
-        String tag = playerFaction == null ? "" : ChatColor.GOLD + "[" + playerFaction.getDisplayName(console) + ChatColor.RED + "] " + ((ConfigurationService.KIT_MAP) ? ChatColor.GRAY + "(" + kdr + ChatColor.DARK_GRAY + ") " : "");
-        console.sendMessage( tag +  displayName + ChatColor.GOLD + ": " + ChatColor.GRAY + message);
-=======
 
-        String tag = playerFaction == null ? "" : ChatColor.GOLD + "[" + playerFaction.getDisplayName(Bukkit.getConsoleSender()) + ChatColor.RED + "] ";
+        String tag = playerFaction == null ? "" : ChatColor.GOLD + "[" + playerFaction.getDisplayName(Bukkit.getConsoleSender()) + ChatColor.RED + "] " + ((ConfigurationService.KIT_MAP) ? ChatColor.GRAY + "(" + kdr + ChatColor.DARK_GRAY + ") " : "NOT");
+        Bukkit.getConsoleSender().sendMessage( tag +  displayName + ChatColor.GOLD + ": " + ChatColor.GRAY + message);
+
+        //String tag = playerFaction == null ? "" : ChatColor.GOLD + "[" + playerFaction.getDisplayName(Bukkit.getConsoleSender()) + ChatColor.RED + "] ";
 
         Bukkit.getConsoleSender().sendMessage( tag +  displayName + ChatColor.GOLD + ": " + ChatColor.GRAY + message);
 
->>>>>>> 9840e73dc859ed88166010ffeddcddd6aa1dbcab
         for (Player recipient : event.getRecipients()) {
-        	tag = playerFaction == null ? ChatColor.GOLD + "[" + ChatColor.RED + "*" + ChatColor.GOLD + "] " :ChatColor.GOLD + "[" +  playerFaction.getDisplayName(recipient) + ChatColor.GOLD + "] " + ((ConfigurationService.KIT_MAP) ? ChatColor.GRAY + "(" + kdr + ChatColor.DARK_GRAY + ") " : "");
+        	tag = playerFaction == null ? ChatColor.GOLD + "[" + ChatColor.RED + "*" + ChatColor.GOLD + "] " :ChatColor.GOLD + "[" +  playerFaction.getDisplayName(recipient) + ChatColor.GOLD + "] " + ((ConfigurationService.KIT_MAP) ? ChatColor.GRAY + "(" + kdr + ChatColor.DARK_GRAY + ") " : "NOT");
             recipient.sendMessage(tag + displayName + ChatColor.GRAY + ": " + ChatColor.WHITE + message);
         }
     }
