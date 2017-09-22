@@ -1,36 +1,29 @@
 package com.customhcf.hcf.listener;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.faction.FactionManager;
-import com.customhcf.hcf.faction.FactionMember;
 import com.customhcf.hcf.faction.event.FactionChatEvent;
 import com.customhcf.hcf.faction.struct.ChatChannel;
 import com.customhcf.hcf.faction.type.PlayerFaction;
-import com.google.common.cache.Cache;
-import net.minecraft.util.com.google.common.cache.CacheBuilder;
 import com.google.common.collect.ImmutableSet;
-
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.TimeUnit;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import net.minecraft.util.com.google.common.cache.CacheBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
+import org.bukkit.Statistic;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-
 import ru.tehkode.permissions.bukkit.PermissionsEx;
+
+import java.text.DecimalFormat;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
 
 public class ChatListener
 implements Listener {
@@ -82,6 +75,12 @@ implements Listener {
         if (player.hasPermission("faction.removetag")) {
             isTag = true;
         }
+
+
+
+        String kdrPrefix = (kdr > 2 ? ChatColor.RED + kdr : ChatColor.GREEN + kdr);
+
+
         String rank = ChatColor.translateAlternateColorCodes('&', "&e" + PermissionsEx.getUser(player).getPrefix()).replace("_", " ");
         String displayName = player.getDisplayName();
         displayName = rank + displayName;
