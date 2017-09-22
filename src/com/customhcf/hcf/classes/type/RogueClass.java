@@ -24,16 +24,16 @@ import org.bukkit.util.Vector;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-public class RogueClass extends PvpClass implements Listener{
+public class RogueClass extends PvpClass implements Listener {
     private final HCF plugin;
     private static final PotionEffect ARCHER_SPEED_EFFECT;
     private static final long ARCHER_SPEED_COOLDOWN_DELAY;
     private final TObjectLongMap<UUID> archerSpeedCooldowns;
     private RougeRestorer rougeRestorer;
 
-    public RogueClass(final HCF plugin) {
-        super("Rogue", TimeUnit.SECONDS.toMillis(5L));
-        this.archerSpeedCooldowns = new TObjectLongHashMap<UUID>();
+    public RogueClass(HCF plugin) {
+        super("Rouge", TimeUnit.SECONDS.toMillis(5));
+        this.archerSpeedCooldowns = new TObjectLongHashMap<>();
         this.plugin = plugin;
         this.rougeRestorer = new RougeRestorer(plugin);
         this.passiveEffects.add(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 0));
@@ -102,26 +102,28 @@ public class RogueClass extends PvpClass implements Listener{
     }
 
     @Override
-    public boolean isApplicableFor(final Player player) {
-        final PlayerInventory playerInventory = player.getInventory();
-        final ItemStack helmet = playerInventory.getHelmet();
+    public boolean isApplicableFor(Player player) {
+        PlayerInventory playerInventory = player.getInventory();
+        ItemStack helmet = playerInventory.getHelmet();
         if (helmet == null || helmet.getType() != Material.CHAINMAIL_HELMET) {
             return false;
         }
-        final ItemStack chestplate = playerInventory.getChestplate();
+        ItemStack chestplate = playerInventory.getChestplate();
         if (chestplate == null || chestplate.getType() != Material.CHAINMAIL_CHESTPLATE) {
             return false;
         }
-        final ItemStack leggings = playerInventory.getLeggings();
+        ItemStack leggings = playerInventory.getLeggings();
         if (leggings == null || leggings.getType() != Material.CHAINMAIL_LEGGINGS) {
             return false;
         }
-        final ItemStack boots = playerInventory.getBoots();
+        ItemStack boots = playerInventory.getBoots();
         return boots != null && boots.getType() == Material.CHAINMAIL_BOOTS;
     }
+
 
     static {
         ARCHER_SPEED_EFFECT = new PotionEffect(PotionEffectType.SPEED, 160, 5);
         ARCHER_SPEED_COOLDOWN_DELAY = TimeUnit.MINUTES.toMillis(1L);
     }
+
 }
