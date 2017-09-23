@@ -36,7 +36,7 @@ public class RogueClass extends PvpClass implements Listener {
         this.archerSpeedCooldowns = new TObjectLongHashMap<>();
         this.plugin = plugin;
         this.rougeRestorer = new RougeRestorer(plugin);
-        this.passiveEffects.add(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 0));
+        this.passiveEffects.add(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 1));
         this.passiveEffects.add(new PotionEffect(PotionEffectType.REGENERATION, Integer.MAX_VALUE, 0));
         this.passiveEffects.add(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 2));
         this.passiveEffects.add(new PotionEffect(PotionEffectType.JUMP, Integer.MAX_VALUE, 1));
@@ -64,7 +64,9 @@ public class RogueClass extends PvpClass implements Listener {
                             damager.setItemInHand(new ItemStack(Material.AIR));
                             damager.playSound(damager.getLocation(), Sound.ITEM_BREAK, 1.0f, 1.0f);
                             damager.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 30, 2));
-                            damager.sendMessage(ChatColor.translateAlternateColorCodes('&', "&eYou have been backstabbed &a" + damaged.getName() + "&e."));
+                            damager.sendMessage("");
+                            damager.sendMessage(ChatColor.translateAlternateColorCodes('&', "&eYou have backstabbed &a" + damaged.getName() + "&e!"));
+                            damager.sendMessage("");
                         }
                     }
                 }
@@ -96,6 +98,7 @@ public class RogueClass extends PvpClass implements Listener {
                     stack.setAmount(stack.getAmount() - 1);
                 }
                 rougeRestorer.setRestoreEffect(player, RogueClass.ARCHER_SPEED_EFFECT);
+                player.sendMessage(ChatColor.YELLOW + "You now have your " + ChatColor.GREEN + "Archer Speed" + ChatColor.YELLOW + "!");
                 this.archerSpeedCooldowns.put(event.getPlayer().getUniqueId(), System.currentTimeMillis() + RogueClass.ARCHER_SPEED_COOLDOWN_DELAY);
             }
         }
@@ -122,8 +125,8 @@ public class RogueClass extends PvpClass implements Listener {
 
 
     static {
-        ARCHER_SPEED_EFFECT = new PotionEffect(PotionEffectType.SPEED, 160, 5);
-        ARCHER_SPEED_COOLDOWN_DELAY = TimeUnit.MINUTES.toMillis(1L);
+        ARCHER_SPEED_EFFECT = new PotionEffect(PotionEffectType.SPEED, 350, 5);
+        ARCHER_SPEED_COOLDOWN_DELAY = TimeUnit.SECONDS.toMillis(30L);
     }
 
 }
