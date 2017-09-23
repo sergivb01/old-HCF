@@ -74,7 +74,7 @@ public class RogueClass extends PvpClass implements Listener {
         }
     }
 
-    @EventHandler(ignoreCancelled = false, priority = EventPriority.HIGH)
+    @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerInteract(final PlayerInteractEvent event) {
         final Action action = event.getAction();
         if ((action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) && event.hasItem() && event.getItem().getType() == Material.SUGAR) {
@@ -85,7 +85,8 @@ public class RogueClass extends PvpClass implements Listener {
             final UUID uuid = player.getUniqueId();
             final long timestamp = this.archerSpeedCooldowns.get(uuid);
             final long millis = System.currentTimeMillis();
-            final long remaining = (timestamp == this.archerSpeedCooldowns.getNoEntryValue()) ? -1L : (timestamp - millis);
+            //final long remaining = (timestamp == this.archerSpeedCooldowns.getNoEntryValue()) ? -1L : (timestamp - millis);
+            final long remaining = millis - timestamp;
             if (remaining > 0L) {
                 player.sendMessage(ChatColor.RED + "Cannot use " + this.getName() + " speed for another " + DurationFormatUtils.formatDurationWords(remaining, true, true) + ".");
             }
@@ -98,7 +99,7 @@ public class RogueClass extends PvpClass implements Listener {
                     stack.setAmount(stack.getAmount() - 1);
                 }
                 rougeRestorer.setRestoreEffect(player, RogueClass.ARCHER_SPEED_EFFECT);
-                player.sendMessage(ChatColor.YELLOW + "You now have your " + ChatColor.GREEN + "Archer Speed" + ChatColor.YELLOW + "!");
+                player.sendMessage(ChatColor.YELLOW + "You now have your " + ChatColor.GREEN + "Rouge Speed" + ChatColor.YELLOW + "!");
                 this.archerSpeedCooldowns.put(event.getPlayer().getUniqueId(), System.currentTimeMillis() + RogueClass.ARCHER_SPEED_COOLDOWN_DELAY);
             }
         }
@@ -125,8 +126,8 @@ public class RogueClass extends PvpClass implements Listener {
 
 
     static {
-        ARCHER_SPEED_EFFECT = new PotionEffect(PotionEffectType.SPEED, 350, 5);
-        ARCHER_SPEED_COOLDOWN_DELAY = TimeUnit.SECONDS.toMillis(30L);
+        ARCHER_SPEED_EFFECT = new PotionEffect(PotionEffectType.SPEED, 300, 5);
+        ARCHER_SPEED_COOLDOWN_DELAY = TimeUnit.SECONDS.toMillis(45L);
     }
 
 }
