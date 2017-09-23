@@ -181,10 +181,9 @@ public class HCF extends JavaPlugin {
         this.timerManager.enable();
         Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[HCF] " + ChatColor.AQUA + "Enabled TimerManager");
 
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "savedata");
-            saveData();
-        }, 0L, (60 * 20) * 20L);
+
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, this::saveData, 0L, (60 * 15) * 20L);
+
         Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[HCF] " + ChatColor.AQUA + "Setup save task");
 
         Bukkit.dispatchCommand(Bukkit.getServer().getConsoleSender(), "clearlag 100000");
