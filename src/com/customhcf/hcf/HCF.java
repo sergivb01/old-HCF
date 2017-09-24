@@ -253,6 +253,7 @@ public class HCF extends JavaPlugin {
 
     private void registerListeners() {
         PluginManager manager = this.getServer().getPluginManager();
+        manager.registerEvents(new PortalFixListener(), this);
         manager.registerEvents(new FactionManageArgument(this), this);
         manager.registerEvents(new ElevatorListener(this), this);
         manager.registerEvents(new EndPortalCommand(this), this);
