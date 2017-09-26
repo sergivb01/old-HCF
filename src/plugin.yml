@@ -17,6 +17,8 @@ commands:
   focus:
     description: Focus a player in another faction
   endportal:
+  enderchest:
+    aliases: ["echest", "pv", "playervault"]
   toggleend:
     aliases: [end]
     description: Command used to close or open the end.

@@ -320,6 +320,7 @@ public class HCF extends JavaPlugin {
     }
 
     private void registerCommands() {
+        this.getCommand("enderchest").setExecutor(new PlayerVaultCommand(this));
         this.getCommand("statreset").setExecutor(new StatResetCommand(this));
         this.getCommand("ffa").setExecutor(new FFACommand());
         this.getCommand("endportal").setExecutor(new EndPortalCommand(this));
