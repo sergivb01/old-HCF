@@ -11,6 +11,7 @@ import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.Statistic;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -66,10 +67,10 @@ implements CommandExecutor {
             }
         }
         if (hcf.getKills() > 0) {
-            player.sendMessage(ChatColor.YELLOW + "  Kills: " + ChatColor.GREEN + hcf.getKills());
+            player.sendMessage(ChatColor.YELLOW + "  Kills: " + ChatColor.GREEN + player.getStatistic(Statistic.PLAYER_KILLS));
         }
         if (hcf.getDeaths() > 0) {
-            player.sendMessage(ChatColor.YELLOW + "  Deaths: " + ChatColor.RED + hcf.getDeaths());
+            player.sendMessage(ChatColor.YELLOW + "  Deaths: " + ChatColor.RED + player.getStatistic(Statistic.DEATHS));
         }
         player.sendMessage(ChatColor.YELLOW + "  Balance: " + ChatColor.RED + HCF.getPlugin().getEconomyManager().getBalance(target.getUniqueId()));
         player.sendMessage(ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH + "----------------------------------------------------");

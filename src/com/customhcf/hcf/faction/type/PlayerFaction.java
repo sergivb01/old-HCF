@@ -32,6 +32,7 @@ import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Statistic;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -517,7 +518,7 @@ public class PlayerFaction
           final Player target = factionMember.toOnlinePlayer();
           final FactionUser user = HCF.getPlugin().getUserManager().getUser((UUID) entry.getKey());
           final Deathban deathban = user.getDeathban();
-          int kills = user.getKills();
+          int kills = target.getStatistic(Statistic.PLAYER_KILLS);
 
           ChatColor colour;
           if (target == null || (sender instanceof Player && !((Player)sender).canSee(target))) {
