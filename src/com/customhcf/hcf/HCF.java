@@ -112,67 +112,68 @@ public class HCF extends JavaPlugin {
 
 
     public static String getRemaining(long duration, boolean milliseconds, boolean trail) {
-        if (milliseconds && duration < MINUTE) {
-            return (trail ? DateTimeFormats.REMAINING_SECONDS_TRAILING : DateTimeFormats.REMAINING_SECONDS).get().format((double) duration * 0.001) + 's';
-        }
+         if (milliseconds && duration < MINUTE) {
+              return (trail ? DateTimeFormats.REMAINING_SECONDS_TRAILING : DateTimeFormats.REMAINING_SECONDS).get().format((double) duration * 0.001) + 's';
+         }
+        return org.apache.commons.lang.time.DurationFormatUtils.formatDuration(duration, (duration >= HOUR ? "HH:" : "") + "mm:ss");
+    }
+
+    public static String getRemainingSpawn(long duration, boolean milliseconds) {
+        // if (milliseconds && duration < MINUTE) {
+        //      return (trail ? DateTimeFormats.REMAINING_SECONDS_TRAILING : DateTimeFormats.REMAINING_SECONDS).get().format((double) duration * 0.001) + 's';
+        // }
         return org.apache.commons.lang.time.DurationFormatUtils.formatDuration(duration, (duration >= HOUR ? "HH:" : "") + "mm:ss");
     }
 
 
-    //public static String getRemaining(long duration, boolean milliseconds, boolean trail) {
-    //    if (milliseconds && duration < MINUTE) {
-   //        return (trail ? DateTimeFormats.REMAINING_SECONDS_TRAILING : DateTimeFormats.REMAINING_SECONDS).get().format((double)duration * 0.001) + 's';
-    //    }
-   //     return DurationFormatUtils.formatDuration((long)duration, (String)((duration >= HOUR ? "HH:" : "") + "mm:ss"));
-   // }
 
     public void onEnable() {
         plugin = this;
 
         CustomEntityRegistration.registerCustomEntities();
-        Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[HCF] " + ChatColor.AQUA + "Registered custom entities");
+        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED + "[HCF] " + ChatColor.RED + "Registered custom entities");
         ProtocolLibHook.hook(this);
-        Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[HCF] " + ChatColor.AQUA + "Hooked into ProtocolLib");
+        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED + "[HCF] " + ChatColor.RED + "Hooked into ProtocolLib");
 
         this.saveDefaultConfig();
-        Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[HCF] " + ChatColor.AQUA + "Saved config");
+        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED + "[HCF] " + ChatColor.RED + "Saved config");
 
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
-        Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[HCF] " + ChatColor.AQUA + "Registered bungeecord");
+        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED + "[HCF] " + ChatColor.RED + "Registered bungeecord");
 
         ConfigurationService.init(this.getConfig());
-        Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[HCF] " + ChatColor.AQUA + "Getting config");
+        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED + "[HCF] " + ChatColor.RED + "Getting config");
         
         PotionLimiterData.getInstance().setup(this);
-        Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[HCF] " + ChatColor.AQUA + "Setting up PotionLimiter Data");
+        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED + "[HCF] " + ChatColor.RED + "Setting up PotionLimiter Data");
         
         PotionLimitListener.reload();
-        Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[HCF] " + ChatColor.AQUA + "Reloaded PotionLimiter Data");
+        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED + "[HCF] " + ChatColor.RED + "Reloaded PotionLimiter Data");
 
         Plugin wep = Bukkit.getPluginManager().getPlugin("WorldEdit");
         this.worldEdit = wep instanceof WorldEditPlugin && wep.isEnabled() ? (WorldEditPlugin)wep : null;
-        Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[HCF] " + ChatColor.AQUA + "Hooked into WorldEdit");
+        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED + "[HCF] " + ChatColor.RED + "Hooked into WorldEdit");
 
         this.registerConfiguration();
-        Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[HCF] " + ChatColor.AQUA + "Registered config");
+        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED + "[HCF] " + ChatColor.RED + "Registered config");
         this.registerCommands();
-        Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[HCF] " + ChatColor.AQUA + "Registered commands");
+        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED + "[HCF] " + ChatColor.RED + "Registered commands");
         this.registerManagers();
-        Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[HCF] " + ChatColor.AQUA + "Registered managers");
+        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED + "[HCF] " + ChatColor.RED + "Registered managers");
         this.registerListeners();
-        Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[HCF] " + ChatColor.AQUA + "Registered listeners");
+        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED + "[HCF] " + ChatColor.RED + "Registered listeners");
         Cooldowns.createCooldown("revive_cooldown");
-        Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[HCF] " + ChatColor.AQUA + "Created cooldown: Revive");
+        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED + "[HCF] " + ChatColor.RED + "Created cooldown: Revive");
         Cooldowns.createCooldown("Assassin_item_cooldown");
-        Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[HCF] " + ChatColor.AQUA + "Created cooldown: Assassin Cooldown");
+        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED + "[HCF] " + ChatColor.RED + "Created cooldown: Assassin Cooldown");
         Cooldowns.createCooldown("Archer_item_cooldown");
-        Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[HCF] " + ChatColor.AQUA + "Created cooldown: Archer Cooldown (SPEED)");
+        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED + "[HCF] " + ChatColor.RED + "Created cooldown: Archer Cooldown (SPEED)");
         Cooldowns.createCooldown("Archer_jump_cooldown");
-        Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[HCF] " + ChatColor.AQUA + "Created cooldown: Archer Cooldown (JUMP)");
+        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED + "[HCF] " + ChatColor.RED + "Created cooldown: Archer Cooldown (JUMP)");
         Cooldowns.createCooldown("report_cooldown");
-        Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[HCF] " + ChatColor.AQUA + "Created cooldown: Report Cooldown");
+        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED + "[HCF] " + ChatColor.RED + "Created cooldown: Report Cooldown");
         Cooldowns.createCooldown("helpop_cooldown");
-        Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[HCF] " + ChatColor.AQUA + "Created cooldown: HelpOp Cooldown");
+        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED + "[HCF] " + ChatColor.RED + "Created cooldown: HelpOp Cooldown");
 
         this.helpTitle = Chat.translateColors(getConfig().getString("Help title"));
         this.scoreboardTitle = Chat.translateColors(getConfig().getString("Scoreboard title"));
@@ -253,6 +254,7 @@ public class HCF extends JavaPlugin {
 
     private void registerListeners() {
         PluginManager manager = this.getServer().getPluginManager();
+        manager.registerEvents(new PortalFixListener(), this);
         manager.registerEvents(new FactionManageArgument(this), this);
         manager.registerEvents(new ElevatorListener(this), this);
         manager.registerEvents(new EndPortalCommand(this), this);
