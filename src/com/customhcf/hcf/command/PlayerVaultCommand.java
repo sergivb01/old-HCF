@@ -28,7 +28,7 @@ public class PlayerVaultCommand implements CommandExecutor {
         Location location = player.getLocation();
         Faction factionAt = this.plugin.getFactionManager().getFactionAt(location);
         if (!(factionAt.isSafezone() || (playerFaction = this.plugin.getFactionManager().getPlayerFaction(player)) != null && playerFaction.equals(factionAt))) {
-            player.sendMessage(ChatColor.RED + "Your vault can be opened only in safe-zones or your own claims.");
+            player.sendMessage(ChatColor.RED + "Your vault can be opened only in safe-zones or your own claim.");
             return false;
         }
 

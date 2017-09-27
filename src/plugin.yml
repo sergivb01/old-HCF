@@ -92,6 +92,8 @@ commands:
     description: Revive a deathbanned player
   revive:
     aliases: [medic]
+  nether:
+    description: Teleport to nether spawn with a 30 second cooldown
   spawn:
     description: Teleport to the server spawn.
   timer:

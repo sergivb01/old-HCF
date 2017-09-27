@@ -3,7 +3,6 @@
 package com.customhcf.hcf.faction.type;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.utils.ConfigurationService;
 import com.customhcf.hcf.deathban.Deathban;
 import com.customhcf.hcf.faction.FactionMember;
 import com.customhcf.hcf.faction.event.FactionDtrChangeEvent;
@@ -17,6 +16,7 @@ import com.customhcf.hcf.faction.struct.Relation;
 import com.customhcf.hcf.faction.struct.Role;
 import com.customhcf.hcf.timer.type.TeleportTimer;
 import com.customhcf.hcf.user.FactionUser;
+import com.customhcf.hcf.utils.ConfigurationService;
 import com.customhcf.util.GenericUtils;
 import com.customhcf.util.JavaUtils;
 import com.customhcf.util.PersistableLocation;
@@ -32,7 +32,6 @@ import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.Statistic;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 

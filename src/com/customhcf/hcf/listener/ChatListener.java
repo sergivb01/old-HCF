@@ -95,8 +95,6 @@ implements Listener {
 
         //String tag = playerFaction == null ? "" : ChatColor.GOLD + "[" + playerFaction.getDisplayName(Bukkit.getConsoleSender()) + ChatColor.RED + "] ";
 
-        Bukkit.getConsoleSender().sendMessage( tag +  displayName + ChatColor.GOLD + ": " + ChatColor.GRAY + message);
-
         for (Player recipient : event.getRecipients()) {
         	tag = playerFaction == null ? ChatColor.GOLD + "[" + ChatColor.RED + "*" + ChatColor.GOLD + "] "  + ((ConfigurationService.KIT_MAP) ? ChatColor.DARK_GRAY + "(" + ChatColor.GREEN + kdrPrefix + ChatColor.DARK_GRAY + ") " : "") :ChatColor.GOLD + "[" +  playerFaction.getDisplayName(recipient) + ChatColor.GOLD + "] " + ((ConfigurationService.KIT_MAP) ? ChatColor.DARK_GRAY + "(" + ChatColor.GREEN + kdrPrefix + ChatColor.DARK_GRAY + ") " : "");
             recipient.sendMessage(tag + displayName + ChatColor.GRAY + ": " + ChatColor.WHITE + message);
