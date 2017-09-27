@@ -518,7 +518,7 @@ public class PlayerFaction
           final Player target = factionMember.toOnlinePlayer();
           final FactionUser user = HCF.getPlugin().getUserManager().getUser((UUID) entry.getKey());
           final Deathban deathban = user.getDeathban();
-          int kills = user.getPlayer().getStatistic(Statistic.PLAYER_KILLS);
+          int kills = user.getKills();
 
           ChatColor colour;
           if (target == null || (sender instanceof Player && !((Player)sender).canSee(target))) {
