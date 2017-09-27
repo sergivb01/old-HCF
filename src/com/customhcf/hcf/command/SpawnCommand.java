@@ -4,10 +4,7 @@ package com.customhcf.hcf.command;
 import com.customhcf.hcf.HCF;
 import com.customhcf.hcf.utils.ConfigurationService;
 import com.customhcf.util.BukkitUtils;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -39,13 +36,13 @@ public class SpawnCommand implements CommandExecutor, TabCompleter
 
         World world = player.getWorld();
         Location spawn = world.getSpawnLocation().clone().add(0.5, 0.5, 0.5);
-        if(player.hasPermission("rank.staff")) {
+        if(player.getGameMode().equals(GameMode.CREATIVE)) {
             player.teleport(spawn, PlayerTeleportEvent.TeleportCause.COMMAND);
             player.sendMessage(ChatColor.YELLOW + "You have been teleported to spawn.");
             return true;
         }
         if (ConfigurationService.KIT_MAP) {
-            this.plugin.getTimerManager().teleportTimer.teleport(player, Bukkit.getWorld("world").getSpawnLocation(), TimeUnit.SECONDS.toMillis(30L), ChatColor.YELLOW + "Teleporting to spawn in " + ChatColor.LIGHT_PURPLE + " 30 seconds.", PlayerTeleportEvent.TeleportCause.COMMAND);
+            this.plugin.getTimerManager().teleportTimer.teleport(player, Bukkit.getWorld("world").getSpawnLocation(), TimeUnit.SECONDS.toMillis(15L), ChatColor.YELLOW + "Teleporting to spawn in " + ChatColor.LIGHT_PURPLE + "15 seconds.", PlayerTeleportEvent.TeleportCause.COMMAND);
             return true;
         } else {
             sender.sendMessage(ChatColor.RED + "This server does not have a spawn command, you must travel there. " + "Spawn can be found at " + ChatColor.GRAY + '(' + spawn.getBlockX() + ", " + spawn.getBlockZ() + ')');

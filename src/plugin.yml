@@ -5,7 +5,7 @@
 #
 ################################################################################
 name: HCF
-version: VEILMC-3.9
+version: 4.0-VEILMC
 main: com.customhcf.hcf.HCF
 # depend: [Construct]
 softdepend: [ProtocolLib]
@@ -17,6 +17,7 @@ commands:
   focus:
     description: Focus a player in another faction
   endportal:
+  supplydrop:
   enderchest:
     aliases: ["echest", "pv", "playervault"]
   toggleend:
@@ -91,7 +92,6 @@ commands:
     description: Revive a deathbanned player
   revive:
     aliases: [medic]
-  staffinfo:
   spawn:
     description: Teleport to the server spawn.
   timer:
