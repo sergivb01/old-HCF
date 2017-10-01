@@ -13,6 +13,7 @@ commands:
   savedata:
   spawner:
   ffa:
+  sendcoords:
   statreset:
   focus:
     description: Focus a player in another faction

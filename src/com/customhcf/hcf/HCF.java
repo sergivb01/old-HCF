@@ -361,6 +361,7 @@ public class HCF extends JavaPlugin {
         this.getCommand("setborder").setExecutor(new SetBorderCommand());
         this.getCommand("loot").setExecutor(new LootExecutor(this));
         this.getCommand("safestop").setExecutor(new SafestopCommand());
+        this.getCommand("sendcoords").setExecutor(new SendCoordsCommand(this));
         this.getCommand("staffrevive").setExecutor(new StaffReviveCommand(this));
         this.getCommand("nether").setExecutor(new NetherCommand(this));
 

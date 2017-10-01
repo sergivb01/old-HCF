@@ -26,7 +26,6 @@ import java.util.regex.Pattern;
 
 public class ChatListener
 implements Listener {
-    private static final String DOUBLE_POST_BYPASS_PERMISSION = "hcf.doublepost.bypass";
     private static final Pattern PATTERN;
     private final ConcurrentMap<Object, Object> messageHistory;
     private final HCF plugin;

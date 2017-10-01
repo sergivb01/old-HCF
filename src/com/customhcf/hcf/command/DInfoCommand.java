@@ -45,7 +45,7 @@ public class DInfoCommand
         Double x = deathban.getDeathPoint().getX();
         Double y = deathban.getDeathPoint().getY();
         Double z = deathban.getDeathPoint().getZ();
-        DecimalFormat df = new DecimalFormat("#");
+        DecimalFormat df = new DecimalFormat("##");
         sender.sendMessage(ChatColor.YELLOW + "Reason: " + ChatColor.LIGHT_PURPLE + deathban.getReason());
         sender.sendMessage(ChatColor.YELLOW + "Remaining: " + ChatColor.LIGHT_PURPLE + remain);
         sender.sendMessage(ChatColor.YELLOW +  "Location:" + ChatColor.LIGHT_PURPLE + " x" + df.format(x) + ", y" + df.format(y) + ", z" + df.format(z));

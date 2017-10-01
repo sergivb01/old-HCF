@@ -3,6 +3,7 @@ package com.customhcf.hcf.listener;
 import com.customhcf.hcf.HCF;
 import com.customhcf.hcf.faction.type.Faction;
 import com.customhcf.hcf.faction.type.PlayerFaction;
+import com.customhcf.hcf.timer.PlayerTimer;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -110,13 +111,13 @@ public class ElevatorListener implements Listener {
                 return false;
             }
         }
-        /*PlayerTimer timer = this.plugin.getTimerManager().spawnTagTimer;
+        PlayerTimer timer = this.plugin.getTimerManager().spawnTagTimer;
         long remaining = timer.getRemaining(player);
         if ((remaining = (timer = this.plugin.getTimerManager().spawnTagTimer).getRemaining(player)) > 0L) {
             player.sendMessage(ChatColor.RED + "You can not use this while your " + ChatColor.BOLD + "Spawn Tag" + ChatColor.RED + " is active.");
             return false;
 
-        }*/
+        }
         if (!underSafe && !overSafe) {
             player.sendMessage(this.prefix + "Could not find a place to teleport by the sign " + (up ? "above" : "below"));
             return false;
