@@ -14,7 +14,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -27,6 +26,7 @@ public class FactionManageArgument
         extends CommandArgument implements Listener {
     public Inventory page1 = Bukkit.createInventory(null, 9, "Faction Manager");
     public Faction faction;
+    public PlayerFaction pf;
     private static final ImmutableList<String> COMPLETIONS = ImmutableList.of("all");
     private final HCF plugin;
 
@@ -49,7 +49,7 @@ public class FactionManageArgument
             return true;
         }
         Player p = (Player)sender;
-        this.faction = HCF.getPlugin().getFactionManager().getFaction(args[1]);
+        this.faction = this.plugin.getFactionManager().getContainingFaction(args[1]);
         if (faction == null) {
             sender.sendMessage(ChatColor.RED + "Faction with the name " + args[1] + " not found.");
             return false;
@@ -59,6 +59,7 @@ public class FactionManageArgument
             return false;
         }
 
+        this.pf = (PlayerFaction)faction;
         sender.sendMessage(ChatColor.RED + "" + this.faction);
         p.openInventory(page1);
         ItemStack a = new ItemStack(351, 1, (short) 1);
@@ -93,11 +94,10 @@ public class FactionManageArgument
             ItemStack clicked = e.getCurrentItem();
             if(clicked.getType().equals(Material.INK_SACK)) {
                 Dye dye = (Dye) clicked.getData();
-                PlayerFaction pf = (PlayerFaction)this.faction.getName();
-                if (dye.getColor().equals(DyeColor.YELLOW)) {
-                    if (e.getClick() == ClickType.LEFT) {
-                        Bukkit.dispatchCommand(p, "f setdtr " + (PlayerFaction)this.faction.getDtrLossMultiplier());
-                    }
+                if (dye.getColor().equals(DyeColor.RED)) {
+                    p.sendMessage(pf.getDisplayName(p) + pf.getDeathsUntilRaidable() + 1);
+                    Bukkit.dispatchCommand(p, "/f setdtr " + ChatColor.stripColor(pf.getDisplayName(p)) + " " + pf.getDeathsUntilRaidable() + 1);
+                    e.setCancelled(true);
                 }
             }
             e.setCancelled(true);
