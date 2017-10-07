@@ -2,7 +2,6 @@ package com.customhcf.hcf;
 
 import com.customhcf.base.BasePlugin;
 import com.customhcf.base.ServerHandler;
-import com.customhcf.hcf.utils.*;
 import com.customhcf.hcf.balance.*;
 import com.customhcf.hcf.classes.PvpClassManager;
 import com.customhcf.hcf.classes.archer.ArcherClass;
@@ -27,7 +26,6 @@ import com.customhcf.hcf.faction.claim.ClaimHandler;
 import com.customhcf.hcf.faction.claim.ClaimWandListener;
 import com.customhcf.hcf.faction.claim.Subclaim;
 import com.customhcf.hcf.faction.type.*;
-import com.customhcf.hcf.listener.fixes.*;
 import com.customhcf.hcf.kothgame.CaptureZone;
 import com.customhcf.hcf.kothgame.EventExecutor;
 import com.customhcf.hcf.kothgame.EventScheduler;
@@ -40,6 +38,7 @@ import com.customhcf.hcf.kothgame.faction.ConquestFaction;
 import com.customhcf.hcf.kothgame.faction.KothFaction;
 import com.customhcf.hcf.kothgame.koth.KothExecutor;
 import com.customhcf.hcf.listener.*;
+import com.customhcf.hcf.listener.fixes.*;
 import com.customhcf.hcf.lives.LivesExecutor;
 import com.customhcf.hcf.scoreboard.ScoreboardHandler;
 import com.customhcf.hcf.timer.TimerExecutor;
@@ -47,6 +46,7 @@ import com.customhcf.hcf.timer.TimerManager;
 import com.customhcf.hcf.timer.type.SotwTimer;
 import com.customhcf.hcf.user.FactionUser;
 import com.customhcf.hcf.user.UserManager;
+import com.customhcf.hcf.utils.*;
 import com.customhcf.hcf.visualise.ProtocolLibHook;
 import com.customhcf.hcf.visualise.VisualiseHandler;
 import com.customhcf.hcf.visualise.WallBorderListener;
@@ -127,8 +127,13 @@ public class HCF extends JavaPlugin {
 
 
 
+
     public void onEnable() {
         plugin = this;
+
+
+
+
 
         CustomEntityRegistration.registerCustomEntities();
         Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED + "[HCF] " + ChatColor.RED + "Registered custom entities");
@@ -190,6 +195,8 @@ public class HCF extends JavaPlugin {
         Bukkit.dispatchCommand(Bukkit.getServer().getConsoleSender(), "clearlag 100000");
         Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[HCF] " + ChatColor.AQUA + "Set clearlag delay");
     }
+
+
 
     public void saveData() {
         boolean error = false;
@@ -394,6 +401,7 @@ public class HCF extends JavaPlugin {
 
     }
 
+    //@Getter private Reflection reflection;
 
     public Message getMessage() {
         return this.message;
@@ -426,6 +434,8 @@ public class HCF extends JavaPlugin {
     public DeathbanManager getDeathbanManager() {
         return this.deathbanManager;
     }
+
+
 
 
     public EconomyManager getEconomyManager() {
