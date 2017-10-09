@@ -35,6 +35,7 @@ import com.customhcf.hcf.kothgame.eotw.EotwCommand;
 import com.customhcf.hcf.kothgame.eotw.EotwListener;
 import com.customhcf.hcf.kothgame.faction.CapturableFaction;
 import com.customhcf.hcf.kothgame.faction.ConquestFaction;
+import com.customhcf.hcf.kothgame.faction.EventFaction;
 import com.customhcf.hcf.kothgame.faction.KothFaction;
 import com.customhcf.hcf.kothgame.koth.KothExecutor;
 import com.customhcf.hcf.listener.*;
@@ -52,6 +53,7 @@ import com.customhcf.hcf.visualise.VisualiseHandler;
 import com.customhcf.hcf.visualise.WallBorderListener;
 import com.google.common.base.Joiner;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
+import com.ullink.slack.simpleslackapi.SlackSession;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.PluginCommand;
@@ -60,9 +62,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 
@@ -75,8 +77,11 @@ public class HCF extends JavaPlugin {
     private static HCF plugin;
     private Message message;
     public EventScheduler eventScheduler;
+    private List<String> eventGames =  new ArrayList<>();
     private Random random = new Random();
-    
+
+    public static SlackSession session;
+
     public String scoreboardTitle;
     public String helpTitle;
     
@@ -126,13 +131,20 @@ public class HCF extends JavaPlugin {
     }
 
 
+    private void registerGames(){
+        for(Faction faction  : getFactionManager().getFactions()){
+            if(faction instanceof EventFaction){
+                if(faction instanceof KothFaction) {
+                    eventGames.add(faction.getName());
+                    this.getLogger().info("Registered " + faction.getName() + " in eventGames list.");
+                }
+            }
+        }
+    }
 
 
     public void onEnable() {
         plugin = this;
-
-
-
 
 
         CustomEntityRegistration.registerCustomEntities();
@@ -180,6 +192,7 @@ public class HCF extends JavaPlugin {
         Cooldowns.createCooldown("helpop_cooldown");
         Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED + "[HCF] " + ChatColor.RED + "Created cooldown: HelpOp Cooldown");
 
+
         this.helpTitle = Chat.translateColors(getConfig().getString("Help title"));
         this.scoreboardTitle = Chat.translateColors(getConfig().getString("Scoreboard title"));
         this.armor = Chat.translateColors(getConfig().getString("Active Class"));
@@ -188,15 +201,39 @@ public class HCF extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[HCF] " + ChatColor.AQUA + "Enabled TimerManager");
 
 
+        registerGames();
+
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, this::saveData, 0L, (60 * 15) * 20L);
 
         Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[HCF] " + ChatColor.AQUA + "Setup save task");
 
         Bukkit.dispatchCommand(Bukkit.getServer().getConsoleSender(), "clearlag 100000");
         Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[HCF] " + ChatColor.AQUA + "Set clearlag delay");
+
+        if(ConfigurationService.KIT_MAP) {
+            startNewKoth(1800);
+            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&6&lKOTH &7» &eA new KOTH will be starting in &5&l30 minutes"));
+        }
     }
 
 
+    public void startNewKoth(int seconds){
+        this.getLogger().info("Starting koth in " + seconds + " seconds. (" + getNextGame() + ")");
+        new BukkitRunnable() {
+            public void run() {
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "event start " + getNextGame());
+            }
+        }.runTaskLater(this, 20L * seconds);
+    }
+
+    public void rotateGames(){
+        this.getLogger().info("Game list was rotated.");
+        Collections.rotate(eventGames, -1);
+    }
+
+    private String getNextGame(){
+        return eventGames.get(0);
+    }
 
     public void saveData() {
         boolean error = false;
@@ -434,6 +471,7 @@ public class HCF extends JavaPlugin {
     public DeathbanManager getDeathbanManager() {
         return this.deathbanManager;
     }
+
 
 
 

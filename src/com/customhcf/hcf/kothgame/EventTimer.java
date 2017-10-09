@@ -2,8 +2,6 @@
 package com.customhcf.hcf.kothgame;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.utils.ConfigurationService;
-import com.customhcf.hcf.utils.DateTimeFormats;
 import com.customhcf.hcf.crate.Key;
 import com.customhcf.hcf.faction.event.CaptureZoneEnterEvent;
 import com.customhcf.hcf.faction.event.CaptureZoneLeaveEvent;
@@ -14,15 +12,11 @@ import com.customhcf.hcf.kothgame.faction.EventFaction;
 import com.customhcf.hcf.kothgame.faction.KothFaction;
 import com.customhcf.hcf.palace.PalaceFaction;
 import com.customhcf.hcf.timer.GlobalTimer;
+import com.customhcf.hcf.utils.ConfigurationService;
+import com.customhcf.hcf.utils.DateTimeFormats;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Iterables;
-
-import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -42,6 +36,12 @@ import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class EventTimer
 extends GlobalTimer
@@ -141,39 +141,40 @@ implements Listener {
         if (this.eventFaction == null) {
             return;
         }
-        final PlayerFaction playerFaction = this.plugin.getFactionManager().getPlayerFaction(winner);
-        Bukkit.broadcastMessage(ConfigurationService.BASECOLOUR + "[" + this.eventFaction.getEventType().getDisplayName() + "] " + ChatColor.LIGHT_PURPLE + ((playerFaction == null) ? winner.getName() : playerFaction.getName()) + ChatColor.GOLD + " has captured " + ChatColor.LIGHT_PURPLE + this.eventFaction.getName() + ChatColor.GOLD + " after " + ConfigurationService.BASECOLOUR + DurationFormatUtils.formatDurationWords(this.getUptime(), true, true) + ChatColor.GOLD + " of up-time" + ChatColor.GOLD + '.');
+        final PlayerFaction playerFaction = this.plugin.getFactionManager().getPlayerFaction(winner.getUniqueId());
+        Bukkit.broadcastMessage(ChatColor.GRAY + "[" + ChatColor.GOLD + this.eventFaction.getEventType().getDisplayName() + ChatColor.GRAY + "] " + ChatColor.GOLD + ((playerFaction == null) ? winner.getName() : playerFaction.getName()) + ChatColor.YELLOW + " has captured " + ChatColor.LIGHT_PURPLE + this.eventFaction.getName() + ChatColor.YELLOW + " after " + DurationFormatUtils.formatDurationWords(this.getUptime(), true, true) + ChatColor.YELLOW + " of up-time");
         final World world = winner.getWorld();
         final Location location = winner.getLocation();
         final Key key = this.plugin.getKeyManager().getKey(ChatColor.stripColor(this.eventFaction.getEventType().getDisplayName()));
-//        Preconditions.checkNotNull((Object)key, (Object)"Key on: EventTime error.");
-//        final ItemStack stack = key.getItemStack().clone();
-//        final Map<Integer, ItemStack> excess = (Map<Integer, ItemStack>)winner.getInventory().addItem(new ItemStack[] { stack, EventSignListener.getEventSign(this.eventFaction.getName(), winner.getName()) });
-//        for (final ItemStack entry : excess.values()) {
-//            world.dropItemNaturally(location, entry);
 
-//        }
+
+
+
+
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "event cancel");
         if(key.getName().toString().equalsIgnoreCase("koth")) {
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "crate key " + winner.getName() + " " + key.getName() + " 5");
-            return;
         }
         if(key.getName().toString().equalsIgnoreCase("conquest")) {
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "crate key " + winner.getName() + " " + key.getName() + " 8");
-            return;
-        } else {
-            winner.sendMessage(ChatColor.RED + "An error occured fetching your " + key.getName() + " keys. Please contact staff..");
-            return;
         }
-//        this.clearCooldown();
+
+        if(ConfigurationService.KIT_MAP) {
+                plugin.rotateGames();
+            plugin.startNewKoth(1800);
+            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&6&lKOTH &7» &eA new KOTH will be starting in &d&l30 minutes"));
+        }
+
     }
+
+
 
 
     public void handleWinner1(final Player winner) {
         if (this.eventFaction == null) {
             return;
         }
-        final PlayerFaction playerFaction = this.plugin.getFactionManager().getPlayerFaction(winner);
+        final PlayerFaction playerFaction = this.plugin.getFactionManager().getPlayerFaction(winner.getUniqueId());
         //Bukkit.broadcastMessage(ConfigurationService.KOTH_PLAYER_CAP.replace("%player%", winner.getName()).replace("%koth%", this.eventFaction.getEventType().getDisplayName()));
         Bukkit.broadcastMessage(ConfigurationService.BASECOLOUR + "[" + this.eventFaction.getEventType().getDisplayName() + "] " + ChatColor.LIGHT_PURPLE + ((playerFaction == null) ? winner.getName() : playerFaction.getName()) + ChatColor.GOLD + " has captured " + ChatColor.LIGHT_PURPLE + this.eventFaction.getName() + ChatColor.GOLD + '.');
         final World world = winner.getWorld();
