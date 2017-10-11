@@ -41,7 +41,8 @@ implements Listener {
     public WorldListener(HCF plugin) {
         this.plugin = plugin;
     }
-    
+
+
     @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGH)
     public void onBlockBreak(BlockBreakEvent event)
     {
