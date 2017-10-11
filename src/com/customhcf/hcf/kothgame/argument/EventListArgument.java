@@ -31,8 +31,8 @@ public class EventListArgument extends CommandArgument {
 
         sender.sendMessage(ChatColor.GREEN + "Current events:");
         for(Faction factionEvent : events){
-            sender.sendMessage(ChatColor.YELLOW + factionEvent.getName() + ChatColor.GRAY +
-                    " (" + ChatColor.GREEN + ((factionEvent instanceof KothFaction) ? "Koth" : "Conquest") + ChatColor.GRAY + ")");
+            sender.sendMessage(ChatColor.GREEN + factionEvent.getName() + ChatColor.DARK_GRAY +
+                    " (" + ChatColor.YELLOW + ((factionEvent instanceof KothFaction) ? "Koth" : "Conquest") + ChatColor.DARK_GRAY + ")");
         }
 
         return true;
