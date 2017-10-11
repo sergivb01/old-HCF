@@ -53,7 +53,6 @@ import com.customhcf.hcf.visualise.VisualiseHandler;
 import com.customhcf.hcf.visualise.WallBorderListener;
 import com.google.common.base.Joiner;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
-import com.ullink.slack.simpleslackapi.SlackSession;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.PluginCommand;
@@ -79,8 +78,6 @@ public class HCF extends JavaPlugin {
     public EventScheduler eventScheduler;
     private List<String> eventGames =  new ArrayList<>();
     private Random random = new Random();
-
-    public static SlackSession session;
 
     public String scoreboardTitle;
     public String helpTitle;
