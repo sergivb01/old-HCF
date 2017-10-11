@@ -19,18 +19,16 @@ import com.customhcf.hcf.timer.PlayerTimer;
 import com.customhcf.hcf.timer.Timer;
 import com.customhcf.hcf.timer.type.NotchAppleTimer;
 import com.customhcf.hcf.timer.type.SotwTimer;
-import com.customhcf.hcf.user.FactionUser;
 import com.customhcf.hcf.utils.ConfigurationService;
 import com.customhcf.hcf.utils.DateTimeFormats;
 import com.customhcf.hcf.utils.DurationFormatter;
 import com.customhcf.util.BukkitUtils;
+import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
-import ru.tehkode.permissions.PermissionUser;
-import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -40,10 +38,8 @@ import java.util.Map;
 
 public class TimerSidebarProvider implements SidebarProvider
 {
-	public static final ThreadLocal<DecimalFormat> CONQUEST_FORMATTER;
-	private static final SidebarEntry EMPTY_ENTRY_FILLER;
-	private final HCF plugin;
-	protected static final String STRAIGHT_LINE;
+    private final HCF plugin;
+    private static final String STRAIGHT_LINE;
 
 	public TimerSidebarProvider(final HCF plugin) {
 		super();
@@ -59,7 +55,6 @@ public class TimerSidebarProvider implements SidebarProvider
 		return HCF.getPlugin().scoreboardTitle;
 	}
 
-
 	@Override
 	public List<SidebarEntry> getLines(final Player player) {
 		List<SidebarEntry> lines = new ArrayList<SidebarEntry>();
@@ -69,13 +64,6 @@ public class TimerSidebarProvider implements SidebarProvider
 		List<SidebarEntry> conquestLines = null;
 		final EventFaction eventFaction = eventTimer.getEventFaction();
 		final SotwTimer.SotwRunnable sotwRunnable = this.plugin.getSotwTimer().getSotwRunnable();
-		final int lives = HCF.getPlugin().getDeathbanManager().getLives(player.getUniqueId());
-		PermissionUser user = PermissionsEx.getUser(player.getName());
-		List<String> groups = user.getParentIdentifiers();
-		FactionUser hcf = HCF.getPlugin().getUserManager().getUser(player.getUniqueId());
-		PlayerFaction faction = HCF.getPlugin().getFactionManager().getPlayerFaction(player.getUniqueId());
-
-
 
 
 		if (sotwRunnable != null) {
@@ -91,6 +79,7 @@ public class TimerSidebarProvider implements SidebarProvider
 			lines.add(new SidebarEntry(ChatColor.GRAY + "", ChatColor.AQUA + "" + ChatColor.BOLD + "Miner Class", ChatColor.GRAY + ":"));
 			lines.add(new SidebarEntry(ChatColor.GRAY + " » ", ChatColor.AQUA + "Diamonds", ChatColor.GRAY + ": " + ChatColor.RED + player.getStatistic(Statistic.MINE_BLOCK, Material.DIAMOND_ORE)));
 		}
+
 		if (pvpClass != null && pvpClass instanceof BardClass) {
 			final BardClass bardClass = (BardClass) pvpClass;
 			lines.add(new SidebarEntry(ChatColor.AQUA.toString() + ChatColor.BOLD, "Bard Energy", ChatColor.GRAY + ": " + ChatColor.RED + handleBardFormat(bardClass.getEnergyMillis(player), true)));
@@ -133,7 +122,7 @@ public class TimerSidebarProvider implements SidebarProvider
 			}
 		}
 
-		Collection<Timer> timers1 = this.plugin.getTimerManager().getTimers();
+		/*Collection<Timer> timers1 = this.plugin.getTimerManager().getTimers();
 		for (Timer timer1 : timers1) {
 			if (timer1 instanceof EventTimer) {
 				EventTimer event = (EventTimer) timer1;
@@ -152,7 +141,7 @@ public class TimerSidebarProvider implements SidebarProvider
 					lines.add(new SidebarEntry(ChatColor.RED.toString() + "" + playerTimer3.getScoreboardPrefix(), timerName1, ChatColor.GRAY + ": " + ChatColor.RED + HCF.getRemaining(remaining3, true)));
 				}
 			}
-		}
+		}*/
 
 		/*if (Cooldowns.isOnCooldown("revive_cooldown", player)) {
 			lines.add(new SidebarEntry(ChatColor.BLUE + "Revive", ChatColor.GRAY + ": " + ChatColor.RED, "00:" + Cooldowns.getCooldownForPlayerInt("revive_cooldown", player) / 60));
@@ -194,7 +183,14 @@ public class TimerSidebarProvider implements SidebarProvider
 //			}
 //
 //
-//		}*?
+//		}*/
+
+
+        if(BasePlugin.getPlugin().getAutoRestartHandler().getRemainingMilliseconds() >= 300){
+            long remainingTicks = BasePlugin.getPlugin().getAutoRestartHandler().getRemainingTicks();
+            long remainingMillis = remainingTicks * 50;
+		    lines.add(new SidebarEntry(ChatColor.DARK_RED + "" + ChatColor.BOLD, "Reboot: ", ChatColor.WHITE + DurationFormatUtils.formatDurationWords(remainingMillis, true, true)));
+        }
 
 		else if (eventFaction instanceof ConquestFaction) {
 			if (!lines.isEmpty()) {
@@ -218,12 +214,12 @@ public class TimerSidebarProvider implements SidebarProvider
 			}
 
 
-			for (final CaptureZone captureZone : conquestFaction.getCaptureZones()) {
-				final ConquestFaction.ConquestZone conquestZone = conquestFaction.getZone(captureZone);
-                /*final long time = Math.max(captureZone.getRemainingCaptureMillis(), 0L);
-                final String left = HCF.getRemaining(time, false);*/
-				lines.add(new SidebarEntry("  " + conquestZone.getColor() + ChatColor.BOLD, conquestZone.getName(), ChatColor.GRAY + ": " + DurationFormatter.getRemaining(captureZone.getRemainingCaptureMillis(), true)));
-			}
+			if(this.plugin.getFactionManager().getFactionAt(player.getLocation()) instanceof ConquestFaction) {
+                for (final CaptureZone captureZone : conquestFaction.getCaptureZones()) {
+                    final ConquestFaction.ConquestZone conquestZone = conquestFaction.getZone(captureZone);
+                    lines.add(new SidebarEntry("  " + conquestZone.getColor() + ChatColor.BOLD, conquestZone.getName(), ChatColor.GRAY + ": " + DurationFormatter.getRemaining(captureZone.getRemainingCaptureMillis(), true)));
+                }
+            }
 
 
 			if(BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId()).isStaffUtil()){
@@ -275,13 +271,15 @@ public class TimerSidebarProvider implements SidebarProvider
 		return lines;
 	}
 
-	public boolean isChatSlowed() {
-		return BasePlugin.getPlugin().getServerHandler().getRemainingChatSlowedMillis() > 0;
-	}
+    private boolean isChatSlowed() { return BasePlugin.getPlugin().getServerHandler().getRemainingChatSlowedMillis() > 0; }
+
+    private boolean isRebooting() {
+        return BasePlugin.getPlugin().getServerHandler().getRemainingChatSlowedMillis() > 0;
+    }
 
 	static {
-		CONQUEST_FORMATTER = ThreadLocal.withInitial(() -> new DecimalFormat("##.#"));
-		EMPTY_ENTRY_FILLER = new SidebarEntry(" ", " ", " ");
+        ThreadLocal.withInitial(() -> new DecimalFormat("##.#"));
+        new SidebarEntry(" ", " ", " ");
 		STRAIGHT_LINE = BukkitUtils.STRAIGHT_LINE_DEFAULT.substring(0, 14);
 	}
 }
