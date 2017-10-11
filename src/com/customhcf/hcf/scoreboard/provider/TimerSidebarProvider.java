@@ -186,10 +186,11 @@ public class TimerSidebarProvider implements SidebarProvider
 //		}*/
 
 
-        if(BasePlugin.getPlugin().getAutoRestartHandler().getRemainingMilliseconds() >= 300){
+        long autore = BasePlugin.getPlugin().getAutoRestartHandler().getRemainingMilliseconds();
+        if((autore <= 300000) && (autore > 0)){
             long remainingTicks = BasePlugin.getPlugin().getAutoRestartHandler().getRemainingTicks();
             long remainingMillis = remainingTicks * 50;
-		    lines.add(new SidebarEntry(ChatColor.DARK_RED + "" + ChatColor.BOLD, "Reboot: ", ChatColor.WHITE + DurationFormatUtils.formatDurationWords(remainingMillis, true, true)));
+		    lines.add(new SidebarEntry(ChatColor.DARK_RED + "" + ChatColor.BOLD, "Reboot: ", ChatColor.RED + DurationFormatUtils.formatDurationWords(remainingMillis, true, true)));
         }
 
 		else if (eventFaction instanceof ConquestFaction) {
