@@ -122,7 +122,7 @@ public class TimerSidebarProvider implements SidebarProvider
 			}
 		}
 
-		/*Collection<Timer> timers1 = this.plugin.getTimerManager().getTimers();
+		Collection<Timer> timers1 = this.plugin.getTimerManager().getTimers();
 		for (Timer timer1 : timers1) {
 			if (timer1 instanceof EventTimer) {
 				EventTimer event = (EventTimer) timer1;
@@ -141,7 +141,7 @@ public class TimerSidebarProvider implements SidebarProvider
 					lines.add(new SidebarEntry(ChatColor.RED.toString() + "" + playerTimer3.getScoreboardPrefix(), timerName1, ChatColor.GRAY + ": " + ChatColor.RED + HCF.getRemaining(remaining3, true)));
 				}
 			}
-		}*/
+		}
 
 		/*if (Cooldowns.isOnCooldown("revive_cooldown", player)) {
 			lines.add(new SidebarEntry(ChatColor.BLUE + "Revive", ChatColor.GRAY + ": " + ChatColor.RED, "00:" + Cooldowns.getCooldownForPlayerInt("revive_cooldown", player) / 60));
@@ -215,12 +215,10 @@ public class TimerSidebarProvider implements SidebarProvider
 			}
 
 
-			if(this.plugin.getFactionManager().getFactionAt(player.getLocation()) instanceof ConquestFaction) {
                 for (final CaptureZone captureZone : conquestFaction.getCaptureZones()) {
                     final ConquestFaction.ConquestZone conquestZone = conquestFaction.getZone(captureZone);
                     lines.add(new SidebarEntry("  " + conquestZone.getColor() + ChatColor.BOLD, conquestZone.getName(), ChatColor.GRAY + ": " + DurationFormatter.getRemaining(captureZone.getRemainingCaptureMillis(), true)));
                 }
-            }
 
 
 			if(BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId()).isStaffUtil()){
