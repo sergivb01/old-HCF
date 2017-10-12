@@ -102,7 +102,7 @@ public class HCF extends JavaPlugin {
     private TimerManager timerManager;
     private UserManager userManager;
     private VisualiseHandler visualiseHandler;
-    private long NEXT_KOTH;
+    public long NEXT_KOTH;
     private String armor;
 
     public static HCF getPlugin() {
@@ -233,6 +233,7 @@ public class HCF extends JavaPlugin {
         new BukkitRunnable() {
             public void run() {
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "event start " + getNextGame());
+                NEXT_KOTH = -1;
             }
         }.runTaskLater(this, 20L * seconds);
     }
