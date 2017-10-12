@@ -57,7 +57,7 @@ extends CommandArgument {
         sender.sendMessage(shownEvents.toArray(new String[shownEvents.size()]));*/
 
         sender.sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
-        if(ConfigurationService.KIT_MAP && (this.plugin.NEXT_KOTH < 0)) {
+        if(ConfigurationService.KIT_MAP && (this.plugin.NEXT_KOTH > 0)) {
                 sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&eNext koth will be &a&l" + this.plugin.getNextGame() + " &ein &9&l" + this.plugin.getKothRemaining() + "&e."));
         }else{
             sender.sendMessage(ChatColor.RED + "No koths are scheduled. Please check back later.");

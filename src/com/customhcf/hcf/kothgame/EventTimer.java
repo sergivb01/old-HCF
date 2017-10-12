@@ -164,7 +164,9 @@ implements Listener {
             plugin.startNewKoth(1800);
             Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&6&lKOTH &7» &eA new KOTH will be starting in &d&l30 minutes"));
         }else{
-           //TODO: Do it for hcf/lite too :d
+            plugin.rotateGames();
+            plugin.startNewKoth(7200);
+            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&6&lKOTH &7» &eA new KOTH will be starting in &d&l2 hours"));
         }
 
     }

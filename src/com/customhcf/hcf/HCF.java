@@ -219,10 +219,16 @@ public class HCF extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[HCF] " + ChatColor.AQUA + "Set clearlag delay");
 
         if(ConfigurationService.KIT_MAP) {
-            int seconds = 300;
+            int seconds = 300; //5m
             startNewKoth(seconds);
             NEXT_KOTH = System.currentTimeMillis() + (seconds * 1000);
-            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&6&lKOTH &7» &eA new KOTH will be starting in &5&l5 minutes"));
+            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&6&lKOTH &7» &eA new KOTH will be starting in &5&5 minutes!"));
+        }else{
+            int seconds = 7200; //2h
+            startNewKoth(seconds);
+            NEXT_KOTH = System.currentTimeMillis() + (seconds * 1000);
+            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&6&lKOTH &7» &eA new KOTH will be starting in &5&2 hours!"));
+
         }
     }
 
