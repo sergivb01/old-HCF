@@ -203,17 +203,14 @@ public class HCF extends JavaPlugin {
         registerGames();
 
 
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new BukkitRunnable() {
-            @Override
-            public void run() {
-                new Thread(()->{
-                    saveData();
-                    Bukkit.getServer().savePlayers();
-                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "save-all");
-                    getLogger().info("Saving data! :d");
-                }).start();
-            }
-        }, 0L, (60 * 15) * 20L);
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, ()->{
+            new Thread(()->{
+                saveData();
+                Bukkit.getServer().savePlayers();
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "save-all");
+                getLogger().info("Saving data! :d");
+            }).start();
+        }, 10 * 20L, (60 * 10) * 20L);
 
         Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[HCF] " + ChatColor.AQUA + "Setup save task");
 
