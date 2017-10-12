@@ -190,7 +190,7 @@ public class TimerSidebarProvider implements SidebarProvider
         if((autore <= 300000) && (autore > 0)){
             long remainingTicks = BasePlugin.getPlugin().getAutoRestartHandler().getRemainingTicks();
             long remainingMillis = remainingTicks * 50;
-		    lines.add(new SidebarEntry(ChatColor.DARK_RED + "" + ChatColor.BOLD, "Reboot: ", ChatColor.RED + DurationFormatUtils.formatDurationWords(remainingMillis, true, true)));
+		    lines.add(new SidebarEntry(ChatColor.DARK_RED + "" + ChatColor.BOLD, "Reboot: ", ChatColor.RED + DurationFormatUtils.formatDuration(remainingMillis, (remainingMillis >= HCF.HOUR ? "HH:" : "") + "mm:ss")));
         }
 
 		else if (eventFaction instanceof ConquestFaction) {

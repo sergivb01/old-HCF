@@ -78,7 +78,7 @@ public class HCF extends JavaPlugin {
     public static final Joiner SPACE_JOINER = Joiner.on(' ');
     public static final Joiner COMMA_JOINER = Joiner.on(", ");
     private static final long MINUTE = TimeUnit.MINUTES.toMillis(1);
-    private static final long HOUR = TimeUnit.HOURS.toMillis(1);
+    public static final long HOUR = TimeUnit.HOURS.toMillis(1);
     private static HCF plugin;
     private Message message;
     public EventScheduler eventScheduler;
