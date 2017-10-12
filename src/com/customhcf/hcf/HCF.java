@@ -203,11 +203,15 @@ public class HCF extends JavaPlugin {
         registerGames();
 
 
-        Bukkit.getScheduler().scheduleAsyncRepeatingTask(this, new BukkitRunnable() {
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new BukkitRunnable() {
             @Override
             public void run() {
-                saveData();
-                getLogger().info("Saving data! :d");
+                new Thread(()->{
+                    saveData();
+                    Bukkit.getServer().savePlayers();
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "save-all");
+                    getLogger().info("Saving data! :d");
+                }).start();
             }
         }, 0L, (60 * 15) * 20L);
 
@@ -256,7 +260,6 @@ public class HCF extends JavaPlugin {
 
         Bukkit.broadcastMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Starting backup of data");
         BasePlugin.getPlugin().getServerHandler().saveServerData(); //Base data
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "save-all"); //World
 
         for(Player p : Bukkit.getOnlinePlayers()){ //HCF player data stuff
             try {
@@ -274,6 +277,8 @@ public class HCF extends JavaPlugin {
     }
 
     public void onDisable() {
+        Bukkit.getServer().savePlayers();
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "save-all");
         CustomEntityRegistration.unregisterCustomEntities();
         CombatLogListener.removeCombatLoggers();
         this.pvpClassManager.onDisable();
