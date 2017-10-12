@@ -202,7 +202,16 @@ public class HCF extends JavaPlugin {
 
         registerGames();
 
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, this::saveData, 0L, (60 * 15) * 20L);
+
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new BukkitRunnable() {
+            @Override
+            public void run() {
+                new Thread(()->{
+                    saveData();
+                    getLogger().info("Saving data! :d");
+                }).start();
+            }
+        }, 0L, (60 * 15) * 20L);
 
         Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[HCF] " + ChatColor.AQUA + "Setup save task");
 
@@ -240,10 +249,9 @@ public class HCF extends JavaPlugin {
     public void saveData() {
         boolean error = false;
 
+        Bukkit.broadcastMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Starting backup of data");
         BasePlugin.getPlugin().getServerHandler().saveServerData(); //Base data
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "save-all"); //World
-
-        Bukkit.broadcastMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Starting backup of data");
 
         for(Player p : Bukkit.getOnlinePlayers()){ //HCF player data stuff
             try {
