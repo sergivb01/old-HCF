@@ -102,7 +102,7 @@ public class HCF extends JavaPlugin {
     private TimerManager timerManager;
     private UserManager userManager;
     private VisualiseHandler visualiseHandler;
-    public long NEXT_KOTH;
+    public long NEXT_KOTH = -1;
     private String armor;
 
     public static HCF getPlugin() {
@@ -203,7 +203,7 @@ public class HCF extends JavaPlugin {
         registerGames();
 
 
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new BukkitRunnable() {
+        Bukkit.getScheduler().scheduleAsyncRepeatingTask(this, new BukkitRunnable() {
             @Override
             public void run() {
                 new Thread(()->{
