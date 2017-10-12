@@ -102,13 +102,8 @@ public class HCF extends JavaPlugin {
     private TimerManager timerManager;
     private UserManager userManager;
     private VisualiseHandler visualiseHandler;
-    public String epearl;
-    public String ctag;
-    public String pvptimer;
-    public String log;
-    public String stuck;
-    public String tele;
-    public String armor;
+    private long NEXT_KOTH;
+    private String armor;
 
     public static HCF getPlugin() {
         return plugin;
@@ -215,14 +210,17 @@ public class HCF extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[HCF] " + ChatColor.AQUA + "Set clearlag delay");
 
         if(ConfigurationService.KIT_MAP) {
-            startNewKoth(1800);
-            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&6&lKOTH &7» &eA new KOTH will be starting in &5&l30 minutes"));
+            int seconds = 300;
+            startNewKoth(seconds);
+            NEXT_KOTH = System.currentTimeMillis() + (seconds * 1000);
+            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&6&lKOTH &7» &eA new KOTH will be starting in &5&l5 minutes"));
         }
     }
 
 
     public void startNewKoth(int seconds){
         this.getLogger().info("Starting koth in " + seconds + " seconds. (" + getNextGame() + ")");
+        NEXT_KOTH = System.currentTimeMillis() + (seconds * 1000);
         new BukkitRunnable() {
             public void run() {
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "event start " + getNextGame());
@@ -235,7 +233,7 @@ public class HCF extends JavaPlugin {
         Collections.rotate(eventGames, -1);
     }
 
-    private String getNextGame(){
+    public String getNextGame(){
         return eventGames.get(0);
     }
 
@@ -442,8 +440,6 @@ public class HCF extends JavaPlugin {
 
     }
 
-    //@Getter private Reflection reflection;
-
     public Message getMessage() {
         return this.message;
     }
@@ -475,10 +471,6 @@ public class HCF extends JavaPlugin {
     public DeathbanManager getDeathbanManager() {
         return this.deathbanManager;
     }
-
-
-
-
 
     public EconomyManager getEconomyManager() {
         return this.economyManager;
@@ -549,5 +541,11 @@ public class HCF extends JavaPlugin {
             Bukkit.getPluginManager().disablePlugin(this);
         }
     }
+
+    public String getKothRemaining() {
+        long duration = NEXT_KOTH - System.currentTimeMillis();
+        return org.apache.commons.lang.time.DurationFormatUtils.formatDuration(duration, (duration >= HOUR ? "HH:" : "") + "mm:ss");
+    }
+
 
 }

@@ -160,9 +160,11 @@ implements Listener {
         }
 
         if(ConfigurationService.KIT_MAP) {
-                plugin.rotateGames();
+            plugin.rotateGames();
             plugin.startNewKoth(1800);
             Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&6&lKOTH &7» &eA new KOTH will be starting in &d&l30 minutes"));
+        }else{
+           //TODO: Do it for hcf/lite too :d
         }
 
     }
