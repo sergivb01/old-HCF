@@ -206,10 +206,8 @@ public class HCF extends JavaPlugin {
         Bukkit.getScheduler().scheduleAsyncRepeatingTask(this, new BukkitRunnable() {
             @Override
             public void run() {
-                new Thread(()->{
-                    saveData();
-                    getLogger().info("Saving data! :d");
-                }).start();
+                saveData();
+                getLogger().info("Saving data! :d");
             }
         }, 0L, (60 * 15) * 20L);
 
