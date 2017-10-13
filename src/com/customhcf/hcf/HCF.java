@@ -53,7 +53,6 @@ import com.customhcf.hcf.visualise.VisualiseHandler;
 import com.customhcf.hcf.visualise.WallBorderListener;
 import com.google.common.base.Joiner;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
-import me.sergivb01.giraffe.Giraffe;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.PluginCommand;
