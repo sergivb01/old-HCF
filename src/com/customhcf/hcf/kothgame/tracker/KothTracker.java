@@ -52,7 +52,7 @@ implements EventTracker {
     @Override
     public void onContest(EventFaction eventFaction, EventTimer eventTimer) {
         Bukkit.broadcastMessage(ChatColor.YELLOW + "§8[§6§l" + eventFaction.getEventType().getDisplayName() + "§8] " + ChatColor.GOLD + eventFaction.getName() + ChatColor.YELLOW + " can now be contested. " + ChatColor.RED + '(' + DateTimeFormats.KOTH_FORMAT.format(eventTimer.getRemaining()) + ')');
-        Giraffe.getInstance().broadcastKoth(eventFaction.getEventType().getDisplayName());
+        Giraffe.getInstance().broadcastKoth(eventFaction.getName());
     }
 
     @Override
