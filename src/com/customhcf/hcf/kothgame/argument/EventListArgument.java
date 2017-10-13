@@ -17,7 +17,7 @@ public class EventListArgument extends CommandArgument {
     private final HCF plugin;
 
     public EventListArgument(HCF plugin) {
-        super("uptime", "Check the uptime of an event");
+        super("list", "Check the uptime of an event");
         this.plugin = plugin;
         this.permission = "hcf.command.event.argument." + this.getName();
     }
