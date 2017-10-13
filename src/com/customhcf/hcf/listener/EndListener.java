@@ -122,9 +122,6 @@ implements Listener {
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
     public void onPlayerPortal(PlayerPortalEvent event) {
         Location endSpawnLocation = Bukkit.getWorld("world_the_end").getSpawnLocation();
-//        Location endExitLocation = Bukkit.getWorld("world").getSpawnLocation();
-
-//        Location endSpawnLocation = new Location(Bukkit.getWorld("world_the_end"), 123.0D, 59.0D, 42.0D);
         Location endExitLocation = new Location(Bukkit.getWorld("world"), 0.0D, 70.0D, 250.0D);
 
         endSpawnLocation.setYaw(89);
