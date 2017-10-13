@@ -2,7 +2,6 @@
 package com.customhcf.hcf.kothgame.tracker;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.faction.FactionManager;
 import com.customhcf.hcf.faction.event.FactionRemoveEvent;
 import com.customhcf.hcf.faction.type.Faction;
 import com.customhcf.hcf.faction.type.PlayerFaction;
@@ -11,21 +10,8 @@ import com.customhcf.hcf.kothgame.EventTimer;
 import com.customhcf.hcf.kothgame.EventType;
 import com.customhcf.hcf.kothgame.faction.ConquestFaction;
 import com.customhcf.hcf.kothgame.faction.EventFaction;
-import com.customhcf.hcf.kothgame.tracker.EventTracker;
-import com.customhcf.hcf.timer.TimerManager;
-import com.google.common.base.MoreObjects;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Ordering;
-
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
-
 import org.apache.commons.lang3.ObjectUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -34,7 +20,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.plugin.Plugin;
+
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class ConquestTracker implements EventTracker, Listener
 {
@@ -139,6 +127,7 @@ public class ConquestTracker implements EventTracker, Listener
 
     @Override
     public void onContest(final EventFaction eventFaction, final EventTimer eventTimer) {
+
         Bukkit.broadcastMessage(ChatColor.YELLOW + "§8[§6§l" + eventFaction.getName() + "§8] " + ChatColor.GOLD + eventFaction.getName() + " §ecan now be contested.");
     }
 

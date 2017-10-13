@@ -231,7 +231,7 @@ implements Listener {
         final Collection<CaptureZone> captureZones = eventFaction.getCaptureZones();
         for (final CaptureZone captureZone : captureZones) {
             if (captureZone.isActive()) {
-                final Player player = (Player) Iterables.getFirst(captureZone.getCuboid().getPlayers(), null);
+                final Player player = Iterables.getFirst(captureZone.getCuboid().getPlayers(), null);
                 if (player == null) {
                     continue;
                 }

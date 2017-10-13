@@ -239,7 +239,6 @@ public class HCF extends JavaPlugin {
         new BukkitRunnable() {
             public void run() {
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "event start " + getNextGame());
-                Giraffe.getInstance().broadcastKoth(getNextGame());
                 NEXT_KOTH = -1;
             }
         }.runTaskLater(this, 20L * seconds);
