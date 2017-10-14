@@ -2,19 +2,13 @@
 package com.customhcf.hcf.timer.type;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.utils.ConfigurationService;
 import com.customhcf.hcf.classes.PvpClass;
 import com.customhcf.hcf.timer.PlayerTimer;
 import com.customhcf.hcf.timer.TimerRunnable;
+import com.customhcf.hcf.utils.ConfigurationService;
 import com.customhcf.util.Config;
 import com.google.common.base.Preconditions;
 import net.minecraft.util.com.google.common.cache.CacheBuilder;
-
-import java.util.Collection;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.TimeUnit;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.HumanEntity;
@@ -25,7 +19,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.EquipmentSetEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.Collection;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.TimeUnit;
 
 public class PvpClassWarmupTimer
 extends PlayerTimer
@@ -37,14 +35,18 @@ implements Listener {
         super(ConfigurationService.PVP_CLASS_WARMUP_TIMER, TimeUnit.SECONDS.toMillis(10), false);
         this.plugin = plugin;
         this.classWarmups = CacheBuilder.newBuilder().expireAfterWrite(this.defaultCooldown + 5000, TimeUnit.MILLISECONDS).build().asMap();
-        new BukkitRunnable(){
-
+        Bukkit.getScheduler().scheduleAsyncRepeatingTask(plugin, ()->{
+            for (Player player : Bukkit.getServer().getOnlinePlayers()) {
+                PvpClassWarmupTimer.this.attemptEquip(player);
+            }
+        }, 20L, 20L);
+        /*new BukkitRunnable(){
             public void run() {
                 for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                     PvpClassWarmupTimer.this.attemptEquip(player);
                 }
             }
-        }.runTaskTimer(plugin, 10 , 10);
+        }.runTaskTimer(plugin, 10L , 10L);*/
     }
 
     @Override
