@@ -36,7 +36,7 @@ public class FurnaceSmeltSpeederListener implements Listener {
 
     @EventHandler
     public void onFurnaceBurn(FurnaceBurnEvent event){
-        startUpdate((Furnace)event.getBlock().getState(), 4);
+        startUpdate((Furnace)event.getBlock().getState(), 8);
     }
 
 }
