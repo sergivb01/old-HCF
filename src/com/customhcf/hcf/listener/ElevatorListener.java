@@ -28,7 +28,6 @@ public class ElevatorListener implements Listener {
 
     public ElevatorListener(HCF plugin) {
         this.plugin = plugin;
-        this.prefix = ChatColor.BLUE + ChatColor.BOLD.toString() + "[Elevators] " + ChatColor.AQUA;
         this.signTitle = ChatColor.BLUE + ChatColor.BOLD.toString() + "[Elevator]";
     }
 
@@ -41,8 +40,7 @@ public class ElevatorListener implements Listener {
                 up = true;
             } else {
                 if (!StringUtils.containsIgnoreCase(e.getLine(1), "Down")) {
-                    e.getPlayer().sendMessage(this.prefix + "Invalid sign! Needs to be Up or Down");
-                    this.fail(e);
+                    e.getPlayer().sendMessage(ChatColor.RED + "Incorrect usage: Up/Down");
                     return;
                 }
                 up = false;
@@ -54,12 +52,6 @@ public class ElevatorListener implements Listener {
         }
     }
 
-    public void fail(final SignChangeEvent e) {
-        e.setLine(0, this.signTitle);
-        e.setLine(1, ChatColor.RED + "Error");
-        e.setLine(2, "");
-        e.setLine(3, "");
-    }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
     public void onPlayerInteract(final PlayerInteractEvent e) {
@@ -89,7 +81,7 @@ public class ElevatorListener implements Listener {
         do {
             block = block.getRelative(up ? BlockFace.UP : BlockFace.DOWN);
             if (block.getY() > block.getWorld().getMaxHeight() || block.getY() <= 1) {
-                player.sendMessage(this.prefix + "Could not locate the sign " + (up ? "above" : "below"));
+                player.sendMessage(ChatColor.RED + "Could not find a sign " + (up ? "above" : "below") + " to teleport you to.");
                 return false;
             }
         } while (!this.isSign(block));
@@ -120,7 +112,7 @@ public class ElevatorListener implements Listener {
 
         }
         if (!underSafe && !overSafe) {
-            player.sendMessage(this.prefix + "Could not find a place to teleport by the sign " + (up ? "above" : "below"));
+            player.sendMessage(ChatColor.RED + "There is a block blocking the sign " + (up ? "above" : "below") + "!");
             return false;
         }
 
