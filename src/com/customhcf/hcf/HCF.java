@@ -210,7 +210,7 @@ public class HCF extends JavaPlugin {
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "save-all");
                 getLogger().info("Saving data! :d");
             }).start();
-        }, 10 * 20L, (60 * 10) * 20L);
+        }, 10 * 20L, (60 * 15) * 20L);
 
         Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[HCF] " + ChatColor.AQUA + "Setup save task");
 
