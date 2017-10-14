@@ -3,25 +3,12 @@ package com.customhcf.hcf.classes.bard;
 
 import com.customhcf.hcf.HCF;
 import com.customhcf.hcf.classes.PvpClass;
-import com.customhcf.hcf.classes.PvpClassManager;
-import com.customhcf.hcf.classes.bard.BardData;
-import com.customhcf.hcf.classes.bard.BardEffect;
-import com.customhcf.hcf.classes.bard.BardRestorer;
-import com.customhcf.hcf.faction.FactionManager;
-import com.customhcf.hcf.faction.FactionMember;
 import com.customhcf.hcf.faction.type.Faction;
 import com.customhcf.hcf.faction.type.PlayerFaction;
-import com.customhcf.hcf.timer.TimerManager;
-import com.customhcf.hcf.timer.type.SpawnTagTimer;
-
-import java.util.*;
-import java.util.concurrent.TimeUnit;
-
 import com.customhcf.util.chat.Lang;
 import net.minecraft.util.gnu.trove.map.TObjectLongMap;
 import net.minecraft.util.gnu.trove.map.hash.TObjectLongHashMap;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -35,12 +22,12 @@ import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
+
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class BardClass
 extends PvpClass
@@ -79,9 +66,9 @@ implements Listener {
         BardData bardData = new BardData();
         this.bardDataMap.put(player.getUniqueId(), bardData);
         bardData.startEnergyTracking();
+
         bardData.heldTask = new BukkitRunnable(){
             int lastEnergy;
-
             public void run() {
                 final ItemStack held = player.getItemInHand();
                 if (held != null) {

@@ -67,7 +67,7 @@ implements Listener {
             } else if (factionAt instanceof Raidable && ((Raidable) factionAt).isRaidable()) {
                 result = true;
             }
-            if (player != null && factionAt instanceof PlayerFaction && (playerFaction = HCF.getPlugin().getFactionManager().getPlayerFaction(player)) != null && playerFaction.equals(factionAt)) {
+            if (player != null && factionAt instanceof PlayerFaction && (playerFaction = HCF.getPlugin().getFactionManager().getPlayerFaction(player.getUniqueId())) != null && playerFaction.equals(factionAt)) {
                 result = true;
             }
             if (result) {
@@ -136,7 +136,8 @@ implements Listener {
     
     @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGHEST)
     public void onPlayerMove(PlayerMoveEvent event) {
-        this.handleMove(event, PlayerClaimEnterEvent.EnterCause.MOVEMENT);
+        if(event.getFrom().getX() != event.getTo().getX() || event.getFrom().getZ() != event.getTo().getZ())
+            this.handleMove(event, PlayerClaimEnterEvent.EnterCause.MOVEMENT);
     }
 
     @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGHEST)
@@ -230,7 +231,7 @@ implements Listener {
                 }
                 Faction factionAt = this.plugin.getFactionManager().getFactionAt(to);
                 if (factionAt instanceof ClaimableFaction) {
-                    PlayerFaction playerFaction = this.plugin.getFactionManager().getPlayerFaction(player);
+                    PlayerFaction playerFaction = this.plugin.getFactionManager().getPlayerFaction(player.getUniqueId());
                     if (playerFaction != null && playerFaction.equals(factionAt)) {
                         return;
                     }
@@ -277,7 +278,7 @@ implements Listener {
                     this.plugin.getMessage().sendMessage(attacker, ConfigurationService.CANNOT_ATTACK);
                     return;
                 }
-                PlayerFaction playerFaction = this.plugin.getFactionManager().getPlayerFaction(player);
+                PlayerFaction playerFaction = this.plugin.getFactionManager().getPlayerFaction(player.getUniqueId());
                 if (playerFaction != null && (attackerFaction = this.plugin.getFactionManager().getPlayerFaction(attacker)) != null) {
                     Role role = playerFaction.getMember(player).getRole();
                     String astrix = role.getAstrix();

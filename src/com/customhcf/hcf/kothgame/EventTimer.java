@@ -160,9 +160,13 @@ implements Listener {
         }
 
         if(ConfigurationService.KIT_MAP) {
-                plugin.rotateGames();
+            plugin.rotateGames();
             plugin.startNewKoth(1800);
             Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&6&lKOTH &7» &eA new KOTH will be starting in &d&l30 minutes"));
+        }else{
+            plugin.rotateGames();
+            plugin.startNewKoth(7200);
+            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&6&lKOTH &7» &eA new KOTH will be starting in &d&l2 hours"));
         }
 
     }
@@ -227,7 +231,7 @@ implements Listener {
         final Collection<CaptureZone> captureZones = eventFaction.getCaptureZones();
         for (final CaptureZone captureZone : captureZones) {
             if (captureZone.isActive()) {
-                final Player player = (Player) Iterables.getFirst(captureZone.getCuboid().getPlayers(), null);
+                final Player player = Iterables.getFirst(captureZone.getCuboid().getPlayers(), null);
                 if (player == null) {
                     continue;
                 }

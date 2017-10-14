@@ -1,19 +1,19 @@
 
 package com.customhcf.hcf.kothgame.tracker;
 
-import java.util.concurrent.TimeUnit;
-
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
-
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.utils.DateTimeFormats;
 import com.customhcf.hcf.kothgame.CaptureZone;
 import com.customhcf.hcf.kothgame.EventTimer;
 import com.customhcf.hcf.kothgame.EventType;
 import com.customhcf.hcf.kothgame.faction.EventFaction;
 import com.customhcf.hcf.kothgame.faction.KothFaction;
+import com.customhcf.hcf.utils.DateTimeFormats;
+import me.sergivb01.giraffe.Giraffe;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
+
+import java.util.concurrent.TimeUnit;
 
 @Deprecated
 public class KothTracker
@@ -52,6 +52,7 @@ implements EventTracker {
     @Override
     public void onContest(EventFaction eventFaction, EventTimer eventTimer) {
         Bukkit.broadcastMessage(ChatColor.YELLOW + "§8[§6§l" + eventFaction.getEventType().getDisplayName() + "§8] " + ChatColor.GOLD + eventFaction.getName() + ChatColor.YELLOW + " can now be contested. " + ChatColor.RED + '(' + DateTimeFormats.KOTH_FORMAT.format(eventTimer.getRemaining()) + ')');
+        Giraffe.getInstance().broadcastKoth(eventFaction.getName());
     }
 
     @Override

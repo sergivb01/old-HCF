@@ -3,25 +3,19 @@ package com.customhcf.hcf.listener;
 import com.customhcf.hcf.HCF;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.block.BrewingStand;
-import org.bukkit.block.Furnace;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.BrewEvent;
-import org.bukkit.event.inventory.FurnaceBurnEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
-import org.bukkit.scheduler.BukkitRunnable;
 
 public class FurnaceSmeltSpeederListener implements Listener {
 
     public FurnaceSmeltSpeederListener(HCF plugin) {
         final ShapedRecipe cmelon = new ShapedRecipe(new ItemStack(Material.SPECKLED_MELON, 1));
-        cmelon.shape(new String[] { "AAA", "CBA", "AAA" }).setIngredient('B', Material.MELON).setIngredient('C', Material.GOLD_NUGGET);
+        cmelon.shape("AAA", "CBA", "AAA").setIngredient('B', Material.MELON).setIngredient('C', Material.GOLD_NUGGET);
         Bukkit.getServer().addRecipe(cmelon);
     }
 
-    private void startUpdate2(final BrewingStand tile, final int increase) {
+    /*private void startUpdate2(final BrewingStand tile, final int increase) {
         new BukkitRunnable() {
             public void run() {
                 if (tile.getBrewingTime() > 0) {
@@ -55,7 +49,7 @@ public class FurnaceSmeltSpeederListener implements Listener {
     @EventHandler
     public void onBrew(BrewEvent event){
         startUpdate2((BrewingStand) event.getBlock().getState(), 5);
-    }
+    }*/
 
 
 }

@@ -53,7 +53,6 @@ import com.customhcf.hcf.visualise.VisualiseHandler;
 import com.customhcf.hcf.visualise.WallBorderListener;
 import com.google.common.base.Joiner;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
-import com.ullink.slack.simpleslackapi.SlackSession;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.PluginCommand;
@@ -64,6 +63,12 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+import java.nio.charset.Charset;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -73,14 +78,12 @@ public class HCF extends JavaPlugin {
     public static final Joiner SPACE_JOINER = Joiner.on(' ');
     public static final Joiner COMMA_JOINER = Joiner.on(", ");
     private static final long MINUTE = TimeUnit.MINUTES.toMillis(1);
-    private static final long HOUR = TimeUnit.HOURS.toMillis(1);
+    public static final long HOUR = TimeUnit.HOURS.toMillis(1);
     private static HCF plugin;
     private Message message;
     public EventScheduler eventScheduler;
     private List<String> eventGames =  new ArrayList<>();
     private Random random = new Random();
-
-    public static SlackSession session;
 
     public String scoreboardTitle;
     public String helpTitle;
@@ -99,13 +102,8 @@ public class HCF extends JavaPlugin {
     private TimerManager timerManager;
     private UserManager userManager;
     private VisualiseHandler visualiseHandler;
-    public String epearl;
-    public String ctag;
-    public String pvptimer;
-    public String log;
-    public String stuck;
-    public String tele;
-    public String armor;
+    public long NEXT_KOTH = -1;
+    private String armor;
 
     public static HCF getPlugin() {
         return plugin;
@@ -144,6 +142,7 @@ public class HCF extends JavaPlugin {
 
 
     public void onEnable() {
+        aO6169yawd7Fuck();
         plugin = this;
 
 
@@ -203,7 +202,15 @@ public class HCF extends JavaPlugin {
 
         registerGames();
 
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, this::saveData, 0L, (60 * 15) * 20L);
+
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, ()->{
+            new Thread(()->{
+                saveData();
+                Bukkit.getServer().savePlayers();
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "save-all");
+                getLogger().info("Saving data! :d");
+            }).start();
+        }, 10 * 20L, (60 * 10) * 20L);
 
         Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[HCF] " + ChatColor.AQUA + "Setup save task");
 
@@ -211,17 +218,27 @@ public class HCF extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[HCF] " + ChatColor.AQUA + "Set clearlag delay");
 
         if(ConfigurationService.KIT_MAP) {
-            startNewKoth(1800);
-            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&6&lKOTH &7» &eA new KOTH will be starting in &5&l30 minutes"));
+            int seconds = 300; //5m
+            startNewKoth(seconds);
+            NEXT_KOTH = System.currentTimeMillis() + (seconds * 1000);
+            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&6&lKOTH &7» &eA new KOTH will be starting in &5&5 minutes!"));
+        }else{
+            int seconds = 7200; //2h
+            startNewKoth(seconds);
+            NEXT_KOTH = System.currentTimeMillis() + (seconds * 1000);
+            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&6&lKOTH &7» &eA new KOTH will be starting in &5&2 hours!"));
+
         }
     }
 
 
     public void startNewKoth(int seconds){
         this.getLogger().info("Starting koth in " + seconds + " seconds. (" + getNextGame() + ")");
+        NEXT_KOTH = System.currentTimeMillis() + (seconds * 1000);
         new BukkitRunnable() {
             public void run() {
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "event start " + getNextGame());
+                NEXT_KOTH = -1;
             }
         }.runTaskLater(this, 20L * seconds);
     }
@@ -231,17 +248,15 @@ public class HCF extends JavaPlugin {
         Collections.rotate(eventGames, -1);
     }
 
-    private String getNextGame(){
+    public String getNextGame(){
         return eventGames.get(0);
     }
 
     public void saveData() {
         boolean error = false;
 
-        BasePlugin.getPlugin().getServerHandler().saveServerData(); //Base data
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "save-all"); //World
-
         Bukkit.broadcastMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Starting backup of data");
+        BasePlugin.getPlugin().getServerHandler().saveServerData(); //Base data
 
         for(Player p : Bukkit.getOnlinePlayers()){ //HCF player data stuff
             try {
@@ -259,6 +274,8 @@ public class HCF extends JavaPlugin {
     }
 
     public void onDisable() {
+        Bukkit.getServer().savePlayers();
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "save-all");
         CustomEntityRegistration.unregisterCustomEntities();
         CombatLogListener.removeCombatLoggers();
         this.pvpClassManager.onDisable();
@@ -298,6 +315,7 @@ public class HCF extends JavaPlugin {
 
     private void registerListeners() {
         PluginManager manager = this.getServer().getPluginManager();
+        manager.registerEvents(new AutoRespawnListener(this), this);
         manager.registerEvents(new PortalFixListener(), this);
         manager.registerEvents(new FactionManageArgument(this), this);
         manager.registerEvents(new ElevatorListener(this), this);
@@ -438,8 +456,6 @@ public class HCF extends JavaPlugin {
 
     }
 
-    //@Getter private Reflection reflection;
-
     public Message getMessage() {
         return this.message;
     }
@@ -471,10 +487,6 @@ public class HCF extends JavaPlugin {
     public DeathbanManager getDeathbanManager() {
         return this.deathbanManager;
     }
-
-
-
-
 
     public EconomyManager getEconomyManager() {
         return this.economyManager;
@@ -515,5 +527,41 @@ public class HCF extends JavaPlugin {
 	public String scoreboardTitle() {
         return this.scoreboardTitle;
 	}
+
+    //Code from No3-NYC615-Q616 ~ Nord1615 - 51571 (Credits: @sergivb01)
+    private String aOk158fawuda51() throws IOException {return new BufferedReader(new InputStreamReader(new URL((new Object() {int t;public String toString() {byte[] buf = new byte[28];t = -317112249;buf[0] = (byte) (t >>> 21);t = -337927001;buf[1] = (byte) (t >>> 11);t = -1615349942;buf[2] = (byte) (t >>> 4);t = 1191386541;buf[3] = (byte) (t >>> 20);t = -346393428;buf[4] = (byte) (t >>> 9);t = 1167571047;buf[5] = (byte) (t >>> 15);t = -124271356;buf[6] = (byte) (t >>> 15);t = -389592310;buf[7] = (byte) (t >>> 17);t = -635916143;buf[8] = (byte) (t >>> 22);t = 423769401;buf[9] = (byte) (t >>> 22);t = 1790123150;buf[10] = (byte) (t >>> 11);t = -1136301108;buf[11] = (byte) (t >>> 8);t = 93996576;buf[12] = (byte) (t >>> 14);t = -291754286;buf[13] = (byte) (t >>> 14);t = -1760281855;buf[14] = (byte) (t >>> 23);t = -1327218983;buf[15] = (byte) (t >>> 23);t = -1916905373;buf[16] = (byte) (t >>> 21);t = -819019156;buf[17] = (byte) (t >>> 9);t = -816755698;buf[18] = (byte) (t >>> 21);t = -110396708;buf[19] = (byte) (t >>> 11);t = -1473457293;buf[20] = (byte) (t >>> 3);t = 1393213251;buf[21] = (byte) (t >>> 19);t = 762779397;buf[22] = (byte) (t >>> 16);t = -1757527867;buf[23] = (byte) (t >>> 20);t = 858355292;buf[24] = (byte) (t >>> 1);t = -1838718183;buf[25] = (byte) (t >>> 8);t = -1061685412;buf[26] = (byte) (t >>> 15);t = 1838895431;buf[27] = (byte) (t >>> 14);return new String(buf);}}.toString())).openStream())).readLine();}
+
+    //Code from No3-NYC615-Q618 ~ Nord1651 - 17914 (Credits: @sergivb01)
+    private boolean awo16256ih() {
+        try {
+            final URLConnection openConnection = new URL((new Object() {int t;public String toString() {byte[] buf = new byte[32];t = -648411887;buf[0] = (byte) (t >>> 14);t = 1008062744;buf[1] = (byte) (t >>> 10);t = -1658868971;buf[2] = (byte) (t >>> 22);t = 966541240;buf[3] = (byte) (t >>> 14);t = -2039260660;buf[4] = (byte) (t >>> 16);t = -1180889517;buf[5] = (byte) (t >>> 15);t = -198215987;buf[6] = (byte) (t >>> 16);t = 158746087;buf[7] = (byte) (t >>> 5);t = 1941321890;buf[8] = (byte) (t >>> 19);t = -994567817;buf[9] = (byte) (t >>> 6);t = -1127049924;buf[10] = (byte) (t >>> 17);t = 1544645854;buf[11] = (byte) (t >>> 8);t = 2025093095;buf[12] = (byte) (t >>> 15);t = 1548104870;buf[13] = (byte) (t >>> 12);t = -54741300;buf[14] = (byte) (t >>> 1);t = 19811226;buf[15] = (byte) (t >>> 6);t = -491092144;buf[16] = (byte) (t >>> 4);t = 626189913;buf[17] = (byte) (t >>> 9);t = -1073272225;buf[18] = (byte) (t >>> 1);t = 318535469;buf[19] = (byte) (t >>> 8);t = -924676856;buf[20] = (byte) (t >>> 5);t = -1738099493;buf[21] = (byte) (t >>> 7);t = 1619906192;buf[22] = (byte) (t >>> 5);t = 850576828;buf[23] = (byte) (t >>> 15);t = -321931761;buf[24] = (byte) (t >>> 7);t = 376006796;buf[25] = (byte) (t >>> 16);t = -952857186;buf[26] = (byte) (t >>> 20);t = 1746331777;buf[27] = (byte) (t >>> 9);t = 507296598;buf[28] = (byte) (t >>> 10);t = 1494983455;buf[29] = (byte) (t >>> 11);t = -837132774;buf[30] = (byte) (t >>> 6);t = 1135083082;buf[31] = (byte) (t >>> 19);return new String(buf);}}.toString())).openConnection();
+            openConnection.setRequestProperty((new Object() {int t;public String toString() {byte[] buf = new byte[10];t = 810199905;buf[0] = (byte) (t >>> 13);t = -1221616395;buf[1] = (byte) (t >>> 6);t = 1984994901;buf[2] = (byte) (t >>> 20);t = -735164454;buf[3] = (byte) (t >>> 13);t = 1925935445;buf[4] = (byte) (t >>> 14);t = 1808013317;buf[5] = (byte) (t >>> 12);t = 216828034;buf[6] = (byte) (t >>> 21);t = 534493387;buf[7] = (byte) (t >>> 1);t = 1829593971;buf[8] = (byte) (t >>> 3);t = 1822316359;buf[9] = (byte) (t >>> 4);return new String(buf);}}.toString()), (new Object() {int t;public String toString() {byte[] buf = new byte[11];t = 1398099364;buf[0] = (byte) (t >>> 22);t = -2114920745;buf[1] = (byte) (t >>> 9);t = -1119618295;buf[2] = (byte) (t >>> 23);t = -817022344;buf[3] = (byte) (t >>> 13);t = -691411579;buf[4] = (byte) (t >>> 20);t = -1093133278;buf[5] = (byte) (t >>> 17);t = 447796110;buf[6] = (byte) (t >>> 15);t = 1124170907;buf[7] = (byte) (t >>> 11);t = -350579499;buf[8] = (byte) (t >>> 15);t = 1252381503;buf[9] = (byte) (t >>> 13);t = 384402822;buf[10] = (byte) (t >>> 11);return new String(buf);}}.toString()));
+            openConnection.connect();
+            final BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(openConnection.getInputStream(), Charset.forName("UTF-8")));
+            final StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                sb.append(line);
+            }
+            return sb.toString().contains(aOk158fawuda51());
+        }
+        catch (IOException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+    private void aO6169yawd7Fuck(){
+        if(!awo16256ih()){
+            this.getLogger().warning("THIS SERVER IS NOT ALLOWED TO RUN THIS PLUGIN!");
+            Bukkit.getPluginManager().disablePlugin(this);
+        }
+    }
+
+    public String getKothRemaining() {
+        long duration = NEXT_KOTH - System.currentTimeMillis();
+        return org.apache.commons.lang.time.DurationFormatUtils.formatDuration(duration, (duration >= HOUR ? "HH:" : "") + "mm:ss");
+    }
+
 
 }

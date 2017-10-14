@@ -4,22 +4,11 @@ package com.customhcf.hcf.timer.argument;
 import com.customhcf.hcf.HCF;
 import com.customhcf.hcf.timer.PlayerTimer;
 import com.customhcf.hcf.timer.Timer;
-import com.customhcf.hcf.timer.TimerManager;
 import com.customhcf.util.JavaUtils;
 import com.customhcf.util.command.CommandArgument;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.FluentIterable;
-import com.google.common.collect.ImmutableList;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javax.annotation.Nullable;
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -27,6 +16,12 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.regex.Pattern;
 
 public class TimerSetArgument
 extends CommandArgument {
@@ -67,7 +62,7 @@ extends CommandArgument {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 playerTimer.setCooldown(player, player.getUniqueId(), duration, true);
             }
-            sender.sendMessage(ChatColor.BLUE + "Set timer " + playerTimer.getName() + " for all to " + DurationFormatUtils.formatDurationWords(duration, true, true) + '.');
+            sender.sendMessage(ChatColor.BLUE + "Set timer " + ChatColor.BLUE + playerTimer.getName() + " for all to " + DurationFormatUtils.formatDurationWords(duration, true, true) + '.');
         } else {
             OfflinePlayer target = Bukkit.getOfflinePlayer(args[2]);
             Player targetPlayer = null;
@@ -76,20 +71,14 @@ extends CommandArgument {
                 return true;
             }
             playerTimer.setCooldown(targetPlayer, target.getUniqueId(), duration, true);
-            sender.sendMessage(ChatColor.BLUE + "Set timer " + playerTimer.getName() + " duration to " + DurationFormatUtils.formatDurationWords(duration, true, true) + " for " + target.getName() + '.');
+            sender.sendMessage(ChatColor.BLUE + "Set timer " + playerTimer.getName() +  ChatColor.BLUE + " duration to " + DurationFormatUtils.formatDurationWords(duration, true, true) + " for " + target.getName() + '.');
         }
         return true;
     }
 
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         if (args.length == 2) {
-            return FluentIterable.from(this.plugin.getTimerManager().getTimers()).filter((Predicate)new Predicate<Timer>(){
-
-                public boolean apply(Timer timer) {
-                    return timer instanceof PlayerTimer;
-                }
-            }).transform(new Function<Timer, String>(){
-
+            return FluentIterable.from(this.plugin.getTimerManager().getTimers()).filter((Predicate) timer -> timer instanceof PlayerTimer).transform(new Function<Timer, String>(){
                 @Nullable
                 public String apply(Timer timer) {
                     return ChatColor.stripColor(WHITESPACE_TRIMMER.matcher(timer.getName()).replaceAll(""));

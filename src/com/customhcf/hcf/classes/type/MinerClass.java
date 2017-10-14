@@ -3,15 +3,8 @@ package com.customhcf.hcf.classes.type;
 
 import com.customhcf.hcf.HCF;
 import com.customhcf.hcf.classes.PvpClass;
-import com.customhcf.hcf.classes.PvpClassManager;
 import com.customhcf.hcf.classes.event.PvpClassEquipEvent;
 import com.customhcf.util.BukkitUtils;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -21,13 +14,15 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+
+import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class MinerClass
         extends PvpClass
@@ -75,7 +70,13 @@ public class MinerClass
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onPlayerMove(final PlayerMoveEvent event) {
-        this.conformMinerInvisibility(event.getPlayer(), event.getFrom(), event.getTo());
+        Location from = event.getFrom();
+        int toX = event.getTo().getBlockX();
+        int toY = event.getTo().getBlockY();
+        int toZ = event.getTo().getBlockZ();
+        if (from.getBlockX() != toX || from.getBlockY() != toY || from.getBlockZ() != toZ) {
+            this.conformMinerInvisibility(event.getPlayer(), event.getFrom(), event.getTo());
+        }
     }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)

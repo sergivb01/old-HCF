@@ -2,23 +2,12 @@
 package com.customhcf.hcf.visualise;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.faction.FactionManager;
 import com.customhcf.hcf.faction.claim.Claim;
 import com.customhcf.hcf.faction.type.ClaimableFaction;
 import com.customhcf.hcf.faction.type.Faction;
 import com.customhcf.hcf.faction.type.RoadFaction;
-import com.customhcf.hcf.timer.TimerManager;
-import com.customhcf.hcf.timer.type.PvpProtectionTimer;
-import com.customhcf.hcf.timer.type.SpawnTagTimer;
-import com.customhcf.hcf.visualise.VisualBlock;
-import com.customhcf.hcf.visualise.VisualBlockData;
-import com.customhcf.hcf.visualise.VisualType;
-import com.customhcf.hcf.visualise.VisualiseHandler;
 import com.customhcf.util.cuboid.Cuboid;
 import com.google.common.base.Predicate;
-
-import java.util.*;
-
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -29,31 +18,32 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
+
+import java.util.*;
 
 public class WallBorderListener implements Listener
 {
     private static final int WALL_BORDER_HEIGHT_BELOW_DIFF = 3;
     private static final int WALL_BORDER_HEIGHT_ABOVE_DIFF = 4;
     private static final int WALL_BORDER_HORIZONTAL_DISTANCE = 7;
-    private final boolean useTaskInstead;
+    private final boolean useTaskInstead = false;
     private final Map<UUID, BukkitTask> wallBorderTask;
     private final HCF plugin;
 
     public WallBorderListener(final HCF plugin) {
         super();
-        this.wallBorderTask = new HashMap<UUID, BukkitTask>();
+        this.wallBorderTask = new HashMap<>();
         this.plugin = plugin;
-        while (true) {
+        /*while (true) {
             if (plugin.getRandom().nextBoolean()) {
                 this.useTaskInstead = false;
                 return;
             }
             continue;
-        }
+        }*/
     }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)

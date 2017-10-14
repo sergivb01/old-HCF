@@ -12,28 +12,23 @@ import com.customhcf.hcf.kothgame.faction.EventFaction;
 import com.customhcf.hcf.kothgame.faction.KothFaction;
 import com.customhcf.hcf.kothgame.tracker.ConquestTracker;
 import com.customhcf.hcf.kothgame.tracker.KothTracker;
+import com.customhcf.hcf.palace.PalaceFaction;
+import com.customhcf.hcf.palace.PalaceTracker;
 import com.customhcf.util.command.CommandArgument;
-import com.customhcf.util.cuboid.Cuboid;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldedit.bukkit.selections.Selection;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import net.minecraft.util.org.apache.commons.lang3.StringUtils;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class EventSetCapzoneArgument
 extends CommandArgument {
@@ -114,9 +109,15 @@ extends CommandArgument {
             }
             captureZone = new CaptureZone(conquestZone.getName(), conquestZone.getColor().toString(), claim, ConquestTracker.DEFAULT_CAP_MILLIS);
             conquestFaction.setZone(conquestZone, captureZone);
-        } else {
+        } else if(capturableFaction instanceof KothFaction) {
             captureZone = new CaptureZone(capturableFaction.getName(), claim, KothTracker.DEFAULT_CAP_MILLIS);
             ((KothFaction)capturableFaction).setCaptureZone(captureZone);
+        }else if(capturableFaction instanceof PalaceFaction){
+            captureZone = new CaptureZone(capturableFaction.getName(), claim, PalaceTracker.DEFAULT_CAP_MILLIS1);
+            ((PalaceFaction)capturableFaction).setCaptureZone(captureZone);
+        }else{
+            sender.sendMessage(ChatColor.RED + "Unexpected error");
+            return false;
         }
         sender.sendMessage(ChatColor.YELLOW + "Set capture zone " + captureZone.getDisplayName() + ChatColor.YELLOW + " for faction " + faction.getName() + ChatColor.YELLOW + '.');
         return true;

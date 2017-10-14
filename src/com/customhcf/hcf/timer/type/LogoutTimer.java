@@ -2,9 +2,10 @@
 package com.customhcf.hcf.timer.type;
 
 
-import java.util.UUID;
-
-import java.util.concurrent.TimeUnit;
+import com.customhcf.hcf.HCF;
+import com.customhcf.hcf.combatlog.CombatLogListener;
+import com.customhcf.hcf.timer.PlayerTimer;
+import com.customhcf.hcf.utils.ConfigurationService;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -19,10 +20,8 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
-import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.utils.ConfigurationService;
-import com.customhcf.hcf.combatlog.CombatLogListener;
-import com.customhcf.hcf.timer.PlayerTimer;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class LogoutTimer
 extends PlayerTimer
@@ -48,6 +47,7 @@ implements Listener {
 
     @EventHandler(ignoreCancelled=true, priority=EventPriority.MONITOR)
     public void onPlayerMove(PlayerMoveEvent event) {
+        if (event.getFrom().getBlockX() == event.getTo().getBlockX() && event.getFrom().getBlockZ() == event.getTo().getBlockZ()) { return; }
         this.checkMovement(event.getPlayer(), event.getFrom(), event.getTo());
     }
 

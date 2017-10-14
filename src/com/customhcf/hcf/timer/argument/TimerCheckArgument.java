@@ -1,19 +1,19 @@
 package com.customhcf.hcf.timer.argument;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.utils.UUIDFetcher;
 import com.customhcf.hcf.timer.PlayerTimer;
 import com.customhcf.hcf.timer.Timer;
+import com.customhcf.hcf.utils.UUIDFetcher;
 import com.customhcf.util.command.CommandArgument;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.UUID;
 
 public class TimerCheckArgument
 extends CommandArgument {
@@ -61,7 +61,7 @@ extends CommandArgument {
                     return;
                 }
                 long remaining = playerTimer.getRemaining(uuid);
-                sender.sendMessage(ChatColor.YELLOW + args[2] + " has timer " + playerTimer.getName() + " for another " + DurationFormatUtils.formatDurationWords(remaining, true, true));
+                sender.sendMessage(ChatColor.YELLOW + args[2] + " has timer " + playerTimer.getName() + ChatColor.YELLOW  + " for another " + DurationFormatUtils.formatDurationWords(remaining, true, true));
             }
         }.runTaskAsynchronously(this.plugin);
         return true;

@@ -42,8 +42,14 @@ public class SpawnCommand implements CommandExecutor, TabCompleter
             return true;
         }
         if (ConfigurationService.KIT_MAP) {
-            this.plugin.getTimerManager().teleportTimer.teleport(player, Bukkit.getWorld("world").getSpawnLocation(), TimeUnit.SECONDS.toMillis(15L), ChatColor.YELLOW + "Teleporting to spawn in " + ChatColor.LIGHT_PURPLE + "15 seconds.", PlayerTeleportEvent.TeleportCause.COMMAND);
-            return true;
+
+            if (this.plugin.getTimerManager().spawnTagTimer.getRemaining(player) > 0L) {
+                player.sendMessage(ChatColor.RED + "You can not do this while your " + ChatColor.BOLD + "Spawn Tag" + ChatColor.RED + " is active.");
+                return false;
+            }else {
+                this.plugin.getTimerManager().teleportTimer.teleport(player, Bukkit.getWorld("world").getSpawnLocation(), TimeUnit.SECONDS.toMillis(15L), ChatColor.YELLOW + "Teleporting to spawn in " + ChatColor.LIGHT_PURPLE + "15 seconds.", PlayerTeleportEvent.TeleportCause.COMMAND);
+                return true;
+            }
         } else {
             sender.sendMessage(ChatColor.RED + "This server does not have a spawn command, you must travel there. " + "Spawn can be found at " + ChatColor.GRAY + '(' + spawn.getBlockX() + ", " + spawn.getBlockZ() + ')');
             return true;
@@ -63,6 +69,6 @@ public class SpawnCommand implements CommandExecutor, TabCompleter
     }
 
     static {
-        KIT_MAP_TELEPORT_DELAY = TimeUnit.SECONDS.toMillis(10L);
+        KIT_MAP_TELEPORT_DELAY = TimeUnit.SECONDS.toMillis(15L);
     }
 }
