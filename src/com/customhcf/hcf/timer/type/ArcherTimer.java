@@ -1,13 +1,10 @@
 package com.customhcf.hcf.timer.type;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.utils.ConfigurationService;
 import com.customhcf.hcf.classes.archer.ArcherClass;
 import com.customhcf.hcf.timer.PlayerTimer;
 import com.customhcf.hcf.timer.event.TimerExpireEvent;
-
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
+import com.customhcf.hcf.utils.ConfigurationService;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Arrow;
@@ -16,6 +13,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class ArcherTimer
         extends PlayerTimer
@@ -53,7 +53,7 @@ public class ArcherTimer
             player.sendMessage(ChatColor.GOLD + "You are no longer archer marked.");
             ArcherClass.tagged.remove(player.getUniqueId());
             for (Player players : Bukkit.getServer().getOnlinePlayers()) {
-                this.plugin.getScoreboardHandler().getPlayerBoard(players.getUniqueId()).addUpdate(player);
+                this.plugin.getScoreboardHandler().getPlayerBoard(players.getUniqueId()).init(player);
             }
         }
     }

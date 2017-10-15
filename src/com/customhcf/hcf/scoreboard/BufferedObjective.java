@@ -1,21 +1,18 @@
 
 package com.customhcf.hcf.scoreboard;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
 import net.minecraft.util.gnu.trove.map.hash.TIntObjectHashMap;
 import net.minecraft.util.gnu.trove.procedure.TIntObjectProcedure;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
-import com.customhcf.hcf.scoreboard.SidebarEntry;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 public class BufferedObjective
 {
@@ -69,7 +66,7 @@ public class BufferedObjective
     }
 
     public void setLine(final int lineNumber, final SidebarEntry sidebarEntry) {
-        final SidebarEntry value = (SidebarEntry)this.contents.get(lineNumber);
+        final SidebarEntry value = this.contents.get(lineNumber);
         if (value == null || !value.equals(sidebarEntry)) {
             this.contents.put(lineNumber, sidebarEntry);
             this.requiresUpdate = true;
@@ -81,7 +78,7 @@ public class BufferedObjective
             return;
         }
         final Set<String> adding = new HashSet<String>();
-        this.contents.forEachEntry((TIntObjectProcedure<? super SidebarEntry>)new TIntObjectProcedure<SidebarEntry>() {
+        this.contents.forEachEntry(new TIntObjectProcedure<SidebarEntry>() {
             public boolean execute(final int i, final SidebarEntry sidebarEntry) {
                 String name = sidebarEntry.name;
                 if (name.length() > 16) {

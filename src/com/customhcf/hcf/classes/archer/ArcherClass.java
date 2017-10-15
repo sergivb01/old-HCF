@@ -134,7 +134,7 @@ public class ArcherClass
                     this.plugin.getTimerManager().archerTimer.setCooldown((Player)entity, entity.getUniqueId());
                     tagged.put(damaged.getUniqueId(), shooter.getUniqueId());
                     for(Player player : Bukkit.getOnlinePlayers()) {
-                    	HCF.getPlugin().getScoreboardHandler().getPlayerBoard(player.getUniqueId()).addUpdate(damaged);
+                    	HCF.getPlugin().getScoreboardHandler().getPlayerBoard(player.getUniqueId()).init(damaged);
                     }
                     /*Player[] arrayOfPlayer;
                     int j = (arrayOfPlayer = Bukkit.getOnlinePlayers()).length;

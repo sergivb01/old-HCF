@@ -2,25 +2,17 @@
 package com.customhcf.hcf.command;
 
 import com.customhcf.hcf.HCF;
-import com.customhcf.hcf.faction.FactionManager;
-import com.customhcf.hcf.faction.type.Faction;
 import com.customhcf.hcf.faction.type.PlayerFaction;
-import com.customhcf.util.command.CommandArgument;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class FactionFocusArgument
 implements CommandExecutor {
@@ -58,9 +50,9 @@ implements CommandExecutor {
 		namedFaction.setFocused(target.getName());
 		namedFaction.broadcast(ChatColor.LIGHT_PURPLE + target.getName() + ChatColor.YELLOW + " has been focused by " + ChatColor.LIGHT_PURPLE + sender.getName() + ChatColor.YELLOW + ".");
 		for(Player player :namedFaction.getOnlinePlayers()){
-			HCF.getPlugin().getScoreboardHandler().getPlayerBoard(player.getUniqueId()).addUpdate(target);
+			HCF.getPlugin().getScoreboardHandler().getPlayerBoard(player.getUniqueId()).init(target);
 			if(previous !=null){
-				HCF.getPlugin().getScoreboardHandler().getPlayerBoard(player.getUniqueId()).addUpdate(previous);
+				HCF.getPlugin().getScoreboardHandler().getPlayerBoard(player.getUniqueId()).init(previous);
 
 			}
 		}
