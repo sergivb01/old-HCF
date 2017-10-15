@@ -22,8 +22,8 @@ public class FFACommand
                 p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 999999, 0));
                 p.sendMessage(ChatColor.GREEN.toString() + ChatColor.BOLD + "You have been given potion effects");
             }
-            sender.sendMessage(ChatColor.YELLOW + "You have given all players potion effects.");
         }
+        sender.sendMessage(ChatColor.YELLOW + "You have given all players potion effects.");
         return true;
     }
 }
