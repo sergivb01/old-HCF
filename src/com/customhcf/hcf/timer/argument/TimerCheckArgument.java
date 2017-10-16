@@ -31,7 +31,7 @@ extends CommandArgument {
 
     public boolean onCommand(final CommandSender sender, Command command, String label, final String[] args) {
         if (args.length < 3) {
-            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Incorrect usage!" + ChatColor.YELLOW + " Use like this: " + ChatColor.AQUA + this.getUsage(label));
             return true;
         }
         PlayerTimer temporaryTimer = null;

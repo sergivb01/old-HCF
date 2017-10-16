@@ -35,7 +35,7 @@ extends CommandArgument {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         String upperCase;
         if (args.length < 3) {
-            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Incorrect usage!" + ChatColor.YELLOW + " Use like this: " + ChatColor.AQUA + this.getUsage(label));
             return true;
         }
         Faction faction = this.plugin.getFactionManager().getFaction(args[1]);

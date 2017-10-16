@@ -48,7 +48,7 @@ extends CommandArgument {
             return true;
         }
         if (args.length < 3) {
-            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Incorrect usage!" + ChatColor.YELLOW + " Use like this: " + ChatColor.AQUA + this.getUsage(label));
             return true;
         }
         Key key = this.plugin.getKeyManager().getKey(args[1]);

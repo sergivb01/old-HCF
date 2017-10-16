@@ -40,7 +40,7 @@ public class FactionClaimsArgument extends CommandArgument
         ClaimableFaction targetFaction;
         if (args.length < 2) {
             if (!(sender instanceof Player)) {
-                sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
+                sender.sendMessage(ChatColor.RED + "Incorrect usage!" + ChatColor.YELLOW + " Use like this: " + ChatColor.AQUA + this.getUsage(label));
                 return true;
             }
             if (selfFaction == null) {

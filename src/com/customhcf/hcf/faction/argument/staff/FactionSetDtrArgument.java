@@ -38,7 +38,7 @@ extends CommandArgument {
             return false;
         }
         if (args.length < 3) {
-            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Incorrect usage!" + ChatColor.YELLOW + " Use like this: " + ChatColor.AQUA + this.getUsage(label));
             return true;
         }
         Double newDTR = Doubles.tryParse(args[2]);

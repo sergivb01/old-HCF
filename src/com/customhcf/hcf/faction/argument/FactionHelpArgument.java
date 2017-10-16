@@ -2,18 +2,12 @@
 package com.customhcf.hcf.faction.argument;
 
 import com.customhcf.hcf.faction.FactionExecutor;
-import com.customhcf.util.BukkitUtils;
 import com.customhcf.util.chat.ClickAction;
 import com.customhcf.util.chat.Text;
 import com.customhcf.util.command.CommandArgument;
 import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableMultimap;
-import com.google.common.collect.Multimap;
 import com.google.common.primitives.Ints;
-
-import java.util.Collection;
-import java.util.List;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -73,7 +67,7 @@ extends CommandArgument {
             return;
         }
         sender.sendMessage(ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH + "----------------------------------------------------");
-        sender.sendMessage(ChatColor.YELLOW + "" + ChatColor.BOLD + " Faction Help " + ChatColor.GRAY + "(" + pageNumber + " out of " + totalPageCount + " pages)");
+        sender.sendMessage(ChatColor.YELLOW + "" + ChatColor.BOLD + " Faction Help " + ChatColor.GRAY + "(Page" + pageNumber + " out of " + totalPageCount + ")");
         sender.sendMessage(" ");
         for (Text message : this.pages.get(pageNumber)) {
             message.send(sender);

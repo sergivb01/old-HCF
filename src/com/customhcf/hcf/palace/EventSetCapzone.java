@@ -44,7 +44,7 @@ public class EventSetCapzone extends CommandArgument
             return true;
         }
         if (args.length < 2) {
-            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Incorrect usage!" + ChatColor.YELLOW + " Use like this: " + ChatColor.AQUA + this.getUsage(label));
             return true;
         }
         final WorldEditPlugin worldEdit = this.plugin.getWorldEdit();

@@ -3,18 +3,17 @@ package com.customhcf.hcf.crate.argument;
 
 import com.customhcf.hcf.HCF;
 import com.customhcf.hcf.crate.Key;
-import com.customhcf.hcf.crate.KeyManager;
 import com.customhcf.util.command.CommandArgument;
 import com.google.common.primitives.Ints;
-
-import java.util.Map;
-import java.util.UUID;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.Map;
+import java.util.UUID;
 
 public class LootDepositArgument
 extends CommandArgument {
@@ -37,7 +36,7 @@ extends CommandArgument {
             return true;
         }
         if (args.length < 2) {
-            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Incorrect usage!" + ChatColor.YELLOW + " Use like this: " + ChatColor.AQUA + this.getUsage(label));
             return true;
         }
         Player player = (Player)sender;

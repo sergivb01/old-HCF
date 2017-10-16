@@ -30,7 +30,7 @@ extends CommandArgument {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length != 2) {
-            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Incorrect usage!" + ChatColor.YELLOW + " Use like this: " + ChatColor.AQUA + this.getUsage(label));
             return true;
         }
         if (this.plugin.getFactionManager().getFaction(args[1]) == null) {
@@ -47,7 +47,7 @@ extends CommandArgument {
                     faction.setLocked(false);
                 }
             }else{
-                sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
+                sender.sendMessage(ChatColor.RED + "Incorrect usage!" + ChatColor.YELLOW + " Use like this: " + ChatColor.AQUA + this.getUsage(label));
             }
         } else if (this.plugin.getFactionManager().getFaction(args[1]).isLocked()) {
             sender.sendMessage(ChatColor.GREEN + args[1] + " is now un-locked.");

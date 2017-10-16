@@ -88,7 +88,7 @@ implements Listener {
             return true;
         }
         if (args.length < 2) {
-            sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
+            sender.sendMessage(ChatColor.RED + "Incorrect usage!" + ChatColor.YELLOW + " Use like this: " + ChatColor.AQUA + this.getUsage(label));
             return true;
         }
         Player player = (Player)sender;
@@ -155,7 +155,7 @@ implements Listener {
             sender.sendMessage(ChatColor.YELLOW + "You are no longer spying the chat of any faction.");
             return true;
         }
-        sender.sendMessage(ChatColor.RED + "Usage: " + this.getUsage(label));
+        sender.sendMessage(ChatColor.RED + "Incorrect usage!" + ChatColor.YELLOW + " Use like this: " + ChatColor.AQUA + this.getUsage(label));
         return true;
     }
 }
