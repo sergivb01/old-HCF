@@ -555,7 +555,6 @@ public class PlayerFaction
       text.append(ChatColor.GRAY + " » " + ChatColor.GREEN + this.getDisplayName(sender)+ ChatColor.GRAY +" ("+this.getOnlineMembers().size()+"/"+this.getMembers().size() + " online)");
 
       if(sender.hasPermission("hcf.command.manage")) {
-
           text.append(ChatColor.AQUA + " [C]").setHoverText(ChatColor.DARK_RED + "In Development");
       }
       text.send(sender);
@@ -590,7 +589,7 @@ public class PlayerFaction
       }
       if(!ConfigurationService.KIT_MAP) {
         sender.sendMessage(ChatColor.YELLOW + "  Balance: " + ChatColor.BLUE + '$' + this.balance + ChatColor.YELLOW + ", " + "Total Kills: " + ChatColor.RED + combinedKills1 + ChatColor.RED + " kills");
-        sender.sendMessage(ChatColor.YELLOW + "  Deaths until Raidable: " + this.getRegenStatus().getSymbol() + this.getDtrColour() + JavaUtils.format(getDeathsUntilRaidable(false)) + ChatColor.YELLOW + "/" + this.getMaximumDeathsUntilRaidable() + ChatColor.GOLD);
+        sender.sendMessage(ChatColor.YELLOW + "  Deaths until Raidable: " + this.getDtrColour() + JavaUtils.format(getDeathsUntilRaidable(false)) + ChatColor.YELLOW + "/" + this.getMaximumDeathsUntilRaidable() + this.getRegenStatus().getSymbol());
       } else {
         sender.sendMessage(ChatColor.YELLOW + "  Balance: " + ChatColor.BLUE + '$' + this.balance);
         sender.sendMessage(ChatColor.YELLOW + "  Total Kills: " + ChatColor.LIGHT_PURPLE + combinedKills1);

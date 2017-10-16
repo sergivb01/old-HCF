@@ -38,6 +38,25 @@ deathban-time: 180
 # Can't build how many blocks from spawn?
 unbuildable-range: 300
 
+help:
+  - '&7&m-----------------------------------------------------'
+  - '&6&lVeilMC Help'
+  - '&a '
+  - '&6World Border:'
+  - ' &7* &eOverworld&7: &f%OVERWORLD%'
+  - ' &7* &eNether&7: &f%NETHER%'
+  - ' &7* &eEnd&7: &f%END%'
+  - '&a '
+  - '&6End Portals:'
+  - ' &7* &f%ENDPORTAL%'
+  - '&a '
+  - '&6Support:'
+  - ' &7* &ets.veilhcf.us'
+  - '&a '
+  - '&6Website:'
+  - ' &7* &eveilhcf.us'
+  - '&7&m-----------------------------------------------------'
+
 # Configurable messages
 messages:
   teamspeak-ip: 'ts.veilhcf.us'

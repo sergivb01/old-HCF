@@ -21,7 +21,7 @@ TabCompleter {
     private final ChatColor VALUE_COLOR = ChatColor.RED;
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        sender.sendMessage(ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH + "----------------------------------------------------");
+        /*sender.sendMessage(ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH + "----------------------------------------------------");
         sender.sendMessage(HCF.getPlugin().helpTitle);
         sender.sendMessage(this.MAIN_COLOR + " Border Size: ");
         sender.sendMessage(this.SECONDARY_COLOR + "  " + "World" + ": " + this.VALUE_COLOR + HCF.getPlugin().getServerHandler().getWorldBorder());
@@ -32,7 +32,15 @@ TabCompleter {
         sender.sendMessage(this.MAIN_COLOR + " End Exit Location: ");
         sender.sendMessage(this.SECONDARY_COLOR + "  Location: " + this.VALUE_COLOR + ConfigurationService.HELP_END_EXIT);
         sender.sendMessage(this.MAIN_COLOR + " Teamspeak: " + this.VALUE_COLOR + "ts.veilhcf.us");
-        sender.sendMessage(ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH + "----------------------------------------------------");
+        sender.sendMessage(ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH + "----------------------------------------------------");*/
+
+        for (String messages : HCF.getInstance().getConfig().getStringList("help")) {
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', messages).replace("%OVERWORLD%", HCF.getPlugin().getServerHandler().getWorldBorder() + "")
+                    .replace("%NETHER%", HCF.getPlugin().getServerHandler().getNetherBorder() + "")
+                    .replace("%END%", HCF.getPlugin().getServerHandler().getEndBorder() + "")
+                    .replace("%ENDPORTAL%", ConfigurationService.HELP_ENDPORTAL_LOCATION + ""));
+        }
+
         return true;
     }
 

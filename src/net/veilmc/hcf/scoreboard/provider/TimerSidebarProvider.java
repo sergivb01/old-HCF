@@ -70,11 +70,6 @@ public class TimerSidebarProvider implements SidebarProvider
 			lines.add(new SidebarEntry(ChatColor.GREEN.toString() + ChatColor.BOLD, "SOTW" + ChatColor.GRAY + ": ", ChatColor.GOLD + DurationFormatter.getRemaining(sotwRunnable.getRemaining(), true)));
 		}
 
-//		if (pvpClass != null) {
-//			lines.add(new SidebarEntry(ChatColor.YELLOW + "", HCF.getPlugin().armor, ChatColor.GRAY + ": " + ChatColor.RED + pvpClass.getName()));
-//		}
-
-
 		if ((pvpClass instanceof MinerClass)) {
 			lines.add(new SidebarEntry(ChatColor.GRAY + "", ChatColor.AQUA + "" + ChatColor.BOLD + "Miner Class", ChatColor.GRAY + ":"));
 			lines.add(new SidebarEntry(ChatColor.GRAY + " » ", ChatColor.AQUA + "Diamonds", ChatColor.GRAY + ": " + ChatColor.RED + player.getStatistic(Statistic.MINE_BLOCK, Material.DIAMOND_ORE)));
