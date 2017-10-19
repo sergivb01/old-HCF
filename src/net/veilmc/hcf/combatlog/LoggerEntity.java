@@ -2,27 +2,11 @@
 package net.veilmc.hcf.combatlog;
 
 import com.google.common.base.Function;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
-import net.minecraft.server.v1_7_R4.DamageSource;
-import net.minecraft.server.v1_7_R4.Entity;
-import net.minecraft.server.v1_7_R4.EntityHuman;
-import net.minecraft.server.v1_7_R4.EntityVillager;
-import net.minecraft.server.v1_7_R4.EntityPlayer;
-import net.minecraft.server.v1_7_R4.MathHelper;
-import net.minecraft.server.v1_7_R4.PlayerInteractManager;
+import net.minecraft.server.v1_7_R4.*;
 import net.minecraft.server.v1_7_R4.World;
-import net.minecraft.server.v1_7_R4.WorldServer;
 import net.minecraft.util.com.mojang.authlib.GameProfile;
-
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
+import org.bukkit.*;
 import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.craftbukkit.v1_7_R4.CraftServer;
 import org.bukkit.craftbukkit.v1_7_R4.CraftWorld;
 import org.bukkit.craftbukkit.v1_7_R4.entity.CraftLivingEntity;
@@ -35,6 +19,10 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 public class LoggerEntity
 extends EntityVillager {
@@ -57,7 +45,7 @@ extends EntityVillager {
         Bukkit.getConsoleSender().sendMessage((Object)ChatColor.GOLD + "Combat Logger for [" + playerName + "] " + (hasSpawned ? new StringBuilder().append((Object)ChatColor.GREEN).append("successfully spawned").toString() : new StringBuilder().append((Object)ChatColor.RED).append("failed to spawn").toString()) + (Object)ChatColor.GOLD + " at (" + String.format("%.1f", x) + ", " + String.format("%.1f", y) + ", " + String.format("%.1f", z) + ')');
         this.playerUUID = player.getUniqueId();
         if (hasSpawned) {
-            this.setCustomName(playerName);
+            this.setCustomName(ChatColor.GRAY + "(Logger) " + ChatColor.RED + playerName);
             this.setCustomNameVisible(true);
             this.setPositionRotation(x, y, z, location.getYaw(), location.getPitch());
         }
