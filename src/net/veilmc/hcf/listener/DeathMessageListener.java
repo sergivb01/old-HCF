@@ -114,9 +114,9 @@ implements Listener {
 
 			}
 		}
-		if(isLogger){
-			input = ChatColor.RED + "(Combat-Logger) " + input;
-		}
+//		if(isLogger){
+//			input = ChatColor.RED + "(Combat-Logger) " + input;
+//		}
 		return input;
 	}
 
