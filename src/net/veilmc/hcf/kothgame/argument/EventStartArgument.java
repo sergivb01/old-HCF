@@ -1,21 +1,19 @@
 
 package net.veilmc.hcf.kothgame.argument;
 
+import com.customhcf.util.command.CommandArgument;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.hcf.kothgame.faction.EventFaction;
-import net.veilmc.util.command.CommandArgument;
+import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-
-public class EventStartArgument
-extends CommandArgument {
+public class EventStartArgument extends CommandArgument {
     private final HCF plugin;
 
     public EventStartArgument(HCF plugin) {
