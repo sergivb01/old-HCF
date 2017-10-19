@@ -6,6 +6,7 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.primitives.Ints;
 import net.veilmc.hcf.faction.FactionExecutor;
 import net.veilmc.util.BukkitUtils;
+import net.veilmc.util.chat.ClickAction;
 import net.veilmc.util.chat.Text;
 import net.veilmc.util.command.CommandArgument;
 import org.bukkit.ChatColor;
@@ -51,7 +52,7 @@ extends CommandArgument {
             for (CommandArgument argument : this.executor.getArguments()) {
                 String permission;
                 if (argument.equals(this) || (permission = argument.getPermission()) != null && !sender.hasPermission(permission) || argument.isPlayerOnly() && !isPlayer) continue;
-                pages.get(val).add(new Text(ChatColor.YELLOW + "  /" + label + ' ' + argument.getName() + ChatColor.WHITE + " - " + ChatColor.GREEN + argument.getDescription()).setColor(ChatColor.GRAY));
+                pages.get(val).add(new Text(ChatColor.YELLOW + "  /" + label + ' ' + argument.getName() + ChatColor.WHITE + " - " + ChatColor.GREEN + argument.getDescription()).setColor(ChatColor.GRAY).setClick(ClickAction.SUGGEST_COMMAND, "/" + label + " " + argument.getName()));
                 if (++count % 10 != 0) continue;
                 ++val;
             }

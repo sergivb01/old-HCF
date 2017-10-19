@@ -98,7 +98,7 @@ public class RogueClass extends PvpClass implements Listener {
                     stack.setAmount(stack.getAmount() - 1);
                 }
                 rougeRestorer.setRestoreEffect(player, RogueClass.ARCHER_SPEED_EFFECT);
-                player.sendMessage(ChatColor.YELLOW + "You now have your " + ChatColor.GREEN + "Archer Speed" + ChatColor.YELLOW + "!");
+                player.sendMessage(ChatColor.YELLOW + "You now have your " + ChatColor.GREEN + "Rouge Speed" + ChatColor.YELLOW + "!");
                 this.archerSpeedCooldowns.put(event.getPlayer().getUniqueId(), System.currentTimeMillis() + RogueClass.ARCHER_SPEED_COOLDOWN_DELAY);
             }
         }
