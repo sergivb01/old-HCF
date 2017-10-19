@@ -3,25 +3,22 @@ package net.veilmc.hcf.faction.argument.staff;
 
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.type.Faction;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
+import net.veilmc.hcf.faction.type.PlayerFaction;
+import net.veilmc.util.command.CommandArgument;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
-import org.bukkit.conversations.Conversable;
-import org.bukkit.conversations.ConversationContext;
-import org.bukkit.conversations.ConversationFactory;
-import org.bukkit.conversations.Prompt;
-import org.bukkit.conversations.StringPrompt;
+import org.bukkit.conversations.*;
 import org.bukkit.entity.Player;
 
-public class FactionRemoveArgument
-extends CommandArgument {
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class FactionRemoveArgument extends CommandArgument {
     private final ConversationFactory factory;
     private final HCF plugin;
 
@@ -91,14 +88,17 @@ extends CommandArgument {
         }
 
         public Prompt acceptInput(ConversationContext context, String string) {
-            String lowerCase;
-            switch (lowerCase = string.toLowerCase()) {
+            switch (string.toLowerCase()) {
                 case "yes": {
-                    Conversable conversable;
-                    for (Faction faction : this.plugin.getFactionManager().getFactions()) {
-                        this.plugin.getFactionManager().removeFaction(faction, Bukkit.getConsoleSender());
-                    }
-                    Bukkit.broadcastMessage(ChatColor.GOLD.toString() + ChatColor.BOLD + "All factions have been disbanded" + ((conversable = context.getForWhom()) instanceof CommandSender ? new StringBuilder().append(" by ").append(((CommandSender)conversable).getName()).toString() : "") + '.');
+                    final Conversable[] conversable = new Conversable[1];
+                    new Thread(()->{
+                        Bukkit.getScheduler().runTaskAsynchronously(this.plugin, ()->{
+                            for (Faction faction : this.plugin.getFactionManager().getFactions().stream().filter(faction -> faction instanceof PlayerFaction).collect(Collectors.toList())) {
+                                this.plugin.getFactionManager().removeFaction(faction, Bukkit.getConsoleSender());
+                            }
+                            Bukkit.broadcastMessage(ChatColor.GOLD.toString() + ChatColor.BOLD + "All factions have been disbanded" + ((conversable[0] = context.getForWhom()) instanceof CommandSender ? new StringBuilder().append(" by ").append(((CommandSender) conversable[0]).getName()).toString() : "") + '.');
+                        });
+                    }).start();
                     return Prompt.END_OF_CONVERSATION;
                 }
                 case "no": {
