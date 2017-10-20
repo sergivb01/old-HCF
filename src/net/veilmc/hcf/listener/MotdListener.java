@@ -14,7 +14,7 @@ public class MotdListener implements Listener {
     }
 
     @EventHandler
-    public void onServerPing(final ServerListPingEvent event){
+    public void onServerPing(ServerListPingEvent event){
         event.setMotd(
                 ChatColor.YELLOW + "Next Koth:" + "\n" +
                         ChatColor.translateAlternateColorCodes('&', ((this.plugin.NEXT_KOTH > 0) ? "&9&l" + this.plugin.getNextGame() + " &7(" + this.plugin.getKothRemaining() + ")" : "&7None Scheduled")));
