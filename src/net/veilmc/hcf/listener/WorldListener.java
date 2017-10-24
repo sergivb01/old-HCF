@@ -152,10 +152,9 @@ implements Listener {
     	    if(event.getEntity().getKiller() != event.getEntity().getPlayer()) {
                 HCF.getInstance().getEconomyManager().addBalance(event.getEntity().getKiller().getUniqueId(), 100);
                 event.getEntity().getKiller().sendMessage(ChatColor.GREEN + "You have gained $100 for killing " + ChatColor.WHITE + event.getEntity().getName() + ChatColor.GREEN + ".");
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "crate key " + event.getEntity().getKiller().getName() + " KillReward");
             }
     	}
     }
-
-
 }
 
