@@ -81,21 +81,19 @@ implements Listener {
             kdr = "0";
         }
 
-        String kdrPrefix = (kd > 0) ? ChatColor.RED + kdr : ChatColor.GREEN + kdr;
-
         //String kdrPrefix = (kdr > 2 ? ChatColor.RED + kdr : ChatColor.GREEN + kdr);
 
         String rank = ChatColor.translateAlternateColorCodes('&', "&e" + PermissionsEx.getUser(player).getPrefix()).replace("_", " ");
         String displayName = player.getDisplayName();
         displayName = rank + displayName;
 
-        String tag = playerFaction == null ? "" : ChatColor.GOLD + "[" + playerFaction.getDisplayName(Bukkit.getConsoleSender()) + ChatColor.RED + "] " + ((ConfigurationService.KIT_MAP) ? ChatColor.DARK_GRAY + "(" + ChatColor.GREEN + kdrPrefix + ChatColor.DARK_GRAY + ") " : "");
+        String tag = playerFaction == null ? "" : ChatColor.GOLD + "[" + playerFaction.getDisplayName(Bukkit.getConsoleSender()) + ChatColor.RED + "] " + ((ConfigurationService.KIT_MAP) ? ChatColor.DARK_GRAY + "(" + ChatColor.GREEN + kdr + ChatColor.DARK_GRAY + ") " : "");
         Bukkit.getConsoleSender().sendMessage( tag +  displayName + ChatColor.GOLD + ": " + ChatColor.GRAY + message);
 
         //String tag = playerFaction == null ? "" : ChatColor.GOLD + "[" + playerFaction.getDisplayName(Bukkit.getConsoleSender()) + ChatColor.RED + "] ";
 
         for (Player recipient : event.getRecipients()) {
-        	tag = playerFaction == null ? ChatColor.GOLD + "[" + ChatColor.RED + "*" + ChatColor.GOLD + "] "  + ((ConfigurationService.KIT_MAP) ? ChatColor.DARK_GRAY + "(" + ChatColor.GREEN + kdrPrefix + ChatColor.DARK_GRAY + ") " : "") :ChatColor.GOLD + "[" +  playerFaction.getDisplayName(recipient) + ChatColor.GOLD + "] " + ((ConfigurationService.KIT_MAP) ? ChatColor.DARK_GRAY + "(" + ChatColor.GREEN + kdrPrefix + ChatColor.DARK_GRAY + ") " : "");
+        	tag = playerFaction == null ? ChatColor.GOLD + "[" + ChatColor.RED + "*" + ChatColor.GOLD + "] "  + ((ConfigurationService.KIT_MAP) ? ChatColor.DARK_GRAY + "(" + ChatColor.GREEN + kdr + ChatColor.DARK_GRAY + ") " : "") :ChatColor.GOLD + "[" +  playerFaction.getDisplayName(recipient) + ChatColor.GOLD + "] " + ((ConfigurationService.KIT_MAP) ? ChatColor.DARK_GRAY + "(" + ChatColor.GREEN + kdrPrefix + ChatColor.DARK_GRAY + ") " : "");
             recipient.sendMessage(tag + displayName + ChatColor.GRAY + ": " + ChatColor.WHITE + message);
         }
     }
