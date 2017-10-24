@@ -12,6 +12,7 @@ import net.veilmc.hcf.kothgame.faction.ConquestFaction;
 import net.veilmc.hcf.kothgame.faction.EventFaction;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Ordering;
+import net.veilmc.hcf.utils.ConfigurationService;
 import org.apache.commons.lang3.ObjectUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -162,18 +163,19 @@ public class ConquestTracker implements EventTracker, Listener
         if (currentEventFac instanceof ConquestFaction) {
             final Player player = event.getEntity();
             final PlayerFaction playerFaction = this.plugin.getFactionManager().getPlayerFaction(player);
-            if (playerFaction != null) {
-                final int oldPoints = this.getPoints(playerFaction);
-                if (oldPoints == 0) {
-                    return;
+            if (!ConfigurationService.KIT_MAP) {
+                if (playerFaction != null) {
+                    final int oldPoints = this.getPoints(playerFaction);
+                    if (oldPoints == 0) {
+                        return;
+                    }
+                    if (this.getPoints(playerFaction) <= 20) {
+                        this.setPoints(playerFaction, 0);
+                    } else {
+                        this.takePoints(playerFaction, 20);
+                    }
+                    event.setDeathMessage(ChatColor.YELLOW + "§8[§6§l" + currentEventFac.getName() + "§8] " + ChatColor.LIGHT_PURPLE + playerFaction.getName() + ChatColor.YELLOW + " lost " + ChatColor.RED + Math.min(20, oldPoints) + ChatColor.YELLOW + " points because " + player.getName() + " died." + ChatColor.RED + " (" + this.getPoints(playerFaction) + '/' + 300 + ')' + ChatColor.YELLOW + '.');
                 }
-                if (this.getPoints(playerFaction) <= 20) {
-                    this.setPoints(playerFaction, 0);
-                }
-                else {
-                    this.takePoints(playerFaction, 20);
-                }
-                event.setDeathMessage(ChatColor.YELLOW + "§8[§6§l" + currentEventFac.getName() + "§8] " + ChatColor.LIGHT_PURPLE + playerFaction.getName() + ChatColor.YELLOW + " lost " + ChatColor.RED + Math.min(20, oldPoints) + ChatColor.YELLOW + " points because " + player.getName() + " died." + ChatColor.RED + " (" + this.getPoints(playerFaction) + '/' + 300 + ')' + ChatColor.YELLOW + '.');
             }
         }
     }
