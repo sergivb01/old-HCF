@@ -42,7 +42,7 @@ public class ScoreboardHandler implements Listener, Runnable
         this.running = true;
         this.TICK_IN_NANOS = TimeUnit.MILLISECONDS.toNanos(100L);
         this.NANO = TimeUnit.MILLISECONDS.toNanos(1L);
-        this.playerBoards = new HashMap<UUID, PlayerBoard>();
+        this.playerBoards = new HashMap<>();
         this.plugin = plugin;
         this.timerSidebarProvider = new TimerSidebarProvider(plugin);
         Bukkit.getPluginManager().registerEvents(this, plugin);

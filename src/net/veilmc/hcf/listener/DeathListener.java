@@ -1,21 +1,16 @@
 
 package net.veilmc.hcf.listener;
 
-import java.util.HashMap;
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
-
+import net.minecraft.server.v1_7_R4.EntityLightning;
+import net.minecraft.server.v1_7_R4.PacketPlayOutSpawnEntityWeather;
+import net.minecraft.server.v1_7_R4.WorldServer;
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.hcf.faction.struct.Role;
 import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.hcf.faction.type.PlayerFaction;
 import net.veilmc.hcf.user.FactionUser;
+import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.util.JavaUtils;
-
-import net.minecraft.server.v1_7_R4.EntityLightning;
-import net.minecraft.server.v1_7_R4.PacketPlayOutSpawnEntityWeather;
-import net.minecraft.server.v1_7_R4.WorldServer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -28,6 +23,10 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.HashMap;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class DeathListener
         implements Listener
@@ -54,29 +53,24 @@ public class DeathListener
     }
 
     @EventHandler(ignoreCancelled=true, priority=EventPriority.MONITOR)
-    public void onPlayerDeath(PlayerDeathEvent event)
-    {
+    public void onPlayerDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
         PlayerFaction playerFaction = this.plugin.getFactionManager().getPlayerFaction(player.getUniqueId());
-        if (playerFaction != null && !ConfigurationService.KIT_MAP)
-        {
+        if (playerFaction != null && !ConfigurationService.KIT_MAP) {
             Faction factionAt = this.plugin.getFactionManager().getFactionAt(player.getLocation());
             Role role = playerFaction.getMember(player.getUniqueId()).getRole();
-            if (playerFaction.getDeathsUntilRaidable() >= -5.0D)
-            {
+            if (playerFaction.getDeathsUntilRaidable() >= -5.0D){
                 playerFaction.setDeathsUntilRaidable(playerFaction.getDeathsUntilRaidable() - factionAt.getDtrLossMultiplier());
                 playerFaction.setRemainingRegenerationTime(BASE_REGEN_DELAY + playerFaction.getOnlinePlayers().size() * TimeUnit.MINUTES.toMillis(2L));
-                playerFaction.broadcast(ChatColor.RED + "Member Death: " + ChatColor.WHITE + role.getAstrix() + player.getName() + ChatColor.YELLOW + " DTR:" + ChatColor.GRAY + " [" + playerFaction.getDtrColour() + JavaUtils.format(Double.valueOf(playerFaction.getDeathsUntilRaidable())) + ChatColor.WHITE + '/' + ChatColor.WHITE + playerFaction.getMaximumDeathsUntilRaidable() + ChatColor.GRAY + "].");
+                playerFaction.broadcast(ChatColor.RED + "Member Death: " + ChatColor.WHITE + role.getAstrix() + player.getName() + ChatColor.YELLOW + " DTR:" + ChatColor.GRAY + " [" + playerFaction.getDtrColour() + JavaUtils.format(playerFaction.getDeathsUntilRaidable()) + ChatColor.WHITE + '/' + ChatColor.WHITE + playerFaction.getMaximumDeathsUntilRaidable() + ChatColor.GRAY + "].");
             }
-            else
-            {
+            else{
                 playerFaction.setRemainingRegenerationTime(BASE_REGEN_DELAY + playerFaction.getOnlinePlayers().size() * TimeUnit.MINUTES.toMillis(2L));
-                playerFaction.broadcast(ChatColor.RED + "Member Death: " + ChatColor.WHITE + role.getAstrix() + ChatColor.YELLOW + " DTR:" + ChatColor.GRAY + " [" + playerFaction.getDtrColour() + JavaUtils.format(Double.valueOf(playerFaction.getDeathsUntilRaidable())) + ChatColor.WHITE + '/' + ChatColor.WHITE + playerFaction.getMaximumDeathsUntilRaidable() + ChatColor.GRAY + "].");
+                playerFaction.broadcast(ChatColor.RED + "Member Death: " + ChatColor.WHITE + role.getAstrix() + ChatColor.YELLOW + " DTR:" + ChatColor.GRAY + " [" + playerFaction.getDtrColour() + JavaUtils.format(playerFaction.getDeathsUntilRaidable()) + ChatColor.WHITE + '/' + ChatColor.WHITE + playerFaction.getMaximumDeathsUntilRaidable() + ChatColor.GRAY + "].");
             }
         }
         PacketPlayOutSpawnEntityWeather packet;
-        if (Bukkit.spigot().getTPS()[0] > 15.0D)
-        {
+        if((Bukkit.spigot().getTPS()[0] > 15.0D) && (!ConfigurationService.KIT_MAP)){
             PlayerInventoryContents.put(player.getUniqueId(), player.getInventory().getContents());
             PlayerArmorContents.put(player.getUniqueId(), player.getInventory().getArmorContents());
             Location location = player.getLocation();
@@ -84,8 +78,7 @@ public class DeathListener
             EntityLightning entityLightning = new EntityLightning(worldServer, location.getX(), location.getY(), location.getZ(), false);
             packet = new PacketPlayOutSpawnEntityWeather(entityLightning);
             for (Player target : Bukkit.getServer().getOnlinePlayers()) {
-                if (this.plugin.getUserManager().getUser(target.getUniqueId()).isShowLightning())
-                {
+                if (this.plugin.getUserManager().getUser(target.getUniqueId()).isShowLightning()) {
                     ((CraftPlayer)target).getHandle().playerConnection.sendPacket(packet);
                     target.playSound(target.getLocation(), Sound.AMBIENCE_THUNDER, 1.0F, 1.0F);
                 }
