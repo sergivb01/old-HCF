@@ -236,7 +236,7 @@ public class PlayerBoard
                     else if (playerFaction.getRelation(player) == Relation.ALLY) {
                         this.setAllies(Collections.singleton(player));
                     }
-                    else if (playerFaction.getFocused() == player.getName()) {
+                    else if (playerFaction.getFocused().equals(player.getUniqueId().toString())) {
                         this.setFocused(Collections.singleton(player));
                     }
                     else {

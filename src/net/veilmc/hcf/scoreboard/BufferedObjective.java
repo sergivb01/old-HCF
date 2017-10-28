@@ -14,60 +14,63 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-public class BufferedObjective
-{
-    private static final int MAX_SIDEBAR_ENTRIES = 16;
-    private static final int MAX_NAME_LENGTH = 16;
-    private static final int MAX_PREFIX_LENGTH = 16;
-    private static final int MAX_SUFFIX_LENGTH = 16;
+public class BufferedObjective {
+
+    private static final int MAX_SIDEBAR_ENTRIES = 32;
+    private static final int MAX_NAME_LENGTH = 32;
+    private static final int MAX_PREFIX_LENGTH = 32;
+    private static final int MAX_SUFFIX_LENGTH = 32;
+
     private final Scoreboard scoreboard;
-    private Set<String> previousLines;
-    private TIntObjectHashMap<SidebarEntry> contents;
-    private boolean requiresUpdate;
+
+    private Set<String> previousLines = new HashSet<>();
+    private TIntObjectHashMap<SidebarEntry> contents = new TIntObjectHashMap<>();
+
+    private boolean requiresUpdate = false;
     private String title;
     private Objective current;
     private DisplaySlot displaySlot;
 
-    public BufferedObjective(final Scoreboard scoreboard) {
-        super();
-        this.previousLines = new HashSet<String>();
-        this.contents = (TIntObjectHashMap<SidebarEntry>)new TIntObjectHashMap();
-        this.requiresUpdate = false;
+    public BufferedObjective(Scoreboard scoreboard) {
         this.scoreboard = scoreboard;
         this.title = RandomStringUtils.randomAlphabetic(4);
         this.current = scoreboard.registerNewObjective("buffered", "dummy");
     }
 
-    public void setTitle(final String title) {
+    public void setTitle(String title) {
         if (this.title == null || !this.title.equals(title)) {
             this.title = title;
             this.requiresUpdate = true;
         }
     }
 
-    public void setDisplaySlot(final DisplaySlot slot) {
+    public void setDisplaySlot(DisplaySlot slot) {
         this.displaySlot = slot;
         this.current.setDisplaySlot(slot);
     }
 
-    public void setAllLines(final List<SidebarEntry> lines) {
+    public void setAllLines(List<SidebarEntry> lines) {
         if (lines.size() != this.contents.size()) {
             this.contents.clear();
+
             if (lines.isEmpty()) {
                 this.requiresUpdate = true;
                 return;
             }
         }
-        final int size = Math.min(16, lines.size());
+
+        int size = Math.min(MAX_SIDEBAR_ENTRIES, lines.size());
         int count = 0;
-        for (final SidebarEntry sidebarEntry : lines) {
+
+        for (SidebarEntry sidebarEntry : lines) {
             this.setLine(size - count++, sidebarEntry);
         }
     }
 
-    public void setLine(final int lineNumber, final SidebarEntry sidebarEntry) {
-        final SidebarEntry value = this.contents.get(lineNumber);
-        if (value == null || !value.equals(sidebarEntry)) {
+    public void setLine(int lineNumber, SidebarEntry sidebarEntry) {
+        SidebarEntry value = this.contents.get(lineNumber);
+
+        if (value == null || value != sidebarEntry) {
             this.contents.put(lineNumber, sidebarEntry);
             this.requiresUpdate = true;
         }
@@ -77,67 +80,65 @@ public class BufferedObjective
         if (!this.requiresUpdate) {
             return;
         }
-        final Set<String> adding = new HashSet<String>();
-        this.contents.forEachEntry(new TIntObjectProcedure<SidebarEntry>() {
-            public boolean execute(final int i, final SidebarEntry sidebarEntry) {
+
+        Set<String> adding = new HashSet<>();
+        contents.forEachEntry(new TIntObjectProcedure<SidebarEntry>() {
+            @Override
+            public boolean execute(int i, SidebarEntry sidebarEntry) {
                 String name = sidebarEntry.name;
-                if (name.length() > 16) {
-                    name = name.substring(0, 16);
+
+                if (name.length() > MAX_NAME_LENGTH) name = name.substring(0, MAX_NAME_LENGTH);
+
+                Team team = scoreboard.getTeam(name);
+
+                if (team == null) team = scoreboard.registerNewTeam(name);
+
+                if (sidebarEntry.prefix != null) {
+                    team.setPrefix(sidebarEntry.prefix.length() > MAX_PREFIX_LENGTH ? sidebarEntry.prefix.substring(0, MAX_PREFIX_LENGTH) : sidebarEntry.prefix);
                 }
-                Team team = BufferedObjective.this.scoreboard.getTeam(name);
-                if (team == null) {
-                	try {
-                		team = BufferedObjective.this.scoreboard.registerNewTeam(name);
-                	} catch (IllegalArgumentException e) {
-                		// Team already exists
-                		return false;
-                	}
+
+                if (sidebarEntry.suffix != null) {
+                    team.setSuffix(sidebarEntry.suffix.length() > MAX_SUFFIX_LENGTH ? sidebarEntry.suffix.substring(0, MAX_SUFFIX_LENGTH) : sidebarEntry.suffix);
                 }
-                String prefix = sidebarEntry.prefix;
-                if (prefix != null) {
-                    if (prefix.length() > 16) {
-                        prefix = prefix.substring(0, 16);
-                    }
-                    team.setPrefix(prefix);
-                }
-                String suffix = sidebarEntry.suffix;
-                if (suffix != null) {
-                    if (suffix.length() > 16) {
-                        suffix = suffix.substring(0, 16);
-                    }
-                    team.setSuffix(suffix);
-                }
+
                 adding.add(name);
+
                 if (!team.hasEntry(name)) {
                     team.addEntry(name);
                 }
-                BufferedObjective.this.current.getScore(name).setScore(i);
+
+                current.getScore(name).setScore(i);
                 return true;
             }
         });
+
         this.previousLines.removeAll(adding);
-        final Iterator<String> iterator = this.previousLines.iterator();
+        Iterator<String> iterator = this.previousLines.iterator();
+
         while (iterator.hasNext()) {
-            final String last = iterator.next();
-            final Team team = this.scoreboard.getTeam(last);
+            String last = iterator.next();
+            Team team = this.scoreboard.getTeam(last);
+
             if (team != null) {
                 team.removeEntry(last);
             }
+
             this.scoreboard.resetScores(last);
             iterator.remove();
         }
+
         this.previousLines = adding;
         this.current.setDisplayName(this.title);
         this.requiresUpdate = false;
     }
 
-    public void setVisible(final boolean value) {
+    public void setVisible(boolean value) {
         if (this.displaySlot != null && !value) {
             this.scoreboard.clearSlot(this.displaySlot);
             this.displaySlot = null;
-        }
-        else if (this.displaySlot == null && value) {
+        } else if (this.displaySlot == null && value) {
             this.current.setDisplaySlot(this.displaySlot = DisplaySlot.SIDEBAR);
         }
     }
+
 }

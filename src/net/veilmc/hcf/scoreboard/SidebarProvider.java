@@ -1,12 +1,25 @@
 
 package net.veilmc.hcf.scoreboard;
 
-import java.util.List;
 import org.bukkit.entity.Player;
 
-public interface SidebarProvider {
-    public String getTitle();
+import java.util.List;
 
-    public List<SidebarEntry> getLines(Player var1);
+public interface SidebarProvider {
+
+    /**
+     * Gets the title this provider will show for a {@link Player}.
+     *
+     * @return the title to be shown
+     */
+    String getTitle();
+
+    /**
+     * Gets the lines this provider will show for a {@link Player}.
+     *
+     * @param player the {@link Player} to get for
+     * @return list of lines to show
+     */
+    List<SidebarEntry> getLines(Player player);
 }
 

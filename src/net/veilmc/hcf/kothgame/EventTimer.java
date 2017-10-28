@@ -72,6 +72,7 @@ implements Listener {
                 int minute = now.getMinute();
                 Iterator<Map.Entry<LocalDateTime, String>> iterator = plugin.eventScheduler.getScheduleMap().entrySet().iterator();
                 while (!(!iterator.hasNext() || day == (scheduledTime = (entry = iterator.next()).getKey()).getDayOfYear() && hour == scheduledTime.getHour() && minute == scheduledTime.getMinute() && (faction = plugin.getFactionManager().getFaction(entry.getValue())) instanceof EventFaction && EventTimer.this.tryContesting((EventFaction) faction, Bukkit.getConsoleSender()))) {
+
                 }
             }
         }.runTaskTimer(plugin, 20, 20);
