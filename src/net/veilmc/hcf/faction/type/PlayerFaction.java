@@ -551,11 +551,13 @@ public class PlayerFaction
       }
 
       sender.sendMessage(ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH + "-----------------------------------------------------");
-      Text text = new Text();
-      text.append(ChatColor.GRAY + " » " + ChatColor.GREEN + this.getDisplayName(sender)+ ChatColor.GRAY +" ("+this.getOnlineMembers().size()+"/"+this.getMembers().size() + " online)");
+
+      Text text = new Text(ChatColor.WHITE.toString() + ChatColor.BOLD + " ⨠ " + ChatColor.GREEN + this.getDisplayName(sender)+ ChatColor.GRAY +" ("+this.getOnlineMembers().size()+"/"+this.getMembers().size() + " online)");
 
       if(sender.hasPermission("hcf.command.manage")) {
-          text.append(ChatColor.AQUA + " [C]").setHoverText(ChatColor.DARK_RED + "In Development");
+          Text dash = new Text(ChatColor.YELLOW + " - ");
+          Text manage = new Text(ChatColor.BLUE + "[Manage]").setHoverText(ChatColor.YELLOW + "This feature is still in development.");
+          text.append(dash).append(manage);
       }
       text.send(sender);
     //  sender.sendMessage(ChatColor.GRAY + " » " + ChatColor.GREEN + this.getDisplayName(sender)+ ChatColor.GRAY +" ("+this.getOnlineMembers().size()+"/"+this.getMembers().size() + " online) ");
