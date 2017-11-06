@@ -1,10 +1,9 @@
 
 package net.veilmc.hcf.listener.fixes;
 
-import java.util.List;
-
-import net.veilmc.hcf.config.PotionLimiterData;
 import net.md_5.bungee.api.ChatColor;
+import net.veilmc.hcf.HCF;
+import net.veilmc.hcf.config.PotionLimiterData;
 import org.bukkit.Material;
 import org.bukkit.block.BrewingStand;
 import org.bukkit.entity.Player;
@@ -17,7 +16,7 @@ import org.bukkit.inventory.BrewerInventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.projectiles.ProjectileSource;
 
-import net.veilmc.hcf.HCF;
+import java.util.List;
 
 public class PotionLimitListener
   implements Listener
@@ -47,7 +46,7 @@ public class PotionLimitListener
       event.setCancelled(true);
       ProjectileSource shooter = event.getEntity().getShooter();
       if ((shooter instanceof Player)) {
-        ((Player)shooter).sendMessage(ChatColor.RED + "You cannot use this potions. " + event.getPotion().getItem().getType());
+        ((Player)shooter).sendMessage(ChatColor.RED + "You cannot use this potions. ");
       }
     }
   }
@@ -58,7 +57,7 @@ public class PotionLimitListener
     if (isPotionDisabled(event.getItem()))
     {
       event.setCancelled(true);
-      event.getPlayer().sendMessage(ChatColor.RED + "You cannot use this potions. " + event.getItem().getType());
+      event.getPlayer().sendMessage(ChatColor.RED + "You cannot use this potions. ");
     }
   }
   
