@@ -402,7 +402,7 @@ public class HCF extends JavaPlugin {
         this.getCommand("pay").setExecutor(new PayCommand(this));
         this.getCommand("pvptimer").setExecutor(new PvpTimerCommand(this));
         this.getCommand("refund").setExecutor(new RefundCommand());
-        this.getCommand("CoordsCommand").setExecutor(new CoordsCommand(this));
+        this.getCommand("coords").setExecutor(new CoordsCommand(this));
         this.getCommand("servertime").setExecutor(new ServerTimeCommand());
         this.getCommand("spawn").setExecutor(new SpawnCommand(this));
         this.getCommand("timer").setExecutor(new TimerExecutor(this));
