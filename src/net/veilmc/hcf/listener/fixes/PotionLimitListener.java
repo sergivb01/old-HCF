@@ -46,7 +46,8 @@ public class PotionLimitListener
       event.setCancelled(true);
       ProjectileSource shooter = event.getEntity().getShooter();
       if ((shooter instanceof Player)) {
-        ((Player)shooter).sendMessage(ChatColor.RED + "You cannot use this potions. ");
+        ((Player)shooter).sendMessage(ChatColor.RED + "You cannot use this potion.");
+          ((Player) shooter).getPlayer().setItemInHand(null);
       }
     }
   }
@@ -57,7 +58,8 @@ public class PotionLimitListener
     if (isPotionDisabled(event.getItem()))
     {
       event.setCancelled(true);
-      event.getPlayer().sendMessage(ChatColor.RED + "You cannot use this potions. ");
+      event.getPlayer().sendMessage(ChatColor.RED + "You cannot use this potion.");
+      event.getPlayer().setItemInHand(null);
     }
   }
   
