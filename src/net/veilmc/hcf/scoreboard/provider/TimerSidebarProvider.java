@@ -24,10 +24,7 @@ import net.veilmc.hcf.utils.DateTimeFormats;
 import net.veilmc.hcf.utils.DurationFormatter;
 import net.veilmc.util.BukkitUtils;
 import org.apache.commons.lang.time.DurationFormatUtils;
-import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
-import org.bukkit.Material;
-import org.bukkit.Statistic;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 
 import java.text.DecimalFormat;
@@ -225,22 +222,24 @@ public class TimerSidebarProvider implements SidebarProvider
 
 
 
+		DecimalFormat df = new DecimalFormat("#.#");
 		if (player.hasPermission("command.staffmode") && BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId()).isStaffUtil()) {
-				lines.add(new SidebarEntry(ChatColor.YELLOW + "" + ChatColor.BOLD + "Mod Mode: "));
+            lines.add(new SidebarEntry(ChatColor.YELLOW + "" + ChatColor.BOLD + "Mod Mode: "));
             if (player.hasPermission("command.vanish")) {
                 lines.add(new SidebarEntry(ChatColor.WHITE + " » " + ChatColor.YELLOW.toString(), "Vanished" + ChatColor.GRAY + ": ", BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId()).isVanished() ? (ChatColor.GREEN + "True") : (ChatColor.RED + "Visible")));
             }
             if (player.hasPermission("command.vanish") && BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId()).isStaffUtil()) {
                 lines.add(new SidebarEntry(ChatColor.WHITE + " » " + ChatColor.YELLOW.toString(), "Channel" + ChatColor.GRAY + ": ", BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId()).isInStaffChat() ? (ChatColor.AQUA + "Staff Chat") : (ChatColor.GREEN + "Global")));
             }
-			if (HCF.getPlugin().getServerHandler().isChatDisabled()) {
-				lines.add(new SidebarEntry("§f » §eChat", "§7: §cLocked", "§c (" + HCF.getRemaining(HCF.getPlugin().getServerHandler().getChatDisabledMillis() - System.currentTimeMillis(), true) + ")"));
-			} else if (isChatSlowed()) {
+            if (HCF.getPlugin().getServerHandler().isChatDisabled()) {
+                lines.add(new SidebarEntry("§f » §eChat", "§7: §cLocked", "§c (" + HCF.getRemaining(HCF.getPlugin().getServerHandler().getChatDisabledMillis() - System.currentTimeMillis(), true) + ")"));
+            } else if (isChatSlowed()) {
                 lines.add(new SidebarEntry("§f » §eChat", "§7: §cSlowed ", "(" + BasePlugin.getPlugin().getServerHandler().getChatSlowedDelay() + "s)"));
             }
-			lines.add(new SidebarEntry("§f » §eGamemode" , "§7: ", (player.getGameMode() == GameMode.CREATIVE) ? (ChatColor.GREEN + "Creative") : (ChatColor.RED + "Survival")));
-		} else if(BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId()).isVanished()) {
-            lines.add(new SidebarEntry(ChatColor.WHITE + " » " + ChatColor.YELLOW.toString(), "Vanished" + ChatColor.GRAY + ": ", BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId()).isVanished() ? (ChatColor.GREEN + "True") : (ChatColor.RED + "Visible")));
+
+            lines.add(new SidebarEntry("§f » §eTPS", "§7: ", "§c" + df.format(Bukkit.spigot().getTPS()[0])));
+        } else if(BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId()).isVanished()) {
+            lines.add(new SidebarEntry(ChatColor.WHITE + " » " + ChatColor.YELLOW.toString(), "Vanished" + ChatColor.GRAY + ": ",ChatColor.GREEN + "True"));
         }
 
 		if (ConfigurationService.KIT_MAP) {
