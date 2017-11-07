@@ -238,6 +238,8 @@ public class TimerSidebarProvider implements SidebarProvider
             }
 
             lines.add(new SidebarEntry("§f » §eTPS", "§7: ", "§c" + df.format(Bukkit.spigot().getTPS()[0])));
+        } else if(BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId()).isVanished()) {
+            lines.add(new SidebarEntry(ChatColor.WHITE + " » " + ChatColor.YELLOW.toString(), "Vanished" + ChatColor.GRAY + ": ",ChatColor.GREEN + "True"));
         }
 
 		if (ConfigurationService.KIT_MAP) {
