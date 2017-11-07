@@ -1,21 +1,15 @@
 package net.veilmc.hcf.utils;
 
 import com.google.common.collect.ImmutableList;
-
-
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TimeZone;
-import java.util.concurrent.TimeUnit;
-
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.potion.PotionType;
+
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public final class ConfigurationService {
 
@@ -261,7 +255,7 @@ public final class ConfigurationService {
         TELEPORT_TIMER = ChatColor.translateAlternateColorCodes('&', config.getString("timers.teleport-timer"));
         TELEPORT_COLOUR = ChatColor.getByChar(config.getString("timers.teleport-color", "&9").replace("&", "").trim());
         EVENT_TIMER = ChatColor.translateAlternateColorCodes('&', config.getString("timers.event-timer"));
-        EVENT_COLOUR = ChatColor.getByChar(config.getString("timers.event-color", "&9").replace("&", "").trim());
+        EVENT_COLOUR = ChatColor.getByChar(config.getString("timers.event-color", "&9&l").replace("&", "").trim());
         
         //CLASS_EQUIPPED = ChatColor.translateAlternateColorCodes('&', config.getString("messages.class-equipped"));
         //CLASS_UNEQUIPPED = ChatColor.translateAlternateColorCodes('&', config.getString("messages.class-unequipped"));

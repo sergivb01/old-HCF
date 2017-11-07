@@ -134,7 +134,7 @@ timers:
   teleport-timer: '&9&lTeleport'
   teleport-color: '&9'
   event-timer: '&9&lEvent'
-  event-color: '&9'
+  event-color: '&9&l'
   logout-timer: '&c&lLogout'
   logout-color: '&c'
   
