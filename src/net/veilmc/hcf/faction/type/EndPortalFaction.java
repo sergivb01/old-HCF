@@ -17,8 +17,6 @@ public class EndPortalFaction
         super("EndPortal");
         World overworld = Bukkit.getWorld("world");
         int maxHeight = overworld.getMaxHeight();
-        int min = 985;
-        int max = 1015;
         this.addClaim(new Claim(this, new Location(overworld, 985.0, 0.0, 985.0), new Location(overworld, 1015.0, (double)maxHeight, 1015.0)), null);
         this.addClaim(new Claim(this, new Location(overworld, -1015.0, (double)maxHeight, -1015.0), new Location(overworld, -985.0, 0.0, -985.0)), null);
         this.addClaim(new Claim(this, new Location(overworld, -1015.0, 0.0, 985.0), new Location(overworld, -985.0, (double)maxHeight, 1015.0)), null);

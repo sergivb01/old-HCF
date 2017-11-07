@@ -7,13 +7,12 @@ import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.hcf.kothgame.CaptureZone;
 import net.veilmc.hcf.kothgame.EventType;
 import net.veilmc.util.cuboid.Cuboid;
-
-import java.util.List;
-import java.util.Map;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
+
+import java.util.List;
+import java.util.Map;
 
 public abstract class EventFaction
 extends ClaimableFaction {
@@ -30,7 +29,7 @@ extends ClaimableFaction {
     @Override
     public String getDisplayName(Faction faction) {
         if (this.getEventType() == EventType.KOTH) {
-            return ChatColor.BLUE + this.getName() + " KOTH";
+            return ChatColor.BLUE + "" + ChatColor.BOLD + this.getName() + " KOTH";
         }
         return ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + this.getEventType().getDisplayName();
     }
@@ -38,7 +37,7 @@ extends ClaimableFaction {
     @Override
     public String getDisplayName(CommandSender sender) {
         if (this.getEventType() == EventType.KOTH) {
-            return ChatColor.BLUE + this.getName() + " KOTH";
+            return ChatColor.BLUE + "" + ChatColor.BOLD + this.getName() + " KOTH";
         }
         return ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + this.getEventType().getDisplayName();
     }
