@@ -1,14 +1,14 @@
 
 package net.veilmc.hcf.deathban;
 
+import net.minecraft.util.com.google.common.cache.CacheBuilder;
 import net.veilmc.base.BasePlugin;
 import net.veilmc.base.user.BaseUser;
 import net.veilmc.base.user.ServerParticipator;
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.hcf.user.FactionUser;
+import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.util.BukkitUtils;
-import net.minecraft.util.com.google.common.cache.CacheBuilder;
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -100,7 +100,7 @@ public class DeathbanListener
                     event.setResult(PlayerLoginEvent.Result.ALLOWED);
                     new LoginMessageRunnable(player, ChatColor.GRAY + "You have used a life bypass your death. You now have " + ChatColor.YELLOW + lives + ChatColor.GRAY + " lives.").runTask(this.plugin);
                 }else{
-                    this.lastAttemptedJoinMap.put(uuid, Long.valueOf(millis + LIFE_USE_DELAY_MILLIS));
+                    this.lastAttemptedJoinMap.put(uuid, millis + LIFE_USE_DELAY_MILLIS);
                     event.disallow(PlayerLoginEvent.Result.KICK_OTHER, prefix + ChatColor.GOLD + "\n\n" + "You may use a life by reconnecting within " + ChatColor.WHITE + LIFE_USE_DELAY_WORDS + ChatColor.GOLD + '.');
                 }
                 return;
@@ -135,16 +135,16 @@ public class DeathbanListener
                 if (DeathbanListener.this.plugin.getEotwHandler().isEndOfTheWorld()) {
                     player.kickPlayer(ConfigurationService.DEATHBANNED_EOTW_ENTIRE);
                 } else {
+                    player.sendMessage(ChatColor.DARK_GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
+                    player.sendMessage(ChatColor.WHITE + " * " + ChatColor.YELLOW + "You have been " + ChatColor.RED + "Death-banned");
+                    player.sendMessage(ChatColor.YELLOW + " ");
+                    player.sendMessage(ChatColor.WHITE + " * " + ChatColor.YELLOW + "This deathban expires in " + ChatColor.GOLD + durationString);
+                    player.sendMessage(ChatColor.WHITE + " * " + ChatColor.YELLOW + "Reason: " + ChatColor.RED + ChatColor.stripColor(deathban.getReason()));
+                    player.sendMessage(ChatColor.DARK_GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
+
                     ByteArrayOutputStream b = new ByteArrayOutputStream();
                     DataOutputStream out = new DataOutputStream(b);
                     try{
-                        player.sendMessage(ChatColor.DARK_GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
-                        player.sendMessage(ChatColor.WHITE + " * " + ChatColor.YELLOW + "You have been " + ChatColor.RED + "Death-banned");
-                        player.sendMessage(ChatColor.YELLOW + " ");
-                        player.sendMessage(ChatColor.WHITE + " * " + ChatColor.YELLOW + "This deathban expires in " + ChatColor.GOLD + durationString);
-                        player.sendMessage(ChatColor.WHITE + " * " + ChatColor.YELLOW + "Reason: " + ChatColor.RED + ChatColor.stripColor(deathban.getReason()));
-                        player.sendMessage(ChatColor.DARK_GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
-
                         out.writeUTF("Connect");
                         out.writeUTF("lobby1");
                     }
@@ -159,7 +159,7 @@ public class DeathbanListener
                         public void run() {
                             player.kickPlayer(ChatColor.RED + "Deathbanned for " + ChatColor.RED + formattedDuration + ChatColor.RED + ".\n" + ChatColor.RED + "Reason: " + ChatColor.YELLOW + deathban.getReason());
                         }
-                    }.runTaskLater(BasePlugin.getPlugin(), 40);
+                    }.runTaskLater(BasePlugin.getPlugin(), 20L);
 
                 }
             }
