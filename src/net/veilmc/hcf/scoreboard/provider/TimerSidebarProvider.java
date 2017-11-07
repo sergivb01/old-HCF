@@ -24,7 +24,10 @@ import net.veilmc.hcf.utils.DateTimeFormats;
 import net.veilmc.hcf.utils.DurationFormatter;
 import net.veilmc.util.BukkitUtils;
 import org.apache.commons.lang.time.DurationFormatUtils;
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
 
 import java.text.DecimalFormat;
@@ -37,6 +40,7 @@ public class TimerSidebarProvider implements SidebarProvider
 {
     private final HCF plugin;
     private static final String STRAIGHT_LINE;
+    private static DecimalFormat df = new DecimalFormat("#.##");
 
 	public TimerSidebarProvider(final HCF plugin) {
 		super();
@@ -135,10 +139,6 @@ public class TimerSidebarProvider implements SidebarProvider
 			}
 		}
 
-		/*if (Cooldowns.isOnCooldown("revive_cooldown", player)) {
-			lines.add(new SidebarEntry(ChatColor.BLUE + "Revive", ChatColor.GRAY + ": " + ChatColor.RED, "00:" + Cooldowns.getCooldownForPlayerInt("revive_cooldown", player) / 60));
-		} */
-
 		if (eotwRunnable != null) {
 			long remaining3 = eotwRunnable.getTimeUntilStarting();
 			if (remaining3 > 0L) {
@@ -149,7 +149,6 @@ public class TimerSidebarProvider implements SidebarProvider
                 lines.add(new SidebarEntry(ChatColor.DARK_RED.toString() + ChatColor.BOLD, "EOTW" + ChatColor.RED + " is ", "currently active"));
             }
 		}
-
 
 
 //		if (eventFaction instanceof ConquestFaction) {
@@ -206,7 +205,6 @@ public class TimerSidebarProvider implements SidebarProvider
 				lines.add(new SidebarEntry(ChatColor.GRAY + "", TimerSidebarProvider.STRAIGHT_LINE + ChatColor.GRAY, TimerSidebarProvider.STRAIGHT_LINE));
 			}
 
-
                 for (final CaptureZone captureZone : conquestFaction.getCaptureZones()) {
                     final ConquestFaction.ConquestZone conquestZone = conquestFaction.getZone(captureZone);
                     lines.add(new SidebarEntry("  " + conquestZone.getColor() + ChatColor.BOLD, conquestZone.getName(), ChatColor.GRAY + ": " + DurationFormatter.getRemaining(captureZone.getRemainingCaptureMillis(), true)));
@@ -220,20 +218,18 @@ public class TimerSidebarProvider implements SidebarProvider
 		}
 
 
-
-
-		DecimalFormat df = new DecimalFormat("#.#");
 		if (player.hasPermission("command.staffmode") && BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId()).isStaffUtil()) {
             lines.add(new SidebarEntry(ChatColor.YELLOW + "" + ChatColor.BOLD + "Mod Mode: "));
-            if (player.hasPermission("command.vanish")) {
-                lines.add(new SidebarEntry(ChatColor.WHITE + " » " + ChatColor.YELLOW.toString(), "Vanished" + ChatColor.GRAY + ": ", BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId()).isVanished() ? (ChatColor.GREEN + "True") : (ChatColor.RED + "Visible")));
-            }
-            if (player.hasPermission("command.vanish") && BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId()).isStaffUtil()) {
+
+            lines.add(new SidebarEntry(ChatColor.WHITE + " » " + ChatColor.YELLOW.toString(), "Vanished" + ChatColor.GRAY + ": ", BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId()).isVanished() ? (ChatColor.GREEN + "True") : (ChatColor.RED + "Visible")));
+
+            if (BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId()).isStaffUtil()) {
                 lines.add(new SidebarEntry(ChatColor.WHITE + " » " + ChatColor.YELLOW.toString(), "Channel" + ChatColor.GRAY + ": ", BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId()).isInStaffChat() ? (ChatColor.AQUA + "Staff Chat") : (ChatColor.GREEN + "Global")));
             }
             if (HCF.getPlugin().getServerHandler().isChatDisabled()) {
                 lines.add(new SidebarEntry("§f » §eChat", "§7: §cLocked", "§c (" + HCF.getRemaining(HCF.getPlugin().getServerHandler().getChatDisabledMillis() - System.currentTimeMillis(), true) + ")"));
-            } else if (isChatSlowed()) {
+            }
+            if (isChatSlowed()) {
                 lines.add(new SidebarEntry("§f » §eChat", "§7: §cSlowed ", "(" + BasePlugin.getPlugin().getServerHandler().getChatSlowedDelay() + "s)"));
             }
 
@@ -249,7 +245,6 @@ public class TimerSidebarProvider implements SidebarProvider
 //			Integer k = Integer.valueOf(player.getStatistic(Statistic.PLAYER_KILLS));
 //			double d = Integer.valueOf(player.getStatistic(Statistic.DEATHS));
 //			double kd = k / d;
-//			DecimalFormat df = new DecimalFormat("#.##");
 //			if (df.format(kd).matches(".*\\d+.*")){
 //				lines.add(new SidebarEntry(ChatColor.GOLD.toString() + " ", ChatColor.GREEN + "KDR" + ": " + ChatColor.YELLOW, df.format(kd)));
 //			} else {
