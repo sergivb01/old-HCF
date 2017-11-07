@@ -74,7 +74,6 @@ import java.util.concurrent.TimeUnit;
 
 
 public class HCF extends JavaPlugin {
-
     public static final Joiner SPACE_JOINER = Joiner.on(' ');
     public static final Joiner COMMA_JOINER = Joiner.on(", ");
     private static final long MINUTE = TimeUnit.MINUTES.toMillis(1);
@@ -113,18 +112,6 @@ public class HCF extends JavaPlugin {
         return HCF.getRemaining(millis, milliseconds, true);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
     public static String getRemaining(long duration, boolean milliseconds, boolean trail) {
          if (milliseconds && duration < MINUTE) {
               return (trail ? DateTimeFormats.REMAINING_SECONDS_TRAILING : DateTimeFormats.REMAINING_SECONDS).get().format((double) duration * 0.001) + 's';
@@ -139,7 +126,6 @@ public class HCF extends JavaPlugin {
         return org.apache.commons.lang.time.DurationFormatUtils.formatDuration(duration, (duration >= HOUR ? "HH:" : "") + "mm:ss");
     }
 
-
     private void registerGames(){
         for(Faction faction  : getFactionManager().getFactions()){
             if(faction instanceof EventFaction){
@@ -150,7 +136,6 @@ public class HCF extends JavaPlugin {
             }
         }
     }
-
 
     public void onEnable() {
         aO6169yawd7Fuck();
@@ -214,32 +199,22 @@ public class HCF extends JavaPlugin {
         registerGames();
 
 
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, ()->{
-            new Thread(()->{
-                saveData();
-                Bukkit.getServer().savePlayers();
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "save-all");
-                getLogger().info("Saving data! :d");
-            }).start();
-        }, 10 * 20L, (60 * 15) * 20L);
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Thread(() -> {
+            saveData();
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "save-all");
+            getLogger().info("Saving data! :d");
+        })::start, 10 * 20L, (60 * 15) * 20L);
 
         Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[HCF] " + ChatColor.AQUA + "Setup save task");
 
         Bukkit.dispatchCommand(Bukkit.getServer().getConsoleSender(), "clearlag 100000");
         Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[HCF] " + ChatColor.AQUA + "Set clearlag delay");
 
-        if(ConfigurationService.KIT_MAP) {
-            int seconds = 300; //5m
-            startNewKoth(seconds);
-            NEXT_KOTH = System.currentTimeMillis() + (seconds * 1000);
-            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&6&lKOTH &7» &eA new KOTH will be starting in &5&5 minutes!"));
-        }else{
-            int seconds = 7200; //2h
-            startNewKoth(seconds);
-            NEXT_KOTH = System.currentTimeMillis() + (seconds * 1000);
-            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&6&lKOTH &7» &eA new KOTH will be starting in &5&2 hours!"));
 
-        }
+        int seconds = (ConfigurationService.KIT_MAP ? 300 : 7200);
+        startNewKoth(seconds);
+        NEXT_KOTH = System.currentTimeMillis() + (seconds * 1000);
+        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&6&lKOTH &7» &eA new KOTH will be starting in&5 " + (ConfigurationService.KIT_MAP ? "5 minnutes" : "2 hours") + "!"));
     }
 
 
