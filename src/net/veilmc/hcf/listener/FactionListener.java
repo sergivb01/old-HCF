@@ -1,15 +1,14 @@
 package net.veilmc.hcf.listener;
 
+import com.google.common.base.Optional;
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.hcf.faction.claim.Claim;
 import net.veilmc.hcf.faction.event.*;
 import net.veilmc.hcf.faction.struct.RegenStatus;
 import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.hcf.faction.type.PlayerFaction;
 import net.veilmc.hcf.kothgame.faction.KothFaction;
-import com.google.common.base.Optional;
-import net.veilmc.hcf.faction.event.*;
+import net.veilmc.hcf.utils.ConfigurationService;
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -24,6 +23,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.metadata.MetadataValue;
+import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -55,13 +55,19 @@ implements Listener {
     }
 
 
+    private String getDisplayName(CommandSender sender){
+        if(sender instanceof Player){
+            return ChatColor.translateAlternateColorCodes('&', "&e" + PermissionsEx.getUser((Player)sender).getPrefix()).replace("_", " ") + ((Player) sender).getDisplayName();
+        }
+        return sender.getName();
+    }
 
     @EventHandler(ignoreCancelled=true, priority=EventPriority.MONITOR)
     public void onFactionCreate(FactionCreateEvent event) {
         Faction faction = event.getFaction();
         if (faction instanceof PlayerFaction) {
             CommandSender sender = event.getSender();
-            Bukkit.broadcastMessage(net.md_5.bungee.api.ChatColor.RED + "" + event.getFaction().getName() + net.md_5.bungee.api.ChatColor.YELLOW + " has been " + ChatColor.GREEN + "created " + ChatColor.YELLOW + "by " + net.md_5.bungee.api.ChatColor.WHITE + "" + sender.getName() + ChatColor.YELLOW + ".");
+            Bukkit.broadcastMessage(ChatColor.RED + "" + event.getFaction().getName() + ChatColor.YELLOW + " has been " + ChatColor.GREEN + "created " + ChatColor.YELLOW + "by " + ChatColor.WHITE + "" + getDisplayName(sender) + ChatColor.YELLOW + ".");
         }
     }
 
@@ -70,7 +76,7 @@ implements Listener {
         Faction faction = event.getFaction();
         if (faction instanceof PlayerFaction) {
             CommandSender sender = event.getSender();
-            Bukkit.broadcastMessage(net.md_5.bungee.api.ChatColor.RED + "" + event.getFaction().getName() + net.md_5.bungee.api.ChatColor.YELLOW + " has been " + ChatColor.RED + "disbanded " + ChatColor.YELLOW + "by " + net.md_5.bungee.api.ChatColor.WHITE + sender.getName() + ChatColor.YELLOW + ".");
+            Bukkit.broadcastMessage(ChatColor.RED + "" + event.getFaction().getName() + ChatColor.YELLOW + " has been " + ChatColor.RED + "disbanded " + ChatColor.YELLOW + "by " + ChatColor.WHITE + getDisplayName(sender) + ChatColor.YELLOW + ".");
         }
     }
 
@@ -78,7 +84,7 @@ implements Listener {
     public void onFactionRename(FactionRenameEvent event) {
         Faction faction = event.getFaction();
         if (faction instanceof PlayerFaction) {
-            Bukkit.broadcastMessage(net.md_5.bungee.api.ChatColor.RED + event.getOriginalName() + net.md_5.bungee.api.ChatColor.YELLOW + " has been" + ChatColor.GREEN + " renamed " + ChatColor.YELLOW + "to " + net.md_5.bungee.api.ChatColor.RED + "" + event.getNewName() + net.md_5.bungee.api.ChatColor.YELLOW + " by " + net.md_5.bungee.api.ChatColor.WHITE + event.getSender().getName() + ChatColor.YELLOW + ".");
+            Bukkit.broadcastMessage(ChatColor.RED + event.getOriginalName() + ChatColor.YELLOW + " has been" + ChatColor.GREEN + " renamed " + ChatColor.YELLOW + "to " + ChatColor.RED + "" + event.getNewName() + ChatColor.YELLOW + " by " + ChatColor.WHITE + getDisplayName(event.getSender()) + ChatColor.YELLOW + ".");
         }
     }
 
@@ -108,7 +114,7 @@ implements Listener {
     public void onCaptureZoneEnter(CaptureZoneEnterEvent event) {
         Player player = event.getPlayer();
         if (this.getLastLandChangedMeta(player) <= 0 && this.plugin.getUserManager().getUser(player.getUniqueId()).isCapzoneEntryAlerts()) {
-            player.sendMessage(net.md_5.bungee.api.ChatColor.YELLOW + "Now entering capture zone: " + event.getCaptureZone().getDisplayName() + net.md_5.bungee.api.ChatColor.YELLOW + '(' + event.getFaction().getName() + net.md_5.bungee.api.ChatColor.YELLOW + ')');
+            player.sendMessage(ChatColor.YELLOW + "Now entering capture zone: " + event.getCaptureZone().getDisplayName() + ChatColor.YELLOW + '(' + event.getFaction().getName() + ChatColor.YELLOW + ')');
         }
     }
 
@@ -116,7 +122,7 @@ implements Listener {
     public void onCaptureZoneLeave(CaptureZoneLeaveEvent event) {
         Player player = event.getPlayer();
         if (this.getLastLandChangedMeta(player) <= 0 && this.plugin.getUserManager().getUser(player.getUniqueId()).isCapzoneEntryAlerts()) {
-            player.sendMessage(net.md_5.bungee.api.ChatColor.YELLOW + "Now leaving capture zone: " + event.getCaptureZone().getDisplayName() + net.md_5.bungee.api.ChatColor.YELLOW + '(' + event.getFaction().getName() + net.md_5.bungee.api.ChatColor.YELLOW + ')');
+            player.sendMessage(ChatColor.YELLOW + "Now leaving capture zone: " + event.getCaptureZone().getDisplayName() + ChatColor.YELLOW + '(' + event.getFaction().getName() + ChatColor.YELLOW + ')');
         }
     }
     
@@ -137,8 +143,8 @@ implements Listener {
                 player.sendMessage(ChatColor.YELLOW + "Leaving: " + fromFaction.getDisplayName(player) + ChatColor.YELLOW + ", Entering: " + toFaction.getDisplayName(player));
             } else {
                 Faction fromFaction = event.getFromFaction();
-                player.sendMessage(net.md_5.bungee.api.ChatColor.YELLOW + "Now leaving: " + fromFaction.getDisplayName(player) + net.md_5.bungee.api.ChatColor.YELLOW + " (" + (fromFaction.isDeathban() ? new StringBuilder().append(net.md_5.bungee.api.ChatColor.RED).append("Deathban").toString() : new StringBuilder().append(net.md_5.bungee.api.ChatColor.GREEN).append("Non-Deathban").toString()) + net.md_5.bungee.api.ChatColor.YELLOW + ')');
-                player.sendMessage(net.md_5.bungee.api.ChatColor.YELLOW + "Now entering: " + toFaction.getDisplayName(player) + net.md_5.bungee.api.ChatColor.YELLOW + " (" + (toFaction.isDeathban() ? new StringBuilder().append(net.md_5.bungee.api.ChatColor.RED).append("Deathban").toString() : new StringBuilder().append(net.md_5.bungee.api.ChatColor.GREEN).append("Non-Deathban").toString()) + net.md_5.bungee.api.ChatColor.YELLOW + ')');
+                player.sendMessage(ChatColor.YELLOW + "Now leaving: " + fromFaction.getDisplayName(player) + ChatColor.YELLOW + " (" + (fromFaction.isDeathban() ? new StringBuilder().append(ChatColor.RED).append("Deathban").toString() : new StringBuilder().append(ChatColor.GREEN).append("Non-Deathban").toString()) + ChatColor.YELLOW + ')');
+                player.sendMessage(ChatColor.YELLOW + "Now entering: " + toFaction.getDisplayName(player) + ChatColor.YELLOW + " (" + (toFaction.isDeathban() ? new StringBuilder().append(ChatColor.RED).append("Deathban").toString() : new StringBuilder().append(ChatColor.GREEN).append("Non-Deathban").toString()) + ChatColor.YELLOW + ')');
 
             }
         }
@@ -161,13 +167,13 @@ implements Listener {
             PlayerFaction playerFaction = (PlayerFaction)faction;
             if (!this.plugin.getEotwHandler().isEndOfTheWorld() && playerFaction.getRegenStatus() == RegenStatus.PAUSED) {
                 event.setCancelled(true);
-                player.sendMessage(net.md_5.bungee.api.ChatColor.RED + "You cannot join factions that are not regenerating DTR.");
+                player.sendMessage(ChatColor.RED + "You cannot join factions that are not regenerating DTR.");
                 return;
             }
             long difference = this.plugin.getUserManager().getUser(player.getUniqueId()).getLastFactionLeaveMillis() - System.currentTimeMillis() + FACTION_JOIN_WAIT_MILLIS;
             if (difference > 0 && !player.hasPermission("hcf.faction.argument.staff.forcejoin")) {
                 event.setCancelled(true);
-                player.sendMessage(net.md_5.bungee.api.ChatColor.RED + "You cannot join factions after just leaving within " + FACTION_JOIN_WAIT_WORDS + ". " + "You have to wait another " + DurationFormatUtils.formatDurationWords(difference, true, true) + '.');
+                player.sendMessage(ChatColor.RED + "You cannot join factions after just leaving within " + FACTION_JOIN_WAIT_WORDS + ". " + "You have to wait another " + DurationFormatUtils.formatDurationWords(difference, true, true) + '.');
             }
         }
     }
@@ -180,7 +186,7 @@ implements Listener {
             Player player = optional.get();
             if (this.plugin.getFactionManager().getFactionAt(player.getLocation()).equals(faction)) {
                 event.setCancelled(true);
-                player.sendMessage(net.md_5.bungee.api.ChatColor.RED + "You cannot leave your faction whilst you remain in its' territory.");
+                player.sendMessage(ChatColor.RED + "You cannot leave your faction whilst you remain in its' territory.");
             }
         }
     }
@@ -191,7 +197,7 @@ implements Listener {
         PlayerFaction playerFaction = this.plugin.getFactionManager().getPlayerFaction(player);
         if (playerFaction != null) {
             playerFaction.printDetails(player);
-            playerFaction.broadcast(net.md_5.bungee.api.ChatColor.YELLOW + "Member Online: " + net.md_5.bungee.api.ChatColor.GREEN + playerFaction.getMember(player).getRole().getAstrix() + player.getName() + net.md_5.bungee.api.ChatColor.GOLD + '.', player.getUniqueId());
+            playerFaction.broadcast(ChatColor.YELLOW + "Member Online: " + ChatColor.GREEN + playerFaction.getMember(player).getRole().getAstrix() + player.getName() + ChatColor.GOLD + '.', player.getUniqueId());
         }
     }
 
@@ -200,7 +206,7 @@ implements Listener {
         Player player = event.getPlayer();
         PlayerFaction playerFaction = this.plugin.getFactionManager().getPlayerFaction(player);
         if (playerFaction != null) {
-            playerFaction.broadcast(net.md_5.bungee.api.ChatColor.YELLOW + "Member Offline: " + net.md_5.bungee.api.ChatColor.RED + playerFaction.getMember(player).getRole().getAstrix() + player.getName() + net.md_5.bungee.api.ChatColor.GOLD + '.');
+            playerFaction.broadcast(ChatColor.YELLOW + "Member Offline: " + ChatColor.RED + playerFaction.getMember(player).getRole().getAstrix() + player.getName() + ChatColor.GOLD + '.');
         }
     }
 }
