@@ -73,7 +73,7 @@ implements CommandExecutor {
             player.sendMessage(ChatColor.YELLOW + "  Deaths: " + ChatColor.RED + player.getStatistic(Statistic.DEATHS));
         }
         player.sendMessage(ChatColor.YELLOW + "  Balance: " + ChatColor.RED + HCF.getPlugin().getEconomyManager().getBalance(target.getUniqueId()));
-        player.sendMessage(ChatColor.YELLOW + "Profile: " + ChatColor.GRAY + "veilhcf.us/u/" + target.getName());
+        player.sendMessage(ChatColor.YELLOW + "  Profile: " + ChatColor.GRAY + "veilhcf.us/u/" + target.getName());
         player.sendMessage(ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH + "----------------------------------------------------");
     }
 
