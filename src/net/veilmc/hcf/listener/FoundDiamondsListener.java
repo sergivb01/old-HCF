@@ -1,14 +1,10 @@
 
 package net.veilmc.hcf.listener;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import net.veilmc.hcf.HCF;
+import net.veilmc.util.chat.ClickAction;
+import net.veilmc.util.chat.Text;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -21,7 +17,8 @@ import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.plugin.Plugin;
 
-import net.veilmc.hcf.HCF;
+import java.util.HashSet;
+import java.util.Set;
 
 public class FoundDiamondsListener
 implements Listener {
@@ -79,15 +76,17 @@ implements Listener {
             }
             this.plugin.getUserManager().getUser(player.getUniqueId()).setDiamondsMined(this.plugin.getUserManager().getUser(player.getUniqueId()).getDiamondsMined() + count);
             for (Player on : Bukkit.getServer().getOnlinePlayers()) {
-                String message;
-                if (this.plugin.getFactionManager().getPlayerFaction(player.getUniqueId()) != null) {
-                    message = ChatColor.WHITE + "[FD] " + ChatColor.AQUA + player.getName() + ChatColor.AQUA + " has found " + count + " diamonds.";
-                    on.sendMessage(message);
-                    continue;
+                Text message = new Text(ChatColor.WHITE + "[FD] " + ChatColor.AQUA + player.getName() + ChatColor.AQUA + " has found " + count + " diamonds.");
+//                if (this.plugin.getFactionManager().getPlayerFaction(player.getUniqueId()) != null) {
+//                    message = ChatColor.WHITE + "[FD] " + ChatColor.AQUA + player.getName() + ChatColor.AQUA + " has found " + count + " diamonds.";
+//                    on.sendMessage(message);
+//                    continue;
+//                }
+                if(on.hasPermission("rank.staff")) {
+                    message.setHoverText(ChatColor.GREEN + "Click to teleport to " + player.getName()).setClick(ClickAction.RUN_COMMAND, "/tp " + player.getName());
                 }
-                message = ChatColor.WHITE + "[FD] " + ChatColor.AQUA + player.getName() + ChatColor.AQUA + " has found " + count + " diamonds.";
                 //message = (Object)ChatColor.RED + player.getName() + (Object)ChatColor.GRAY + " has found" + (Object)ChatColor.AQUA + " Diamonds " + (Object)ChatColor.GRAY + '[' + (Object)ChatColor.AQUA + count + (Object)ChatColor.GRAY + ']';
-                on.sendMessage(message);
+                message.send(on);
             }
         }
     }
