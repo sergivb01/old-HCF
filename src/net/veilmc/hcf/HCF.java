@@ -348,8 +348,7 @@ public class HCF extends JavaPlugin {
         manager.registerEvents(new ExpMultiplierListener(), this);
         manager.registerEvents(new FactionListener(this), this);
         manager.registerEvents(new HitDetectionListener(), this);
-        this.foundDiamondsListener = new FoundDiamondsListener(this);
-        manager.registerEvents(this.foundDiamondsListener, this);
+ //       manager.registerEvents(new FoundDiamondsListener(), this);
         manager.registerEvents(new FurnaceSmeltSpeederListener(this), this);
         manager.registerEvents(new InfinityArrowFixListener(), this);
         manager.registerEvents(new KitListener(this), this);
@@ -375,6 +374,7 @@ public class HCF extends JavaPlugin {
         this.getCommand("supplydrop").setExecutor(new SupplydropCommand(this));
         this.getCommand("enderchest").setExecutor(new PlayerVaultCommand(this));
         this.getCommand("statreset").setExecutor(new StatResetCommand(this));
+        this.getCommand("togglefd").setExecutor(new TogglefdCommand());
         this.getCommand("ffa").setExecutor(new FFACommand());
         this.getCommand("endportal").setExecutor(new EndPortalCommand(this));
         this.getCommand("toggleend").setExecutor(new ToggleEnd(this));
