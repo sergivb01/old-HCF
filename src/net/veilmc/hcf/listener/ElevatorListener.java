@@ -76,13 +76,13 @@ public class ElevatorListener implements Listener {
         }
     }
 
-    private void signClick(final Player player, final Location signLocation, final boolean up) {
+    public boolean signClick(final Player player, final Location signLocation, final boolean up) {
         Block block = signLocation.getBlock();
         do {
             block = block.getRelative(up ? BlockFace.UP : BlockFace.DOWN);
             if (block.getY() > block.getWorld().getMaxHeight() || block.getY() <= 1) {
                 player.sendMessage(ChatColor.RED + "Could not find a sign " + (up ? "above" : "below") + " to teleport you to.");
-                return;
+                return false;
             }
         } while (!this.isSign(block));
         final boolean underSafe = this.isSafe(block.getRelative(BlockFace.DOWN));
@@ -94,28 +94,26 @@ public class ElevatorListener implements Listener {
             location.setZ(block.getZ() + 0.5);
             location.setPitch(0.0f);
             player.teleport(location);
-            return;
+            return true;
         }
 
         Faction at = this.plugin.getFactionManager().getFactionAt(block);
         if(at instanceof PlayerFaction) {
-            if ((((PlayerFaction) at).getMember(player) == null)) {
-                if(!ConfigurationService.KIT_MAP && !at.getRelation(player).isAlly()) {
-                    player.sendMessage(ChatColor.RED + "You cannot use this in the territory of " + ChatColor.stripColor(at.getDisplayName(player)));
-                    return;
-                }
+            if (((PlayerFaction) at).getMember(player) == null) {
+                player.sendMessage(ChatColor.RED + "You cannot use this in the territory of " + ChatColor.stripColor(at.getDisplayName(player)));
+                return false;
             }
         }
         PlayerTimer timer = this.plugin.getTimerManager().spawnTagTimer;
         long remaining = timer.getRemaining(player);
         if (((timer = this.plugin.getTimerManager().spawnTagTimer).getRemaining(player) > 0L) && (!ConfigurationService.KIT_MAP)) {
             player.sendMessage(ChatColor.RED + "You can not use this while your " + ChatColor.BOLD + "Spawn Tag" + ChatColor.RED + " is active.");
-            return;
+            return false;
 
         }
         if (!underSafe && !overSafe) {
             player.sendMessage(ChatColor.RED + "There is a block blocking the sign " + (up ? "above" : "below") + "!");
-            return;
+            return false;
         }
 
 
@@ -125,6 +123,7 @@ public class ElevatorListener implements Listener {
         location.setZ(block.getZ() + 0.5);
         location.setPitch(0.0f);
         player.teleport(location);
+        return true;
     }
 
     private boolean isSign(final Block block) {
