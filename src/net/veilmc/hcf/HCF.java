@@ -201,6 +201,7 @@ public class HCF extends JavaPlugin {
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Thread(() -> {
             saveData();
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "weather clear 999999999");
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "save-all");
             getLogger().info("Saving data! :d");
         })::start, 10 * 20L, (60 * 15) * 20L);
