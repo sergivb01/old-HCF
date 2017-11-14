@@ -6,8 +6,6 @@ import net.veilmc.hcf.faction.argument.*;
 import net.veilmc.hcf.faction.argument.staff.*;
 import net.veilmc.util.command.ArgumentExecutor;
 import net.veilmc.util.command.CommandArgument;
-import net.veilmc.hcf.faction.argument.*;
-import net.veilmc.hcf.faction.argument.staff.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
@@ -49,7 +47,6 @@ extends ArgumentExecutor {
         this.addArgument(new FactionLeaderArgument(plugin));
         this.addArgument(new FactionLeaveArgument(plugin));
         this.addArgument(new FactionListArgument(plugin));
-        this.addArgument(new FactionManageArgument(plugin));
         this.addArgument(new FactionMapArgument(plugin));
         this.addArgument(new FactionMessageArgument(plugin));
         this.addArgument(new FactionOpenArgument(plugin));

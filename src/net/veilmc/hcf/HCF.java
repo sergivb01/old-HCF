@@ -22,7 +22,6 @@ import net.veilmc.hcf.faction.FactionExecutor;
 import net.veilmc.hcf.faction.FactionManager;
 import net.veilmc.hcf.faction.FactionMember;
 import net.veilmc.hcf.faction.FlatFileFactionManager;
-import net.veilmc.hcf.faction.argument.staff.FactionManageArgument;
 import net.veilmc.hcf.faction.claim.Claim;
 import net.veilmc.hcf.faction.claim.ClaimHandler;
 import net.veilmc.hcf.faction.claim.ClaimWandListener;
@@ -289,7 +288,6 @@ public class HCF extends JavaPlugin {
         //manager.registerEvents(new MotdListener(this), this);
         manager.registerEvents(new AutoRespawnListener(this), this);
         manager.registerEvents(new PortalFixListener(), this);
-        manager.registerEvents(new FactionManageArgument(this), this);
         manager.registerEvents(new ElevatorListener(this), this);
         manager.registerEvents(new EndPortalCommand(this), this);
         manager.registerEvents(new ColonFix(), this);

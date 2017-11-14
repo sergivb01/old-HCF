@@ -2,6 +2,12 @@
 
 package net.veilmc.hcf.faction.type;
 
+import com.google.common.base.Objects;
+import com.google.common.base.Preconditions;
+import com.google.common.base.Predicate;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.deathban.Deathban;
 import net.veilmc.hcf.faction.FactionMember;
@@ -20,13 +26,6 @@ import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.util.GenericUtils;
 import net.veilmc.util.JavaUtils;
 import net.veilmc.util.PersistableLocation;
-import net.veilmc.util.chat.Text;
-import com.google.common.base.Objects;
-import com.google.common.base.Preconditions;
-import com.google.common.base.Predicate;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
@@ -552,14 +551,9 @@ public class PlayerFaction
 
       sender.sendMessage(ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH + "-----------------------------------------------------");
 
-      Text text = new Text(ChatColor.WHITE.toString() + ChatColor.BOLD + " ⨠ " + ChatColor.GREEN + this.getDisplayName(sender)+ ChatColor.GRAY +" ("+this.getOnlineMembers().size()+"/"+this.getMembers().size() + " online)");
+      sender.sendMessage(ChatColor.WHITE.toString() + ChatColor.BOLD + " ⨠ " + ChatColor.GREEN + this.getDisplayName(sender)+ ChatColor.GRAY +" ("+this.getOnlineMembers().size()+"/"+this.getMembers().size() + " online)");
 
-      if(sender.hasPermission("hcf.command.manage")) {
-          Text dash = new Text(ChatColor.YELLOW + " - ");
-          Text manage = new Text(ChatColor.BLUE + "[Manage]").setHoverText(ChatColor.YELLOW + "This feature is still in development.");
-          text.append(dash).append(manage);
-      }
-      text.send(sender);
+
     //  sender.sendMessage(ChatColor.GRAY + " » " + ChatColor.GREEN + this.getDisplayName(sender)+ ChatColor.GRAY +" ("+this.getOnlineMembers().size()+"/"+this.getMembers().size() + " online) ");
       sender.sendMessage(ChatColor.YELLOW + "  Home: " + ChatColor.RED + (this.home == null ? "None" : ChatColor.RED.toString() + this.home.getLocation().getBlockX() + ", " + this.home.getLocation().getBlockZ()) + ChatColor.GOLD + " |" + ChatColor.YELLOW + " Status: " + (!this.open ? ChatColor.RED + "Closed" : ChatColor.GREEN + "Open"));
 
