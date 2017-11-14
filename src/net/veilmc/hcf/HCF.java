@@ -80,7 +80,6 @@ public class HCF extends JavaPlugin {
     public static final long HOUR = TimeUnit.HOURS.toMillis(1);
     private static HCF plugin;
     private Message message;
-    private ConfigFile langConfig;
     public EventScheduler eventScheduler;
     private List<String> eventGames =  new ArrayList<>();
     private Random random = new Random();
@@ -148,8 +147,6 @@ public class HCF extends JavaPlugin {
         ProtocolLibHook.hook(this);
 
         this.saveDefaultConfig();
-
-        langConfig = new ConfigFile(this, "lang");
 
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 
@@ -228,7 +225,7 @@ public class HCF extends JavaPlugin {
     public void saveData() {
         boolean error = false;
 
-        Bukkit.broadcastMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Starting backup of data");
+        Bukkit.broadcastMessage(ChatColor.GOLD.toString() + ChatColor.BOLD + "Starting backup of data");
         BasePlugin.getPlugin().getServerHandler().saveServerData(); //Base data
 
         for(Player p : Bukkit.getOnlinePlayers()){ //HCF player data stuff
@@ -241,7 +238,7 @@ public class HCF extends JavaPlugin {
 
         this.deathbanManager.saveDeathbanData(); //Deathbans
         this.economyManager.saveEconomyData(); //Balance
-        this.factionManager.saveFactionData(); //Factions! :d
+        this.factionManager.saveFactionData(); //Factions
         this.userManager.saveUserData(); //User settings
         this.keyManager.saveKeyData(); //Key things
     }
@@ -306,7 +303,6 @@ public class HCF extends JavaPlugin {
         manager.registerEvents(new EndermanFixListener(), this);
         manager.registerEvents(new MinecartElevatorListener(), this);
         manager.registerEvents(new StoreCommand(this), this);
-        //manager.registerEvents((Listener)new NoPermissionClickListener(), (Plugin)this);
         manager.registerEvents(new AutoSmeltOreListener(), this);
         manager.registerEvents(new BlockHitFixListener(), this);
         manager.registerEvents(new BlockJumpGlitchFixListener(), this);
@@ -335,7 +331,7 @@ public class HCF extends JavaPlugin {
         manager.registerEvents(new ExpMultiplierListener(), this);
         manager.registerEvents(new FactionListener(this), this);
         manager.registerEvents(new HitDetectionListener(), this);
- //       manager.registerEvents(new FoundDiamondsListener(), this);
+        manager.registerEvents(new FoundDiamondsListener(), this);
         manager.registerEvents(new FurnaceSmeltSpeederListener(this), this);
         manager.registerEvents(new InfinityArrowFixListener(), this);
         manager.registerEvents(new KitListener(this), this);
@@ -398,11 +394,8 @@ public class HCF extends JavaPlugin {
         this.getCommand("setborder").setExecutor(new SetBorderCommand());
         this.getCommand("loot").setExecutor(new LootExecutor(this));
         this.getCommand("safestop").setExecutor(new SafestopCommand());
-        this.getCommand("sendcoords").setExecutor(new SendCoordsCommand(this));
         this.getCommand("staffrevive").setExecutor(new StaffReviveCommand(this));
         this.getCommand("nether").setExecutor(new NetherCommand(this));
-
-        //this.getCommand("icons").setExecutor(new IconsCommand());
         this.getCommand("cobble").setExecutor(new CobbleCommand());
         this.getCommand("ores").setExecutor(new OresCommand());
         this.getCommand("crowgive").setExecutor(new CrowbarGiveCommand());
@@ -537,6 +530,4 @@ public class HCF extends JavaPlugin {
         long duration = NEXT_KOTH - System.currentTimeMillis();
         return org.apache.commons.lang.time.DurationFormatUtils.formatDuration(duration, (duration >= HOUR ? "HH:" : "") + "mm:ss");
     }
-
-
 }

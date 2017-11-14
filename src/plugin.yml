@@ -10,38 +10,41 @@ main: net.veilmc.hcf.HCF
 softdepend: [ProtocolLib]
 commands:
   savedata:
+    description: Save all data.
   spawner:
+    description: Spawn in a spawner.
   ffa:
-  sendcoords:
+    description: Give all players FFA potion effects.
   statreset:
+    description: Reset a players K/D statistics.
   togglefd:
+    description: Toggle found diamond alerts.
   focus:
-    description: Focus a player in another faction
+    description: Focus a player in another faction.
   endportal:
+    description: Spawn in an endportal.
   supplydrop:
+     description: Broadcast your coordinates to the server.
   enderchest:
     aliases: ["echest", "pv", "playervault"]
+    description: Open your personal enderchest.
   toggleend:
     aliases: [end]
-    description: Command used to close or open the end.
-  spawndragon:
-    description: Spawns an Ender-Dragon
-  random:
-    description: Teleports or gets a random player.
-  enddragon:
+    description: Used to close or open the end.
   store:
+    description: Open the ingame store GUI.
   stats:
     description: Checks the staticstics on a player.
   dinfo:
-  blacklist:
+    description: View the death information of a player.
   sotw:
-    description: Starts a 30 minute SOTW timer.
+    description: Start the SOTW Timer.
   refund:
     description: Refunds an inventory.
   crowbar:
     description: Management of crowbar tools.
   conquest:
-    description: Command used to handle Conquest events.
+    description: Base Conquest command.
   economy:
     aliases: [bal, balance, money, eco]
     description: Command used to modify the economy.
@@ -57,7 +60,6 @@ commands:
     description: Command to check remaining OP apple cooldown time.
     aliases: [goppletimer, goppletime]
   help:
-    aliases: ["?", "pl", "plugin"]
     description: Find out more about this server.
   koth:
     description: Make or delete KotH arenas.
@@ -77,22 +79,21 @@ commands:
     description: Allow players to pay money.
   pvptimer:
     aliases: [pvp]
-    description:    to enable or disable pvp timer protection.
+    description: Enable or disable pvp timer protection.
   safestop:
+    description: Safely stop the server.
   servertime:
     description: Checks the date and time of server.
   setborder:
     aliases: [setbordersize]
     description: Sets the border size of an Environment.
-  cannon:
-    aliases: [spawncannon, playercannon]
-    description: Shoots you into the warzone.
   coords:
-    description: Shows coords of events
+    description: Shows coordinates of events.
   staffrevive:
-    description: Revive a deathbanned player
+    description: Revive a deathbanned player.
   revive:
     aliases: [medic]
+    description: Premium perk to revive a player.
   nether:
     description: Teleport to nether spawn with a 30 second cooldown
   spawn:
@@ -100,10 +101,11 @@ commands:
   timer:
     description: Command to manage timers.
   cobble:
-  nick:
-    aliases: [nickname]
+    description: Toggle cobblestone pickup.
   mapkit:
     aliases: [viewkit]
+    description: View this maps kit.
   ores:
+    description: View ore statistics of a player.
   crowgive:
-    aliases: [cg]
+    description: Give a player a crowbar.

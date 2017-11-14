@@ -16,7 +16,7 @@ public class CrowbarGiveCommand implements CommandExecutor {
         Player p = (Player) sender;
         if (cmd.getName().equalsIgnoreCase("crowgive")) {
             if (args.length == 0) {
-                p.sendMessage(ChatColor.GREEN + "Usage: /crowgive {playerName}");
+                p.sendMessage(ChatColor.RED + "Usage: /crowgive <playerName>");
                 return true;
             }
                 Player target = Bukkit.getServer().getPlayer(args[0]);
