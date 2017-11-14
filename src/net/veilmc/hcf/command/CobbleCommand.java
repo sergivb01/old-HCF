@@ -1,5 +1,6 @@
 package net.veilmc.hcf.command;
 
+import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.utils.ConfigurationService;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -33,6 +34,7 @@ public class CobbleCommand implements Listener, CommandExecutor{
             } else if ((cobbletoggle.contains(p.getName()))) {
                 cobbletoggle.remove(p.getName());
                 p.sendMessage(ConfigurationService.COBBLE_ENABLED);
+                p.sendMessage(HCF.getPlugin().lang);
             }
         }
 

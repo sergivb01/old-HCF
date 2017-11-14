@@ -1,14 +1,13 @@
 package net.veilmc.hcf.command;
 
 import net.md_5.bungee.api.ChatColor;
+import net.veilmc.hcf.listener.DeathListener;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import net.veilmc.hcf.listener.DeathListener;
 
 public class RefundCommand
         implements CommandExecutor

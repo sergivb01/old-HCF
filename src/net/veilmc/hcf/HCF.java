@@ -80,6 +80,7 @@ public class HCF extends JavaPlugin {
     public static final long HOUR = TimeUnit.HOURS.toMillis(1);
     private static HCF plugin;
     private Message message;
+    private ConfigFile langConfig;
     public EventScheduler eventScheduler;
     private List<String> eventGames =  new ArrayList<>();
     private Random random = new Random();
@@ -139,62 +140,52 @@ public class HCF extends JavaPlugin {
 
     public void onEnable() {
         aO6169yawd7Fuck();
+
         plugin = this;
 
-
         CustomEntityRegistration.registerCustomEntities();
-        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED + "[HCF] " + ChatColor.RED + "Registered custom entities");
+
         ProtocolLibHook.hook(this);
-        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED + "[HCF] " + ChatColor.RED + "Hooked into ProtocolLib");
 
         this.saveDefaultConfig();
-        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED + "[HCF] " + ChatColor.RED + "Saved config");
+
+        langConfig = new ConfigFile(this, "lang");
 
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
-        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED + "[HCF] " + ChatColor.RED + "Registered bungeecord");
 
         ConfigurationService.init(this.getConfig());
-        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED + "[HCF] " + ChatColor.RED + "Getting config");
         
         PotionLimiterData.getInstance().setup(this);
-        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED + "[HCF] " + ChatColor.RED + "Setting up PotionLimiter Data");
-        
         PotionLimitListener.reload();
-        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED + "[HCF] " + ChatColor.RED + "Reloaded PotionLimiter Data");
 
         Plugin wep = Bukkit.getPluginManager().getPlugin("WorldEdit");
         this.worldEdit = wep instanceof WorldEditPlugin && wep.isEnabled() ? (WorldEditPlugin)wep : null;
-        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED + "[HCF] " + ChatColor.RED + "Hooked into WorldEdit");
 
         this.registerConfiguration();
-        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED + "[HCF] " + ChatColor.RED + "Registered config");
-        this.registerCommands();
-        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED + "[HCF] " + ChatColor.RED + "Registered commands");
-        this.registerManagers();
-        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED + "[HCF] " + ChatColor.RED + "Registered managers");
-        this.registerListeners();
-        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED + "[HCF] " + ChatColor.RED + "Registered listeners");
-        Cooldowns.createCooldown("revive_cooldown");
-        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED + "[HCF] " + ChatColor.RED + "Created cooldown: Revive");
-        Cooldowns.createCooldown("Assassin_item_cooldown");
-        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED + "[HCF] " + ChatColor.RED + "Created cooldown: Assassin Cooldown");
-        Cooldowns.createCooldown("Archer_item_cooldown");
-        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED + "[HCF] " + ChatColor.RED + "Created cooldown: Archer Cooldown (SPEED)");
-        Cooldowns.createCooldown("Archer_jump_cooldown");
-        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED + "[HCF] " + ChatColor.RED + "Created cooldown: Archer Cooldown (JUMP)");
-        Cooldowns.createCooldown("report_cooldown");
-        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED + "[HCF] " + ChatColor.RED + "Created cooldown: Report Cooldown");
-        Cooldowns.createCooldown("helpop_cooldown");
-        Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED + "[HCF] " + ChatColor.RED + "Created cooldown: HelpOp Cooldown");
 
+        this.registerCommands();
+
+        this.registerManagers();
+
+        this.registerListeners();
+
+        Cooldowns.createCooldown("revive_cooldown");
+
+        Cooldowns.createCooldown("Assassin_item_cooldown");
+
+        Cooldowns.createCooldown("Archer_item_cooldown");
+
+        Cooldowns.createCooldown("Archer_jump_cooldown");
+
+        Cooldowns.createCooldown("report_cooldown");
+
+        Cooldowns.createCooldown("helpop_cooldown");
 
         this.helpTitle = Chat.translateColors(getConfig().getString("Help title"));
         this.scoreboardTitle = Chat.translateColors(getConfig().getString("Scoreboard title"));
         this.armor = Chat.translateColors(getConfig().getString("Active Class"));
         
         this.timerManager.enable();
-        Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[HCF] " + ChatColor.AQUA + "Enabled TimerManager");
-
 
         registerGames();
 
@@ -203,13 +194,8 @@ public class HCF extends JavaPlugin {
             saveData();
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "weather clear 999999999");
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "save-all");
-            getLogger().info("Saving data! :d");
+            getLogger().info("Saving data!");
         })::start, 10 * 20L, (60 * 15) * 20L);
-
-        Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[HCF] " + ChatColor.AQUA + "Setup save task");
-
-        Bukkit.dispatchCommand(Bukkit.getServer().getConsoleSender(), "clearlag 100000");
-        Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[HCF] " + ChatColor.AQUA + "Set clearlag delay");
 
 
         int seconds = (ConfigurationService.KIT_MAP ? 300 : 7200);
@@ -543,7 +529,7 @@ public class HCF extends JavaPlugin {
     private void aO6169yawd7Fuck(){
         if(!awo16256ih()){
             this.getLogger().warning("THIS SERVER IS NOT ALLOWED TO RUN THIS PLUGIN!");
-            Bukkit.shutdown();
+          //  Bukkit.shutdown();
         }
     }
 
