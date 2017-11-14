@@ -1,23 +1,21 @@
 
 package net.veilmc.hcf.kothgame.faction;
 
+import com.google.common.collect.ImmutableList;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.claim.Claim;
 import net.veilmc.hcf.faction.type.PlayerFaction;
 import net.veilmc.hcf.kothgame.CaptureZone;
 import net.veilmc.hcf.kothgame.EventType;
-import net.veilmc.util.BukkitUtils;
-import com.google.common.collect.ImmutableList;
-
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.entity.Player;
+
+import java.util.List;
+import java.util.Map;
 
 public class KothFaction
 extends CapturableFaction
@@ -54,7 +52,7 @@ implements ConfigurationSerializable {
 
     @Override
     public void printDetails(CommandSender sender) {
-        sender.sendMessage(ChatColor.GOLD.toString() + ChatColor.STRIKETHROUGH + "----*------------------------------------------*----");
+        sender.sendMessage(ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH + "----------------------------------------------------");
         sender.sendMessage(this.getDisplayName(sender));
         for (Claim claim : this.claims) {
             Location location = claim.getCenter();
@@ -74,7 +72,7 @@ implements ConfigurationSerializable {
                 sender.sendMessage(ChatColor.YELLOW + "  Current Capper: " + ChatColor.RED + capping.getName() + ChatColor.GOLD + factionTag);
             }
         }
-        sender.sendMessage(ChatColor.GOLD.toString() + ChatColor.STRIKETHROUGH + "----*------------------------------------------*----");
+        sender.sendMessage(ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH + "----------------------------------------------------");
     }
 
     public CaptureZone getCaptureZone() {

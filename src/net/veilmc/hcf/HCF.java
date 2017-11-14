@@ -363,9 +363,7 @@ public class HCF extends JavaPlugin {
         this.getCommand("toggleend").setExecutor(new ToggleEnd(this));
         this.getCommand("focus").setExecutor(new FactionFocusArgument(this));
         this.getCommand("spawner").setExecutor(new SpawnerCommand(this));
-        this.getCommand("spawndragon").setExecutor(new EndDragonCommand(this));
         this.getCommand("sotw").setExecutor(new SotwCommand(this));
-        this.getCommand("blacklist").setExecutor(new BlacklistCommand(this));
         this.getCommand("dinfo").setExecutor(new DInfoCommand(this));
         this.getCommand("conquest").setExecutor(new ConquestExecutor(this));
         this.getCommand("crowbar").setExecutor(new CrowbarCommand());
