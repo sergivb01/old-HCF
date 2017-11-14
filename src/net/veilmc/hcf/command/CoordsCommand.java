@@ -38,6 +38,7 @@ public class CoordsCommand
             if (factionEvent instanceof KothFaction) {
                 new Text(ChatColor.translateAlternateColorCodes('&', "&f&l * &e&l" + factionEvent.getName() + " &8(&9&lKOTH&8)")).setHoverText(ChatColor.GREEN + "Click to view faction information for " + factionEvent.getName()).setClick(ClickAction.RUN_COMMAND, "/f show " + factionEvent.getName()).send(sender);
             } else if (factionEvent instanceof ConquestFaction) {
+                sender.sendMessage(" ");
                 new Text(ChatColor.translateAlternateColorCodes('&', "&f&l * &e&l" + factionEvent.getName() + " &8(&5&lCONQUEST&8)")).setHoverText(ChatColor.GREEN + "Click to view faction information for " + factionEvent.getName()).setClick(ClickAction.RUN_COMMAND, "/f show " + factionEvent.getName()).send(sender);
             } else {
                 new Text(ChatColor.translateAlternateColorCodes('&', "&f&l * &e&l" + factionEvent.getName() + " &8(&b&lEvent&8)")).setHoverText(ChatColor.GREEN + "Click to view faction information for " + factionEvent.getName()).setClick(ClickAction.RUN_COMMAND, "/f show " + factionEvent.getName()).send(sender);
