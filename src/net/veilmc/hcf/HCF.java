@@ -518,7 +518,7 @@ public class HCF extends JavaPlugin {
     private void aO6169yawd7Fuck(){
         if(!awo16256ih()){
             this.getLogger().warning("THIS SERVER IS NOT ALLOWED TO RUN THIS PLUGIN!");
-          //  Bukkit.shutdown();
+            Bukkit.shutdown();
         }
     }
 

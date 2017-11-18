@@ -1,10 +1,10 @@
 
 package net.veilmc.hcf.listener;
 
-import net.veilmc.base.BasePlugin;
-import net.veilmc.base.user.BaseUser;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.type.Faction;
+import net.veilmc.util.BukkitUtils;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -21,18 +21,28 @@ public class CoreListener
 implements Listener {
     private final HCF plugin;
 
+
     public CoreListener(HCF plugin) {
         this.plugin = plugin;
     }
+
 
     
 
     @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGH)
     public void onPlayerJoinKit(PlayerJoinEvent event) {
-        BaseUser user = BasePlugin.getPlugin().getUserManager().getUser(event.getPlayer().getUniqueId());
+       /* BaseUser user = BasePlugin.getPlugin().getUserManager().getUser(event.getPlayer().getUniqueId());
         if (!user.hasStartKit()) {
             Player player = event.getPlayer();
-        }
+        }*/
+       Player p = event.getPlayer();
+        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
+        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&f&l⨠ &eWelcome &a" + p.getName() + " &eto VeilMC"));
+        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7 ⨠ &eSupport: &ats.veilhcf.us"));
+        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7 ⨠ &eWebsite: &aveilhcf.us"));
+        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7 ⨠ &eMapkit: &aProt: " + this.plugin.getConfig().get("enchant-limits.PROTECTION_ENVIRONMENTAL") + " &aSharp: " + this.plugin.getConfig().get("enchant-limits.DAMAGE_ALL")));
+        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7 ⨠ &eFaction: &a" + this.plugin.getConfig().get("faction-settings.max-players") + " Members &e/ &a" + (this.plugin.getConfig().get("faction-settings.max-allies").toString().equalsIgnoreCase("0") ? "No" : this.plugin.getConfig().get("faction-settings.max-allies")) + " Allies"));
+        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
     }
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
