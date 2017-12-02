@@ -143,7 +143,7 @@ implements Listener {
             return;
         }
         final PlayerFaction playerFaction = this.plugin.getFactionManager().getPlayerFaction(winner.getUniqueId());
-        Bukkit.broadcastMessage(ChatColor.GRAY + "[" + ChatColor.GOLD + this.eventFaction.getEventType().getDisplayName() + ChatColor.GRAY + "] " + ChatColor.GOLD + ((playerFaction == null) ? winner.getName() : playerFaction.getName()) + ChatColor.YELLOW + " has captured " + ChatColor.LIGHT_PURPLE + this.eventFaction.getName() + ChatColor.YELLOW + " after " + DurationFormatUtils.formatDurationWords(this.getUptime(), true, true) + ChatColor.YELLOW + " of up-time");
+        Bukkit.broadcastMessage(ChatColor.GRAY + "[" + ChatColor.GOLD + this.eventFaction.getEventType().getDisplayName() + ChatColor.GRAY + "] " + ChatColor.GOLD + ((playerFaction == null) ? winner.getName() : playerFaction.getName() + ChatColor.GRAY + " [" + winner.getName() + "]") + ChatColor.YELLOW + " has captured " + ChatColor.LIGHT_PURPLE + this.eventFaction.getName() + ChatColor.YELLOW + " after " + DurationFormatUtils.formatDurationWords(this.getUptime(), true, true) + ChatColor.YELLOW + " of up-time");
         final World world = winner.getWorld();
         final Location location = winner.getLocation();
         final Key key = this.plugin.getKeyManager().getKey(ChatColor.stripColor(this.eventFaction.getEventType().getDisplayName()));
@@ -181,7 +181,7 @@ implements Listener {
         }
         final PlayerFaction playerFaction = this.plugin.getFactionManager().getPlayerFaction(winner.getUniqueId());
         //Bukkit.broadcastMessage(ConfigurationService.KOTH_PLAYER_CAP.replace("%player%", winner.getName()).replace("%koth%", this.eventFaction.getEventType().getDisplayName()));
-        Bukkit.broadcastMessage(ConfigurationService.BASECOLOUR + "[" + this.eventFaction.getEventType().getDisplayName() + "] " + ChatColor.LIGHT_PURPLE + ((playerFaction == null) ? winner.getName() : playerFaction.getName()) + ChatColor.GOLD + " has captured " + ChatColor.LIGHT_PURPLE + this.eventFaction.getName() + ChatColor.GOLD + '.');
+        Bukkit.broadcastMessage(ConfigurationService.BASECOLOUR + "[" + this.eventFaction.getEventType().getDisplayName() + "] " + ChatColor.LIGHT_PURPLE + ((playerFaction == null) ? winner.getName() : playerFaction.getName() + ChatColor.GRAY + " [" + winner.getName() + "]") + ChatColor.GOLD + " has captured " + ChatColor.LIGHT_PURPLE + this.eventFaction.getName() + ChatColor.GOLD + '.');
         final World world = winner.getWorld();
         final Location location = winner.getLocation();
         this.clearCooldown();
