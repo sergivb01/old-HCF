@@ -28,6 +28,8 @@ import java.util.HashMap;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+import static net.veilmc.hcf.utils.ConfigurationService.VEILZ;
+
 public class DeathListener
         implements Listener
 {
@@ -59,13 +61,23 @@ public class DeathListener
         if (playerFaction != null && !ConfigurationService.KIT_MAP) {
             Faction factionAt = this.plugin.getFactionManager().getFactionAt(player.getLocation());
             Role role = playerFaction.getMember(player.getUniqueId()).getRole();
+            long regen = ConfigurationService.VEILZ_REGEN;
             if (playerFaction.getDeathsUntilRaidable() >= -5.0D){
                 playerFaction.setDeathsUntilRaidable(playerFaction.getDeathsUntilRaidable() - factionAt.getDtrLossMultiplier());
-                playerFaction.setRemainingRegenerationTime(BASE_REGEN_DELAY + playerFaction.getOnlinePlayers().size() * TimeUnit.MINUTES.toMillis(2L));
+
+                if(VEILZ) {
+                    playerFaction.setRemainingRegenerationTime(regen);
+                } else {
+                    playerFaction.setRemainingRegenerationTime(BASE_REGEN_DELAY + playerFaction.getOnlinePlayers().size() * TimeUnit.MINUTES.toMillis(2L));
+                }
                 playerFaction.broadcast(ChatColor.RED + "Member Death: " + ChatColor.WHITE + role.getAstrix() + player.getName() + ChatColor.YELLOW + " DTR:" + ChatColor.GRAY + " [" + playerFaction.getDtrColour() + JavaUtils.format(playerFaction.getDeathsUntilRaidable()) + ChatColor.WHITE + '/' + ChatColor.WHITE + playerFaction.getMaximumDeathsUntilRaidable() + ChatColor.GRAY + "].");
             }
             else{
-                playerFaction.setRemainingRegenerationTime(BASE_REGEN_DELAY + playerFaction.getOnlinePlayers().size() * TimeUnit.MINUTES.toMillis(2L));
+                if(VEILZ) {
+                    playerFaction.setRemainingRegenerationTime(regen);
+                } else {
+                    playerFaction.setRemainingRegenerationTime(BASE_REGEN_DELAY + playerFaction.getOnlinePlayers().size() * TimeUnit.MINUTES.toMillis(2L));
+                }
                 playerFaction.broadcast(ChatColor.RED + "Member Death: " + ChatColor.WHITE + role.getAstrix() + ChatColor.YELLOW + " DTR:" + ChatColor.GRAY + " [" + playerFaction.getDtrColour() + JavaUtils.format(playerFaction.getDeathsUntilRaidable()) + ChatColor.WHITE + '/' + ChatColor.WHITE + playerFaction.getMaximumDeathsUntilRaidable() + ChatColor.GRAY + "].");
             }
         }

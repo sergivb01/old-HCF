@@ -19,7 +19,10 @@ found-diamonds: true
 # Is kit-map mode enabled?
 kit-map: false
 
-
+veilz: false
+veilz-options:
+# Minutes - example: 5
+  regen: 5
 
 
 #Deathban Permissions

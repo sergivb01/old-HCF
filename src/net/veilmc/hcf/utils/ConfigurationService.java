@@ -126,8 +126,12 @@ public final class ConfigurationService {
     public static String PVPTIMER_PAUSED;
     public static String PVPTIMER_UNPAUSED;
     public static String PVPTIMER_STARTED;
-    
+
     public static boolean KIT_MAP;
+    public static boolean VEILZ;
+
+    public static long VEILZ_REGEN;
+
     public static boolean TAB;
     public static boolean DIAMOND_ORE_ALERTS = false;
     public static int UNBUILDABLE_RANGE;
@@ -135,7 +139,8 @@ public final class ConfigurationService {
 //    public static List<String> SHOW;
 
     public static void init(FileConfiguration config) {
-    	KIT_MAP = config.getBoolean("kit-map");
+        KIT_MAP = config.getBoolean("kit-map");
+        VEILZ = config.getBoolean("veilz");
     	TAB = config.getBoolean("tab");
 
     	WARZONE_RADIUS = config.getInt("warzone");
@@ -172,9 +177,14 @@ public final class ConfigurationService {
         SPAWN_RADIUS_MAP.put(World.Environment.NORMAL, Double.valueOf(63D));
         SPAWN_RADIUS_MAP.put(World.Environment.NETHER, Double.valueOf(22.5D));
         SPAWN_RADIUS_MAP.put(World.Environment.THE_END, Double.valueOf(48.5D));
-        
+
         DEFAULT_DEATHBAN_DURATION = TimeUnit.MINUTES.toMillis(config.getInt("deathban-time", 120));
-        
+
+
+        VEILZ_REGEN = TimeUnit.MINUTES.toMillis(config.getInt("veilz-options.regen", 5));
+
+
+
         TEAMMATE_COLOUR = ChatColor.getByChar(config.getString("colors.teammate", "&2").replace("&", "").trim());
         ALLY_COLOUR = ChatColor.getByChar(config.getString("colors.ally", "&3").replace("&", "").trim());
         ENEMY_COLOUR = ChatColor.getByChar(config.getString("colors.enemy", "&c").replace("&", "").trim());
