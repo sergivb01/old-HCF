@@ -14,11 +14,11 @@ public class TogglefdCommand implements CommandExecutor, TabCompleter {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         boolean newStatus;
         if (!sender.hasPermission("hcf.command.diamonds")) {
-            sender.sendMessage((Object) ChatColor.RED + "No permission.");
+            sender.sendMessage(ChatColor.RED + "No permission.");
             return true;
         }
         ConfigurationService.DIAMOND_ORE_ALERTS = newStatus = !ConfigurationService.DIAMOND_ORE_ALERTS;
-        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&bYou have " + (newStatus ? new StringBuilder().append((Object) ChatColor.GREEN).append("Enabled").toString() : new StringBuilder().append((Object) ChatColor.RED).append("Disabled").toString()) + "&b found diamond ore notifications."));
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&bYou have " + (newStatus ? ChatColor.GREEN + "Enabled" : ChatColor.RED + "Disabled") + "&b found diamond ore notifications."));
         return true;
     }
 

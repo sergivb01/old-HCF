@@ -1,11 +1,6 @@
 package net.veilmc.hcf.command;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
+import net.veilmc.hcf.HCF;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -24,7 +19,10 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import net.veilmc.hcf.HCF;
+import java.io.File;
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.List;
 
 public class MapKitCommand
         implements CommandExecutor, Listener
@@ -34,19 +32,15 @@ public class MapKitCommand
     private FileConfiguration config;
     private Inventory viewKitInventory;
     private String invTitle;
-    private Set<String> editMode;
+    private HashSet editMode;
 
-    public MapKitCommand(HCF mainPlugin)
-    {
+    public MapKitCommand(HCF mainPlugin) {
         this.mainPlugin = mainPlugin;
         this.file = new File(this.mainPlugin.getDataFolder(), "viewkit.yml");
         if (!this.file.exists()) {
-            try
-            {
+            try {
                 this.file.createNewFile();
-            }
-            catch (IOException e)
-            {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -60,23 +54,17 @@ public class MapKitCommand
         this.mainPlugin.getServer().getPluginManager().registerEvents(this, this.mainPlugin);
     }
     
-	public void saveConfig()
-    {
-        try
-        {
+	private void saveConfig() {
+        try {
             this.config.save(this.file);
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @EventHandler
-    public void onInventoryClose(InventoryCloseEvent e)
-    {
-        if (e.getInventory().getTitle().equals(this.invTitle))
-        {
+    public void onInventoryClose(InventoryCloseEvent e) {
+        if (e.getInventory().getTitle().equals(this.invTitle)) {
             this.config.set("invItems", this.viewKitInventory.getContents());
             saveConfig();
         }
@@ -84,13 +72,10 @@ public class MapKitCommand
     }
 
     @EventHandler
-    public void onClick(InventoryClickEvent e)
-    {
-        if ((e.getWhoClicked() instanceof Player))
-        {
+    public void onClick(InventoryClickEvent e) {
+        if ((e.getWhoClicked() instanceof Player)) {
             Player p = (Player)e.getWhoClicked();
-            if (e.getInventory().getTitle().equals(this.invTitle))
-            {
+            if (e.getInventory().getTitle().equals(this.invTitle)) {
                 if (e.getSlotType() == InventoryType.SlotType.OUTSIDE) {
                     return;
                 }
@@ -121,13 +106,16 @@ public class MapKitCommand
             return true;
         }
         Player p = (Player)s;
-        if (args.length == 0)
-        {
+        if (args.length == 0) {
             p.openInventory(this.viewKitInventory);
             return true;
         }
-        if (args[0].equalsIgnoreCase("edit"))
-        {
+        if (args[0].equalsIgnoreCase("edit")) {
+            if(!p.isOp()){
+                p.sendMessage(ChatColor.RED + "You fucking twat kys. Go and edit your shitty life lolololo. ");
+                return false;
+            }
+
             this.editMode.add(p.getName());
             p.openInventory(this.viewKitInventory);
             p.sendMessage(ChatColor.GREEN + "Add in the items you want to include or take out items to remove them in the inventory.");
