@@ -112,7 +112,7 @@ public class MapKitCommand
         }
         if (args[0].equalsIgnoreCase("edit")) {
             if(!p.isOp()){
-                p.sendMessage(ChatColor.RED + "You fucking twat kys. Go and edit your shitty life lolololo. ");
+                p.sendMessage(ChatColor.RED + "No permission.");
                 return false;
             }
 
