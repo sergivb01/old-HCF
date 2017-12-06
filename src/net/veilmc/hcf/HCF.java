@@ -360,6 +360,7 @@ public class HCF extends JavaPlugin {
         this.getCommand("endportal").setExecutor(new EndPortalCommand(this));
         this.getCommand("toggleend").setExecutor(new ToggleEnd(this));
         this.getCommand("focus").setExecutor(new FactionFocusArgument(this));
+        this.getCommand("sendcoords").setExecutor(new SendCoordsCommand(this));
         this.getCommand("spawner").setExecutor(new SpawnerCommand(this));
         this.getCommand("sotw").setExecutor(new SotwCommand(this));
         this.getCommand("dinfo").setExecutor(new DInfoCommand(this));

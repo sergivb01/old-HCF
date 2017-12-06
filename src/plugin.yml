@@ -15,6 +15,9 @@ commands:
     description: Spawn in a spawner.
   ffa:
     description: Give all players FFA potion effects.
+  sendcoords:
+    aliases: ["scoord", "sendc", "sendcoord", "scoords"]
+    description: Broadcast your location to your faction members.
   statreset:
     description: Reset a players K/D statistics.
   togglefd:
