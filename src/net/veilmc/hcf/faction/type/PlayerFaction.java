@@ -23,6 +23,7 @@ import net.veilmc.hcf.faction.struct.Role;
 import net.veilmc.hcf.timer.type.TeleportTimer;
 import net.veilmc.hcf.user.FactionUser;
 import net.veilmc.hcf.utils.ConfigurationService;
+import net.veilmc.util.BukkitUtils;
 import net.veilmc.util.GenericUtils;
 import net.veilmc.util.JavaUtils;
 import net.veilmc.util.PersistableLocation;
@@ -549,15 +550,12 @@ public class PlayerFaction
           }
       }
 
-      sender.sendMessage(ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH + "-----------------------------------------------------");
-
+      sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7&m" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
       sender.sendMessage(ChatColor.WHITE.toString() + ChatColor.BOLD + " ⨠ " + ChatColor.GREEN + this.getDisplayName(sender)+ ChatColor.GRAY +" ("+this.getOnlineMembers().size()+"/"+this.getMembers().size() + " online)");
 
-
-    //  sender.sendMessage(ChatColor.GRAY + " » " + ChatColor.GREEN + this.getDisplayName(sender)+ ChatColor.GRAY +" ("+this.getOnlineMembers().size()+"/"+this.getMembers().size() + " online) ");
       sender.sendMessage(ChatColor.YELLOW + "  Home: " + ChatColor.RED + (this.home == null ? "None" : ChatColor.RED.toString() + this.home.getLocation().getBlockX() + ", " + this.home.getLocation().getBlockZ()) + ChatColor.GOLD + " |" + ChatColor.YELLOW + " Status: " + (!this.open ? ChatColor.RED + "Closed" : ChatColor.GREEN + "Open"));
-
       if(!allyNames.isEmpty()) {
+
           sender.sendMessage(ChatColor.YELLOW + "  Allies: " + StringUtils.join(allyNames, ChatColor.GRAY + ", "));
       }
 
@@ -595,7 +593,7 @@ public class PlayerFaction
           sender.sendMessage(ChatColor.YELLOW+ "   Time until Regen: " + ChatColor.LIGHT_PURPLE + DurationFormatUtils.formatDurationWords(dtrRegenRemaining, true, true));
       }
 
-      sender.sendMessage(ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH + "-----------------------------------------------------");
+      sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7&m" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
   }
 
   public void broadcast(String message)

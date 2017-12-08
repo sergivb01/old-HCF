@@ -102,11 +102,11 @@ messages:
   
   spawn-tagged: '&cYou are now spawn-tagged for %time%.'
   
-  pvptimer-started: '&aYour &a&lPVP Timer &ahas started.'
-  pvptimer-paused: '&cYour &a&lPVP Timer &ctimer is now paused.'
-  pvptimer-unpaused: '&cYour &a&lPVP Timer &ctimer is no longer paused.'
-  pvptimer-expired: '&cYour &a&lPVP Timer &chas expired.'
-  pvptimer-playerspawn: '&cOnce you leave Spawn your 30 minutes of &a&lPVP Timer &cwill start.'
+  #pvptimer-started: '&aYour &a&lPVP Timer &ahas started.'
+  #pvptimer-paused: '&cYour &a&lPVP Timer &ctimer is now paused.'
+  #pvptimer-unpaused: '&cYour &a&lPVP Timer &ctimer is no longer paused.'
+  #pvptimer-expired: '&cYour &a&lPVP Timer &chas expired.'
+  #pvptimer-playerspawn: '&cOnce you leave Spawn your 30 minutes of &a&lPVP Timer &cwill start.'
   
 # PVP Timer
 pvptimer:

@@ -2,6 +2,7 @@
 package net.veilmc.hcf.faction.type;
 
 import net.veilmc.hcf.utils.ConfigurationService;
+import net.veilmc.util.BukkitUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
@@ -32,9 +33,9 @@ public class RoadFaction extends ClaimableFaction implements ConfigurationSerial
 
     @Override
     public void printDetails(final CommandSender sender) {
-        sender.sendMessage(ChatColor.GOLD.toString() + ChatColor.STRIKETHROUGH + "-----------------------------------------------------");
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7&m" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
         sender.sendMessage(' ' + this.getDisplayName(sender));
-        sender.sendMessage(ChatColor.GOLD.toString() + ChatColor.STRIKETHROUGH + "-----------------------------------------------------");
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7&m" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
     }
 
     public static class NorthRoadFaction extends RoadFaction implements ConfigurationSerializable

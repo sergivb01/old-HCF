@@ -76,7 +76,7 @@ public class PvpProtectionTimer extends PlayerTimer implements Listener
         }
         if (this.getRemaining(player) <= 0L) {
             this.plugin.getVisualiseHandler().clearVisualBlocks(player, VisualType.CLAIM_BORDER, null);
-            player.sendMessage(ConfigurationService.PVPTIMER_EXPIRED);
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c&lYour PvP Protection has expired. PvP is now enabled."));
         }
     }
 
@@ -213,7 +213,7 @@ public class PvpProtectionTimer extends PlayerTimer implements Listener
         final Player player = event.getPlayer();
         if (!player.hasPlayedBefore() && (!ConfigurationService.KIT_MAP)) {
             if (!this.plugin.getEotwHandler().isEndOfTheWorld() && this.legible.add(player.getUniqueId())) {
-                player.sendMessage(ConfigurationService.PVPTIMER_PLAYERSPAWN);
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cYou now have PvP Protection since you have died."));
             }
         }
         else if (this.isPaused(player) && this.getRemaining(player) > 0L && !this.plugin.getFactionManager().getFactionAt(event.getSpawnLocation()).isSafezone()) {
@@ -233,16 +233,16 @@ public class PvpProtectionTimer extends PlayerTimer implements Listener
         if (fromFaction.isSafezone() && !toFaction.isSafezone()) {
             if (this.legible.remove(player.getUniqueId())) {
                 this.setCooldown(player, player.getUniqueId());
-                player.sendMessage(ConfigurationService.PVPTIMER_STARTED);
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cYour PvP Protection Timer has started."));
                 return;
             }
             if (this.getRemaining(player) > 0L) {
                 this.setPaused(player, player.getUniqueId(), false);
-                player.sendMessage(ConfigurationService.PVPTIMER_UNPAUSED);
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cYour PvP Protection Timer has started."));
             }
         }
         else if (!fromFaction.isSafezone() && toFaction.isSafezone() && this.getRemaining(player) > 0L) {
-            player.sendMessage(ConfigurationService.PVPTIMER_PAUSED);
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cYour PvP Protection Timer has been paused."));
             this.setPaused(player, player.getUniqueId(), true);
         }
     }
@@ -255,13 +255,15 @@ public class PvpProtectionTimer extends PlayerTimer implements Listener
         if (toFaction instanceof ClaimableFaction && (remaining = this.getRemaining(player)) > 0L) {
             final PlayerFaction playerFaction;
             if (event.getEnterCause() == PlayerClaimEnterEvent.EnterCause.TELEPORT && toFaction instanceof PlayerFaction && (playerFaction = this.plugin.getFactionManager().getPlayerFaction(player)) != null && playerFaction.equals(toFaction)) {
-                player.sendMessage(ChatColor.AQUA + "You have entered your own claim, therefore your " + this.getDisplayName() + ChatColor.AQUA + " has been removed.");
+               // player.sendMessage(ChatColor.AQUA + "You have entered your own claim, therefore your " + this.getDisplayName() + ChatColor.AQUA + " has been removed.");
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&bYou have entered your claim, meaning you no longer have PvP Protection."));
                 this.clearCooldown(player);
                 return;
             }
             if (!toFaction.isSafezone() && !(toFaction instanceof RoadFaction)) {
                 event.setCancelled(true);
-                player.sendMessage(ChatColor.RED + "You cannot enter " + toFaction.getDisplayName(player) + ChatColor.RED + " whilst your " + this.getDisplayName() + ChatColor.RED + " timer is active [" + ChatColor.BOLD + HCF.getRemaining(remaining, true, false) + ChatColor.RED + " remaining]. " + "Use '" + ChatColor.GOLD + "/pvp enable" + ChatColor.RED + "' to remove this timer.");
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cYou cannot enter this claim while you have PvP Protection."));
+              //  player.sendMessage(ChatColor.RED + "You cannot enter " + toFaction.getDisplayName(player) + ChatColor.RED + " whilst your " + this.getDisplayName() + ChatColor.RED + " timer is active [" + ChatColor.BOLD + HCF.getRemaining(remaining, true, false) + ChatColor.RED + " remaining]. " + "Use '" + ChatColor.GOLD + "/pvp enable" + ChatColor.RED + "' to remove this timer.");
             }
         }
     }
@@ -278,12 +280,14 @@ public class PvpProtectionTimer extends PlayerTimer implements Listener
             long remaining;
             if ((remaining = this.getRemaining(player)) > 0L) {
                 event.setCancelled(true);
-                attacker.sendMessage(ChatColor.RED + player.getName() + " has their " + this.getDisplayName() + ChatColor.RED + " timer for another " + ChatColor.BOLD + HCF.getRemaining(remaining, true, false) + ChatColor.RED + '.');
+                attacker.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c" + player.getName() + " still has PvP Protection."));
+              //  attacker.sendMessage(ChatColor.RED + player.getName() + " has their " + this.getDisplayName() + ChatColor.RED + " timer for another " + ChatColor.BOLD + HCF.getRemaining(remaining, true, false) + ChatColor.RED + '.');
                 return;
             }
             if ((remaining = this.getRemaining(attacker)) > 0L) {
                 event.setCancelled(true);
-                attacker.sendMessage(ChatColor.RED + "You cannot attack players whilst your " + this.getDisplayName() + ChatColor.RED + " timer is active [" + ChatColor.BOLD + HCF.getRemaining(remaining, true, false) + ChatColor.RED + " remaining]. Use '" + ChatColor.GOLD + "/pvp enable" + ChatColor.RED + "' to allow pvp.");
+                attacker.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cYou can not attack players while you have PvP Protection. Use &6/pvp enable &cto enable PvP"));
+               // attacker.sendMessage(ChatColor.RED + "You cannot attack players whilst your " + this.getDisplayName() + ChatColor.RED + " timer is active [" + ChatColor.BOLD + HCF.getRemaining(remaining, true, false) + ChatColor.RED + " remaining]. Use '" + ChatColor.GOLD + "/pvp enable" + ChatColor.RED + "' to allow pvp.");
             }
         }
     }

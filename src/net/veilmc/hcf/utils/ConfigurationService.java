@@ -121,11 +121,11 @@ public final class ConfigurationService {
     public static String FOURTH_LINE;
     public static String FIFTH_LINE;
     
-    public static String PVPTIMER_EXPIRED;
+    /*public static String PVPTIMER_EXPIRED;
     public static String PVPTIMER_PLAYERSPAWN;
     public static String PVPTIMER_PAUSED;
     public static String PVPTIMER_UNPAUSED;
-    public static String PVPTIMER_STARTED;
+    public static String PVPTIMER_STARTED;*/
 
     public static boolean KIT_MAP;
     public static boolean VEILZ;
@@ -237,13 +237,13 @@ public final class ConfigurationService {
         THIRD_LINE = ChatColor.translateAlternateColorCodes('&', config.getString("pvptimer.third-line"));
         FOURTH_LINE = ChatColor.translateAlternateColorCodes('&', config.getString("pvptimer.fourth-line"));
         FIFTH_LINE = ChatColor.translateAlternateColorCodes('&', config.getString("pvptimer.fifth-line"));
-        
+        /*
         PVPTIMER_EXPIRED = ChatColor.translateAlternateColorCodes('&', config.getString("messages.pvptimer-expired"));
         PVPTIMER_PLAYERSPAWN = ChatColor.translateAlternateColorCodes('&', config.getString("messages.pvptimer-playerspawn"));
         PVPTIMER_STARTED = ChatColor.translateAlternateColorCodes('&', config.getString("messages.pvptimer-started"));
         PVPTIMER_PAUSED = ChatColor.translateAlternateColorCodes('&', config.getString("messages.pvptimer-paused"));
         PVPTIMER_UNPAUSED = ChatColor.translateAlternateColorCodes('&', config.getString("messages.pvptimer-unpaused"));
-        
+        */
         REVIVE_MESSAGE = ChatColor.translateAlternateColorCodes('&', config.getString("messages.revive-message"));
         LOGOUT_TIMER = ChatColor.translateAlternateColorCodes('&', config.getString("timers.logout-timer"));
         LOGOUT_COLOUR = ChatColor.getByChar(config.getString("timers.logout-color", "&e").replace("&", "").trim());

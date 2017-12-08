@@ -1,15 +1,15 @@
 
 package net.veilmc.hcf.faction.type;
 
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Lists;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.claim.Claim;
 import net.veilmc.hcf.faction.event.FactionClaimChangeEvent;
 import net.veilmc.hcf.faction.event.FactionClaimChangedEvent;
 import net.veilmc.hcf.faction.event.cause.ClaimChangeCause;
+import net.veilmc.util.BukkitUtils;
 import net.veilmc.util.GenericUtils;
-import net.veilmc.util.cuboid.Cuboid;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Lists;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -42,13 +42,13 @@ extends Faction {
 
     @Override
     public void printDetails(CommandSender sender) {
-        sender.sendMessage(ChatColor.GOLD.toString() + ChatColor.STRIKETHROUGH + "-----------------------------------------------------");
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7&m" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
         sender.sendMessage(this.getDisplayName(sender));
         for (Claim claim : this.claims) {
             Location location = claim.getCenter();
             sender.sendMessage(ChatColor.YELLOW + "  Location: " + ChatColor.WHITE.toString() + ENVIRONMENT_MAPPINGS.get(location.getWorld().getEnvironment()) + ", " + location.getBlockX() + " | " + location.getBlockZ());
         }
-        sender.sendMessage(ChatColor.GOLD.toString() + ChatColor.STRIKETHROUGH + "-----------------------------------------------------");
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7&m" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
     }
 
     public Set<Claim> getClaims() {
