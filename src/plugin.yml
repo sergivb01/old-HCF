@@ -39,6 +39,7 @@ commands:
   stats:
     description: Checks the staticstics on a player.
   dinfo:
+    aliases: ["deathinfo"]
     description: View the death information of a player.
   sotw:
     description: Start the SOTW Timer.
