@@ -51,14 +51,10 @@ public class SpawnCommand implements CommandExecutor, TabCompleter
                 return true;
             }
         } else {
-            sender.sendMessage(ChatColor.RED + "This server does not have a spawn command, you must travel there. " + "Spawn can be found at " + ChatColor.GRAY + '(' + spawn.getBlockX() + ", " + spawn.getBlockZ() + ')');
+            sender.sendMessage(ChatColor.RED + "Spawn can be found at " + ChatColor.GRAY + '(' + spawn.getBlockX() + ", " + spawn.getBlockZ() + ')');
             return true;
         }
-//        if (args.length > 0) {
-//            world = Bukkit.getWorld(World.Environment.NORMAL.name());
-//            spawn = world.getSpawnLocation().clone().add(0.5, 0.0, 0.5);
-//        }
-//        player.teleport(spawn, PlayerTeleportEvent.TeleportCause.COMMAND);
+
     }
 
     public List<String> onTabComplete(final CommandSender sender, final Command command, final String label, final String[] args) {
