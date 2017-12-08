@@ -1,7 +1,7 @@
 package net.veilmc.hcf.faction.struct;
 
 public enum Role {
-    LEADER("Leader", "***"),
+    LEADER("Leader", "**"),
     COLEADER("Co-Leader", "**"),
     CAPTAIN("Captain", "*"),
     MEMBER("Member", "");
