@@ -1,16 +1,10 @@
 package net.veilmc.hcf.command;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
-
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.hcf.deathban.Deathban;
 import net.veilmc.hcf.user.FactionUser;
+import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.util.BukkitUtils;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -18,6 +12,11 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.UUID;
 
 public class StaffReviveCommand
         implements CommandExecutor, TabCompleter
@@ -51,12 +50,11 @@ public class StaffReviveCommand
         Deathban deathban = factionTarget.getDeathban();
         if ((deathban == null) || (!deathban.isActive()))
         {
-            sender.sendMessage(ChatColor.RED + target.getName() + " is not deathban!");
+            sender.sendMessage(ChatColor.RED + target.getName() + " is not deathbanned.");
             return true;
         }
         factionTarget.removeDeathban();
-        Command.broadcastCommandMessage(sender, "§e" + sender.getName() + " §ehas revived §e" + target.getName() + "§e.");
-
+        Command.broadcastCommandMessage(sender, ChatColor.translateAlternateColorCodes('&', "&eYou have revived " + target.getName()));
         return false;
     }
 
