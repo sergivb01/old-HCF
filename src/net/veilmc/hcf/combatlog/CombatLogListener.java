@@ -3,18 +3,7 @@ package net.veilmc.hcf.combatlog;
 
 import net.veilmc.hcf.HCF;
 import net.veilmc.util.InventoryUtils;
-
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
-import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.craftbukkit.v1_7_R4.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_7_R4.entity.CraftLivingEntity;
 import org.bukkit.entity.Player;
@@ -27,6 +16,8 @@ import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.spigotmc.event.player.PlayerSpawnLocationEvent;
+
+import java.util.*;
 
 
 
@@ -47,21 +38,33 @@ public class CombatLogListener
       player.kickPlayer(reason);
     }
   }
-  
-  public static void removeCombatLoggers()
-  {
-    Iterator<CombatLogEntry> iterator = LOGGERS.values().iterator();
-    while (iterator.hasNext())
+
+    public static void removeCombatLoggers()
     {
-      CombatLogEntry entry = (CombatLogEntry)iterator.next();
-      entry.task.cancel();
-      entry.loggerEntity.getBukkitEntity().remove();
-      iterator.remove();
+        Iterator<CombatLogEntry> iterator = LOGGERS.values().iterator();
+        while (iterator.hasNext())
+        {
+            CombatLogEntry entry = (CombatLogEntry)iterator.next();
+            entry.task.cancel();
+            entry.loggerEntity.getBukkitEntity().remove();
+            iterator.remove();
+        }
+        SAFE_DISCONNECTS.clear();
     }
-    SAFE_DISCONNECTS.clear();
-  }
-  
-  @EventHandler(ignoreCancelled=true, priority=EventPriority.MONITOR)
+
+    public static void removeCombatLogger(OfflinePlayer player)
+    {
+        //Iterator<CombatLogEntry> iterator = player.getUniqueId();
+
+            CombatLogEntry entry = (CombatLogEntry)LOGGERS.get(player.getUniqueId());
+            entry.task.cancel();
+            entry.loggerEntity.getBukkitEntity().remove();
+    }
+
+
+
+
+    @EventHandler(ignoreCancelled=true, priority=EventPriority.MONITOR)
   public void onPlayerQuitSafe(PlayerQuitEvent event)
   {
     SAFE_DISCONNECTS.remove(event.getPlayer().getUniqueId());

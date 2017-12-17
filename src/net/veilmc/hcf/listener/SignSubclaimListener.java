@@ -139,13 +139,17 @@ public class SignSubclaimListener implements Listener {
                         return;
                     }
 
-                    boolean hasAccess = playerFaction.getMember(player).getRole() != Role.MEMBER;
-                    if(hasAccess) {
-                        return;
-                    }
+
 
                     if(state instanceof org.bukkit.block.Sign) {
                         org.bukkit.block.Sign var14 = (org.bukkit.block.Sign)state;
+
+                        boolean hasAccess = playerFaction.getMember(player).getRole() != Role.MEMBER;
+                        if(hasAccess) {
+                            return;
+                        }
+
+
                         if(var14.getLine(0).equals(SUBCLAIM_PREFIX)) {
                             event.setCancelled(true);
                             player.sendMessage(ChatColor.RED + "You cannot break subclaim signs");
@@ -178,7 +182,7 @@ public class SignSubclaimListener implements Listener {
                             }
 
                             event.setCancelled(true);
-                            player.sendMessage(ChatColor.RED + "You cannot break this subclaimed " + block.getType().getData().getName() + '.');
+                            player.sendMessage(ChatColor.RED + "You cannot break this subclaim.");
                         }
                     }
                 }
