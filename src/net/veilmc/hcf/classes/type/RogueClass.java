@@ -60,11 +60,12 @@ public class RogueClass extends PvpClass implements Listener {
                         final Vector damagerDirection = damager.getLocation().getDirection();
                         final Vector damagedDirection = damaged.getLocation().getDirection();
                         if (damagerDirection.dot(damagedDirection) > 0.0) {
-                            damaged.setHealth(damaged.getHealth() - 4.5);
+                            damaged.setHealth(damaged.getHealth() - 9.0);
                             damager.setItemInHand(new ItemStack(Material.AIR));
                             damager.playSound(damager.getLocation(), Sound.ITEM_BREAK, 1.0f, 1.0f);
                             damager.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 30, 2));
                             damager.sendMessage("");
+                            damaged.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c&lYou have been &f&lBACKSTABBED &c&lby " + damager.getName()));
                             damager.sendMessage(ChatColor.translateAlternateColorCodes('&', "&eYou have backstabbed &a" + damaged.getName() + "&e!"));
                             damager.sendMessage("");
                         }
