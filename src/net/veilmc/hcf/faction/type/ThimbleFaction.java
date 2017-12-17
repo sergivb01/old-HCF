@@ -20,7 +20,7 @@ public class ThimbleFaction
 
     @Override
     public String getDisplayName(CommandSender sender) {
-        return ChatColor.LIGHT_PURPLE + this.getName().replace("Glowstone", "Glowstone");
+        return ChatColor.LIGHT_PURPLE + this.getName();
     }
 
     @Override

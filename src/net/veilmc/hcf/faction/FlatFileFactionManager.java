@@ -1,49 +1,21 @@
 
 package net.veilmc.hcf.faction;
 
+import com.google.common.base.Preconditions;
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.hcf.faction.claim.Claim;
-import net.veilmc.hcf.faction.event.FactionClaimChangedEvent;
-import net.veilmc.hcf.faction.event.FactionCreateEvent;
-import net.veilmc.hcf.faction.event.FactionRelationRemoveEvent;
-import net.veilmc.hcf.faction.event.FactionRemoveEvent;
-import net.veilmc.hcf.faction.event.FactionRenameEvent;
-import net.veilmc.hcf.faction.event.PlayerJoinedFactionEvent;
-import net.veilmc.hcf.faction.event.PlayerLeftFactionEvent;
+import net.veilmc.hcf.faction.event.*;
 import net.veilmc.hcf.faction.event.cause.ClaimChangeCause;
 import net.veilmc.hcf.faction.struct.ChatChannel;
 import net.veilmc.hcf.faction.struct.Relation;
 import net.veilmc.hcf.faction.struct.Role;
-import net.veilmc.hcf.faction.type.ClaimableFaction;
-import net.veilmc.hcf.faction.type.EndPortalFaction;
-import net.veilmc.hcf.faction.type.Faction;
-import net.veilmc.hcf.faction.type.GlowstoneFaction;
-import net.veilmc.hcf.faction.type.PlayerFaction;
-import net.veilmc.hcf.faction.type.RoadFaction;
-import net.veilmc.hcf.faction.type.SpawnFaction;
-import net.veilmc.hcf.faction.type.WarzoneFaction;
-import net.veilmc.hcf.faction.type.WildernessFaction;
+import net.veilmc.hcf.faction.type.*;
+import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.util.Config;
 import net.veilmc.util.JavaUtils;
 import net.veilmc.util.cuboid.CoordinatePair;
-import com.google.common.base.Preconditions;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
-
 import org.apache.commons.collections4.map.CaseInsensitiveMap;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.MemorySection;
@@ -51,6 +23,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class FlatFileFactionManager implements Listener, FactionManager
 {
@@ -306,6 +281,9 @@ public class FlatFileFactionManager implements Listener, FactionManager
         }
         if (!this.factionNameMap.containsKey("Glowstone")) {
             adding.add(new GlowstoneFaction());
+        }
+        if (!this.factionNameMap.containsKey("Thimble")) {
+            adding.add(new ThimbleFaction());
         }
         if (!this.factionNameMap.containsKey("Spawn")) {
             adding.add(new SpawnFaction());
