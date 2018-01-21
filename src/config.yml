@@ -1,15 +1,23 @@
 
-# Help Title when performing the command /help.
-Help title: '&6&lHardcore Factions'
-
+###########################
+hwid: 'ENTER KEY HERE'
+##########################
 # Scoreboard title for side bar.
-Scoreboard title: '&e&lVeil &a[Map 1]'
-
-# Scoreboard title when using classes.
-Active Class: '&a&lActive Class&7'
+scoreboard:
+  title: '&e&lVeil &a[Map 1]'
+  active-class: '&a&lActive Class&7'
 
 # Enable death-signs so when a player dies it spawns a sign.
 death-signs: true
+
+online-medics:
+  - '&7%LINE%'
+  - '&a&lOnline Medics'
+  - ' '
+  - ' &f&l* &e%MEDICS%'
+  - '&7%LINE%'
+
+
 
 warzone: 750
 
@@ -28,14 +36,6 @@ veilz-options:
 #Deathban Permissions
 
 # hcf.deathban.150m
-# hcf.deathban.120m
-# hcf.deathban.90m
-# hcf.deathban.60m
-# hcf.deathban.40m
-# hcf.deathban.30m
-# hcf.deathban.15m
-# hcf.deathban.10m
-# hcf.deathban.5m
 deathban-time: 180
 
 # Can't build how many blocks from spawn?
@@ -65,9 +65,6 @@ help:
 
 # Configurable messages
 messages:
-  teamspeak-ip: 'ts.veilhcf.us'
-  help-end-exit: '&cSouth Road | 0, 250'
-  help-endportal-location: '&c1009, 1000'
   cobble-enabled: '&aYou can now pick up cobblestone.'
   cobble-disabled: '&cYou can no longer pick up cobblestone.'
   revive-message: '&cDonate at store.buycraft.net to receive these perks.'
@@ -87,20 +84,14 @@ messages:
   ally-faction: '&eYou are hurting an ally &7[%allyplayer%]&e.'
   
 # Timers
-  sotw-started: '&cStarted SOTW protection for &c&l%time%&c.'
-  sotw-not-active: '&cSOTW protection already active.'
-  sotw-cancelled: '&cSOTW protection has been cancelled.'
-  sotw-ended-one: '&cSOTW Protection is now over!'
-  sotw-ended-two: '&cYou are no longer invincible!'
+sotw:
+  started: '&cStarted SOTW protection for &c&l%time%&c.'
+  not-active: '&cSOTW protection already active.'
+  cancelled: '&cSOTW protection has been cancelled.'
+  ended-one: '&cSOTW Protection is now over!'
+  ended-two: '&cYou are no longer invincible!'
   
-  logout-already-started: '&cYour &c&lLogout &ctimer has already started.'
-  logout-started: '&cYour &c&lLogout &ctimer has started.'
-  logout-safely: '&aYou have been safely logged out.'
-  
-  enderpearl-expired: '&eYour &c&lEnderpearl &ecooldown has expired.'
-  enderpearl-item: '&cEnderpearl Cooldown&e: &f%time%'
-  
-  spawn-tagged: '&cYou are now spawn-tagged for %time%.'
+
   
   #pvptimer-started: '&aYour &a&lPVP Timer &ahas started.'
   #pvptimer-paused: '&cYour &a&lPVP Timer &ctimer is now paused.'
@@ -109,12 +100,12 @@ messages:
   #pvptimer-playerspawn: '&cOnce you leave Spawn your 30 minutes of &a&lPVP Timer &cwill start.'
   
 # PVP Timer
-pvptimer:
-  first-line: '&7&m------------------------------------------'
-  second-line: '&e/pvp enable &7- &fRemoves your PVP Timer.'
-  third-line: '&e/pvp time &7- &fCheck remaining time.'
-  fourth-line: '&e/lives &7- &fLife & deathban related commands.'
-  fifth-line: '&7&m------------------------------------------'
+pvp-timer:
+  - '&7%LINE%'
+  - '&e/pvp enable &7- &fRemoves your PvP Timer.'
+  - '&e/pvp time &7- &fCheck remaining time.'
+  - '&e/lives &7- &fLife & deathban related commands.'
+  - '&7%LINE%'
   
 # Timer placeholders and colors  
 timers:
@@ -140,25 +131,52 @@ timers:
   event-color: '&9&l'
   logout-timer: '&c&lLogout'
   logout-color: '&c'
+  messages:
+    logout-already-started: '&cYour &c&lLogout &ctimer has already started.'
+    logout-started: '&cYour &c&lLogout &ctimer has started.'
+    logout-safely: '&aYou have been safely logged out.'
+    enderpearl-expired: '&eYour &c&lEnderpearl &ecooldown has expired.'
+    enderpearl-item: '&cEnderpearl Cooldown&e: &f%time%'
+    spawn-tagged: '&cYou are now spawn-tagged for %time%.'
   
 # Faction colors
-colors:
-  teammate: '&2'
-  ally: '&9'
-  enemy: '&e'
-  safezone: '&a'
-  road: '&c'
-  target: '&d'
-  warzone: '&c'
-  default: '&7'
-  wilderness: '&d'
-  glowstone: '&6'
-  
-# Change faction limits
+
+
 faction-settings:
   max-players: 5
   max-allies: 1
-
+  show:
+    player-faction:
+      - '&7%LINE%'
+      - '&f&l > %FACTION% &3- &7(%ONLINE%/%MAX% online)'
+      - ' &eHome: &c%HOME%'
+      - ' &eLeader: %LEADER%'
+      - ' &eCaptains: %CAPTAINS%'
+      - ' &eMembers: %MEMBERS%'
+      - ' &eDTR: &6[%DTR%&7/&e%MAXDTR%&6] &r%DTR-SYMBOL%'
+      - ' &eRegen: &d%REGEN%'
+      - ' &eBalance: &9$%BALANCE%&e, Kills: &c%KILLS%'
+      - '&7%LINE%'
+    system-faction:
+      - '&7%LINE%'
+      - '%FACTION%'
+      - '  &eLocation:&f %WORLD%, %X%, %Z%'
+      - '&7%LINE%'
+    road-faction:
+      - '&7%LINE%'
+      - '%FACTION%'
+      - '&7%LINE%'
+  colors:
+    teammate: '&2'
+    ally: '&9'
+    enemy: '&e'
+    safezone: '&a'
+    road: '&c'
+    target: '&d'
+   warzone: '&c'
+    default: '&7'
+    wilderness: '&d'
+    glowstone: '&6'
 # Potion limitations
 potion-limits:
   instant-damage: 1

@@ -282,9 +282,6 @@ public class FlatFileFactionManager implements Listener, FactionManager
         if (!this.factionNameMap.containsKey("Glowstone")) {
             adding.add(new GlowstoneFaction());
         }
-        if (!this.factionNameMap.containsKey("Thimble")) {
-            adding.add(new ThimbleFaction());
-        }
         if (!this.factionNameMap.containsKey("Spawn")) {
             adding.add(new SpawnFaction());
         }

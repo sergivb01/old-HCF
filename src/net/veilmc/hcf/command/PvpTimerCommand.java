@@ -1,21 +1,20 @@
 
 package net.veilmc.hcf.command;
 
+import com.google.common.collect.ImmutableList;
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.hcf.timer.type.PvpProtectionTimer;
 import net.veilmc.util.BukkitUtils;
-import com.google.common.collect.ImmutableList;
-
-import java.util.Collections;
-import java.util.List;
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class PvpTimerCommand
 implements CommandExecutor,
@@ -69,11 +68,19 @@ TabCompleter {
     }
 
     private void printUsage(CommandSender sender, String label, PvpProtectionTimer pvpTimer) {
-        sender.sendMessage(ConfigurationService.FIRST_LINE);
-        sender.sendMessage(ConfigurationService.SECOND_LINE);
-        sender.sendMessage(ConfigurationService.THIRD_LINE);
-        sender.sendMessage(ConfigurationService.FOURTH_LINE);
-        sender.sendMessage(ConfigurationService.FIFTH_LINE);
+
+        List<String> toSend = new ArrayList<>();
+
+        for (String string : HCF.getInstance().getConfig().getStringList("pvp-timer")) {
+
+            string = string.replace("%LINE%", BukkitUtils.STRAIGHT_LINE_DEFAULT + "");
+            toSend.add(string);
+        }
+
+        for (String message : toSend) {
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
+        }
+
     }
 }
 

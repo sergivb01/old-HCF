@@ -1,6 +1,7 @@
 
 package net.veilmc.hcf.faction.type;
 
+import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.util.BukkitUtils;
 import org.bukkit.Bukkit;
@@ -9,6 +10,8 @@ import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class RoadFaction extends ClaimableFaction implements ConfigurationSerializable
@@ -33,10 +36,25 @@ public class RoadFaction extends ClaimableFaction implements ConfigurationSerial
 
     @Override
     public void printDetails(final CommandSender sender) {
-        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7&m" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
+        /*sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7&m" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
         sender.sendMessage(' ' + this.getDisplayName(sender));
         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7&m" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
-    }
+*/
+        List<String> toSend = new ArrayList<>();
+
+        for (String string : HCF.getInstance().getConfig().getStringList("faction-settings.show.road-faction")) {
+
+            string = string.replace("%LINE%", BukkitUtils.STRAIGHT_LINE_DEFAULT + "");
+            string = string.replace("%FACTION%", this.getDisplayName(sender));
+
+            toSend.add(string);
+        }
+
+        for (String message : toSend) {
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
+        }
+        }
+
 
     public static class NorthRoadFaction extends RoadFaction implements ConfigurationSerializable
     {

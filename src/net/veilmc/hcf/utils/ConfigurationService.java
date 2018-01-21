@@ -14,9 +14,6 @@ import java.util.concurrent.TimeUnit;
 public final class ConfigurationService {
 
     public static final TimeZone SERVER_TIME_ZONE = TimeZone.getTimeZone("EST");
-    public static final String DONATE_URL = "/buy";
-    public static final int SPAWN_BUFFER = 63;
-    public static final double MAP_NUMBER = 1.0;
     public static final List<String> DISALLOWED_FACTION_NAMES = ImmutableList.of("velt", "faithful", "hcteams", "hcteamseotw", "hcteamssotw", "exploitesquad", "staff", "mod", "owner", "dev", "admin", "ipvp");
     public static final Map<Enchantment, Integer> ENCHANTMENT_LIMITS = new HashMap<Enchantment, Integer>();
     public static final Map<PotionType, Integer> POTION_LIMITS = new EnumMap<PotionType, Integer>(PotionType.class);
@@ -41,7 +38,7 @@ public final class ConfigurationService {
     public static long DTR_MILLIS_BETWEEN_UPDATES;
     
     public static String DTR_WORDS_BETWEEN_UPDATES;
-    public static ChatColor BASECOLOUR;
+    public static ChatColor BASECOLOU R;
     
     public static int CONQUEST_REQUIRED_WIN_POINTS = 100;
     public static long DEFAULT_DEATHBAN_DURATION;
@@ -54,9 +51,6 @@ public final class ConfigurationService {
     public static String COBBLE_ENABLED;
     public static String COBBLE_DISABLED;
 
-    public static String TEAMSPEAK_IP;
-    public static String HELP_END_EXIT;
-    public static String HELP_ENDPORTAL_LOCATION;
     public static String LOGOUT_ALREADY_STARTED;
     public static String LOGOUT_STARTED;
     public static String LOGOUT_DISCONNECT;
@@ -111,16 +105,10 @@ public final class ConfigurationService {
     public static String ENDERPEARL_ITEM;
     public static String SPAWN_TAGGED;
     //public static String LEAVING_ENTERING_MESSAGE;
-    
+
     //public static String CLASS_EQUIPPED;
     //public static String CLASS_UNEQUIPPED;
-    
-    public static String FIRST_LINE;
-    public static String SECOND_LINE;
-    public static String THIRD_LINE;
-    public static String FOURTH_LINE;
-    public static String FIFTH_LINE;
-    
+
     /*public static String PVPTIMER_EXPIRED;
     public static String PVPTIMER_PLAYERSPAWN;
     public static String PVPTIMER_PAUSED;
@@ -136,11 +124,13 @@ public final class ConfigurationService {
     public static boolean DIAMOND_ORE_ALERTS = false;
     public static int UNBUILDABLE_RANGE;
 
+    public static String HWID;
 //    public static List<String> SHOW;
 
     public static void init(FileConfiguration config) {
         KIT_MAP = config.getBoolean("kit-map");
         VEILZ = config.getBoolean("veilz");
+        HWID = config.getString("hwid");
     	TAB = config.getBoolean("tab");
 
     	WARZONE_RADIUS = config.getInt("warzone");
@@ -185,16 +175,16 @@ public final class ConfigurationService {
 
 
 
-        TEAMMATE_COLOUR = ChatColor.getByChar(config.getString("colors.teammate", "&2").replace("&", "").trim());
-        ALLY_COLOUR = ChatColor.getByChar(config.getString("colors.ally", "&3").replace("&", "").trim());
-        ENEMY_COLOUR = ChatColor.getByChar(config.getString("colors.enemy", "&c").replace("&", "").trim());
-        SAFEZONE_COLOUR = ChatColor.getByChar(config.getString("colors.safezone", "&b").replace("&", "").trim());
-        ROAD_COLOUR = ChatColor.getByChar(config.getString("colors.road", "&c").replace("&", "").trim());
-        TARGET = ChatColor.getByChar(config.getString("colors.target", "&d").replace("&", "").trim());
-        WARZONE_COLOUR = ChatColor.getByChar(config.getString("colors.warzone", "&c").replace("&", "").trim());
-        BASECOLOUR = ChatColor.getByChar(config.getString("colors.default", "&7").replace("&", "").trim());
-        WILDERNESS_COLOUR = ChatColor.getByChar(config.getString("colors.wilderness", "&d").replace("&", "").trim());
-        GLOWSTONE_COLOUR = ChatColor.getByChar(config.getString("colors.glowstone", "&b").replace("&", "").trim());
+        TEAMMATE_COLOUR = ChatColor.getByChar(config.getString("faction-settings.colors.teammate", "&2").replace("&", "").trim());
+        ALLY_COLOUR = ChatColor.getByChar(config.getString("faction-settings.colors.ally", "&3").replace("&", "").trim());
+        ENEMY_COLOUR = ChatColor.getByChar(config.getString("faction-settings.colors.enemy", "&c").replace("&", "").trim());
+        SAFEZONE_COLOUR = ChatColor.getByChar(config.getString("faction-settings.colors.safezone", "&b").replace("&", "").trim());
+        ROAD_COLOUR = ChatColor.getByChar(config.getString("faction-settings.colors.road", "&c").replace("&", "").trim());
+        TARGET = ChatColor.getByChar(config.getString("faction-settings.colors.target", "&d").replace("&", "").trim());
+        WARZONE_COLOUR = ChatColor.getByChar(config.getString("faction-settings.colors.warzone", "&c").replace("&", "").trim());
+        BASECOLOUR = ChatColor.getByChar(config.getString("faction-settings.colors.default", "&7").replace("&", "").trim());
+        WILDERNESS_COLOUR = ChatColor.getByChar(config.getString("faction-settings.colors.wilderness", "&d").replace("&", "").trim());
+        GLOWSTONE_COLOUR = ChatColor.getByChar(config.getString("faction-settings.colors.glowstone", "&b").replace("&", "").trim());
         
         DTR_MILLIS_BETWEEN_UPDATES = TimeUnit.SECONDS.toMillis(45);
         DTR_WORDS_BETWEEN_UPDATES = DurationFormatUtils.formatDurationWords(DTR_MILLIS_BETWEEN_UPDATES, true, true);
@@ -204,18 +194,15 @@ public final class ConfigurationService {
         COBBLE_ENABLED = ChatColor.translateAlternateColorCodes('&', config.getString("messages.cobble-enabled"));
         COBBLE_DISABLED = ChatColor.translateAlternateColorCodes('&', config.getString("messages.cobble-disabled"));
 
-        TEAMSPEAK_IP = ChatColor.translateAlternateColorCodes('&', config.getString("messages.teamspeak-ip"));
-        HELP_END_EXIT = ChatColor.translateAlternateColorCodes('&', config.getString("messages.help-end-exit"));
-        HELP_ENDPORTAL_LOCATION = ChatColor.translateAlternateColorCodes('&', config.getString("messages.help-endportal-location"));
-        LOGOUT_ALREADY_STARTED = ChatColor.translateAlternateColorCodes('&', config.getString("messages.logout-already-started"));
-        LOGOUT_STARTED = ChatColor.translateAlternateColorCodes('&', config.getString("messages.logout-started"));
-        LOGOUT_DISCONNECT = ChatColor.translateAlternateColorCodes('&', config.getString("messages.logout-safely"));
+        LOGOUT_ALREADY_STARTED = ChatColor.translateAlternateColorCodes('&', config.getString("timers.messages.logout-already-started"));
+        LOGOUT_STARTED = ChatColor.translateAlternateColorCodes('&', config.getString("timers.messages.logout-started"));
+        LOGOUT_DISCONNECT = ChatColor.translateAlternateColorCodes('&', config.getString("timers.messages.logout-safely"));
         
-        SOTW_STARTED = ChatColor.translateAlternateColorCodes('&', config.getString("messages.sotw-started"));
-        SOTW_CANCELLED = ChatColor.translateAlternateColorCodes('&', config.getString("messages.sotw-cancelled"));
-        SOTW_NOT_ACTIVE = ChatColor.translateAlternateColorCodes('&', config.getString("messages.sotw-not-active"));
-        SOTW_ENDED_ONE = ChatColor.translateAlternateColorCodes('&', config.getString("messages.sotw-ended-one"));
-        SOTW_ENDED_TWO = ChatColor.translateAlternateColorCodes('&', config.getString("messages.sotw-ended-two"));
+        SOTW_STARTED = ChatColor.translateAlternateColorCodes('&', config.getString("sotw.started"));
+        SOTW_CANCELLED = ChatColor.translateAlternateColorCodes('&', config.getString("sotw.cancelled"));
+        SOTW_NOT_ACTIVE = ChatColor.translateAlternateColorCodes('&', config.getString("sotw.not-active"));
+        SOTW_ENDED_ONE = ChatColor.translateAlternateColorCodes('&', config.getString("sotw.ended-one"));
+        SOTW_ENDED_TWO = ChatColor.translateAlternateColorCodes('&', config.getString("sotw.ended-two"));
         
         DEATHBAN_BYPASS = ChatColor.translateAlternateColorCodes('&', config.getString("messages.deathban-bypass"));
         DEATHBANNED_EOTW = ChatColor.translateAlternateColorCodes('&', config.getString("messages.deathbanned-eotw"));
@@ -231,12 +218,8 @@ public final class ConfigurationService {
         IN_FACTION = ChatColor.translateAlternateColorCodes('&', config.getString("messages.in-faction"));
         ALLY_FACTION = ChatColor.translateAlternateColorCodes('&', config.getString("messages.ally-faction"));
         //LEAVING_ENTERING_MESSAGE = ChatColor.translateAlternateColorCodes('&', config.getString("messages.leaving-entering"));
-        
-        FIRST_LINE = ChatColor.translateAlternateColorCodes('&', config.getString("pvptimer.first-line"));
-        SECOND_LINE = ChatColor.translateAlternateColorCodes('&', config.getString("pvptimer.second-line"));
-        THIRD_LINE = ChatColor.translateAlternateColorCodes('&', config.getString("pvptimer.third-line"));
-        FOURTH_LINE = ChatColor.translateAlternateColorCodes('&', config.getString("pvptimer.fourth-line"));
-        FIFTH_LINE = ChatColor.translateAlternateColorCodes('&', config.getString("pvptimer.fifth-line"));
+
+
         /*
         PVPTIMER_EXPIRED = ChatColor.translateAlternateColorCodes('&', config.getString("messages.pvptimer-expired"));
         PVPTIMER_PLAYERSPAWN = ChatColor.translateAlternateColorCodes('&', config.getString("messages.pvptimer-playerspawn"));
@@ -271,9 +254,9 @@ public final class ConfigurationService {
         //CLASS_EQUIPPED = ChatColor.translateAlternateColorCodes('&', config.getString("messages.class-equipped"));
         //CLASS_UNEQUIPPED = ChatColor.translateAlternateColorCodes('&', config.getString("messages.class-unequipped"));
         
-        ENDERPEARL_COOLDOWN_EXPIRED = ChatColor.translateAlternateColorCodes('&', config.getString("messages.enderpearl-expired"));
-        ENDERPEARL_ITEM = ChatColor.translateAlternateColorCodes('&', config.getString("messages.enderpearl-item"));
-        SPAWN_TAGGED = ChatColor.translateAlternateColorCodes('&', config.getString("messages.spawn-tagged"));
+        ENDERPEARL_COOLDOWN_EXPIRED = ChatColor.translateAlternateColorCodes('&', config.getString("timers.messages.enderpearl-expired"));
+        ENDERPEARL_ITEM = ChatColor.translateAlternateColorCodes('&', config.getString("timers.messages.enderpearl-item"));
+        SPAWN_TAGGED = ChatColor.translateAlternateColorCodes('&', config.getString("timers.messages.spawn-tagged"));
         UNBUILDABLE_RANGE =config.getInt("unbuildable-range");
 
         

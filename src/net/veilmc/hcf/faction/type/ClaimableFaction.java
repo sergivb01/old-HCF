@@ -42,13 +42,47 @@ extends Faction {
 
     @Override
     public void printDetails(CommandSender sender) {
-        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7&m" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
+        /*sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7&m" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
         sender.sendMessage(this.getDisplayName(sender));
         for (Claim claim : this.claims) {
             Location location = claim.getCenter();
             sender.sendMessage(ChatColor.YELLOW + "  Location: " + ChatColor.WHITE.toString() + ENVIRONMENT_MAPPINGS.get(location.getWorld().getEnvironment()) + ", " + location.getBlockX() + " | " + location.getBlockZ());
         }
-        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7&m" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7&m" + BukkitUtils.STRAIGHT_LINE_DEFAULT));*/
+        List<String> toSend = new ArrayList<>();
+
+
+        for (String string : HCF.getInstance().getConfig().getStringList("faction-settings.show.system-faction")) {
+
+            string = string.replace("%LINE%", BukkitUtils.STRAIGHT_LINE_DEFAULT + "");
+            string = string.replace("%FACTION%", this.getDisplayName(sender));
+
+
+            if(string.contains("%WORLD%"))  {
+                for (Claim claim : this.claims) {
+                    Location location = claim.getCenter();
+                    string = string.replace("%WORLD%", ENVIRONMENT_MAPPINGS.get(location.getWorld().getEnvironment()) + "");
+                }
+            }
+            if(string.contains("%X%"))  {
+                for (Claim claim : this.claims) {
+                    Location location = claim.getCenter();
+                    string = string.replace("%X%", location.getBlockX() + "");
+                }
+            }
+            if(string.contains("%Z%"))  {
+                for (Claim claim : this.claims) {
+                    Location location = claim.getCenter();
+                    string = string.replace("%Z%", location.getBlockZ() + "");
+                }
+            }
+
+            toSend.add(string);
+        }
+
+        for (String message : toSend) {
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
+        }
     }
 
     public Set<Claim> getClaims() {

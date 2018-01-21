@@ -103,6 +103,8 @@ public class HCF extends JavaPlugin {
     public long NEXT_KOTH = -1;
     private String armor;
 
+    public ArrayList<String> players;
+
     public static HCF getPlugin() {
         return plugin;
     }
@@ -136,10 +138,13 @@ public class HCF extends JavaPlugin {
         }
     }
 
+
+
     public void onEnable() {
-        aO6169yawd7Fuck();
+     //   aO6169yawd7Fuck();
 
         plugin = this;
+
 
         CustomEntityRegistration.registerCustomEntities();
 
@@ -166,24 +171,19 @@ public class HCF extends JavaPlugin {
         this.registerListeners();
 
         Cooldowns.createCooldown("revive_cooldown");
-
         Cooldowns.createCooldown("Assassin_item_cooldown");
-
         Cooldowns.createCooldown("Archer_item_cooldown");
-
         Cooldowns.createCooldown("Archer_jump_cooldown");
-
         Cooldowns.createCooldown("report_cooldown");
-
         Cooldowns.createCooldown("helpop_cooldown");
 
-        this.helpTitle = Chat.translateColors(getConfig().getString("Help title"));
-        this.scoreboardTitle = Chat.translateColors(getConfig().getString("Scoreboard title"));
-        this.armor = Chat.translateColors(getConfig().getString("Active Class"));
+        this.scoreboardTitle = Chat.translateColors(getConfig().getString("scoreboard.title"));
+        this.armor = Chat.translateColors(getConfig().getString("scoreboard.active-class"));
         
         this.timerManager.enable();
 
         registerGames();
+
 
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Thread(() -> {

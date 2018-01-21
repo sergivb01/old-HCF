@@ -51,8 +51,9 @@ extends CommandArgument {
             ArrayListMultimap pages = ArrayListMultimap.create();
             for (CommandArgument argument : this.executor.getArguments()) {
                 String permission;
-                if (argument.equals(this) || (permission = argument.getPermission()) != null && !sender.hasPermission(permission) || argument.isPlayerOnly() && !isPlayer) continue;
-                pages.get(val).add(new Text(ChatColor.YELLOW + "  /" + label + ' ' + argument.getName() + ChatColor.WHITE + " - " + ChatColor.GREEN + argument.getDescription()).setColor(ChatColor.GRAY).setClick(ClickAction.SUGGEST_COMMAND, "/" + label + " " + argument.getName()));
+                if (argument.equals(this) || (permission = argument.getPermission()) != null && !sender.hasPermission(permission) || argument.isPlayerOnly() && !isPlayer)
+                    continue;
+                pages.get(val).add(new Text(ChatColor.YELLOW + "  /" + label + ' ' + argument.getName() + ChatColor.GRAY + " - " + ChatColor.WHITE + argument.getDescription()).setColor(ChatColor.GRAY).setClick(ClickAction.SUGGEST_COMMAND, "/" + label + " " + argument.getName()));
                 if (++count % 10 != 0) continue;
                 ++val;
             }
@@ -68,16 +69,20 @@ extends CommandArgument {
             return;
         }
         sender.sendMessage(ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH + BukkitUtils.STRAIGHT_LINE_DEFAULT);
-        sender.sendMessage(ChatColor.YELLOW + "" + ChatColor.BOLD + " Faction Help " + ChatColor.GRAY + "(Page" + pageNumber + " out of " + totalPageCount + ")");
+        sender.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + " Faction Help " + ChatColor.GRAY + "(Page " + pageNumber + " out of " + totalPageCount + ")");
         sender.sendMessage(" ");
         for (Text message : this.pages.get(pageNumber)) {
             message.send(sender);
         }
-        	sender.sendMessage(" ");
-        	sender.sendMessage(ChatColor.GRAY + " » " + ChatColor.YELLOW + "You are currently on page " + ChatColor.GREEN + pageNumber + "/" + ChatColor.GREEN + totalPageCount);
-        
+        sender.sendMessage(" ");
+        Text text = new Text();
+        if(pageNumber == totalPageCount) {
+            text.append(ChatColor.translateAlternateColorCodes('&', " &f* &cYou are on the final page.")).send(sender);
+        } else {
+            text.append(ChatColor.translateAlternateColorCodes('&', " &f* &a&lNext Page")).setHoverText(ChatColor.YELLOW + "Click for next page.").setClick(ClickAction.RUN_COMMAND, "/f help " + (pageNumber+1)).send(sender);
+        }
         sender.sendMessage(ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH + BukkitUtils.STRAIGHT_LINE_DEFAULT);
-}
+    }
 }
 
 

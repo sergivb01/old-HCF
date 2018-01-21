@@ -27,8 +27,8 @@ import net.veilmc.util.BukkitUtils;
 import net.veilmc.util.GenericUtils;
 import net.veilmc.util.JavaUtils;
 import net.veilmc.util.PersistableLocation;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DurationFormatUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -549,7 +549,7 @@ public class PlayerFaction
               }
           }
       }
-
+/*
       sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7&m" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
       sender.sendMessage(ChatColor.WHITE.toString() + ChatColor.BOLD + " ⨠ " + ChatColor.GREEN + this.getDisplayName(sender)+ ChatColor.GRAY +" ("+this.getOnlineMembers().size()+"/"+this.getMembers().size() + " online)");
 
@@ -593,7 +593,73 @@ public class PlayerFaction
           sender.sendMessage(ChatColor.YELLOW+ "   Time until Regen: " + ChatColor.LIGHT_PURPLE + DurationFormatUtils.formatDurationWords(dtrRegenRemaining, true, true));
       }
 
-      sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7&m" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
+      sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7&m" + BukkitUtils.STRAIGHT_LINE_DEFAULT));*/
+
+      List<String> toSend = new ArrayList<>();
+
+
+      for (String string : HCF.getInstance().getConfig().getStringList("faction-settings.show.player-faction")) {
+          string = string.replace("%FACTION%", this.getDisplayName(sender));
+          string = string.replace("%ONLINE%", this.getOnlineMembers().size() + "");
+          string = string.replace("%MAX%", this.getMembers().size() + "");
+          string = string.replace("%LINE%", BukkitUtils.STRAIGHT_LINE_DEFAULT + "");
+          string = string.replace("%KILLS%", combinedKills1 + "");
+          string = string.replace("%BALANCE%", this.balance + "");
+          string = string.replace("%DTR%", this.getDtrColour() + JavaUtils.format(getDeathsUntilRaidable(false)));
+          string = string.replace("%MAXDTR%", this.getMaximumDeathsUntilRaidable() + "");
+
+          if(string.contains("%DTR-SYMBOL%")) {
+              if (this.getRegenStatus().getSymbol() == null) {
+                  string = string.replace("%DTR_SYMBOL%", "");
+              } else {
+                  string = string.replace("%DTR-SYMBOL%", this.getRegenStatus().getSymbol());
+              }
+          }
+
+          if (string.contains("%HOME%")) {
+              if(this.home == null) {
+                  string = string.replace("%HOME%", "None");
+              } else {
+                  string = string.replace("%HOME%", this.getHome().getX() + ", " + this.getHome().getZ());
+              }
+          }
+          if (string.contains("%LEADER%")) {
+              if(leaderName != null) {
+                  string = string.replace("%LEADER%", leaderName);
+              } else {
+                  continue;
+              }
+          }
+          if (string.contains("%CAPTAINS%")) {
+              if(!(captainNames.isEmpty())) {
+                  string = string.replace("%CAPTAINS%", StringUtils.join(captainNames, ChatColor.GRAY + ", "));
+              } else {
+                  continue;
+              }
+          }
+          if (string.contains("%MEMBERS%")) {
+              if(!(memberNames.isEmpty())) {
+                  string = string.replace("%MEMBERS%", StringUtils.join(memberNames, ChatColor.GRAY + ", "));
+              } else {
+                  continue;
+              }
+          }
+          if(string.contains("%REGEN%")) {
+              long dtrRegenRemaining = this.getRemainingRegenerationTime();
+              if(dtrRegenRemaining > 0L) {
+                  string = string.replace("%REGEN%", DurationFormatUtils.formatDurationWords(dtrRegenRemaining, true, true));
+              } else {
+                  string = string.replace("%REGEN%", "Fully Regenerated.");
+              }
+          }
+
+          toSend.add(string);
+      }
+
+      for (String message : toSend) {
+          sender.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
+      }
+
   }
 
   public void broadcast(String message)

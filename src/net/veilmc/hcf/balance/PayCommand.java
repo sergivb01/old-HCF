@@ -1,12 +1,8 @@
 package net.veilmc.hcf.balance;
 
+import com.google.common.primitives.Ints;
 import net.veilmc.base.BaseConstants;
 import net.veilmc.hcf.HCF;
-import com.google.common.primitives.Ints;
-
-import java.util.Collections;
-import java.util.List;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -15,6 +11,9 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
+
+import java.util.Collections;
+import java.util.List;
 
 public class PayCommand
 implements CommandExecutor,
@@ -43,7 +42,7 @@ TabCompleter {
         Player senderPlayer = (Player)sender;
         int n = senderBalance = senderPlayer != null ? this.plugin.getEconomyManager().getBalance(senderPlayer.getUniqueId()) : 1024;
         if (senderBalance < amount) {
-            sender.sendMessage(ChatColor.RED + "You do not have that much money, you have: " + ChatColor.GREEN + senderBalance);
+            sender.sendMessage(ChatColor.RED + "Insufficient funds, you have " + ChatColor.YELLOW + "$" + senderBalance);
             return true;
         }
         OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
@@ -63,7 +62,7 @@ TabCompleter {
             this.plugin.getEconomyManager().subtractBalance(senderPlayer.getUniqueId(), amount);
         }
         this.plugin.getEconomyManager().addBalance(targetPlayer.getUniqueId(), amount);
-        targetPlayer.sendMessage(ChatColor.YELLOW + sender.getName() + " has sent you " + ChatColor.GREEN + '$' + amount + ChatColor.YELLOW + '.');
+        targetPlayer.sendMessage(ChatColor.YELLOW + sender.getName() + " has sent you " + ChatColor.LIGHT_PURPLE + '$' + amount + ChatColor.YELLOW + '.');
         sender.sendMessage(ChatColor.YELLOW + "You have sent " + ChatColor.GREEN + '$' + amount + ChatColor.YELLOW + " to " + target.getName() + '.');
         return true;
     }

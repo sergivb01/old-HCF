@@ -8,11 +8,14 @@ import net.veilmc.hcf.kothgame.faction.KothFaction;
 import net.veilmc.util.BukkitUtils;
 import net.veilmc.util.chat.ClickAction;
 import net.veilmc.util.chat.Text;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,8 +26,6 @@ public class CoordsCommand
     public CoordsCommand(HCF plugin) {
         this.plugin = plugin;
     }
-
-
 
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         List<Faction> events = this.plugin.getFactionManager().getFactions().stream().filter(faction -> faction instanceof EventFaction).collect(Collectors.toList());
@@ -50,6 +51,37 @@ public class CoordsCommand
         }
         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', " "));
         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
+
+        ArrayList<String> donors = new ArrayList<String>();
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            if (player.hasPermission("somevipperm")) {
+                donors.add(player.getName());
+            }
+        }
+
+
+        List<String> toSend = new ArrayList<>();
+
+        for (String string : HCF.getInstance().getConfig().getStringList("online-medics")) {
+            string = string.replace("%LINE%", BukkitUtils.STRAIGHT_LINE_DEFAULT + "");
+            if(string.contains("%MEDICS%")) {
+                if(donors.isEmpty()) {
+                    string = string.replace("%MEDICS%", "&cNone");
+                } else {
+                    string = string.replace("%MEDICS%", donors.toString().replace("[", "").replace("]", ""));
+                }
+            }
+            toSend.add(string);
+        }
+
+        for (String message : toSend) {
+            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
+        }
+
+
+
+
+
         return true;
     }
 }
