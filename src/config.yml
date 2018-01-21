@@ -1,7 +1,4 @@
 
-###########################
-hwid: 'ENTER KEY HERE'
-##########################
 # Scoreboard title for side bar.
 scoreboard:
   title: '&e&lVeil &a[Map 1]'

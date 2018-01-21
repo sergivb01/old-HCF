@@ -124,13 +124,11 @@ public final class ConfigurationService {
     public static boolean DIAMOND_ORE_ALERTS = false;
     public static int UNBUILDABLE_RANGE;
 
-    public static String HWID;
 //    public static List<String> SHOW;
 
     public static void init(FileConfiguration config) {
         KIT_MAP = config.getBoolean("kit-map");
         VEILZ = config.getBoolean("veilz");
-        HWID = config.getString("hwid");
     	TAB = config.getBoolean("tab");
 
     	WARZONE_RADIUS = config.getInt("warzone");
