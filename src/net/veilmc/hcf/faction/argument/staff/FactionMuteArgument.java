@@ -3,9 +3,7 @@ package net.veilmc.hcf.faction.argument.staff;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.hcf.faction.type.PlayerFaction;
-import net.veilmc.util.BukkitUtils;
 import net.veilmc.util.command.CommandArgument;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -56,10 +54,7 @@ public class FactionMuteArgument
             sender.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "Executing " + ChatColor.RED + commandLine);
             console.getServer().dispatchCommand(sender, commandLine);
         }
-        sender.sendMessage(BukkitUtils.STRAIGHT_LINE_DEFAULT);
-        sender.sendMessage("§c§l[Server] §7Executing mutes for the faction §c§l" + playerFaction.getName() + ".");
-        sender.sendMessage("§c§lReason§7: §7" + extraArgs);
-        sender.sendMessage(BukkitUtils.STRAIGHT_LINE_DEFAULT);
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c&lExecuting command to ban the faction " + playerFaction.getName()));
         return true;
     }
 

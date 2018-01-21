@@ -3,9 +3,7 @@ package net.veilmc.hcf.faction.argument.staff;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.hcf.faction.type.PlayerFaction;
-import net.veilmc.util.BukkitUtils;
 import net.veilmc.util.command.CommandArgument;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -24,7 +22,7 @@ public class FactionBanArgument
 
     public FactionBanArgument(HCF plugin)
     {
-        super("tempban", "Tempbans every faction member.");
+        super("ban", "Tempbans every faction member.");
         this.plugin = plugin;
         this.permission = ("hcf.command.faction.argument." + getName());
     }
@@ -56,10 +54,7 @@ public class FactionBanArgument
             sender.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "Executing " + ChatColor.RED + commandLine);
             console.getServer().dispatchCommand(sender, commandLine);
         }
-        sender.sendMessage(ChatColor.GOLD.toString() + ChatColor.STRIKETHROUGH + "----*------------------------------------------*----");
-        sender.sendMessage("§e§l[Server] §fExecuting tempbans for the faction §6§l" + playerFaction.getName() + "§f.");
-        sender.sendMessage("§e§lReason§7: §f" + extraArgs);
-        sender.sendMessage(ChatColor.GOLD.toString() + ChatColor.STRIKETHROUGH + "----*------------------------------------------*----");
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c&lExecuting command to ban the faction " + playerFaction.getName()));
         Bukkit.getServer().broadcastMessage("§eThe faction §6§l" + playerFaction.getName() + " §ehas been tempban for §6§l" +extraArgs);
         return true;
     }

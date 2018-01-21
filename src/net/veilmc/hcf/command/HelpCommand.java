@@ -2,7 +2,6 @@
 package net.veilmc.hcf.command;
 
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.utils.ConfigurationService;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -37,8 +36,7 @@ TabCompleter {
         for (String messages : HCF.getInstance().getConfig().getStringList("help")) {
             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', messages).replace("%OVERWORLD%", HCF.getPlugin().getServerHandler().getWorldBorder() + "")
                     .replace("%NETHER%", HCF.getPlugin().getServerHandler().getNetherBorder() + "")
-                    .replace("%END%", HCF.getPlugin().getServerHandler().getEndBorder() + "")
-                    .replace("%ENDPORTAL%", ConfigurationService.HELP_ENDPORTAL_LOCATION + ""));
+                    .replace("%END%", HCF.getPlugin().getServerHandler().getEndBorder() + ""));
         }
 
         return true;

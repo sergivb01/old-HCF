@@ -38,7 +38,7 @@ public final class ConfigurationService {
     public static long DTR_MILLIS_BETWEEN_UPDATES;
     
     public static String DTR_WORDS_BETWEEN_UPDATES;
-    public static ChatColor BASECOLOU R;
+    public static ChatColor BASECOLOUR;
     
     public static int CONQUEST_REQUIRED_WIN_POINTS = 100;
     public static long DEFAULT_DEATHBAN_DURATION;

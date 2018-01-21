@@ -170,7 +170,7 @@ faction-settings:
     safezone: '&a'
     road: '&c'
     target: '&d'
-   warzone: '&c'
+    warzone: '&c'
     default: '&7'
     wilderness: '&d'
     glowstone: '&6'
