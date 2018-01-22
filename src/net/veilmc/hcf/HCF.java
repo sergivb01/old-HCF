@@ -52,6 +52,7 @@ import net.veilmc.hcf.utils.*;
 import net.veilmc.hcf.visualise.ProtocolLibHook;
 import net.veilmc.hcf.visualise.VisualiseHandler;
 import net.veilmc.hcf.visualise.WallBorderListener;
+import net.veilmc.util.BukkitUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.PluginCommand;
@@ -188,6 +189,34 @@ public class HCF extends JavaPlugin {
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Thread(() -> {
             saveData();
+
+
+
+            ArrayList<String> donors = new ArrayList<String>();
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                if (player.hasPermission("somevipperm")) {
+                    donors.add(player.getName());
+                }
+            }
+            List<String> toSend = new ArrayList<>();
+
+            for (String string : HCF.getInstance().getConfig().getStringList("online-medics")) {
+                string = string.replace("%LINE%", BukkitUtils.STRAIGHT_LINE_DEFAULT + "");
+                if(string.contains("%MEDICS%")) {
+                    if(donors.isEmpty()) {
+                        string = string.replace("%MEDICS%", "&cNone");
+                    } else {
+                        string = string.replace("%MEDICS%", donors.toString().replace("[", "").replace("]", ""));
+                    }
+                }
+                toSend.add(string);
+            }
+
+            for (String message : toSend) {
+                Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', message));
+            }
+
+
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "weather clear 999999999");
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "save-all");
             getLogger().info("Saving data!");
