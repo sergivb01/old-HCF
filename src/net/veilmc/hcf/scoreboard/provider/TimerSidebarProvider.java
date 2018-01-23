@@ -239,6 +239,7 @@ public class TimerSidebarProvider implements SidebarProvider
         }
 
 		if (ConfigurationService.KIT_MAP) {
+            lines.add(new SidebarEntry(ChatColor.GOLD.toString() + " ", ChatColor.GREEN + "Balance: " + ChatColor.YELLOW + "$", this.plugin.getEconomyManager().getBalance(player.getUniqueId())));
 			lines.add(new SidebarEntry(ChatColor.GOLD.toString() + " ", ChatColor.GREEN + "Kills" + ": " + ChatColor.YELLOW, player.getStatistic(Statistic.PLAYER_KILLS)));
 			lines.add(new SidebarEntry(ChatColor.GOLD.toString() + " ", ChatColor.GREEN + "Deaths" + ": " + ChatColor.YELLOW, player.getStatistic(Statistic.DEATHS)));
 
