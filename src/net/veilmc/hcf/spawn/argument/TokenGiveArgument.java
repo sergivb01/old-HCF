@@ -1,3 +1,4 @@
+
 package net.veilmc.hcf.spawn.argument;
 
 import com.google.common.primitives.Ints;
@@ -15,12 +16,12 @@ import java.util.Collections;
 import java.util.List;
 
 public class TokenGiveArgument
-        extends CommandArgument {
+extends CommandArgument {
     private final HCF plugin;
     private static final String PERMISSION = "hcf.command.token.argument.give.bypass";
 
     public TokenGiveArgument(HCF plugin) {
-        super("give", "Give a player a token.");
+        super("give", "Give a player tokens");
         this.plugin = plugin;
         this.aliases = new String[]{"transfer", "send", "pay", "add"};
         this.permission = "hcf.command.token.argument." + this.getName();
@@ -52,17 +53,17 @@ public class TokenGiveArgument
         Player onlineTarget = target.getPlayer();
         if (sender instanceof Player && !sender.hasPermission(PERMISSION)) {
             Player player = (Player)sender;
-            int ownedTokens = this.plugin.getUserManager().getUser(player.getUniqueId()).getSpawnTokens();
-            if (amount > ownedTokens) {
-                sender.sendMessage(ChatColor.RED + "You tried to give " + target.getName() + ' ' + amount + " tokens, but you only have " + ownedTokens + '.');
+            int ownedLives = this.plugin.getUserManager().getUser(player.getUniqueId()).getSpawnTokens();
+            if (amount > ownedLives) {
+                sender.sendMessage(ChatColor.RED + "You tried to give " + target.getName() + ' ' + amount + " tokens, but you only have " + ownedLives + '.');
                 return true;
             }
-            this.plugin.getUserManager().getUser(player.getUniqueId()).setSpawnTokens(ownedTokens - amount);
+            this.plugin.getUserManager().getUser(player.getUniqueId()).setSpawnTokens(ownedLives - amount);
+
         }
-        final int targetTokens = this.plugin.getUserManager().getUser(target.getUniqueId()).getSpawnTokens();
-        this.plugin.getUserManager().getUser(target.getUniqueId()).setSpawnTokens(targetTokens + amount);
+        final int targetLives = this.plugin.getUserManager().getUser(target.getUniqueId()).getSpawnTokens();
+        this.plugin.getUserManager().getUser(target.getUniqueId()).setSpawnTokens(targetLives + amount);
         sender.sendMessage(ChatColor.YELLOW + "You have sent " + ChatColor.GOLD + target.getName() + ChatColor.YELLOW + ' ' + amount + ' ' + (amount > 1 ? "token" : "tokens") + '.');
-        sender.sendMessage(ChatColor.GREEN + "Remaining Tokens: " + ChatColor.RED + targetTokens +  ChatColor.RED + ' ' + ((targetTokens == 1) ? "token" : "tokens") + '.');
         if (onlineTarget != null) {
             onlineTarget.sendMessage(ChatColor.GOLD + sender.getName() + ChatColor.YELLOW + " has sent you " + ChatColor.GOLD + amount + ' ' + (amount > 1 ? "token" : "tokens") + '.');
         }
@@ -73,3 +74,4 @@ public class TokenGiveArgument
         return args.length == 2 ? null : Collections.emptyList();
     }
 }
+
