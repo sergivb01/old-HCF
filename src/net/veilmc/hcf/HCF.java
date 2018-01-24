@@ -380,6 +380,7 @@ public class HCF extends JavaPlugin {
     }
 
     private void registerCommands() {
+        this.getCommand("platinum").setExecutor(new PlatinumReviveCommand(this));
         this.getCommand("supplydrop").setExecutor(new SupplydropCommand(this));
         this.getCommand("enderchest").setExecutor(new PlayerVaultCommand(this));
         this.getCommand("statreset").setExecutor(new StatResetCommand(this));
@@ -415,7 +416,7 @@ public class HCF extends JavaPlugin {
         this.getCommand("servertime").setExecutor(new ServerTimeCommand());
         this.getCommand("spawn").setExecutor(new SpawnCommand(this));
         this.getCommand("timer").setExecutor(new TimerExecutor(this));
-        this.getCommand("revive").setExecutor(new ReviveCommand(this));
+        this.getCommand("medic").setExecutor(new ReviveCommand(this));
         this.getCommand("savedata").setExecutor(new SaveDataCommand());
         this.getCommand("setborder").setExecutor(new SetBorderCommand());
         this.getCommand("loot").setExecutor(new LootExecutor(this));

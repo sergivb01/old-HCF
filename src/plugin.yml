@@ -10,6 +10,8 @@ main: net.veilmc.hcf.HCF
 softdepend: [ProtocolLib]
 commands:
   token:
+  platinum:
+    description: Perk for platinum rank to revive players.
   savedata:
     description: Save all data.
   spawner:
