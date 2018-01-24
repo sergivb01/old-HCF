@@ -43,6 +43,7 @@ import net.veilmc.hcf.listener.*;
 import net.veilmc.hcf.listener.fixes.*;
 import net.veilmc.hcf.lives.LivesExecutor;
 import net.veilmc.hcf.scoreboard.ScoreboardHandler;
+import net.veilmc.hcf.spawn.SpawnCommand;
 import net.veilmc.hcf.timer.TimerExecutor;
 import net.veilmc.hcf.timer.TimerManager;
 import net.veilmc.hcf.timer.type.SotwTimer;
