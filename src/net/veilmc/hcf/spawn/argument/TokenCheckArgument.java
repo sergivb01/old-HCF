@@ -1,3 +1,4 @@
+
 package net.veilmc.hcf.spawn.argument;
 
 import net.veilmc.hcf.HCF;
@@ -17,7 +18,7 @@ public class TokenCheckArgument extends CommandArgument
     private final HCF plugin;
 
     public TokenCheckArgument(final HCF plugin) {
-        super("check", "Check Lives");
+        super("check", "Check Tokens");
         this.plugin = plugin;
         this.permission = "hcf.command.token.argument." + this.getName();
     }
@@ -38,12 +39,12 @@ public class TokenCheckArgument extends CommandArgument
             }
             target = (OfflinePlayer)sender;
         }
-        if (!target.hasPlayedBefore()) {
+        if (!target.hasPlayedBefore() && !target.isOnline()) {
             sender.sendMessage(ChatColor.GOLD + "Player '" + ChatColor.WHITE + args[1] + ChatColor.GOLD + "' not found.");
             return true;
         }
-        final int targetTokens = this.plugin.getUserManager().getUser(target.getUniqueId()).getSpawnTokens();
-        sender.sendMessage(ChatColor.YELLOW + target.getName() + ChatColor.YELLOW + " has " + ChatColor.LIGHT_PURPLE + targetTokens + ChatColor.YELLOW + ' ' + ((targetTokens == 1) ? "spawn token" : "spawn tokens") + '.');
+        final int targetLives = this.plugin.getUserManager().getUser(target.getUniqueId()).getSpawnTokens();
+        sender.sendMessage(ChatColor.YELLOW + target.getName() + ChatColor.YELLOW + " has " + ChatColor.LIGHT_PURPLE + targetLives + ChatColor.YELLOW + ' ' + ((targetLives == 1) ? "token" : "tokens") + '.');
         return true;
     }
 
