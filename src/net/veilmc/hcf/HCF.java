@@ -44,6 +44,7 @@ import net.veilmc.hcf.listener.fixes.*;
 import net.veilmc.hcf.lives.LivesExecutor;
 import net.veilmc.hcf.scoreboard.ScoreboardHandler;
 import net.veilmc.hcf.spawn.SpawnCommand;
+import net.veilmc.hcf.spawn.TokenExecutor;
 import net.veilmc.hcf.timer.TimerExecutor;
 import net.veilmc.hcf.timer.TimerManager;
 import net.veilmc.hcf.timer.type.SotwTimer;
@@ -406,6 +407,7 @@ public class HCF extends JavaPlugin {
         this.getCommand("koth").setExecutor(new KothExecutor(this));
         this.getCommand("store").setExecutor(new StoreCommand(this));
         this.getCommand("lives").setExecutor(new LivesExecutor(this));
+        this.getCommand("token").setExecutor(new TokenExecutor(this));
         this.getCommand("location").setExecutor(new LocationCommand(this));
         this.getCommand("logout").setExecutor(new LogoutCommand(this));
         this.getCommand("mapkit").setExecutor(new MapKitCommand(this));

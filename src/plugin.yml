@@ -9,6 +9,7 @@ version: 4.0-VEILMC
 main: net.veilmc.hcf.HCF
 softdepend: [ProtocolLib]
 commands:
+  token:
   savedata:
     description: Save all data.
   spawner:
