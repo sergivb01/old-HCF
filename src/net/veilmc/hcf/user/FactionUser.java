@@ -1,21 +1,15 @@
 
 package net.veilmc.hcf.user;
 
+import com.google.common.collect.Maps;
 import net.veilmc.hcf.deathban.Deathban;
 import net.veilmc.util.GenericUtils;
-import com.google.common.collect.Maps;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
-import java.util.stream.Collectors;
-
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.entity.Player;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class FactionUser
 implements ConfigurationSerializable {
@@ -31,6 +25,7 @@ implements ConfigurationSerializable {
     private int kills;
     private int diamondsMined;
     private int deaths;
+    private int spawnTokens;
 
     public FactionUser(UUID userUUID) {
         this.userUUID = userUUID;
@@ -48,6 +43,7 @@ implements ConfigurationSerializable {
         this.kills = (Integer)map.get("kills");
         this.deaths = (Integer)map.get("deaths");
         this.reclaimed = (Boolean)map.getOrDefault("reclaimed", false);
+        this.spawnTokens = (Integer)map.get("spawnTokens");
     }
 
     public Map<String, Object> serialize() {
@@ -64,6 +60,7 @@ implements ConfigurationSerializable {
         map.put("kills", this.kills);
         map.put("deaths", this.deaths);
         map.put("reclaimed", this.reclaimed);
+        map.put("spawnTokens", this.spawnTokens);
         return map;
     }
 
@@ -122,6 +119,16 @@ implements ConfigurationSerializable {
     public int getDeaths() {
         return this.deaths;
     }
+
+    public void setSpawnTokens(Integer spawnTokens) {
+        this.spawnTokens = spawnTokens;
+    }
+
+    public int getSpawnTokens() {
+        return this.spawnTokens;
+    }
+
+
 
     public boolean isShowLightning() {
         return this.showLightning;
