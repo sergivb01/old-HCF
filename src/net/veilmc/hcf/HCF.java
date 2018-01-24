@@ -166,11 +166,8 @@ public class HCF extends JavaPlugin {
         this.worldEdit = wep instanceof WorldEditPlugin && wep.isEnabled() ? (WorldEditPlugin)wep : null;
 
         this.registerConfiguration();
-
         this.registerCommands();
-
         this.registerManagers();
-
         this.registerListeners();
 
         Cooldowns.createCooldown("revive_cooldown");
