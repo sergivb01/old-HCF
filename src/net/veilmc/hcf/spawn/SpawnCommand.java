@@ -31,7 +31,6 @@ public class SpawnCommand
             return true;
         }
         if(ConfigurationService.KIT_MAP) {
-
             if (this.plugin.getTimerManager().spawnTagTimer.getRemaining(player) > 0L) {
                 player.sendMessage(ChatColor.RED + "You can not do this while your " + ChatColor.BOLD + "Spawn Tag" + ChatColor.RED + " is active.");
                 return false;
@@ -41,21 +40,22 @@ public class SpawnCommand
             }
         } else {
             if(this.plugin.getUserManager().getUser(player.getUniqueId()).getSpawnTokens()  >=1) {
-                if (this.plugin.getTimerManager().spawnTagTimer.getRemaining(player) > 0L) {
-                    player.sendMessage(ChatColor.RED + "You can not do this while your " + ChatColor.BOLD + "Spawn Tag" + ChatColor.RED + " is active.");
-                    return false;
-                } else {
-                    Integer oldToken = this.plugin.getUserManager().getUser(player.getUniqueId()).getSpawnTokens();
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&aYou have used a spawn token."));
-                    this.plugin.getTimerManager().teleportTimer.teleport(player, Bukkit.getWorld("world").getSpawnLocation(), TimeUnit.SECONDS.toMillis(3L), ChatColor.YELLOW + "Teleporting to spawn in " + ChatColor.LIGHT_PURPLE + "3 seconds.", PlayerTeleportEvent.TeleportCause.COMMAND);
-                    this.plugin.getUserManager().getUser(player.getUniqueId()).setSpawnTokens(oldToken -1);
-                    player.sendMessage("You now have " + this.plugin.getUserManager().getUser(player.getUniqueId()).getSpawnTokens() + " tokens left.");
-                    return true;
-                }
+                    if (this.plugin.getTimerManager().spawnTagTimer.getRemaining(player) > 0L) {
+                        player.sendMessage(ChatColor.RED + "You can not do this while your " + ChatColor.BOLD + "Spawn Tag" + ChatColor.RED + " is active.");
+                        return false;
+                    } else {
+                        Integer oldToken = this.plugin.getUserManager().getUser(player.getUniqueId()).getSpawnTokens();
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&aYou have used a spawn token."));
+                        this.plugin.getTimerManager().teleportTimer.teleport(player, Bukkit.getWorld("world").getSpawnLocation(), TimeUnit.SECONDS.toMillis(3L), ChatColor.YELLOW + "Teleporting to spawn in " + ChatColor.LIGHT_PURPLE + "3 seconds.", PlayerTeleportEvent.TeleportCause.COMMAND);
+                        this.plugin.getUserManager().getUser(player.getUniqueId()).setSpawnTokens(oldToken -1);
+                        player.sendMessage("You now have " + this.plugin.getUserManager().getUser(player.getUniqueId()).getSpawnTokens() + " tokens left.");
+                        return true;
+                    }
             } else {
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cYou do not have enough tokens. You have " + this.plugin.getUserManager().getUser(player.getUniqueId()).getSpawnTokens()));
                 return true;
             }
         }
     }
+
     }
