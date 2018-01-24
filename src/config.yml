@@ -14,7 +14,8 @@ online-medics:
   - ' &f&l* &e%MEDICS%'
   - '&7%LINE%'
 
-
+server-info:
+  teamspeak: 'ts.veilhcf.us'
 
 warzone: 750
 

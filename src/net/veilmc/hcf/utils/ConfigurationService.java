@@ -19,7 +19,9 @@ public final class ConfigurationService {
     public static final Map<PotionType, Integer> POTION_LIMITS = new EnumMap<PotionType, Integer>(PotionType.class);
     public static final Map<World.Environment, Double> SPAWN_RADIUS_MAP = new EnumMap<World.Environment, Double>(World.Environment.class);
 	public static int SPAWNER_PRICE = 40000;
-    
+
+	public static String TEAMSPEAK_IP;
+
     public static ChatColor TEAMMATE_COLOUR;
     public static ChatColor ALLY_COLOUR;
     public static ChatColor ENEMY_COLOUR;
@@ -127,9 +129,12 @@ public final class ConfigurationService {
 //    public static List<String> SHOW;
 
     public static void init(FileConfiguration config) {
+
         KIT_MAP = config.getBoolean("kit-map");
         VEILZ = config.getBoolean("veilz");
     	TAB = config.getBoolean("tab");
+
+    	TEAMSPEAK_IP = config.getString("server-info.teamspeak");
 
     	WARZONE_RADIUS = config.getInt("warzone");
 

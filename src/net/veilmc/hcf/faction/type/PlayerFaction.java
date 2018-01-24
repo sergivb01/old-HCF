@@ -649,7 +649,7 @@ public class PlayerFaction
               if(dtrRegenRemaining > 0L) {
                   string = string.replace("%REGEN%", DurationFormatUtils.formatDurationWords(dtrRegenRemaining, true, true));
               } else {
-                  string = string.replace("%REGEN%", "Fully Regenerated.");
+                  string = string.replace("%REGEN%", ChatColor.GRAY + "Fully Regenerated.");
               }
           }
 

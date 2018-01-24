@@ -12,6 +12,9 @@ commands:
   token:
   platinum:
     description: Perk for platinum rank to revive players.
+  teamspeak:
+    aliases: ["ts", "ts3"]
+    description: Give ts3 IP to the player.
   savedata:
     description: Save all data.
   spawner:

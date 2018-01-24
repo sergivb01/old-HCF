@@ -381,6 +381,7 @@ public class HCF extends JavaPlugin {
 
     private void registerCommands() {
         this.getCommand("platinum").setExecutor(new PlatinumReviveCommand(this));
+        this.getCommand("teamspeak").setExecutor(new TeamspeakCommand());
         this.getCommand("supplydrop").setExecutor(new SupplydropCommand(this));
         this.getCommand("enderchest").setExecutor(new PlayerVaultCommand(this));
         this.getCommand("statreset").setExecutor(new StatResetCommand(this));
