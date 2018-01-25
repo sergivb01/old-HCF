@@ -113,7 +113,7 @@ timers:
   archer-color: '&c'
   notch-apple-timer: '&6&lGapple'
   notch-apple-color: '&6'
-  pvp-class-warmup-timer: '&b&lClass Warmup'
+  pvp-class-warmup-timer: '&bClass Warmup'
   pvp-class-warmup-color: '&b'
   pvptimer-timer: '&a&lPvP Timer'
   pvptimer-color: '&a&l'
