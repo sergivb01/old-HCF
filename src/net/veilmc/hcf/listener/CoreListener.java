@@ -31,10 +31,6 @@ implements Listener {
 
     @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGH)
     public void onPlayerJoinKit(PlayerJoinEvent event) {
-       /* BaseUser user = BasePlugin.getPlugin().getUserManager().getUser(event.getPlayer().getUniqueId());
-        if (!user.hasStartKit()) {
-            Player player = event.getPlayer();
-        }*/
        Player p = event.getPlayer();
         p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
         p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&f&l⨠ &eWelcome &a" + p.getName() + " &eto VeilMC"));

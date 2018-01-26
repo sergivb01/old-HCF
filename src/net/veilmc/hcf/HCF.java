@@ -106,6 +106,9 @@ public class HCF extends JavaPlugin {
     public long NEXT_KOTH = -1;
     private String armor;
 
+    private static int spamCooldown;
+    private static HashMap<String, Integer> database;
+
     public ArrayList<String> players;
 
     public static HCF getPlugin() {
@@ -148,7 +151,6 @@ public class HCF extends JavaPlugin {
 
         plugin = this;
 
-
         CustomEntityRegistration.registerCustomEntities();
 
         ProtocolLibHook.hook(this);
@@ -185,7 +187,7 @@ public class HCF extends JavaPlugin {
         registerGames();
 
 
-
+        registerEnableMessage();
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Thread(() -> {
             saveData();
 
@@ -226,6 +228,16 @@ public class HCF extends JavaPlugin {
         startNewKoth(seconds);
         NEXT_KOTH = System.currentTimeMillis() + (seconds * 1000);
         Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&6&lKOTH &7» &eA new KOTH will be starting in&5 " + (ConfigurationService.KIT_MAP ? "5 minnutes" : "2 hours") + "!"));
+    }
+
+    private void registerEnableMessage() {
+        long timeMillis = System.currentTimeMillis();
+        Bukkit.getConsoleSender().sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
+        Bukkit.getConsoleSender().sendMessage("");
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&e[" + HCF.getPlugin().getDescription().getName() + "] Plugin loaded!"));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&e[" + HCF.getPlugin().getDescription().getName() + "] &eVersion: " + HCF.getPlugin().getDescription().getVersion()));
+        Bukkit.getConsoleSender().sendMessage("");
+        Bukkit.getConsoleSender().sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
     }
 
 
