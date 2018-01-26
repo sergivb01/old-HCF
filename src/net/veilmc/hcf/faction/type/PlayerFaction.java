@@ -36,6 +36,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nullable;
+import java.text.DecimalFormat;
 import java.util.*;
 
 public class PlayerFaction
@@ -620,7 +621,8 @@ public class PlayerFaction
               if(this.home == null) {
                   string = string.replace("%HOME%", "None");
               } else {
-                  string = string.replace("%HOME%", this.getHome().getX() + ", " + this.getHome().getZ());
+                  DecimalFormat df = new DecimalFormat("#");
+                  string = string.replace("%HOME%", df.format(this.getHome().getX()) + ", " + df.format(this.getHome().getZ()));
               }
           }
           if (string.contains("%LEADER%")) {
