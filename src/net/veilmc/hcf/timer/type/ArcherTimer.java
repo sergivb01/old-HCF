@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -52,11 +53,13 @@ public class ArcherTimer
             Bukkit.getPlayer(ArcherClass.tagged.get(userUUID)).sendMessage(ChatColor.GOLD + "Your archer mark on " + ChatColor.RED + player.getName() + ChatColor.GOLD + " has expired.");
             player.sendMessage(ChatColor.GOLD + "You are no longer archer marked.");
             ArcherClass.tagged.remove(player.getUniqueId());
+
             Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, ()->{
                 for (Player players : Bukkit.getServer().getOnlinePlayers()) {
                     this.plugin.getScoreboardHandler().getPlayerBoard(players.getUniqueId()).init(player);
                 }
             }, 10L);
+
         }
     }
 

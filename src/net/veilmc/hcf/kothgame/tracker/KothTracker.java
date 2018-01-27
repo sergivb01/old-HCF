@@ -8,7 +8,6 @@ import net.veilmc.hcf.kothgame.EventType;
 import net.veilmc.hcf.kothgame.faction.EventFaction;
 import net.veilmc.hcf.kothgame.faction.KothFaction;
 import net.veilmc.hcf.utils.DateTimeFormats;
-import me.sergivb01.giraffe.Giraffe;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -52,7 +51,7 @@ implements EventTracker {
     @Override
     public void onContest(EventFaction eventFaction, EventTimer eventTimer) {
         Bukkit.broadcastMessage(ChatColor.YELLOW + "§8[§6§l" + eventFaction.getEventType().getDisplayName() + "§8] " + ChatColor.GOLD + eventFaction.getName() + ChatColor.YELLOW + " can now be contested. " + ChatColor.RED + '(' + DateTimeFormats.KOTH_FORMAT.format(eventTimer.getRemaining()) + ')');
-        Giraffe.getInstance().broadcastKoth(eventFaction.getName());
+
     }
 
     @Override
