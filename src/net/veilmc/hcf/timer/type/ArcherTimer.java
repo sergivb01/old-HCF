@@ -1,6 +1,5 @@
 package net.veilmc.hcf.timer.type;
 
-import me.sergivb01.giraffe.utils.TaskUtil;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.classes.archer.ArcherClass;
 import net.veilmc.hcf.timer.PlayerTimer;
@@ -14,6 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -53,11 +53,13 @@ public class ArcherTimer
             Bukkit.getPlayer(ArcherClass.tagged.get(userUUID)).sendMessage(ChatColor.GOLD + "Your archer mark on " + ChatColor.RED + player.getName() + ChatColor.GOLD + " has expired.");
             player.sendMessage(ChatColor.GOLD + "You are no longer archer marked.");
             ArcherClass.tagged.remove(player.getUniqueId());
-            TaskUtil.runTaskNextTick(()->{
-                for (Player players : Bukkit.getServer().getOnlinePlayers()) {
-                    this.plugin.getScoreboardHandler().getPlayerBoard(players.getUniqueId()).init(player);
+            new BukkitRunnable(){
+                public void run() {
+                    for (Player players : Bukkit.getServer().getOnlinePlayers()) {
+                        plugin.getScoreboardHandler().getPlayerBoard(players.getUniqueId()).init(player);
+                    }
                 }
-            });
+            }.runTaskLater(plugin, 2L);
         }
     }
 

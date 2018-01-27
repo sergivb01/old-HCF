@@ -1,14 +1,14 @@
 
 package net.veilmc.hcf.kothgame;
 
-import net.veilmc.util.cuboid.Cuboid;
 import com.google.common.collect.Maps;
-
-import java.util.Map;
-import javax.annotation.Nullable;
+import net.veilmc.util.cuboid.Cuboid;
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.entity.Player;
+
+import javax.annotation.Nullable;
+import java.util.Map;
 
 public class CaptureZone
 implements ConfigurationSerializable {
@@ -20,7 +20,8 @@ implements ConfigurationSerializable {
     private String defaultCaptureWords;
     private long endMillis;
 
-    
+    private final Object lock = new Object();
+    private String scoreboardRemaining;
     
     public CaptureZone(String name, Cuboid cuboid, long defaultCaptureMillis)
     {
@@ -62,7 +63,13 @@ implements ConfigurationSerializable {
       map.put("captureMillis", Long.toString(this.defaultCaptureMillis));
       return map;
     }
-    
+
+    public String getScoreboardRemaining() {
+        synchronized (lock) {
+            return scoreboardRemaining;
+        }
+    }
+
     public boolean isActive()
     {
       return getRemainingCaptureMillis() > 0L;

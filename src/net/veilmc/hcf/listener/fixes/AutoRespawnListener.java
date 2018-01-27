@@ -2,7 +2,6 @@ package net.veilmc.hcf.listener.fixes;
 
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.utils.ConfigurationService;
-import me.sergivb01.giraffe.utils.TaskUtil;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -18,7 +17,7 @@ public class AutoRespawnListener implements Listener {
     @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onPlayerDie(PlayerDeathEvent event){
         if(ConfigurationService.KIT_MAP){
-            TaskUtil.runTaskNextTick(()-> event.getEntity().spigot().respawn());
+            event.getEntity().getPlayer().spigot().respawn();
         }
     }
 
