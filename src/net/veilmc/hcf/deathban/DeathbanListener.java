@@ -1,7 +1,6 @@
 
 package net.veilmc.hcf.deathban;
 
-import me.sergivb01.sutils.database.mongo.MongoDBDatabase;
 import net.minecraft.util.com.google.common.cache.CacheBuilder;
 import net.veilmc.base.BasePlugin;
 import net.veilmc.hcf.HCF;
@@ -96,11 +95,14 @@ public class DeathbanListener
 
         final Deathban deathban = this.plugin.getDeathbanManager().applyDeathBan(player, event.getDeathMessage());
 
-        MongoDBDatabase.setDeathban(player.getUniqueId(), deathban); //Save deathban in database
-
         final String durationString = HCF.getRemaining(deathban.getRemaining(), true, false);
 
         String formattedDuration = HCF.getRemaining(deathban.getRemaining(), true, false);
+
+
+        if(player.hasPermission("deathban.nokick")){
+            return;
+        }
 
 
         new BukkitRunnable()
@@ -138,9 +140,7 @@ public class DeathbanListener
 
                 }
             }
-        }
-
-                .runTaskLater(this.plugin, 1L);
+        }.runTaskLater(this.plugin, 20L);
     }
 
     private static class LoginMessageRunnable
