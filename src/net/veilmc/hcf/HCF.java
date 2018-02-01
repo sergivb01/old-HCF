@@ -416,6 +416,7 @@ public class HCF extends JavaPlugin {
         this.getCommand("gopple").setExecutor(new GoppleCommand(this));
         this.getCommand("stats").setExecutor(new PlayerStats());
         this.getCommand("koth").setExecutor(new KothExecutor(this));
+        this.getCommand("check").setExecutor(new CheckCommand(this));
         this.getCommand("store").setExecutor(new StoreCommand(this));
         this.getCommand("lives").setExecutor(new LivesExecutor(this));
         this.getCommand("token").setExecutor(new TokenExecutor(this));
