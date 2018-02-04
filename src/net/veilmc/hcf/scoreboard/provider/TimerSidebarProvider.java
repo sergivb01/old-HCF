@@ -93,7 +93,7 @@ public class TimerSidebarProvider implements SidebarProvider {
 
         final Collection<Timer> timers = this.plugin.getTimerManager().getTimers();
         for (final Timer timer : timers) {
-            if (timer instanceof EventTimer) { //Not needed
+            if (timer instanceof EventTimer) {
                 EventTimer event = (EventTimer) timer;
                 if (event.getEventFaction() instanceof ConquestFaction) {
                     continue;
@@ -117,27 +117,26 @@ public class TimerSidebarProvider implements SidebarProvider {
                 }
 
             }else if(timer instanceof GlobalTimer){
-                GlobalTimer playerTimer2 = (GlobalTimer) timer;
-                long remaining = playerTimer2.getRemaining1();
+                GlobalTimer playerTimer = (GlobalTimer) timer;
+                long remaining = playerTimer.getRemaining();
                 if (remaining > 0L) {
-                    String timerName = playerTimer2.getName();
-                    if (timerName.length() > 14) {
-                        timerName = timerName.substring(0, timerName.length());
+                    String timerName1 = playerTimer.getName();
+                    if (timerName1.length() > 14) {
+                        timerName1 = timerName1.substring(0, timerName1.length());
                     }
-                    lines.add(new SidebarEntry(ChatColor.RED.toString() + "" + playerTimer2.getScoreboardPrefix(), timerName, ChatColor.DARK_GRAY + ": " + ChatColor.RED + HCF.getRemaining(remaining, true)));
+                    lines.add(new SidebarEntry(ChatColor.RED.toString() + "" + playerTimer.getScoreboardPrefix(), timerName1, ChatColor.DARK_GRAY + ": " + ChatColor.RED + HCF.getRemaining(remaining, true)));
                 }
-
             }
         }
 
 
 
         if (eotwRunnable != null) {
-            long remaining3 = eotwRunnable.getTimeUntilStarting();
-            if (remaining3 > 0L) {
-                lines.add(new SidebarEntry(ChatColor.DARK_RED.toString() + ChatColor.BOLD, "EOTW" + ChatColor.RED + " Starts", " In " + HCF.getRemaining(remaining3, true)));
-            } else if ((remaining3 = eotwRunnable.getTimeUntilCappable()) > 0L) {
-                lines.add(new SidebarEntry(ChatColor.DARK_RED.toString() + ChatColor.BOLD, "EOTW" + ChatColor.RED + " Cappable ", "In " + HCF.getRemaining(remaining3, true)));
+            long remaining = eotwRunnable.getTimeUntilStarting();
+            if (remaining > 0L) {
+                lines.add(new SidebarEntry(ChatColor.DARK_RED.toString() + ChatColor.BOLD, "EOTW" + ChatColor.RED + " Starts", " In " + HCF.getRemaining(remaining, true)));
+            } else if ((remaining = eotwRunnable.getTimeUntilCappable()) > 0L) {
+                lines.add(new SidebarEntry(ChatColor.DARK_RED.toString() + ChatColor.BOLD, "EOTW" + ChatColor.RED + " Cappable ", "In " + HCF.getRemaining(remaining, true)));
             } else {
                 lines.add(new SidebarEntry(ChatColor.DARK_RED.toString() + ChatColor.BOLD, "EOTW" + ChatColor.RED + " is ", "currently active"));
             }
@@ -217,10 +216,10 @@ public class TimerSidebarProvider implements SidebarProvider {
         if(baseUser.isVanished() || baseUser.isStaffUtil()){
             lines.add(new SidebarEntry(ChatColor.DARK_GRAY + " » " + ChatColor.BLUE.toString(), "Vanished" + ChatColor.DARK_GRAY + ": ", baseUser.isVanished() ? (ChatColor.GREEN + "True") : (ChatColor.RED + "Visible")));
         }
-	
+
 		if (player.hasPermission("command.staffmode") && baseUser.isStaffUtil()) {
             lines.add(new SidebarEntry(ChatColor.DARK_GRAY + "" + ChatColor.BLUE + "Staff Mode: "));
-            
+
             if (baseUser.isStaffUtil()) {
                 lines.add(new SidebarEntry(ChatColor.DARK_GRAY + " » " + ChatColor.BLUE.toString(), "Channel" + ChatColor.DARK_GRAY + ": ", baseUser.isInStaffChat() ? (ChatColor.AQUA + "Staff Chat") : (ChatColor.GREEN + "Global")));
             }
