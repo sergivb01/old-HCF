@@ -1,6 +1,7 @@
 package net.veilmc.hcf.scoreboard.provider;
 
 import net.veilmc.base.BasePlugin;
+import net.veilmc.base.user.BaseUser;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.classes.PvpClass;
 import net.veilmc.hcf.classes.bard.BardClass;
@@ -18,11 +19,12 @@ import net.veilmc.hcf.timer.PlayerTimer;
 import net.veilmc.hcf.timer.Timer;
 import net.veilmc.hcf.timer.type.NotchAppleTimer;
 import net.veilmc.hcf.timer.type.SotwTimer;
+import net.veilmc.hcf.timer.type.SpawnTagTimer;
 import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.hcf.utils.DateTimeFormats;
 import net.veilmc.hcf.utils.DurationFormatter;
 import net.veilmc.util.BukkitUtils;
-import org.apache.commons.lang.time.DurationFormatUtils;
+import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -35,14 +37,16 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import static net.veilmc.hcf.HCF.HOUR;
+
 public class TimerSidebarProvider implements SidebarProvider {
 
     private static DecimalFormat df = new DecimalFormat("#.##");
 
-    public static final ThreadLocal<DecimalFormat> CONQUEST_FORMATTER;
+    private static final ThreadLocal<DecimalFormat> CONQUEST_FORMATTER;
     private static final SidebarEntry EMPTY_ENTRY_FILLER;
     private final HCF plugin;
-    protected static final String STRAIGHT_LINE;
+    private static final String STRAIGHT_LINE;
 
     public TimerSidebarProvider(final HCF plugin) {
         super();
@@ -59,11 +63,11 @@ public class TimerSidebarProvider implements SidebarProvider {
 
     @Override
     public List<SidebarEntry> getLines(final Player player) {
-        List<SidebarEntry> lines = new ArrayList<SidebarEntry>();
+        BaseUser baseUser = BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId());
+        List<SidebarEntry> lines = new ArrayList<>();
         final EOTWHandler.EotwRunnable eotwRunnable = this.plugin.getEotwHandler().getRunnable();
         final PvpClass pvpClass = this.plugin.getPvpClassManager().getEquippedClass(player);
         EventTimer eventTimer = this.plugin.getTimerManager().eventTimer;
-        List<SidebarEntry> conquestLines = null;
         final EventFaction eventFaction = eventTimer.getEventFaction();
         final SotwTimer.SotwRunnable sotwRunnable = this.plugin.getSotwTimer().getSotwRunnable();
 
@@ -80,65 +84,53 @@ public class TimerSidebarProvider implements SidebarProvider {
         if (pvpClass != null && pvpClass instanceof BardClass) {
             final BardClass bardClass = (BardClass) pvpClass;
             lines.add(new SidebarEntry(ChatColor.AQUA.toString() + ChatColor.BOLD, "Bard Energy", ChatColor.DARK_GRAY + ": " + ChatColor.RED + handleBardFormat(bardClass.getEnergyMillis(player), true)));
-            final long remaining2 = bardClass.getRemainingBuffDelay(player);
-            if (remaining2 > 0L) {
-                lines.add(new SidebarEntry(ChatColor.AQUA.toString() + ChatColor.BOLD, "Buff Cooldown", ChatColor.DARK_GRAY + ": " + ChatColor.RED + HCF.getRemaining(remaining2, true)));
+            final long remaining = bardClass.getRemainingBuffDelay(player);
+            if (remaining > 0L) {
+                lines.add(new SidebarEntry(ChatColor.AQUA.toString() + ChatColor.BOLD, "Buff Cooldown", ChatColor.DARK_GRAY + ": " + ChatColor.RED + HCF.getRemaining(remaining, true)));
             }
         }
 
 
         final Collection<Timer> timers = this.plugin.getTimerManager().getTimers();
         for (final Timer timer : timers) {
-            if (timer instanceof EventTimer) {
+            /*if (timer instanceof EventTimer) { //Not needed
                 EventTimer event = (EventTimer) timer;
                 if (event.getEventFaction() instanceof ConquestFaction) {
                     continue;
                 }
-            }
+            }*/
+
             if (timer instanceof PlayerTimer && !(timer instanceof NotchAppleTimer)) {
                 final PlayerTimer playerTimer = (PlayerTimer) timer;
-                final long remaining2 = playerTimer.getRemaining(player);
-                if (remaining2 <= 0L) {
+                final long remaining = playerTimer.getRemaining(player);
+                if (remaining <= 0L) {
                     continue;
                 }
                 String timerName = playerTimer.getName();
                 if (timerName.length() > 14) {
                     timerName = timerName.substring(0, timerName.length());
                 }
-                lines.add(new SidebarEntry(playerTimer.getScoreboardPrefix(), "" + ChatColor.BOLD + timerName, ChatColor.DARK_GRAY + ": " + ChatColor.RED + HCF.getRemaining(remaining2, true)));
-            } else if ((timer instanceof GlobalTimer)) {
+                if(playerTimer instanceof SpawnTagTimer){
+                    lines.add(new SidebarEntry(playerTimer.getScoreboardPrefix(), "" + ChatColor.BOLD + timerName, ChatColor.DARK_GRAY + ": " + ChatColor.RED + getRemainingSpawn(remaining)));
+                }else {
+                    lines.add(new SidebarEntry(playerTimer.getScoreboardPrefix(), "" + ChatColor.BOLD + timerName, ChatColor.DARK_GRAY + ": " + ChatColor.RED + HCF.getRemaining(remaining, true)));
+                }
+
+            }else if(timer instanceof GlobalTimer){
                 GlobalTimer playerTimer2 = (GlobalTimer) timer;
-                long remaining2 = playerTimer2.getRemaining1();
-                if (remaining2 > 0L) {
+                long remaining = playerTimer2.getRemaining1();
+                if (remaining > 0L) {
                     String timerName = playerTimer2.getName();
                     if (timerName.length() > 14) {
                         timerName = timerName.substring(0, timerName.length());
                     }
-                    lines.add(new SidebarEntry(ChatColor.RED.toString() + "" + playerTimer2.getScoreboardPrefix(), timerName, ChatColor.DARK_GRAY + ": " + ChatColor.RED + HCF.getRemaining(remaining2, true)));
+                    lines.add(new SidebarEntry(ChatColor.RED.toString() + "" + playerTimer2.getScoreboardPrefix(), timerName, ChatColor.DARK_GRAY + ": " + ChatColor.RED + HCF.getRemaining(remaining, true)));
                 }
+
             }
         }
 
-        Collection<Timer> timers1 = this.plugin.getTimerManager().getTimers();
-        for (Timer timer1 : timers1) {
-            if (timer1 instanceof EventTimer) {
-                EventTimer event = (EventTimer) timer1;
-                if (event.getEventFaction() instanceof ConquestFaction) {
-                    continue;
-                }
-            }
-            if ((timer1 instanceof GlobalTimer)) {
-                GlobalTimer playerTimer3 = (GlobalTimer) timer1;
-                long remaining3 = playerTimer3.getRemaining();
-                if (remaining3 > 0L) {
-                    String timerName1 = playerTimer3.getName();
-                    if (timerName1.length() > 14) {
-                        timerName1 = timerName1.substring(0, timerName1.length());
-                    }
-                    lines.add(new SidebarEntry(ChatColor.RED.toString() + "" + playerTimer3.getScoreboardPrefix(), timerName1, ChatColor.DARK_GRAY + ": " + ChatColor.RED + HCF.getRemaining(remaining3, true)));
-                }
-            }
-        }
+
 
         if (eotwRunnable != null) {
             long remaining3 = eotwRunnable.getTimeUntilStarting();
@@ -154,14 +146,13 @@ public class TimerSidebarProvider implements SidebarProvider {
 
         if (eventFaction instanceof ConquestFaction) {
             final ConquestFaction conquestFaction = (ConquestFaction) eventFaction;
-            //conquestFaction = (ConquestFaction)eventFaction;
             lines.add(new SidebarEntry(ChatColor.GOLD.toString(), ChatColor.BOLD + "Conquest Event", ""));
             lines.add(new SidebarEntry(" " + ChatColor.RED.toString() + CONQUEST_FORMATTER.get().format(conquestFaction.getRed().getRemainingCaptureMillis() / 1000.0D) + "s", ChatColor.DARK_GRAY + " ⎢ ", ChatColor.YELLOW.toString() + CONQUEST_FORMATTER.get().format(conquestFaction.getYellow().getRemainingCaptureMillis() / 1000.0D) + "s"));
             lines.add(new SidebarEntry(" " + ChatColor.GREEN.toString() + CONQUEST_FORMATTER.get().format(conquestFaction.getGreen().getRemainingCaptureMillis() / 1000.0D) + "s", ChatColor.DARK_GRAY + " ⎢ " + ChatColor.RESET, ChatColor.AQUA.toString() + CONQUEST_FORMATTER.get().format(conquestFaction.getBlue().getRemainingCaptureMillis() / 1000.0D) + "s"));
 
             final ConquestTracker conquestTracker1 = (ConquestTracker) conquestFaction.getEventType().getEventTracker();
-            List<Map.Entry<PlayerFaction, Integer>> entries = new ArrayList<Map.Entry<PlayerFaction, Integer>>(conquestTracker1.getFactionPointsMap().entrySet());
-            final int max = BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId()).isStaffUtil() ? 1 : 4;
+            List<Map.Entry<PlayerFaction, Integer>> entries = new ArrayList<>(conquestTracker1.getFactionPointsMap().entrySet());
+            final int max = baseUser.isStaffUtil() ? 1 : 4;
             if (entries.size() > max) {
                 entries = entries.subList(0, max);
             }
@@ -174,7 +165,6 @@ public class TimerSidebarProvider implements SidebarProvider {
 
             }
 
-
         }
 
 
@@ -182,7 +172,7 @@ public class TimerSidebarProvider implements SidebarProvider {
         if ((autore <= 300000) && (autore > 0)) {
             long remainingTicks = BasePlugin.getPlugin().getAutoRestartHandler().getRemainingTicks();
             long remainingMillis = remainingTicks * 50;
-            lines.add(new SidebarEntry(ChatColor.DARK_RED + "" + ChatColor.BOLD, "Reboot: ", ChatColor.RED + DurationFormatUtils.formatDuration(remainingMillis, (remainingMillis >= HCF.HOUR ? "HH:" : "") + "mm:ss")));
+            lines.add(new SidebarEntry(ChatColor.DARK_RED + "" + ChatColor.BOLD, "Reboot: ", ChatColor.RED + DurationFormatUtils.formatDuration(remainingMillis, (remainingMillis >= HOUR ? "HH:" : "") + "mm:ss")));
         }
 
 	/*	else if (eventFaction instanceof ConquestFaction) {
@@ -193,7 +183,7 @@ public class TimerSidebarProvider implements SidebarProvider {
 			final ConquestFaction conquestFaction = (ConquestFaction)eventFaction;
 			final ConquestTracker conquestTracker = (ConquestTracker)conquestFaction.getEventType().getEventTracker();
 			List<Map.Entry<PlayerFaction, Integer>> entries = new ArrayList<Map.Entry<PlayerFaction, Integer>>(conquestTracker.getFactionPointsMap().entrySet());
-			final int max = BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId()).isStaffUtil() ? 1 : 4;
+			final int max = baseUser.isStaffUtil() ? 1 : 4;
 
             if (entries.size() > max) {
 				entries = entries.subList(0, max);
@@ -218,20 +208,21 @@ public class TimerSidebarProvider implements SidebarProvider {
                }
 
 
-			if(BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId()).isStaffUtil()){
+			if(baseUser.isStaffUtil()){
 				lines.add(new SidebarEntry(ChatColor.DARK_GRAY, ChatColor.DARK_GRAY + "" + TimerSidebarProvider.STRAIGHT_LINE, TimerSidebarProvider.STRAIGHT_LINE));
 			}
 */
 
 
-
-		if (player.hasPermission("command.staffmode") && BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId()).isStaffUtil()) {
+        if(baseUser.isVanished() || baseUser.isStaffUtil()){
+            lines.add(new SidebarEntry(ChatColor.DARK_GRAY + " » " + ChatColor.BLUE.toString(), "Vanished" + ChatColor.DARK_GRAY + ": ", baseUser.isVanished() ? (ChatColor.GREEN + "True") : (ChatColor.RED + "Visible")));
+        }
+	
+		if (player.hasPermission("command.staffmode") && baseUser.isStaffUtil()) {
             lines.add(new SidebarEntry(ChatColor.DARK_GRAY + "" + ChatColor.BLUE + "Staff Mode: "));
-
-            lines.add(new SidebarEntry(ChatColor.DARK_GRAY + " » " + ChatColor.BLUE.toString(), "Vanished" + ChatColor.DARK_GRAY + ": ", BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId()).isVanished() ? (ChatColor.GREEN + "True") : (ChatColor.RED + "Visible")));
-
-            if (BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId()).isStaffUtil()) {
-                lines.add(new SidebarEntry(ChatColor.DARK_GRAY + " » " + ChatColor.BLUE.toString(), "Channel" + ChatColor.DARK_GRAY + ": ", BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId()).isInStaffChat() ? (ChatColor.AQUA + "Staff Chat") : (ChatColor.GREEN + "Global")));
+            
+            if (baseUser.isStaffUtil()) {
+                lines.add(new SidebarEntry(ChatColor.DARK_GRAY + " » " + ChatColor.BLUE.toString(), "Channel" + ChatColor.DARK_GRAY + ": ", baseUser.isInStaffChat() ? (ChatColor.AQUA + "Staff Chat") : (ChatColor.GREEN + "Global")));
             }
             if (HCF.getPlugin().getServerHandler().isChatDisabled()) {
                 lines.add(new SidebarEntry("§8 » §9Chat", "§8: §fLocked ", "(" + HCF.getRemaining(HCF.getPlugin().getServerHandler().getChatDisabledMillis() - System.currentTimeMillis(), true) + ")"));
@@ -241,8 +232,6 @@ public class TimerSidebarProvider implements SidebarProvider {
             }
 
             lines.add(new SidebarEntry("§8 » §9Players", "§8: ", "§c" + Bukkit.getOnlinePlayers().size()));
-        } else if(BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId()).isVanished()) {
-            lines.add(new SidebarEntry(ChatColor.DARK_GRAY + " » " + ChatColor.BLUE.toString(), "Vanished" + ChatColor.DARK_GRAY + ": ",ChatColor.WHITE + "True"));
         }
 
 		if (ConfigurationService.KIT_MAP) {
@@ -268,6 +257,11 @@ public class TimerSidebarProvider implements SidebarProvider {
 	}
 
     private boolean isChatSlowed() { return BasePlugin.getPlugin().getServerHandler().getRemainingChatSlowedMillis() > 0; }
+
+
+    public static String getRemainingSpawn(long duration) {
+        return org.apache.commons.lang.time.DurationFormatUtils.formatDuration(duration, (duration >= HOUR ? "HH:" : "") + "mm:ss");
+    }
 
 	static {
         ThreadLocal.withInitial(() -> new DecimalFormat("##.#"));
