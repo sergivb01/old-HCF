@@ -89,7 +89,7 @@ implements Listener {
 
     @Override
     public String getName() {
-        return this.eventFaction == null ? "Event" : this.eventFaction.getName();
+        return this.eventFaction == null ? "Event" : ChatColor.BOLD.toString() + this.eventFaction.getName();
     }
 
     @Override
