@@ -93,12 +93,12 @@ public class TimerSidebarProvider implements SidebarProvider {
 
         final Collection<Timer> timers = this.plugin.getTimerManager().getTimers();
         for (final Timer timer : timers) {
-            /*if (timer instanceof EventTimer) { //Not needed
+            if (timer instanceof EventTimer) { //Not needed
                 EventTimer event = (EventTimer) timer;
                 if (event.getEventFaction() instanceof ConquestFaction) {
                     continue;
                 }
-            }*/
+            }
 
             if (timer instanceof PlayerTimer && !(timer instanceof NotchAppleTimer)) {
                 final PlayerTimer playerTimer = (PlayerTimer) timer;
