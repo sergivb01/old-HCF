@@ -44,14 +44,10 @@ public class TimerSidebarProvider implements SidebarProvider {
     private final HCF plugin;
     protected static final String STRAIGHT_LINE;
 
-
-
     public TimerSidebarProvider(final HCF plugin) {
         super();
         this.plugin = plugin;
     }
-
-
 
     private static String handleBardFormat(final long millis, final boolean trailingZero) {
         return (trailingZero ? DateTimeFormats.REMAINING_SECONDS_TRAILING : DateTimeFormats.REMAINING_SECONDS).get().format(millis * 0.001);
@@ -73,20 +69,20 @@ public class TimerSidebarProvider implements SidebarProvider {
 
 
         if (sotwRunnable != null) {
-            lines.add(new SidebarEntry(ChatColor.GREEN.toString() + ChatColor.BOLD, "SOTW" + ChatColor.GRAY + ": ", ChatColor.GOLD + DurationFormatter.getRemaining(sotwRunnable.getRemaining(), true)));
+            lines.add(new SidebarEntry(ChatColor.GREEN.toString() + ChatColor.BOLD, "SOTW" + ChatColor.DARK_GRAY + ": ", ChatColor.GOLD + DurationFormatter.getRemaining(sotwRunnable.getRemaining(), true)));
         }
 
         if ((pvpClass instanceof MinerClass)) {
-            lines.add(new SidebarEntry(ChatColor.GRAY + "", ChatColor.AQUA + "" + ChatColor.BOLD + "Miner Class", ChatColor.GRAY + ":"));
-            lines.add(new SidebarEntry(ChatColor.GRAY + " » ", ChatColor.AQUA + "Diamonds", ChatColor.GRAY + ": " + ChatColor.RED + player.getStatistic(Statistic.MINE_BLOCK, Material.DIAMOND_ORE)));
+            lines.add(new SidebarEntry(ChatColor.DARK_GRAY + "", ChatColor.AQUA + "" + ChatColor.BOLD + "Miner Class", ChatColor.DARK_GRAY + ":"));
+            lines.add(new SidebarEntry(ChatColor.DARK_GRAY + " » ", ChatColor.AQUA + "Diamonds", ChatColor.DARK_GRAY + ": " + ChatColor.RED + player.getStatistic(Statistic.MINE_BLOCK, Material.DIAMOND_ORE)));
         }
 
         if (pvpClass != null && pvpClass instanceof BardClass) {
             final BardClass bardClass = (BardClass) pvpClass;
-            lines.add(new SidebarEntry(ChatColor.AQUA.toString() + ChatColor.BOLD, "Bard Energy", ChatColor.GRAY + ": " + ChatColor.RED + handleBardFormat(bardClass.getEnergyMillis(player), true)));
+            lines.add(new SidebarEntry(ChatColor.AQUA.toString() + ChatColor.BOLD, "Bard Energy", ChatColor.DARK_GRAY + ": " + ChatColor.RED + handleBardFormat(bardClass.getEnergyMillis(player), true)));
             final long remaining2 = bardClass.getRemainingBuffDelay(player);
             if (remaining2 > 0L) {
-                lines.add(new SidebarEntry(ChatColor.AQUA.toString() + ChatColor.BOLD, "Buff Cooldown", ChatColor.GRAY + ": " + ChatColor.RED + HCF.getRemaining(remaining2, true)));
+                lines.add(new SidebarEntry(ChatColor.AQUA.toString() + ChatColor.BOLD, "Buff Cooldown", ChatColor.DARK_GRAY + ": " + ChatColor.RED + HCF.getRemaining(remaining2, true)));
             }
         }
 
@@ -109,7 +105,7 @@ public class TimerSidebarProvider implements SidebarProvider {
                 if (timerName.length() > 14) {
                     timerName = timerName.substring(0, timerName.length());
                 }
-                lines.add(new SidebarEntry(playerTimer.getScoreboardPrefix(), "" + ChatColor.BOLD + timerName, ChatColor.GRAY + ": " + ChatColor.RED + HCF.getRemaining(remaining2, true)));
+                lines.add(new SidebarEntry(playerTimer.getScoreboardPrefix(), "" + ChatColor.BOLD + timerName, ChatColor.DARK_GRAY + ": " + ChatColor.RED + HCF.getRemaining(remaining2, true)));
             } else if ((timer instanceof GlobalTimer)) {
                 GlobalTimer playerTimer2 = (GlobalTimer) timer;
                 long remaining2 = playerTimer2.getRemaining1();
@@ -118,7 +114,7 @@ public class TimerSidebarProvider implements SidebarProvider {
                     if (timerName.length() > 14) {
                         timerName = timerName.substring(0, timerName.length());
                     }
-                    lines.add(new SidebarEntry(ChatColor.RED.toString() + "" + playerTimer2.getScoreboardPrefix(), timerName, ChatColor.GRAY + ": " + ChatColor.RED + HCF.getRemaining(remaining2, true)));
+                    lines.add(new SidebarEntry(ChatColor.RED.toString() + "" + playerTimer2.getScoreboardPrefix(), timerName, ChatColor.DARK_GRAY + ": " + ChatColor.RED + HCF.getRemaining(remaining2, true)));
                 }
             }
         }
@@ -139,7 +135,7 @@ public class TimerSidebarProvider implements SidebarProvider {
                     if (timerName1.length() > 14) {
                         timerName1 = timerName1.substring(0, timerName1.length());
                     }
-                    lines.add(new SidebarEntry(ChatColor.RED.toString() + "" + playerTimer3.getScoreboardPrefix(), timerName1, ChatColor.GRAY + ": " + ChatColor.RED + HCF.getRemaining(remaining3, true)));
+                    lines.add(new SidebarEntry(ChatColor.RED.toString() + "" + playerTimer3.getScoreboardPrefix(), timerName1, ChatColor.DARK_GRAY + ": " + ChatColor.RED + HCF.getRemaining(remaining3, true)));
                 }
             }
         }
@@ -160,10 +156,9 @@ public class TimerSidebarProvider implements SidebarProvider {
             final ConquestFaction conquestFaction = (ConquestFaction) eventFaction;
             //conquestFaction = (ConquestFaction)eventFaction;
             lines.add(new SidebarEntry(ChatColor.GOLD.toString(), ChatColor.BOLD + "Conquest Event", ""));
-            lines.add(new SidebarEntry(" " + ChatColor.RED.toString() + CONQUEST_FORMATTER.get().format(conquestFaction.getRed().getRemainingCaptureMillis() / 1000.0D) + "s", ChatColor.GRAY + " ⎢ ", ChatColor.YELLOW.toString() + CONQUEST_FORMATTER.get().format(conquestFaction.getYellow().getRemainingCaptureMillis() / 1000.0D) + "s"));
-            lines.add(new SidebarEntry(" " + ChatColor.GREEN.toString() + CONQUEST_FORMATTER.get().format(conquestFaction.getGreen().getRemainingCaptureMillis() / 1000.0D) + "s", ChatColor.GRAY + " ⎢ " + ChatColor.RESET, ChatColor.AQUA.toString() + CONQUEST_FORMATTER.get().format(conquestFaction.getBlue().getRemainingCaptureMillis() / 1000.0D) + "s"));
+            lines.add(new SidebarEntry(" " + ChatColor.RED.toString() + CONQUEST_FORMATTER.get().format(conquestFaction.getRed().getRemainingCaptureMillis() / 1000.0D) + "s", ChatColor.DARK_GRAY + " ⎢ ", ChatColor.YELLOW.toString() + CONQUEST_FORMATTER.get().format(conquestFaction.getYellow().getRemainingCaptureMillis() / 1000.0D) + "s"));
+            lines.add(new SidebarEntry(" " + ChatColor.GREEN.toString() + CONQUEST_FORMATTER.get().format(conquestFaction.getGreen().getRemainingCaptureMillis() / 1000.0D) + "s", ChatColor.DARK_GRAY + " ⎢ " + ChatColor.RESET, ChatColor.AQUA.toString() + CONQUEST_FORMATTER.get().format(conquestFaction.getBlue().getRemainingCaptureMillis() / 1000.0D) + "s"));
 
-            final ConquestFaction conquestFaction1 = (ConquestFaction) eventFaction;
             final ConquestTracker conquestTracker1 = (ConquestTracker) conquestFaction.getEventType().getEventTracker();
             List<Map.Entry<PlayerFaction, Integer>> entries = new ArrayList<Map.Entry<PlayerFaction, Integer>>(conquestTracker1.getFactionPointsMap().entrySet());
             final int max = BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId()).isStaffUtil() ? 1 : 4;
@@ -173,7 +168,7 @@ public class TimerSidebarProvider implements SidebarProvider {
             int i = 0;
             for (final Map.Entry<PlayerFaction, Integer> entry : entries) {
                 if(!(i >= 4)) {
-                    lines.add(new SidebarEntry(" " + ChatColor.GOLD + ChatColor.BOLD.toString() + (i + 1) + ". ", entry.getKey().getDisplayName(player), ChatColor.GRAY + ": " + ChatColor.RED + entry.getValue()));
+                    lines.add(new SidebarEntry(" " + ChatColor.GOLD + ChatColor.BOLD.toString() + (i + 1) + ". ", entry.getKey().getDisplayName(player), ChatColor.DARK_GRAY + ": " + ChatColor.RED + entry.getValue()));
                     ++i;
                 }
 
@@ -192,9 +187,9 @@ public class TimerSidebarProvider implements SidebarProvider {
 
 	/*	else if (eventFaction instanceof ConquestFaction) {
 			if (!lines.isEmpty()) {
-				lines.add(new SidebarEntry(ChatColor.GRAY, ChatColor.GRAY + TimerSidebarProvider.STRAIGHT_LINE, TimerSidebarProvider.STRAIGHT_LINE));
+				lines.add(new SidebarEntry(ChatColor.DARK_GRAY, ChatColor.DARK_GRAY + TimerSidebarProvider.STRAIGHT_LINE, TimerSidebarProvider.STRAIGHT_LINE));
 			}
-			lines.add(new SidebarEntry(ChatColor.GOLD + ChatColor.BOLD.toString(), "Conquest", ChatColor.GRAY + ":"));
+			lines.add(new SidebarEntry(ChatColor.GOLD + ChatColor.BOLD.toString(), "Conquest", ChatColor.DARK_GRAY + ":"));
 			final ConquestFaction conquestFaction = (ConquestFaction)eventFaction;
 			final ConquestTracker conquestTracker = (ConquestTracker)conquestFaction.getEventType().getEventTracker();
 			List<Map.Entry<PlayerFaction, Integer>> entries = new ArrayList<Map.Entry<PlayerFaction, Integer>>(conquestTracker.getFactionPointsMap().entrySet());
@@ -210,50 +205,50 @@ public class TimerSidebarProvider implements SidebarProvider {
 
 
             for (final Map.Entry<PlayerFaction, Integer> entry : entries) {
-				lines.add(new SidebarEntry(" " + ChatColor.GOLD + ChatColor.BOLD.toString() + (i + 1) + ". ", entry.getKey().getDisplayName(player), ChatColor.GRAY + ": " + entry.getValue()));
+				lines.add(new SidebarEntry(" " + ChatColor.GOLD + ChatColor.BOLD.toString() + (i + 1) + ". ", entry.getKey().getDisplayName(player), ChatColor.DARK_GRAY + ": " + entry.getValue()));
 				++i;
 			}
 			if (!entries.isEmpty()) {
-				lines.add(new SidebarEntry(ChatColor.GRAY + "", TimerSidebarProvider.STRAIGHT_LINE + ChatColor.GRAY, TimerSidebarProvider.STRAIGHT_LINE));
+				lines.add(new SidebarEntry(ChatColor.DARK_GRAY + "", TimerSidebarProvider.STRAIGHT_LINE + ChatColor.DARK_GRAY, TimerSidebarProvider.STRAIGHT_LINE));
 			}
 
                 for (final CaptureZone captureZone : conquestFaction.getCaptureZones()) {
                     final ConquestFaction.ConquestZone conquestZone = conquestFaction.getZone(captureZone);
-                    lines.add(new SidebarEntry("  " + conquestZone.getColor() + ChatColor.BOLD, conquestZone.getName(), ChatColor.GRAY + ": " + DurationFormatter.getRemaining(captureZone.getRemainingCaptureMillis(), true)));
+                    lines.add(new SidebarEntry("  " + conquestZone.getColor() + ChatColor.BOLD, conquestZone.getName(), ChatColor.DARK_GRAY + ": " + DurationFormatter.getRemaining(captureZone.getRemainingCaptureMillis(), true)));
                }
 
 
 			if(BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId()).isStaffUtil()){
-				lines.add(new SidebarEntry(ChatColor.GRAY, ChatColor.GRAY + "" + TimerSidebarProvider.STRAIGHT_LINE, TimerSidebarProvider.STRAIGHT_LINE));
+				lines.add(new SidebarEntry(ChatColor.DARK_GRAY, ChatColor.DARK_GRAY + "" + TimerSidebarProvider.STRAIGHT_LINE, TimerSidebarProvider.STRAIGHT_LINE));
 			}
 */
 
 
 
 		if (player.hasPermission("command.staffmode") && BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId()).isStaffUtil()) {
-            lines.add(new SidebarEntry(ChatColor.GOLD + "" + ChatColor.BOLD + "Staff Mode: "));
+            lines.add(new SidebarEntry(ChatColor.DARK_GRAY + "" + ChatColor.BLUE + "Staff Mode: "));
 
-            lines.add(new SidebarEntry(ChatColor.GRAY + " » " + ChatColor.YELLOW.toString(), "Vanished" + ChatColor.GRAY + ": ", BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId()).isVanished() ? (ChatColor.GREEN + "True") : (ChatColor.RED + "Visible")));
+            lines.add(new SidebarEntry(ChatColor.DARK_GRAY + " » " + ChatColor.BLUE.toString(), "Vanished" + ChatColor.DARK_GRAY + ": ", BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId()).isVanished() ? (ChatColor.GREEN + "True") : (ChatColor.RED + "Visible")));
 
             if (BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId()).isStaffUtil()) {
-                lines.add(new SidebarEntry(ChatColor.GRAY + " » " + ChatColor.YELLOW.toString(), "Channel" + ChatColor.GRAY + ": ", BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId()).isInStaffChat() ? (ChatColor.AQUA + "Staff Chat") : (ChatColor.GREEN + "Global")));
+                lines.add(new SidebarEntry(ChatColor.DARK_GRAY + " » " + ChatColor.BLUE.toString(), "Channel" + ChatColor.DARK_GRAY + ": ", BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId()).isInStaffChat() ? (ChatColor.AQUA + "Staff Chat") : (ChatColor.GREEN + "Global")));
             }
             if (HCF.getPlugin().getServerHandler().isChatDisabled()) {
-                lines.add(new SidebarEntry("§7 » §eChat", "§7: §cLocked", "§c (" + HCF.getRemaining(HCF.getPlugin().getServerHandler().getChatDisabledMillis() - System.currentTimeMillis(), true) + ")"));
+                lines.add(new SidebarEntry("§8 » §9Chat", "§8: §fLocked ", "(" + HCF.getRemaining(HCF.getPlugin().getServerHandler().getChatDisabledMillis() - System.currentTimeMillis(), true) + ")"));
             }
             if (isChatSlowed()) {
-                lines.add(new SidebarEntry("§7 » §eChat", "§7: §cSlowed ", "(" + BasePlugin.getPlugin().getServerHandler().getChatSlowedDelay() + "s)"));
+                lines.add(new SidebarEntry("§8 » §9Chat", "§8: §fSlowed ", "(" + BasePlugin.getPlugin().getServerHandler().getChatSlowedDelay() + "s)"));
             }
 
-            lines.add(new SidebarEntry("§7 » §ePlayers", "§7: ", "§c" + Bukkit.getOnlinePlayers().size()));
+            lines.add(new SidebarEntry("§8 » §9Players", "§8: ", "§c" + Bukkit.getOnlinePlayers().size()));
         } else if(BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId()).isVanished()) {
-            lines.add(new SidebarEntry(ChatColor.GRAY + " » " + ChatColor.YELLOW.toString(), "Vanished" + ChatColor.GRAY + ": ",ChatColor.GREEN + "True"));
+            lines.add(new SidebarEntry(ChatColor.DARK_GRAY + " » " + ChatColor.BLUE.toString(), "Vanished" + ChatColor.DARK_GRAY + ": ",ChatColor.WHITE + "True"));
         }
 
 		if (ConfigurationService.KIT_MAP) {
-            lines.add(new SidebarEntry(ChatColor.GOLD.toString() + " ", ChatColor.GREEN + "Balance: " + ChatColor.YELLOW + "$", this.plugin.getEconomyManager().getBalance(player.getUniqueId())));
-			lines.add(new SidebarEntry(ChatColor.GOLD.toString() + " ", ChatColor.GREEN + "Kills" + ": " + ChatColor.YELLOW, player.getStatistic(Statistic.PLAYER_KILLS)));
-			lines.add(new SidebarEntry(ChatColor.GOLD.toString() + " ", ChatColor.GREEN + "Deaths" + ": " + ChatColor.YELLOW, player.getStatistic(Statistic.DEATHS)));
+            lines.add(new SidebarEntry(ChatColor.GOLD.toString() + " ", ChatColor.BLUE + "Balance: " + ChatColor.WHITE + "$", this.plugin.getEconomyManager().getBalance(player.getUniqueId())));
+			lines.add(new SidebarEntry(ChatColor.GOLD.toString() + " ", ChatColor.BLUE + "Kills" + ": " + ChatColor.WHITE, player.getStatistic(Statistic.PLAYER_KILLS)));
+			lines.add(new SidebarEntry(ChatColor.GOLD.toString() + " ", ChatColor.BLUE + "Deaths" + ": " + ChatColor.WHITE, player.getStatistic(Statistic.DEATHS)));
 
 //			Integer k = Integer.valueOf(player.getStatistic(Statistic.PLAYER_KILLS));
 //			double d = Integer.valueOf(player.getStatistic(Statistic.DEATHS));
@@ -266,8 +261,8 @@ public class TimerSidebarProvider implements SidebarProvider {
 		}
 
         if (!lines.isEmpty()) {
-			lines.add(0, new SidebarEntry(ChatColor.GRAY, TimerSidebarProvider.STRAIGHT_LINE, TimerSidebarProvider.STRAIGHT_LINE));
-			lines.add(lines.size(), new SidebarEntry(ChatColor.GRAY,ChatColor.STRIKETHROUGH + TimerSidebarProvider.STRAIGHT_LINE, TimerSidebarProvider.STRAIGHT_LINE));
+			lines.add(0, new SidebarEntry(ChatColor.DARK_GRAY, TimerSidebarProvider.STRAIGHT_LINE, TimerSidebarProvider.STRAIGHT_LINE));
+			lines.add(lines.size(), new SidebarEntry(ChatColor.DARK_GRAY,ChatColor.STRIKETHROUGH + TimerSidebarProvider.STRAIGHT_LINE, TimerSidebarProvider.STRAIGHT_LINE));
 		}
 		return lines;
 	}
