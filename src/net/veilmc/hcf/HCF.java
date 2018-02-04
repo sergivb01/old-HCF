@@ -2,6 +2,7 @@ package net.veilmc.hcf;
 
 import com.google.common.base.Joiner;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
+import me.sergivb01.sutils.ServerUtils;
 import net.veilmc.base.BasePlugin;
 import net.veilmc.base.ServerHandler;
 import net.veilmc.hcf.balance.*;
@@ -247,6 +248,7 @@ public class HCF extends JavaPlugin {
         new BukkitRunnable() {
             public void run() {
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "event start " + getNextGame());
+                ServerUtils.broadcastKoth(getNextGame());
                 NEXT_KOTH = -1;
             }
         }.runTaskLater(this, 20L * seconds);
