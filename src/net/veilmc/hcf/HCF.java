@@ -204,7 +204,7 @@ public class HCF extends JavaPlugin {
             });
 
             broadcastMessage.forEach(s -> Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', s)));
-        }, 20L, (10 * 5) * 20L);
+        }, 15 * 20L, (10 * 60) * 20L);
 
         Bukkit.getScheduler().scheduleAsyncRepeatingTask(this, ()->{
             Bukkit.broadcastMessage(ChatColor.GOLD.toString() + ChatColor.BOLD + "Starting backup of data");
