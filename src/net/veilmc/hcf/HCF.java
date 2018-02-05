@@ -234,7 +234,6 @@ public class HCF extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
     }
 
-
     public void startNewKoth(int seconds){
         this.getLogger().info("Starting koth in " + seconds + " seconds. (" + getNextGame() + ")");
         NEXT_KOTH = System.currentTimeMillis() + (seconds * 1000);
@@ -279,7 +278,6 @@ public class HCF extends JavaPlugin {
 
     }
 
-
     private void registerConfiguration() {
         ConfigurationSerialization.registerClass(CaptureZone.class);
         ConfigurationSerialization.registerClass(Deathban.class);
@@ -304,7 +302,6 @@ public class HCF extends JavaPlugin {
         ConfigurationSerialization.registerClass(RoadFaction.SouthRoadFaction.class);
         ConfigurationSerialization.registerClass(RoadFaction.WestRoadFaction.class);
         ConfigurationSerialization.registerClass(GlowstoneFaction.class);
-
     }
 
     private void registerListeners() {
@@ -373,7 +370,6 @@ public class HCF extends JavaPlugin {
         manager.registerEvents(new SotwListener(this), this);
         //manager.registerEvents(new StatTrackListener(), this);
         manager.registerEvents(new CobbleCommand(), this);
-
     }
 
     private void registerCommands() {
@@ -447,7 +443,6 @@ public class HCF extends JavaPlugin {
         this.sotwTimer = new SotwTimer();
         this.keyManager = new KeyManager(this);
         this.message = new Message(this);
-
     }
 
     public Message getMessage() {
