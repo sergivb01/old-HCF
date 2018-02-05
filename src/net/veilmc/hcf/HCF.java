@@ -196,9 +196,11 @@ public class HCF extends JavaPlugin {
 
             List<String> broadcastMessage = new ArrayList<>();
             HCF.getInstance().getConfig().getStringList("online-medics").forEach(s -> {
-                s.replace("%LINE%", BukkitUtils.STRAIGHT_LINE_DEFAULT + "")
-                        .replace("%MEDICS%", donors.isEmpty() ? "&cNone" : donors.toString().replace("[", "").replace("]", ""));
-                broadcastMessage.add(s);
+                broadcastMessage.add(
+                        s.replace("%LINE%", BukkitUtils.STRAIGHT_LINE_DEFAULT + "")
+                        .replace("%MEDICS%", donors.isEmpty() ?
+                                "&cNone" :
+                                donors.toString().replace("[", "").replace("]", "")));
             });
 
             broadcastMessage.forEach(s -> Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', s)));
