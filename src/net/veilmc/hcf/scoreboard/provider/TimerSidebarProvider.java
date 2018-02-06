@@ -213,30 +213,26 @@ public class TimerSidebarProvider implements SidebarProvider {
 */
 
 
-        if(baseUser.isVanished() || baseUser.isStaffUtil()){
-            lines.add(new SidebarEntry(ChatColor.DARK_GRAY + " » " + ChatColor.BLUE.toString(), "Vanished" + ChatColor.DARK_GRAY + ": ", baseUser.isVanished() ? (ChatColor.GREEN + "True") : (ChatColor.RED + "Visible")));
-        }
-
-		if (baseUser.isVanished()) {
-            if (baseUser.isStaffUtil()) {
-                lines.add(new SidebarEntry(ChatColor.DARK_GRAY + "" + ChatColor.BLUE + "Staff Mode: "));
-            }
+	    if(baseUser.isVanished() && !baseUser.isStaffUtil()){
+            lines.add(new SidebarEntry(ChatColor.DARK_GRAY + " » " + ChatColor.BLUE.toString(), "Vanished" + ChatColor.DARK_GRAY + ": ", ChatColor.GREEN + "True"));
+        }else if(baseUser.isStaffUtil()) {
+            lines.add(new SidebarEntry(ChatColor.DARK_GRAY + "" + ChatColor.BLUE + "Staff Mode: "));
 
             lines.add(new SidebarEntry(ChatColor.DARK_GRAY + " » " + ChatColor.BLUE.toString(), "Vanished" + ChatColor.DARK_GRAY + ": ", baseUser.isVanished() ? (ChatColor.GREEN + "True") : (ChatColor.RED + "Visible")));
-            if (baseUser.isStaffUtil()) {
-                lines.add(new SidebarEntry(ChatColor.DARK_GRAY + " » " + ChatColor.BLUE.toString(), "Channel" + ChatColor.DARK_GRAY + ": ", baseUser.isInStaffChat() ? (ChatColor.AQUA + "Staff Chat") : (ChatColor.GREEN + "Global")));
+            lines.add(new SidebarEntry(ChatColor.DARK_GRAY + " » " + ChatColor.BLUE.toString(), "Channel" + ChatColor.DARK_GRAY + ": ", baseUser.isInStaffChat() ? (ChatColor.AQUA + "Staff Chat") : (ChatColor.GREEN + "Global")));
 
-                if (HCF.getPlugin().getServerHandler().isChatDisabled()) {
-                    lines.add(new SidebarEntry("§8 » §9Chat", "§8: §fLocked ", "(" + HCF.getRemaining(HCF.getPlugin().getServerHandler().getChatDisabledMillis() - System.currentTimeMillis(), true) + ")"));
-                }
-
-                if (isChatSlowed()) {
-                    lines.add(new SidebarEntry("§8 » §9Chat", "§8: §fSlowed ", "(" + BasePlugin.getPlugin().getServerHandler().getChatSlowedDelay() + "s)"));
-                }
-
-                lines.add(new SidebarEntry("§8 » §9Players", "§8: ", "§c" + Bukkit.getOnlinePlayers().size()));
+            if (HCF.getPlugin().getServerHandler().isChatDisabled()) {
+                lines.add(new SidebarEntry("§8 » §9Chat", "§8: §fLocked ", "(" + HCF.getRemaining(HCF.getPlugin().getServerHandler().getChatDisabledMillis() - System.currentTimeMillis(), true) + ")"));
             }
+
+            if (isChatSlowed()) {
+                lines.add(new SidebarEntry("§8 » §9Chat", "§8: §fSlowed ", "(" + BasePlugin.getPlugin().getServerHandler().getChatSlowedDelay() + "s)"));
+            }
+
+            lines.add(new SidebarEntry("§8 » §9Players", "§8: ", "§c" + Bukkit.getOnlinePlayers().size()));
         }
+
+
 
 		if (ConfigurationService.KIT_MAP) {
             lines.add(new SidebarEntry(ChatColor.GOLD.toString() + " ", ChatColor.BLUE + "Balance: " + ChatColor.WHITE + "$", this.plugin.getEconomyManager().getBalance(player.getUniqueId())));
