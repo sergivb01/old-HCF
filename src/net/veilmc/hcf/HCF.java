@@ -192,7 +192,7 @@ public class HCF extends JavaPlugin {
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, ()->{
             List<String> donors = new ArrayList<>();
-            Bukkit.getOnlinePlayers().stream().filter(player -> player.hasPermission("vip.broadcast")).forEach(player -> donors.add(player.getDisplayName()));
+            Bukkit.getOnlinePlayers().stream().filter(player -> player.hasPermission("vip.broadcast") && !player.isOp() && !player.hasPermission("*")).forEach(player -> donors.add(player.getDisplayName()));
 
             List<String> broadcastMessage = new ArrayList<>();
             HCF.getInstance().getConfig().getStringList("online-medics").forEach(s -> {
