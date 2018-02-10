@@ -37,11 +37,11 @@ implements Listener {
         }*/
        Player p = event.getPlayer();
         p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
-        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&f&l⨠ &eWelcome &a" + p.getName() + " &eto VeilMC"));
-        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7 ⨠ &eSupport: &ats.veilhcf.us"));
-        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7 ⨠ &eWebsite: &aveilhcf.us"));
-        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7 ⨠ &eMapkit: &aProt: " + this.plugin.getConfig().get("enchant-limits.PROTECTION_ENVIRONMENTAL") + " &aSharp: " + this.plugin.getConfig().get("enchant-limits.DAMAGE_ALL")));
-        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7 ⨠ &eFaction: &a" + this.plugin.getConfig().get("faction-settings.max-players") + " Members &e/ &a" + (this.plugin.getConfig().get("faction-settings.max-allies").toString().equalsIgnoreCase("0") ? "No" : this.plugin.getConfig().get("faction-settings.max-allies")) + " Allies"));
+        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&f&l⨠ &9Welcome &f" + p.getName() + " &eto VeilMC"));
+        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7 ⨠ &9Support: &fts.veilhcf.us"));
+        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7 ⨠ &9Website: &fveilhcf.us"));
+        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7 ⨠ &9Mapkit: &fProt: " + this.plugin.getConfig().get("enchant-limits.PROTECTION_ENVIRONMENTAL") + " &fSharp: " + this.plugin.getConfig().get("enchant-limits.DAMAGE_ALL")));
+        p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7 ⨠ &9Faction: &f" + this.plugin.getConfig().get("faction-settings.max-players") + " Members &9/ &f" + (this.plugin.getConfig().get("faction-settings.max-allies").toString().equalsIgnoreCase("0") ? "No" : this.plugin.getConfig().get("faction-settings.max-allies")) + " Allies"));
         p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
     }
 

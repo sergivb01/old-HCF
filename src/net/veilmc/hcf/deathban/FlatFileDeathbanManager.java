@@ -155,6 +155,9 @@ public class FlatFileDeathbanManager implements DeathbanManager
         if (player.hasPermission("hcf.deathban.30m")) {
             duration = 1800000L;
         }
+        if (player.hasPermission("hcf.deathban.35m")) {
+            duration = 2100000L;
+        }
         if (player.hasPermission("hcf.deathban.15m")) {
             duration = 900000L;
         }
