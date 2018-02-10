@@ -5,7 +5,7 @@ import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.kothgame.EventTimer;
 import net.veilmc.hcf.kothgame.faction.EventFaction;
 import net.veilmc.util.command.CommandArgument;
-
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -31,7 +31,7 @@ extends CommandArgument {
             sender.sendMessage(ChatColor.RED + "There is not a running event.");
             return true;
         }
-//        Bukkit.broadcastMessage((String)(sender.getName() + (Object)ChatColor.YELLOW + " has cancelled " + (eventFaction == null ? "the active event" : new StringBuilder().append((Object)ChatColor.AQUA).append(eventFaction.getName()).append((Object)ChatColor.YELLOW).toString()) + "."));
+        Bukkit.broadcastMessage(sender.getName() + ChatColor.YELLOW + " has cancelled " + (eventFaction == null ? "the active event" : ChatColor.AQUA + eventFaction.getName() + ChatColor.YELLOW) + ".");
         return true;
     }
 }

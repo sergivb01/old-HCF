@@ -106,6 +106,9 @@ public class HCF extends JavaPlugin {
     public long NEXT_KOTH = -1;
     private String armor;
 
+    private static int spamCooldown;
+    private static HashMap<String, Integer> database;
+
     public ArrayList<String> players;
 
     public static HCF getPlugin() {
@@ -148,7 +151,6 @@ public class HCF extends JavaPlugin {
 
         plugin = this;
 
-
         CustomEntityRegistration.registerCustomEntities();
 
         ProtocolLibHook.hook(this);
@@ -185,41 +187,34 @@ public class HCF extends JavaPlugin {
         registerGames();
 
 
-
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Thread(() -> {
-            saveData();
+        registerEnableMessage();
 
 
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, ()->{
+            List<String> donors = new ArrayList<>();
+            Bukkit.getOnlinePlayers().stream().filter(player -> player.hasPermission("vip.broadcast") && !player.isOp() && !player.hasPermission("*")).forEach(player -> donors.add(player.getDisplayName()));
 
-            ArrayList<String> donors = new ArrayList<String>();
-            for (Player player : Bukkit.getOnlinePlayers()) {
-                if (player.hasPermission("somevipperm")) {
-                    donors.add(player.getName());
-                }
-            }
-            List<String> toSend = new ArrayList<>();
+            List<String> broadcastMessage = new ArrayList<>();
+            HCF.getInstance().getConfig().getStringList("online-medics").forEach(s -> broadcastMessage.add(
+                    s.replace("%LINE%", BukkitUtils.STRAIGHT_LINE_DEFAULT + "")
+                    .replace("%MEDICS%", donors.isEmpty() ?
+                            "&cNone" :
+                            donors.toString().replace("[", "").replace("]", ""))));
 
-            for (String string : HCF.getInstance().getConfig().getStringList("online-medics")) {
-                string = string.replace("%LINE%", BukkitUtils.STRAIGHT_LINE_DEFAULT + "");
-                if(string.contains("%MEDICS%")) {
-                    if(donors.isEmpty()) {
-                        string = string.replace("%MEDICS%", "&cNone");
-                    } else {
-                        string = string.replace("%MEDICS%", donors.toString().replace("[", "").replace("]", ""));
-                    }
-                }
-                toSend.add(string);
-            }
+            broadcastMessage.forEach(s -> Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', s)));
+        }, 15 * 20L, (10 * 60) * 20L);
 
-            for (String message : toSend) {
-                Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', message));
-            }
-
-
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "weather clear 999999999");
+        Bukkit.getScheduler().scheduleAsyncRepeatingTask(this, ()->{
+            Bukkit.broadcastMessage(ChatColor.GOLD.toString() + ChatColor.BOLD + "Starting backup of data");
+            Bukkit.getWorlds().forEach(world -> {
+                world.setThundering(false);
+                world.setStorm(false);
+            });
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "save-all");
-            getLogger().info("Saving data!");
-        })::start, 10 * 20L, (60 * 15) * 20L);
+            saveData();
+            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&6&lAutoSave &eTask was completed."));
+        }, 10 * 20L, (60 * 15) * 20L);
+
 
 
         int seconds = (ConfigurationService.KIT_MAP ? 300 : 7200);
@@ -228,6 +223,14 @@ public class HCF extends JavaPlugin {
         Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&6&lKOTH &7» &eA new KOTH will be starting in&5 " + (ConfigurationService.KIT_MAP ? "5 minnutes" : "2 hours") + "!"));
     }
 
+    private void registerEnableMessage() {
+        Bukkit.getConsoleSender().sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
+        Bukkit.getConsoleSender().sendMessage("");
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&e[" + HCF.getPlugin().getDescription().getName() + "] Plugin loaded!"));
+        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&e[" + HCF.getPlugin().getDescription().getName() + "] &eVersion: " + HCF.getPlugin().getDescription().getVersion()));
+        Bukkit.getConsoleSender().sendMessage("");
+        Bukkit.getConsoleSender().sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
+    }
 
     public void startNewKoth(int seconds){
         this.getLogger().info("Starting koth in " + seconds + " seconds. (" + getNextGame() + ")");
@@ -250,18 +253,9 @@ public class HCF extends JavaPlugin {
     }
 
     public void saveData() {
-        boolean error = false;
-
-        Bukkit.broadcastMessage(ChatColor.GOLD.toString() + ChatColor.BOLD + "Starting backup of data");
         BasePlugin.getPlugin().getServerHandler().saveServerData(); //Base data
 
-        for(Player p : Bukkit.getOnlinePlayers()){ //HCF player data stuff
-            try {
-                p.saveData();
-            }catch (Exception e) { if(!error) error = true; }
-        }
-
-        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&6&lAutoSave &eTask was completed " + (error ? "with &aerrors&e" : "successfully!")));
+        Bukkit.getOnlinePlayers().forEach(Player::saveData);//Save data
 
         this.deathbanManager.saveDeathbanData(); //Deathbans
         this.economyManager.saveEconomyData(); //Balance
@@ -281,7 +275,6 @@ public class HCF extends JavaPlugin {
         this.timerManager.disable();
 
     }
-
 
     private void registerConfiguration() {
         ConfigurationSerialization.registerClass(CaptureZone.class);
@@ -307,7 +300,6 @@ public class HCF extends JavaPlugin {
         ConfigurationSerialization.registerClass(RoadFaction.SouthRoadFaction.class);
         ConfigurationSerialization.registerClass(RoadFaction.WestRoadFaction.class);
         ConfigurationSerialization.registerClass(GlowstoneFaction.class);
-
     }
 
     private void registerListeners() {
@@ -376,7 +368,6 @@ public class HCF extends JavaPlugin {
         manager.registerEvents(new SotwListener(this), this);
         //manager.registerEvents(new StatTrackListener(), this);
         manager.registerEvents(new CobbleCommand(), this);
-
     }
 
     private void registerCommands() {
@@ -404,6 +395,7 @@ public class HCF extends JavaPlugin {
         this.getCommand("gopple").setExecutor(new GoppleCommand(this));
         this.getCommand("stats").setExecutor(new PlayerStats());
         this.getCommand("koth").setExecutor(new KothExecutor(this));
+        this.getCommand("check").setExecutor(new CheckCommand(this));
         this.getCommand("store").setExecutor(new StoreCommand(this));
         this.getCommand("lives").setExecutor(new LivesExecutor(this));
         this.getCommand("token").setExecutor(new TokenExecutor(this));
@@ -449,7 +441,6 @@ public class HCF extends JavaPlugin {
         this.sotwTimer = new SotwTimer();
         this.keyManager = new KeyManager(this);
         this.message = new Message(this);
-
     }
 
     public Message getMessage() {

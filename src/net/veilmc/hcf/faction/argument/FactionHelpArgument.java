@@ -53,7 +53,7 @@ extends CommandArgument {
                 String permission;
                 if (argument.equals(this) || (permission = argument.getPermission()) != null && !sender.hasPermission(permission) || argument.isPlayerOnly() && !isPlayer)
                     continue;
-                pages.get(val).add(new Text(ChatColor.YELLOW + "  /" + label + ' ' + argument.getName() + ChatColor.GRAY + " - " + ChatColor.WHITE + argument.getDescription()).setColor(ChatColor.GRAY).setClick(ClickAction.SUGGEST_COMMAND, "/" + label + " " + argument.getName()));
+                pages.get(val).add(new Text(ChatColor.BLUE + "  /" + label + ' ' + argument.getName() + ChatColor.GRAY + " - " + ChatColor.WHITE + argument.getDescription()).setColor(ChatColor.GRAY).setClick(ClickAction.SUGGEST_COMMAND, "/" + label + " " + argument.getName()));
                 if (++count % 10 != 0) continue;
                 ++val;
             }
@@ -69,7 +69,7 @@ extends CommandArgument {
             return;
         }
         sender.sendMessage(ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH + BukkitUtils.STRAIGHT_LINE_DEFAULT);
-        sender.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + " Faction Help " + ChatColor.GRAY + "(Page " + pageNumber + " out of " + totalPageCount + ")");
+        sender.sendMessage(ChatColor.AQUA + "" + ChatColor.BOLD + " Faction Help " + ChatColor.GRAY + "(Page " + pageNumber + " out of " + totalPageCount + ")");
         sender.sendMessage(" ");
         for (Text message : this.pages.get(pageNumber)) {
             message.send(sender);
@@ -79,7 +79,7 @@ extends CommandArgument {
         if(pageNumber == totalPageCount) {
             text.append(ChatColor.translateAlternateColorCodes('&', " &f* &cYou are on the final page.")).send(sender);
         } else {
-            text.append(ChatColor.translateAlternateColorCodes('&', " &f* &a&lNext Page")).setHoverText(ChatColor.YELLOW + "Click for next page.").setClick(ClickAction.RUN_COMMAND, "/f help " + (pageNumber+1)).send(sender);
+            text.append(ChatColor.translateAlternateColorCodes('&', " &f* &b&lNext Page")).setHoverText(ChatColor.AQUA + "Click for next page.").setClick(ClickAction.RUN_COMMAND, "/f help " + (pageNumber+1)).send(sender);
         }
         sender.sendMessage(ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH + BukkitUtils.STRAIGHT_LINE_DEFAULT);
     }

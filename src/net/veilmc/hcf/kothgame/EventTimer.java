@@ -89,7 +89,7 @@ implements Listener {
 
     @Override
     public String getName() {
-        return this.eventFaction == null ? "Event" : this.eventFaction.getName();
+        return this.eventFaction == null ? "Event" : ChatColor.BOLD.toString() + this.eventFaction.getName();
     }
 
     @Override
@@ -153,22 +153,23 @@ implements Listener {
 
 
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "event cancel");
-        if(key.getName().toString().equalsIgnoreCase("koth")) {
+        if(key.getName().equalsIgnoreCase("koth")) {
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "crate key " + winner.getName() + " " + key.getName() + " 5");
         }
-        if(key.getName().toString().equalsIgnoreCase("conquest")) {
+        if(key.getName().equalsIgnoreCase("conquest")) {
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "crate key " + winner.getName() + " " + key.getName() + " 8");
         }
 
+        plugin.rotateGames();
         if(ConfigurationService.KIT_MAP) {
-            plugin.rotateGames();
             plugin.startNewKoth(1800);
             Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&6&lKOTH &7» &eA new KOTH will be starting in &d&l30 minutes"));
         }else{
-            plugin.rotateGames();
             plugin.startNewKoth(7200);
             Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&6&lKOTH &7» &eA new KOTH will be starting in &d&l2 hours"));
         }
+
+
 
     }
 

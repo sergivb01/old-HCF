@@ -1,11 +1,12 @@
 
 package net.veilmc.hcf.utils;
 
+import org.apache.commons.lang3.time.FastDateFormat;
+
 import java.text.DecimalFormat;
 import java.time.ZoneId;
 import java.util.Locale;
 import java.util.TimeZone;
-import org.apache.commons.lang3.time.FastDateFormat;
 
 public final class DateTimeFormats {
     public static final TimeZone SERVER_TIME_ZONE = TimeZone.getTimeZone("EST");
@@ -27,13 +28,7 @@ public final class DateTimeFormats {
             return new DecimalFormat("0.#");
         }
     };
-    public static final ThreadLocal<DecimalFormat> REMAINING_SECONDS_TRAILING = new ThreadLocal<DecimalFormat>(){
-
-        @Override
-        protected DecimalFormat initialValue() {
-            return new DecimalFormat("0.0");
-        }
-    };
+    public static final ThreadLocal<DecimalFormat> REMAINING_SECONDS_TRAILING = ThreadLocal.withInitial(() -> new DecimalFormat("0.0"));
 
 }
 

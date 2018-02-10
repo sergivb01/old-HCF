@@ -3,23 +3,18 @@ package net.veilmc.hcf.deathban;
 
 import net.minecraft.util.com.google.common.cache.CacheBuilder;
 import net.veilmc.base.BasePlugin;
-import net.veilmc.base.user.BaseUser;
-import net.veilmc.base.user.ServerParticipator;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.user.FactionUser;
 import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.util.BukkitUtils;
 import org.apache.commons.lang3.time.DurationFormatUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
-import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.ByteArrayOutputStream;
@@ -42,29 +37,6 @@ public class DeathbanListener
     {
         this.plugin = plugin;
         this.lastAttemptedJoinMap = CacheBuilder.newBuilder().expireAfterWrite(LIFE_USE_DELAY_MILLIS, TimeUnit.MILLISECONDS).build().asMap();
-    }
-    
-    @EventHandler
-    public void onLookAtServer(ServerListPingEvent e)
-    {
-      if (Bukkit.spigot().getTPS()[0] > 15.0D) {
-        for (ServerParticipator participator : BasePlugin.getPlugin().getUserManager().getParticipators().values()) {
-          if ((participator instanceof BaseUser))
-          {
-            BaseUser baseUser = (BaseUser)participator;
-            if (baseUser.getAddressHistories().contains(e.getAddress().toString().replace("/", "")))
-            {
-              UUID uuid = baseUser.getUniqueId();
-              OfflinePlayer player = Bukkit.getOfflinePlayer(uuid);
-              String playerName = player.getName();
-//              if ((playerName != null) &&
-//                (this.plugin.getUserManager().getUser(player.getUniqueId()).getDeathban() != null) && (this.plugin.getUserManager().getUser(player.getUniqueId()).getDeathban().isActive())) {
-//                e.setMotd(e.getMotd() + "\n" + ChatColor.RED + "Deathbanned for: " + ChatColor.WHITE + HCF.getRemaining(this.plugin.getUserManager().getUser(player.getUniqueId()).getDeathban().getRemaining(), true));
-//              }
-            }
-          }
-        }
-      }
     }
 
     @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGH)
@@ -122,11 +94,16 @@ public class DeathbanListener
         if (player.hasPermission("hcf.deathban.bypass")) return;
 
         final Deathban deathban = this.plugin.getDeathbanManager().applyDeathBan(player, event.getDeathMessage());
-        final String durationString = HCF.getRemaining(deathban.getRemaining(), true, false);
-        FactionUser user = this.plugin.getUserManager().getUser(player.getUniqueId());
 
-        Deathban deathban2 = user.getDeathban();
+        final String durationString = HCF.getRemaining(deathban.getRemaining(), true, false);
+
         String formattedDuration = HCF.getRemaining(deathban.getRemaining(), true, false);
+
+
+        if(player.hasPermission("deathban.nokick")){
+            return;
+        }
+
 
         new BukkitRunnable()
         {
@@ -163,9 +140,7 @@ public class DeathbanListener
 
                 }
             }
-        }
-
-                .runTaskLater(this.plugin, 1L);
+        }.runTaskLater(this.plugin, 20L);
     }
 
     private static class LoginMessageRunnable

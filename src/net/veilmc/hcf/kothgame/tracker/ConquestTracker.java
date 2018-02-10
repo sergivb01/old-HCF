@@ -1,6 +1,7 @@
 
 package net.veilmc.hcf.kothgame.tracker;
 
+import me.sergivb01.sutils.ServerUtils;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.event.FactionRemoveEvent;
 import net.veilmc.hcf.faction.type.Faction;
@@ -128,8 +129,8 @@ public class ConquestTracker implements EventTracker, Listener
 
     @Override
     public void onContest(final EventFaction eventFaction, final EventTimer eventTimer) {
-
         Bukkit.broadcastMessage(ChatColor.YELLOW + "§8[§6§l" + eventFaction.getName() + "§8] " + ChatColor.GOLD + eventFaction.getName() + " §ecan now be contested.");
+        ServerUtils.broadcastKoth(eventFaction.getName());
     }
 
     @Override

@@ -1,22 +1,21 @@
 
 package net.veilmc.hcf.deathban;
 
+import net.minecraft.util.gnu.trove.map.TObjectIntMap;
+import net.minecraft.util.gnu.trove.map.hash.TObjectIntHashMap;
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.hcf.faction.type.Faction;
+import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.util.Config;
 import net.veilmc.util.PersistableLocation;
+import org.bukkit.Location;
+import org.bukkit.configuration.MemorySection;
+import org.bukkit.entity.Player;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
-
-import net.minecraft.util.gnu.trove.map.TObjectIntMap;
-import net.minecraft.util.gnu.trove.map.hash.TObjectIntHashMap;
-import org.bukkit.Location;
-import org.bukkit.configuration.MemorySection;
-import org.bukkit.entity.Player;
 
 public class FlatFileDeathbanManager implements DeathbanManager
 {
@@ -167,6 +166,7 @@ public class FlatFileDeathbanManager implements DeathbanManager
         if (player.hasPermission("hcf.deathban.5m")) {
             duration = 300000L;
         }
+
         return this.applyDeathBan(player.getUniqueId(), new Deathban(reason, Math.min(MAX_DEATHBAN_TIME, duration), new PersistableLocation(location)));
     }
     
