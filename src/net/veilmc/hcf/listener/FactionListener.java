@@ -84,7 +84,7 @@ implements Listener {
     public void onFactionRename(FactionRenameEvent event) {
         Faction faction = event.getFaction();
         if (faction instanceof PlayerFaction) {
-            ((PlayerFaction) faction).broadcast(ChatColor.translateAlternateColorCodes('&', "&aYour Team name has been renamed to &b" + event.getNewName() + "&a by " + event.getSender().getName()));
+            ((PlayerFaction) faction).broadcast(ChatColor.translateAlternateColorCodes('&', "&aYour Team has been renamed to &b" + event.getNewName() + "&a by " + event.getSender().getName()));
             //Bukkit.broadcastMessage(ChatColor.RED + event.getOriginalName() + ChatColor.YELLOW + " has been" + ChatColor.GREEN + " renamed " + ChatColor.YELLOW + "to " + ChatColor.RED + "" + event.getNewName() + ChatColor.YELLOW + " by " + ChatColor.WHITE + getDisplayName(event.getSender()) + ChatColor.YELLOW + ".");
         }
     }
