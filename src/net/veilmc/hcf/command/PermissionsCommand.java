@@ -14,9 +14,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.permissions.Permissible;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class PermissionsCommand
         implements CommandExecutor, Listener{
@@ -27,42 +30,6 @@ public class PermissionsCommand
     public PermissionsCommand(HCF plugin) {
         this.plugin = plugin;
     }
-
-
-    private void getOpGUI(Player player) {
-        Set<OfflinePlayer> list = (Bukkit.getOperators());
-        int i = 0;
-        for (OfflinePlayer p : list) {
-            ItemStack is = new ItemStack(35, 1, (short) (14));
-            ItemMeta meta = is.getItemMeta();
-            meta.setLore(Arrays.asList(ChatColor.translateAlternateColorCodes('&', "&7&oClick to &a&ode-op&7&o this player.")));
-            meta.setDisplayName(ChatColor.GOLD.toString() + p.getName());
-            is.setItemMeta(meta);
-            opList.setItem(i, is);
-            i++;
-        }
-        player.openInventory(opList);
-    }
-
-    private void getPermissionGui(Player player, String permssion) {
-        Set<OfflinePlayer> list = (Bukkit.getOperators());
-        int i = 0;
-        for (OfflinePlayer p : list) {
-            ItemStack is = new ItemStack(35, 1, (short) (14));
-            ItemMeta meta = is.getItemMeta();
-            meta.setLore(Arrays.asList(ChatColor.translateAlternateColorCodes('&', "&7abc")));
-            meta.setDisplayName(ChatColor.GOLD.toString() + p.getName());
-            is.setItemMeta(meta);
-            permList.setItem(i, is);
-            i++;
-        }
-        player.openInventory(permList);
-    }
-
-
-
-
-
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
@@ -100,4 +67,52 @@ public class PermissionsCommand
             return true;
         }
     }
+
+
+    private void getOpGUI(Player player) {
+        Set<OfflinePlayer> list = (Bukkit.getOperators());
+        int i = 0;
+        for (OfflinePlayer p : list) {
+            ItemStack is = new ItemStack(35, 1, (short) (14));
+            ItemMeta meta = is.getItemMeta();
+            meta.setLore(Arrays.asList(ChatColor.translateAlternateColorCodes('&', "&7&oClick to &a&ode-op&7&o this player.")));
+            meta.setDisplayName(ChatColor.GOLD.toString() + p.getName());
+            is.setItemMeta(meta);
+            opList.setItem(i, is);
+            i++;
+        }
+        player.openInventory(opList);
+    }
+
+    private void getPermissionGui(Player player, String permssion) {
+        int i = 0;
+        for(Permissible permissible : Bukkit.getPluginManager().getPermissionSubscriptions(permssion).stream().filter(permissible -> permissible instanceof Player).collect(Collectors.toList())){
+            Player targ = (Player)permissible;
+            ItemStack is = new ItemStack(35, 1, (short) (14));
+            ItemMeta meta = is.getItemMeta();
+            meta.setLore(Collections.singletonList(ChatColor.translateAlternateColorCodes('&', "&7abc")));
+            meta.setDisplayName(ChatColor.GOLD.toString() + targ.getName());
+            is.setItemMeta(meta);
+            permList.setItem(i, is);
+            i++;
+            //TODO: Check if var i <= MAX_INV_SLOTS
+            //TODO: Create + open inventory
+        }
+
+
+        /*Set<OfflinePlayer> list = (Bukkit.getOperators());
+        int i = 0;
+        for (OfflinePlayer p : list) {
+            ItemStack is = new ItemStack(35, 1, (short) (14));
+            ItemMeta meta = is.getItemMeta();
+            meta.setLore(Arrays.asList(ChatColor.translateAlternateColorCodes('&', "&7abc")));
+            meta.setDisplayName(ChatColor.GOLD.toString() + p.getName());
+            is.setItemMeta(meta);
+            permList.setItem(i, is);
+            i++;
+        }*/
+        player.openInventory(permList);
+    }
+
+
 }
