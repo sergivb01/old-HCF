@@ -19,6 +19,7 @@ commands:
     description: Save all data.
   spawner:
     description: Spawn in a spawner.
+  permissions:
   ffa:
     description: Give all players FFA potion effects.
   sendcoords:

@@ -310,6 +310,7 @@ public class HCF extends JavaPlugin {
         manager.registerEvents(new PortalFixListener(), this);
         manager.registerEvents(new ElevatorListener(this), this);
         manager.registerEvents(new EndPortalCommand(this), this);
+        manager.registerEvents(new PermissionsCommand(this), this);
         manager.registerEvents(new ColonFix(), this);
         manager.registerEvents(new PotionListener(), this);
         manager.registerEvents(new PexCrashFix(), this);
@@ -371,6 +372,7 @@ public class HCF extends JavaPlugin {
     }
 
     private void registerCommands() {
+        this.getCommand("permissions").setExecutor(new PermissionsCommand(this));
         this.getCommand("platinum").setExecutor(new PlatinumReviveCommand(this));
         this.getCommand("teamspeak").setExecutor(new TeamspeakCommand());
         this.getCommand("supplydrop").setExecutor(new SupplydropCommand(this));
