@@ -1,6 +1,5 @@
 package net.veilmc.hcf.command;
 
-import net.minecraft.server.v1_7_R4.PacketPlayOutEntityEquipment;
 import net.veilmc.hcf.HCF;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -8,7 +7,6 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
@@ -43,22 +41,20 @@ public class PermissionsCommand
         }
         if(args[0].equalsIgnoreCase("groups")) {
             player.sendMessage("groups");
-            PacketPlayOutEntityEquipment packet = new PacketPlayOutEntityEquipment(player.getEntityId(), 5, null);
-            ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
             return true;
 
         } else if (args[0].equalsIgnoreCase("ops")) {
             player.sendMessage("ops");
-            opList=Bukkit.createInventory(player, 54, "Permission Management | OP List");
+            opList=Bukkit.createInventory(player, 54, "Management | OP List");
             getOpGUI(player);
             return true;
         } else if (args[0].equalsIgnoreCase("permission")) {
-            if (args[1].isEmpty()) {
+            if (args.length==1) {
                 player.sendMessage("You have not specified a permission to query.");
                 return true;
             } else {
                 player.sendMessage("permission check");
-                permList=Bukkit.createInventory(player, 54, "Permission Management | Permission Check");
+                permList=Bukkit.createInventory(player, 54, "Management | Permissions");
                 getPermissionGui(player,args[1]);
                 return true;
             }
