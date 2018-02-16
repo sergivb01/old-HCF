@@ -20,6 +20,7 @@ import net.veilmc.hcf.timer.Timer;
 import net.veilmc.hcf.timer.type.NotchAppleTimer;
 import net.veilmc.hcf.timer.type.SotwTimer;
 import net.veilmc.hcf.timer.type.SpawnTagTimer;
+import net.veilmc.hcf.user.FactionUser;
 import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.hcf.utils.DateTimeFormats;
 import net.veilmc.hcf.utils.DurationFormatter;
@@ -233,11 +234,16 @@ public class TimerSidebarProvider implements SidebarProvider {
         }
 
 
+        final FactionUser factionUser = this.plugin.getUserManager().getUser(player.getUniqueId());
 
-		if (ConfigurationService.KIT_MAP) {
+        if (ConfigurationService.KIT_MAP && factionUser !=null) {
             lines.add(new SidebarEntry(ChatColor.GOLD.toString() + " ", ChatColor.BLUE + "Balance: " + ChatColor.WHITE + "$", this.plugin.getEconomyManager().getBalance(player.getUniqueId())));
-			lines.add(new SidebarEntry(ChatColor.GOLD.toString() + " ", ChatColor.BLUE + "Kills" + ": " + ChatColor.WHITE, player.getStatistic(Statistic.PLAYER_KILLS)));
-			lines.add(new SidebarEntry(ChatColor.GOLD.toString() + " ", ChatColor.BLUE + "Deaths" + ": " + ChatColor.WHITE, player.getStatistic(Statistic.DEATHS)));
+            //lines.add(new SidebarEntry(ChatColor.GOLD.toString() + " ", ChatColor.BLUE + "Kills" + ": " + ChatColor.WHITE, player.getStatistic(Statistic.KILLSSS)));
+            //lines.add(new SidebarEntry(ChatColor.GOLD.toString() + " ", ChatColor.BLUE + "Deaths" + ": " + ChatColor.WHITE, player.getStatistic(Statistic.DEATHS)));
+
+            lines.add(new SidebarEntry(ChatColor.BLUE, " Kills", ": " + ChatColor.WHITE + factionUser.getKills()));
+            lines.add(new SidebarEntry(ChatColor.BLUE, " Deaths", ": " + ChatColor.WHITE + factionUser.getDeaths()));
+
 
 //			Integer k = Integer.valueOf(player.getStatistic(Statistic.PLAYER_KILLS));
 //			double d = Integer.valueOf(player.getStatistic(Statistic.DEATHS));
