@@ -16,7 +16,12 @@ public class AutoRespawnListener implements Listener {
     @EventHandler
     public void onPlayerDie(PlayerDeathEvent event){
         if(ConfigurationService.KIT_MAP){
-            event.getEntity().getPlayer().spigot().respawn();
+            plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
+            public void run() {
+                event.getEntity().getPlayer().spigot().respawn();
+
+            }
+            }, 0, 10);
         }
     }
 

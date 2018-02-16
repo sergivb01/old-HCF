@@ -5,7 +5,7 @@
 #
 ################################################################################
 name: HCF
-version: 4.0-VEILMC
+version: VEILMC
 main: net.veilmc.hcf.HCF
 softdepend: [ProtocolLib]
 commands:
