@@ -33,128 +33,135 @@ import org.spigotmc.event.player.PlayerSpawnLocationEvent;
 
 import net.veilmc.hcf.HCF;
 
-public class WorldListener
-implements Listener {
-    public static final String DEFAULT_WORLD_NAME = "world";
-    private final HCF plugin;
+public class WorldListener implements Listener{
+	private final HCF plugin;
 
-    public WorldListener(HCF plugin) {
-        this.plugin = plugin;
-    }
+	public WorldListener(HCF plugin){
+		this.plugin = plugin;
+	}
 
 
-    @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGH)
-    public void onBlockBreak(BlockBreakEvent event)
-    {
-      Player player = event.getPlayer();
-      if ((player.getWorld().getEnvironment() == World.Environment.NETHER) && ((event.getBlock().getState() instanceof CreatureSpawner)) && (!player.hasPermission("hcf.faction.protection.bypass")))
-      {
-        event.setCancelled(true);
-        player.sendMessage(ChatColor.RED + "You may not break spawners in the nether.");
-      }
-    }
-    
-    @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGH)
-    public void onBlockPlace(BlockPlaceEvent event)
-    {
-      Player player = event.getPlayer();
-      if ((player.getWorld().getEnvironment() == World.Environment.NETHER) && ((event.getBlock().getState() instanceof CreatureSpawner)) && (!player.hasPermission("hcf.faction.protection.bypass")))
-      {
-        event.setCancelled(true);
-        player.sendMessage(ChatColor.RED + "You may not place spawners in the nether.");
-      }
-    }
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
+	public void onBlockBreak(BlockBreakEvent event){
+		Player player = event.getPlayer();
+		if((player.getWorld().getEnvironment() == World.Environment.NETHER) && ((event.getBlock().getState() instanceof CreatureSpawner)) && (!player.hasPermission("hcf.faction.protection.bypass"))){
+			event.setCancelled(true);
+			player.sendMessage(ChatColor.RED + "You may not break spawners in the nether.");
+		}
+	}
+
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
+	public void onBlockPlace(BlockPlaceEvent event){
+		Player player = event.getPlayer();
+		if((player.getWorld().getEnvironment() == World.Environment.NETHER) && ((event.getBlock().getState() instanceof CreatureSpawner)) && (!player.hasPermission("hcf.faction.protection.bypass"))){
+			event.setCancelled(true);
+			player.sendMessage(ChatColor.RED + "You may not place spawners in the nether.");
+		}
+	}
 
 
-    @EventHandler(ignoreCancelled=false, priority=EventPriority.HIGH)
-    public void onEntityExplode(EntityExplodeEvent event) {
-        event.blockList().clear();
-        if (event.getEntity() instanceof EnderDragon) {
-            event.setCancelled(true);
-        }
-    }
+	@EventHandler(ignoreCancelled = false, priority = EventPriority.HIGH)
+	public void onEntityExplode(EntityExplodeEvent event){
+		event.blockList().clear();
+		if(event.getEntity() instanceof EnderDragon){
+			event.setCancelled(true);
+		}
+	}
 
-    @EventHandler(ignoreCancelled=false, priority=EventPriority.HIGH)
-    public void onBlockChange(BlockFromToEvent event) {
-        if (event.getBlock().getType() == Material.DRAGON_EGG) {
-            event.setCancelled(true);
-        }
-    }
+	@EventHandler(ignoreCancelled = false, priority = EventPriority.HIGH)
+	public void onBlockChange(BlockFromToEvent event){
+		if(event.getBlock().getType() == Material.DRAGON_EGG){
+			event.setCancelled(true);
+		}
+	}
 
-    @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGH)
-    public void onEntityPortalEnter(EntityPortalEvent event) {
-        if (event.getEntity() instanceof EnderDragon) {
-            event.setCancelled(true);
-        }
-    }
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
+	public void onEntityPortalEnter(EntityPortalEvent event){
+		if(event.getEntity() instanceof EnderDragon){
+			event.setCancelled(true);
+		}
+	}
 
-    @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGH)
-    public void onBedEnter(PlayerBedEnterEvent event) {
-        event.setCancelled(true);
-        event.getPlayer().sendMessage(ChatColor.RED + "Beds are disabled on this server.");
-    }
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
+	public void onBedEnter(PlayerBedEnterEvent event){
+		//event.setCancelled(true); //TODO: Enable/Disable beds at nether
+		//event.getPlayer().sendMessage(ChatColor.RED + "Beds are disabled on this server.");
+	}
 
-    @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGHEST)
-    public void onWitherChangeBlock(EntityChangeBlockEvent event) {
-        Entity entity = event.getEntity();
-        if (entity instanceof Wither || entity instanceof EnderDragon) {
-            event.setCancelled(true);
-        }
-    }
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
+	public void onWitherChangeBlock(EntityChangeBlockEvent event){
+		Entity entity = event.getEntity();
+		if(entity instanceof Wither || entity instanceof EnderDragon){
+			event.setCancelled(true);
+		}
+	}
 
-    @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGH)
-    public void onBlockFade(BlockFadeEvent event) {
-        switch (event.getBlock().getType()) {
-            case SNOW: 
-            case ICE: {
-                event.setCancelled(true);
-            }
-        }
-    }
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
+	public void onBlockFade(BlockFadeEvent event){
+		switch(event.getBlock().getType()){
+			case SNOW:
+			case ICE:{
+				event.setCancelled(true);
+			}
+		}
+	}
 
-    @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGH)
-    public void onPlayerRespawn(PlayerRespawnEvent event) {
-        event.setRespawnLocation(Bukkit.getWorld("world").getSpawnLocation().add(0.5, 0.0, 0.5));
-    }
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
+	public void onPlayerRespawn(PlayerRespawnEvent event){
+		event.setRespawnLocation(Bukkit.getWorld("world").getSpawnLocation().add(0.5, 0.0, 0.5));
+	}
 
-    @EventHandler(ignoreCancelled=true, priority=EventPriority.NORMAL)
-    public void onPlayerSpawn(PlayerSpawnLocationEvent event) {
-        Player player = event.getPlayer();
-        if (!player.hasPlayedBefore()) {
-            this.plugin.getEconomyManager().addBalance(player.getUniqueId(), 250);
-            event.setSpawnLocation(Bukkit.getWorld("world").getSpawnLocation().add(0.5, 0.0, 0.5));
-        }
-    }
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)
+	public void onPlayerSpawn(PlayerSpawnLocationEvent event){
+		Player player = event.getPlayer();
+		if(!player.hasPlayedBefore()){
+			this.plugin.getEconomyManager().addBalance(player.getUniqueId(), 250);
+			event.setSpawnLocation(Bukkit.getWorld("world").getSpawnLocation().add(0.5, 0.0, 0.5));
+		}
+	}
 
-    @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGH)
-    public void onInventoryOpen(InventoryOpenEvent event) {
-        if (event.getInventory() instanceof EnderChest) {
-            event.setCancelled(true);
-        }
-    }
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
+	public void onInventoryOpen(InventoryOpenEvent event){
+		if(event.getInventory() instanceof EnderChest){
+			event.setCancelled(true);
+		}
+	}
 
-    @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGH)
-    public void onBlockIgnite(BlockIgniteEvent event) {
-        if (event.getCause() == BlockIgniteEvent.IgniteCause.SPREAD) {
-            event.setCancelled(true);
-        }
-    }
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
+	public void onBlockIgnite(BlockIgniteEvent event){
+		if(event.getCause() == BlockIgniteEvent.IgniteCause.SPREAD){
+			event.setCancelled(true);
+		}
+	}
 
-    @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGH)
-    public void onCreatureSpawn(CreatureSpawnEvent event) {
-        if (event.getEntity() instanceof Squid) {
-            event.setCancelled(true);
-        }
-    }
-    @EventHandler
-    public void onPlayerDeath(PlayerDeathEvent event) {
-    	if(ConfigurationService.KIT_MAP && event.getEntity().getKiller() != null){
-    	    if(event.getEntity().getKiller() != event.getEntity().getPlayer()) {
-                HCF.getInstance().getEconomyManager().addBalance(event.getEntity().getKiller().getUniqueId(), 100);
-                event.getEntity().getKiller().sendMessage(ChatColor.GREEN + "You have gained $100 for killing " + ChatColor.WHITE + event.getEntity().getName() + ChatColor.GREEN + ".");
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "crate key " + event.getEntity().getKiller().getName() + " KillReward");
-            }
-    	}
-    }
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
+	public void onCreatureSpawn(CreatureSpawnEvent event){
+		if(event.getEntity() instanceof Squid){
+			event.setCancelled(true);
+		}
+	}
+
+	@EventHandler
+	public void onPlayerDeath(PlayerDeathEvent event){
+		if(ConfigurationService.KIT_MAP && event.getEntity().getKiller() != null){
+			if(event.getEntity().getKiller() != event.getEntity().getPlayer()){
+				int mult = getMultiplier(event.getEntity().getKiller());
+				int eco = 100 * mult;
+				HCF.getInstance().getEconomyManager().addBalance(event.getEntity().getKiller().getUniqueId(), eco);
+				event.getEntity().getKiller().sendMessage(ChatColor.GREEN + "You have gained $" + eco +" for killing " + ChatColor.WHITE + event.getEntity().getName() + ChatColor.GREEN + ". " + (mult != 1 ? ChatColor.GRAY + " (x" + mult + " multiplier" : ""));
+				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "crate key " + event.getEntity().getKiller().getName() + " KillReward");
+			}
+		}
+	}
+
+	private int getMultiplier(Player player){
+		for(int i = 4; i > 1; i--){
+			if(player.hasPermission("balance.multiplayer." + i)){
+				return i;
+			}
+		}
+		return 1;
+	}
+
 }
 
