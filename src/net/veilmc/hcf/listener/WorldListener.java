@@ -144,12 +144,13 @@ public class WorldListener implements Listener{
 	@EventHandler
 	public void onPlayerDeath(PlayerDeathEvent event){
 		if(ConfigurationService.KIT_MAP && event.getEntity().getKiller() != null){
-			if(event.getEntity().getKiller() != event.getEntity().getPlayer()){
-				int mult = getMultiplier(event.getEntity().getKiller());
+			Player killer = event.getEntity().getKiller();
+			if(killer != event.getEntity().getPlayer()){
+				int mult = getMultiplier(killer);
 				int eco = 100 * mult;
-				HCF.getInstance().getEconomyManager().addBalance(event.getEntity().getKiller().getUniqueId(), eco);
-				event.getEntity().getKiller().sendMessage(ChatColor.GREEN + "You have gained $" + eco +" for killing " + ChatColor.WHITE + event.getEntity().getName() + ChatColor.GREEN + ". " + (mult != 1 ? ChatColor.GRAY + " (x" + mult + " multiplier" : ""));
-				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "crate key " + event.getEntity().getKiller().getName() + " KillReward");
+				plugin.getEconomyManager().addBalance(killer.getUniqueId(), eco);
+				killer.sendMessage(ChatColor.GREEN + "You have gained $" + eco +" for killing " + ChatColor.WHITE + event.getEntity().getName() + ChatColor.GREEN + ". " + (mult != 1 ? ChatColor.GRAY + " (x" + mult + " multiplier" : ""));
+				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "crate key " + killer.getName() + " KillReward");
 			}
 		}
 	}
