@@ -3,6 +3,7 @@ package net.veilmc.hcf.command;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.hcf.faction.type.PlayerFaction;
+import net.veilmc.hcf.utils.ConfigurationService;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -21,6 +22,11 @@ public class PlayerVaultCommand implements CommandExecutor {
         if(!(sender instanceof Player)){
             sender.sendMessage(ChatColor.RED + "Twat.");
             return false;
+        }
+
+        if(!ConfigurationService.KIT_MAP){
+            sender.sendMessage(ChatColor.RED + "This command can be executed on Kits only.");
+            return true;
         }
 
         Player player = (Player) sender;
