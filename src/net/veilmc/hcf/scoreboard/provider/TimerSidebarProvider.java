@@ -239,10 +239,10 @@ public class TimerSidebarProvider implements SidebarProvider {
         if (ConfigurationService.KIT_MAP && factionUser !=null) {
             lines.add(new SidebarEntry(ChatColor.GOLD.toString() + " ", ChatColor.BLUE + "Balance: " + ChatColor.WHITE + "$", this.plugin.getEconomyManager().getBalance(player.getUniqueId())));
             //lines.add(new SidebarEntry(ChatColor.GOLD.toString() + " ", ChatColor.BLUE + "Kills" + ": " + ChatColor.WHITE, player.getStatistic(Statistic.KILLSSS)));
-            //lines.add(new SidebarEntry(ChatColor.GOLD.toString() + " ", ChatColor.BLUE + "Deaths" + ": " + ChatColor.WHITE, player.getStatistic(Statistic.DEATHS)));
-
+            //
             lines.add(new SidebarEntry(ChatColor.BLUE, " Kills", ": " + ChatColor.WHITE + factionUser.getKills()));
-            lines.add(new SidebarEntry(ChatColor.BLUE, " Deaths", ": " + ChatColor.WHITE + factionUser.getDeaths()));
+          //  lines.add(new SidebarEntry(ChatColor.BLUE, " Deaths", ": " + ChatColor.WHITE + factionUser.getDeaths()));
+            lines.add(new SidebarEntry(ChatColor.GOLD.toString() + " ", ChatColor.BLUE + "Deaths" + ": " + ChatColor.WHITE, player.getStatistic(Statistic.DEATHS)));
 
 
 //			Integer k = Integer.valueOf(player.getStatistic(Statistic.PLAYER_KILLS));
