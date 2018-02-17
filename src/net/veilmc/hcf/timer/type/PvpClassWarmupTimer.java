@@ -18,11 +18,14 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.EquipmentSetEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.util.Collection;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.TimeUnit;
+
+import static org.bukkit.Bukkit.getScheduler;
 
 public class PvpClassWarmupTimer
 extends PlayerTimer
@@ -34,18 +37,16 @@ implements Listener {
         super(ConfigurationService.PVP_CLASS_WARMUP_TIMER, TimeUnit.SECONDS.toMillis(10), false);
         this.plugin = plugin;
         this.classWarmups = CacheBuilder.newBuilder().expireAfterWrite(this.defaultCooldown + 5000, TimeUnit.MILLISECONDS).build().asMap();
-        Bukkit.getScheduler().scheduleAsyncRepeatingTask(plugin, ()->{
+
+        runTaskTimer(() -> {
             for (Player player : Bukkit.getServer().getOnlinePlayers()) {
-                PvpClassWarmupTimer.this.attemptEquip(player);
+                attemptEquip(player);
             }
-        }, 20L, 20L);
-        /*new BukkitRunnable(){
-            public void run() {
-                for (Player player : Bukkit.getServer().getOnlinePlayers()) {
-                    PvpClassWarmupTimer.this.attemptEquip(player);
-                }
-            }
-        }.runTaskTimer(plugin, 10L , 10L);*/
+        }, 10L, 10L);
+    }
+
+    public BukkitTask runTaskTimer(Runnable runnable, long start, long period) { // your dev will appreciate this later super clean way of doing things IMO
+        return getScheduler().runTaskTimer(plugin, runnable, start, period);
     }
 
     @Override
@@ -101,24 +102,35 @@ implements Listener {
         }
     }
 
+    //I have no clue why he did it like this but its really cancer
     private void attemptEquip(Player player) {
         PvpClass equipped = this.plugin.getPvpClassManager().getEquippedClass(player);
+
         if (equipped != null) {
-            if (equipped.isApplicableFor(player)) {
+            if (equipped.isApplicableFor(player))
                 return;
-            }
+
             this.plugin.getPvpClassManager().setEquippedClass(player, null);
         }
+
         PvpClass warmupClass = null;
         String warmup = (String)this.classWarmups.get(player.getUniqueId());
-        if (warmup != null && !(warmupClass = this.plugin.getPvpClassManager().getPvpClass(warmup)).isApplicableFor(player)) {
+
+        if (warmup != null && !(warmupClass = this.plugin.getPvpClassManager().getPvpClass(warmup)).isApplicableFor(player))
             this.clearCooldown(player.getUniqueId());
-        }
+
+
         Collection<PvpClass> pvpClasses = this.plugin.getPvpClassManager().getPvpClasses();
+
         for (PvpClass pvpClass : pvpClasses) {
-            if (warmupClass == pvpClass || !pvpClass.isApplicableFor(player)) continue;
+            if (warmupClass == pvpClass || !pvpClass.isApplicableFor(player))
+                continue;
+
+            //can we run this on a test server im just kinda guessing this will work let me build
             this.classWarmups.put(player.getUniqueId(), pvpClass.getName());
+            this.plugin.getPvpClassManager().setEquippedClass(player, pvpClass);
             this.setCooldown(player, player.getUniqueId(), pvpClass.getWarmupDelay(), false);
+
             break;
         }
     }
