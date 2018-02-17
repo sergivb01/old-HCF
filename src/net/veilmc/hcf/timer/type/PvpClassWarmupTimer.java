@@ -34,7 +34,7 @@ implements Listener {
         super(ConfigurationService.PVP_CLASS_WARMUP_TIMER, TimeUnit.SECONDS.toMillis(10), false);
         this.plugin = plugin;
         this.classWarmups = CacheBuilder.newBuilder().expireAfterWrite(this.defaultCooldown + 5000, TimeUnit.MILLISECONDS).build().asMap();
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, ()->{
+        Bukkit.getScheduler().scheduleAsyncRepeatingTask(plugin, ()->{
             for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                 PvpClassWarmupTimer.this.attemptEquip(player);
             }
