@@ -1,6 +1,8 @@
 package net.veilmc.hcf.command;
 
 import net.veilmc.hcf.HCF;
+import net.veilmc.hcf.utils.Chat;
+import net.veilmc.util.BukkitUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -24,8 +26,9 @@ public class SupplydropCommand
             return true;
         }
         Player s = (Player)sender;
-        DecimalFormat df = new DecimalFormat("##");
-        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&6&lSUPPLYDROP &7» &d" + s.getName() + " &ehas dropped a supply drop at &b&l" + df.format(s.getLocation().getX()) + ", " + df.format(s.getLocation().getZ())));
+        Bukkit.broadcastMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
+        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&9&lSUPPLYDROP &7» &3" + s.getName() + " &fhas dropped a supply drop at &b&l" + s.getLocation().getBlockX() + ", " + s.getLocation().getBlockZ()));
+        Bukkit.broadcastMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
         return true;
     }
 }
