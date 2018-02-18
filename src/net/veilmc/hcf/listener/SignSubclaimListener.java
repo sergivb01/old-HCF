@@ -8,6 +8,7 @@ import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.hcf.faction.type.PlayerFaction;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -78,12 +79,11 @@ public class SignSubclaimListener implements Listener {
                             }
                         }
 
-                        ArrayList var16 = new ArrayList(3);
+                        ArrayList<UUID> var16 = new ArrayList<>(3);
 
-                        for(int var17 = 1; var17 < lines.length; ++var17) {
-                            String captainChest = lines[var17];
-                            if(StringUtils.isNotBlank(captainChest)) {
-                                var16.add(captainChest);
+                        for(String s : lines) {
+                            if(StringUtils.isNotBlank(s)) {
+                                var16.add(Bukkit.getOfflinePlayer(UUID.fromString(s)).getUniqueId());
                             }
                         }
 
@@ -112,8 +112,8 @@ public class SignSubclaimListener implements Listener {
                         }
 
                         event.setLine(0, SUBCLAIM_PREFIX);
-                        List actualMembers = (List)var16.stream().filter((member) -> {
-                            return playerFaction.getMember((UUID) member) != null;
+                        List<UUID> actualMembers = (List)var16.stream().filter((member) -> {
+                            return playerFaction.getMember(member) != null;
                         }).collect(Collectors.toList());
                         playerFaction.broadcast(ConfigurationService.TEAMMATE_COLOUR + player.getName() + ChatColor.YELLOW + " has created a subclaim on block type " + ChatColor.LIGHT_PURPLE + attatchedBlock.getType().getData().getName() + ChatColor.YELLOW + " at " + ChatColor.WHITE + '[' + attatchedBlock.getX() + ", " + attatchedBlock.getZ() + ']' + ChatColor.YELLOW + " for " + (var18?"leaders":(actualMembers.isEmpty()?"captains":"members " + ChatColor.GRAY + '[' + ChatColor.DARK_GREEN + StringUtils.join(actualMembers, ", ") + ChatColor.GRAY + ']')));
                     }
