@@ -15,7 +15,7 @@ import java.util.*;
 public class UserManager
 implements Listener {
     private final HCF plugin;
-    private final Map<UUID, FactionUser> users = new HashMap<UUID, FactionUser>();
+    private final Map<UUID, FactionUser> users = new HashMap<>();
     private Config userConfig;
 
     public UserManager(HCF plugin) {
@@ -36,8 +36,7 @@ implements Listener {
 
     
     public FactionUser getUserAsync(UUID uuid) {
-        Map<UUID, FactionUser> map = this.users;
-        synchronized (map) {
+        synchronized (this.users) {
             FactionUser revert = new FactionUser(uuid);
             FactionUser user = this.users.putIfAbsent(uuid, revert);
             return ObjectUtils.firstNonNull(user, revert);

@@ -13,8 +13,8 @@ import java.util.stream.Collectors;
 
 public class FactionUser
 implements ConfigurationSerializable {
-    private final Set<UUID> factionChatSpying = new HashSet<UUID>();
-    private final Set<String> shownScoreboardScores = new HashSet<String>();
+    private final Set<UUID> factionChatSpying = new HashSet<>();
+    private final Set<String> shownScoreboardScores = new HashSet<>();
     private final UUID userUUID;
     private boolean reclaimed;
     private boolean capzoneEntryAlerts;
@@ -48,7 +48,7 @@ implements ConfigurationSerializable {
 
     public Map<String, Object> serialize() {
         LinkedHashMap map = Maps.newLinkedHashMap();
-        map.put("shownScoreboardScores", new ArrayList<String>(this.shownScoreboardScores));
+        map.put("shownScoreboardScores", new ArrayList<>(this.shownScoreboardScores));
         map.put("faction-chat-spying", this.factionChatSpying.stream().map(UUID::toString).collect(Collectors.toList()));
         map.put("userUUID", this.userUUID.toString());
         map.put("diamonds", this.diamondsMined);

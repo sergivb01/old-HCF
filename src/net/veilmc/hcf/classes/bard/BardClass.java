@@ -1,13 +1,12 @@
 
 package net.veilmc.hcf.classes.bard;
 
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.classes.PvpClass;
-import net.veilmc.hcf.faction.type.Faction;
-import net.veilmc.hcf.faction.type.PlayerFaction;
-import net.veilmc.util.chat.Lang;
 import net.minecraft.util.gnu.trove.map.TObjectLongMap;
 import net.minecraft.util.gnu.trove.map.hash.TObjectLongHashMap;
+import net.veilmc.hcf.HCF;
+import net.veilmc.hcf.classes.PvpClass;
+import net.veilmc.hcf.faction.type.PlayerFaction;
+import net.veilmc.util.chat.Lang;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -208,7 +207,6 @@ implements Listener {
 
     private boolean canUseBardEffect(Player player, BardData bardData, BardEffect bardEffect, boolean sendFeedback) {
         long remaining;
-        Faction factionAt;
         String errorFeedback = null;
         double currentEnergy = bardData.getEnergy();
         if ((double)bardEffect.energyCost > currentEnergy) {
@@ -217,7 +215,7 @@ implements Listener {
         if ((remaining = bardData.getRemainingBuffDelay()) > 0) {
             errorFeedback = ChatColor.RED + "You still have a cooldown on this " + ChatColor.GREEN + ChatColor.BOLD + "Bard" + ChatColor.RED + " buff for another " + HCF.getRemaining(remaining, true, false) + ChatColor.RED + '.';
         }
-        if ((factionAt = this.plugin.getFactionManager().getFactionAt(player.getLocation())).isSafezone()) {
+        if (this.plugin.getFactionManager().getFactionAt(player.getLocation()).isSafezone()) {
             errorFeedback = ChatColor.RED + "You may not use Bard buffs in safe-zones.";
         }
         if (sendFeedback && errorFeedback != null) {

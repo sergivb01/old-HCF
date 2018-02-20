@@ -21,13 +21,9 @@ public class CoreListener
 implements Listener {
     private final HCF plugin;
 
-
     public CoreListener(HCF plugin) {
         this.plugin = plugin;
     }
-
-
-    
 
     @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGH)
     public void onPlayerJoinKit(PlayerJoinEvent event) {
