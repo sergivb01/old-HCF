@@ -87,8 +87,7 @@ public class HCF extends JavaPlugin {
     private Random random = new Random();
 
     public String scoreboardTitle;
-    public String helpTitle;
-    
+
     private WorldEditPlugin worldEdit;
     private FoundDiamondsListener foundDiamondsListener;
     private ClaimHandler claimHandler;
@@ -105,9 +104,6 @@ public class HCF extends JavaPlugin {
     private VisualiseHandler visualiseHandler;
     public long NEXT_KOTH = -1;
     private String armor;
-
-    private static int spamCooldown;
-    private static HashMap<String, Integer> database;
 
     public ArrayList<String> players;
 
