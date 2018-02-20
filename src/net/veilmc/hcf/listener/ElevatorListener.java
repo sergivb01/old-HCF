@@ -106,7 +106,7 @@ public class ElevatorListener implements Listener {
         }
         PlayerTimer timer = this.plugin.getTimerManager().spawnTagTimer;
         long remaining = timer.getRemaining(player);
-        if (((timer = this.plugin.getTimerManager().spawnTagTimer).getRemaining(player) > 0L) && (!ConfigurationService.KIT_MAP)) {
+        if (((timer = this.plugin.getTimerManager().spawnTagTimer).getRemaining(player) > 0L) && (!ConfigurationService.KIT_MAP  || !ConfigurationService.VEILZ)) {
             player.sendMessage(ChatColor.RED + "You can not use this while your " + ChatColor.BOLD + "Spawn Tag" + ChatColor.RED + " is active.");
             return false;
 

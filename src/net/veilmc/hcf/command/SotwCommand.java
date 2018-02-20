@@ -29,14 +29,6 @@ public class SotwCommand implements CommandExecutor, TabCompleter
     }
 
     public boolean onCommand(final CommandSender sender, final Command command, final String label, final String[] args) {
-
-
-        if(ConfigurationService.KIT_MAP) {
-            sender.sendMessage(org.bukkit.ChatColor.RED + "There is no need for this command on VeilMC kitmap.");
-            return false;
-        }
-
-
         if (args.length > 0) {
             if (args[0].equalsIgnoreCase("start")) {
                 if (args.length < 2) {
