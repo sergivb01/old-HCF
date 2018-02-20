@@ -3,6 +3,8 @@ package net.veilmc.hcf.command;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.deathban.Deathban;
 import net.veilmc.hcf.user.FactionUser;
+import net.veilmc.util.chat.ClickAction;
+import net.veilmc.util.chat.Text;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -48,7 +50,7 @@ public class DInfoCommand
         DecimalFormat df = new DecimalFormat("##");
         sender.sendMessage(ChatColor.YELLOW + "Reason: " + ChatColor.LIGHT_PURPLE + deathban.getReason());
         sender.sendMessage(ChatColor.YELLOW + "Remaining: " + ChatColor.LIGHT_PURPLE + remain);
-        sender.sendMessage(ChatColor.YELLOW +  "Location:" + ChatColor.LIGHT_PURPLE + " x" + df.format(x) + ", y" + df.format(y) + ", z" + df.format(z));
+        new Text(ChatColor.YELLOW + "Location:" + ChatColor.LIGHT_PURPLE + " x" + df.format(x) + ", y" + df.format(y) + ", z" + df.format(z)).setHoverText(ChatColor.YELLOW + "Click to teleport.").setClick(ClickAction.RUN_COMMAND, "/tp " + df.format(x) + " " + df.format(y) + " " + df.format(z)).send(sender);
         return true;
     }
 
