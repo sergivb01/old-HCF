@@ -57,7 +57,7 @@ public class PlatinumReviveCommand implements CommandExecutor{
 
         factionTarget.removeDeathban();
         Bukkit.broadcastMessage(" ");
-        Bukkit.broadcastMessage("§3§l[Revive] d§l" + sender.getName() + " §ehas revived §d&l" + target.getName() + "§eusing their §b§lPlatinum rank");
+        Bukkit.broadcastMessage("§3§l[Revive] §d§l" + sender.getName() + " §ehas revived §d§l" + target.getName() + " §eusing their §b§lPlatinum rank");
         Bukkit.broadcastMessage(ConfigurationService.REVIVE_MESSAGE);
         Bukkit.broadcastMessage(" ");
         Cooldowns.addCooldown("revive_cooldown", p, 3600);

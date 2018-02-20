@@ -6,7 +6,6 @@ import net.veilmc.hcf.timer.event.TimerExpireEvent;
 import net.veilmc.hcf.timer.event.TimerExtendEvent;
 import net.veilmc.hcf.timer.event.TimerPauseEvent;
 import net.veilmc.hcf.timer.event.TimerStartEvent;
-import net.veilmc.util.Config;
 import com.google.common.base.Optional;
 
 import java.util.LinkedHashMap;
@@ -16,6 +15,7 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import javax.annotation.Nullable;
 
+import net.veilmc.util.Config;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.entity.Player;
