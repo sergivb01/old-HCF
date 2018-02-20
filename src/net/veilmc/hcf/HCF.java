@@ -105,6 +105,8 @@ public class HCF extends JavaPlugin {
     public long NEXT_KOTH = -1;
     private String armor;
 
+    private static HashMap<String, Integer> database;
+
     public ArrayList<String> players;
 
     public static HCF getPlugin() {
@@ -189,14 +191,13 @@ public class HCF extends JavaPlugin {
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, ()->{
             List<String> donors = new ArrayList<>();
             Bukkit.getOnlinePlayers().stream().filter(player -> player.hasPermission("vip.broadcast") && !player.isOp() && !player.hasPermission("*")).forEach(player -> donors.add(player.getDisplayName()));
-            List<String> broadcastMessage = new ArrayList<>();
-            HCF.getInstance().getConfig().getStringList("online-medics").forEach(s -> broadcastMessage.add(
-                    s.replace("%LINE%", BukkitUtils.STRAIGHT_LINE_DEFAULT + "")
+
+            HCF.getInstance().getConfig().getStringList("online-medics").forEach(s ->
+                    Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', s.replace("%LINE%", BukkitUtils.STRAIGHT_LINE_DEFAULT + "")
                     .replace("%MEDICS%", donors.isEmpty() ?
                             "&cNone" :
-                            donors.toString().replace("[", "").replace("]", ""))));
+                            donors.toString().replace("[", "").replace("]", "")))));
 
-            broadcastMessage.forEach(s -> Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', s)));
         }, 15 * 20L, (10 * 60) * 20L);
 
         Bukkit.getScheduler().scheduleAsyncRepeatingTask(this, ()->{
