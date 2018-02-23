@@ -550,117 +550,31 @@ public class PlayerFaction
               }
           }
       }
-/*
-      sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7&m" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
-      sender.sendMessage(ChatColor.WHITE.toString() + ChatColor.BOLD + " ⨠ " + ChatColor.GREEN + this.getDisplayName(sender)+ ChatColor.GRAY +" ("+this.getOnlineMembers().size()+"/"+this.getMembers().size() + " online)");
 
-      sender.sendMessage(ChatColor.YELLOW + "  Home: " + ChatColor.RED + (this.home == null ? "None" : ChatColor.RED.toString() + this.home.getLocation().getBlockX() + ", " + this.home.getLocation().getBlockZ()) + ChatColor.GOLD + " |" + ChatColor.YELLOW + " Status: " + (!this.open ? ChatColor.RED + "Closed" : ChatColor.GREEN + "Open"));
-      if(!allyNames.isEmpty()) {
+      DecimalFormat df = new DecimalFormat("#");
 
-          sender.sendMessage(ChatColor.YELLOW + "  Allies: " + StringUtils.join(allyNames, ChatColor.GRAY + ", "));
-      }
-
-      if(leaderName != null) {
-          sender.sendMessage(ChatColor.YELLOW + "  Leader: " + ChatColor.RED + leaderName);
-      }
-      
-      if (!coleaderName.isEmpty()) {
-          sender.sendMessage(ChatColor.YELLOW + "  Co-Leaders: " + ChatColor.RED + StringUtils.join(coleaderName, new StringBuilder().append(ChatColor.GRAY).append(", ").toString()));
-        }
-
-      if(!captainNames.isEmpty()) {
-          sender.sendMessage(ChatColor.YELLOW + "  Captains: " + ChatColor.RED + StringUtils.join(captainNames, ChatColor.GRAY + ", "));
-      }
-
-      if(!memberNames.isEmpty()) {
-          sender.sendMessage(ChatColor.YELLOW + "  Members: " + ChatColor.RED + StringUtils.join(memberNames, ChatColor.GRAY + ", "));
-      }
-
-      if (sender instanceof Player) {
-          final Faction playerFaction2 = HCF.getPlugin().getFactionManager().getPlayerFaction((Player)sender);
-          if (playerFaction2 != null && playerFaction2.equals(this) && this.announcement != null) {
-              sender.sendMessage(ChatColor.GRAY + " *  " + ChatColor.YELLOW + "Announcement: " + ChatColor.LIGHT_PURPLE + this.announcement);
-          }
-      }
-      if(!ConfigurationService.KIT_MAP) {
-        sender.sendMessage(ChatColor.YELLOW + "  Balance: " + ChatColor.BLUE + '$' + this.balance + ChatColor.YELLOW + ", " + "Total Kills: " + ChatColor.RED + combinedKills1 + ChatColor.RED + " kills");
-        sender.sendMessage(ChatColor.YELLOW + "  Deaths until Raidable: " + this.getDtrColour() + JavaUtils.format(getDeathsUntilRaidable(false)) + ChatColor.YELLOW + "/" + this.getMaximumDeathsUntilRaidable() + this.getRegenStatus().getSymbol());
-      } else {
-        sender.sendMessage(ChatColor.YELLOW + "  Balance: " + ChatColor.BLUE + '$' + this.balance);
-        sender.sendMessage(ChatColor.YELLOW + "  Total Kills: " + ChatColor.LIGHT_PURPLE + combinedKills1);
-      }
+      String finalLeaderName = leaderName;
       long dtrRegenRemaining = this.getRemainingRegenerationTime();
-      if(dtrRegenRemaining > 0L) {
-          sender.sendMessage(ChatColor.YELLOW+ "   Time until Regen: " + ChatColor.LIGHT_PURPLE + DurationFormatUtils.formatDurationWords(dtrRegenRemaining, true, true));
-      }
-
-      sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7&m" + BukkitUtils.STRAIGHT_LINE_DEFAULT));*/
-
-      List<String> toSend = new ArrayList<>();
-
-
-      for (String string : HCF.getInstance().getConfig().getStringList("faction-settings.show.player-faction")) {
-          string = string.replace("%FACTION%", this.getDisplayName(sender));
-          string = string.replace("%ONLINE%", this.getOnlineMembers().size() + "");
-          string = string.replace("%MAX%", this.getMembers().size() + "");
-          string = string.replace("%LINE%", BukkitUtils.STRAIGHT_LINE_DEFAULT + "");
-          string = string.replace("%KILLS%", combinedKills1 + "");
-          string = string.replace("%BALANCE%", this.balance + "");
-          string = string.replace("%DTR%", this.getDtrColour() + JavaUtils.format(getDeathsUntilRaidable(false)));
-          string = string.replace("%MAXDTR%", this.getMaximumDeathsUntilRaidable() + "");
-
-          if(string.contains("%DTR-SYMBOL%")) {
-              if (this.getRegenStatus().getSymbol() == null) {
-                  string = string.replace("%DTR_SYMBOL%", "");
-              } else {
-                  string = string.replace("%DTR-SYMBOL%", this.getRegenStatus().getSymbol());
-              }
-          }
-
-          if (string.contains("%HOME%")) {
-              if(this.home == null) {
-                  string = string.replace("%HOME%", "None");
-              } else {
-                  DecimalFormat df = new DecimalFormat("#");
-                  string = string.replace("%HOME%", df.format(this.getHome().getX()) + ", " + df.format(this.getHome().getZ()));
-              }
-          }
-          if (string.contains("%LEADER%")) {
-              if(leaderName != null) {
-                  string = string.replace("%LEADER%", leaderName);
-              } else {
-                  continue;
-              }
-          }
-          if (string.contains("%CAPTAINS%")) {
-              if(!(captainNames.isEmpty())) {
-                  string = string.replace("%CAPTAINS%", StringUtils.join(captainNames, ChatColor.GRAY + ", "));
-              } else {
-                  continue;
-              }
-          }
-          if (string.contains("%MEMBERS%")) {
-              if(!(memberNames.isEmpty())) {
-                  string = string.replace("%MEMBERS%", StringUtils.join(memberNames, ChatColor.GRAY + ", "));
-              } else {
-                  continue;
-              }
-          }
-          if(string.contains("%REGEN%")) {
-              long dtrRegenRemaining = this.getRemainingRegenerationTime();
-              if(dtrRegenRemaining > 0L) {
-                  string = string.replace("%REGEN%", DurationFormatUtils.formatDurationWords(dtrRegenRemaining, true, true));
-              } else {
-                  string = string.replace("%REGEN%", ChatColor.GRAY + "Fully Regenerated.");
-              }
-          }
-
-          toSend.add(string);
-      }
-
-      for (String message : toSend) {
-          sender.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
-      }
+      HCF.getInstance().getConfig().getStringList("faction-settings.show.player-faction").forEach(str -> {
+              sender.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                      str = str.replace("%FACTION%", this.getDisplayName(sender))
+                              .replace("%ONLINE%", this.getOnlineMembers().size() + "")
+                              .replace("%MAX%", this.getMembers().size() + "")
+                              .replace("%LINE%", BukkitUtils.STRAIGHT_LINE_DEFAULT + "")
+                              .replace("%ANNOUNCEMENT%", this.announcement != null ? this.announcement : "")
+                              .replace("%KILLS%", combinedKills1 + "")
+                              .replace("%BALANCE%", this.balance + "")
+                              .replace("%DTR%", this.getDtrColour() + JavaUtils.format(getDeathsUntilRaidable(false)))
+                              .replace("%MAXDTR%", this.getMaximumDeathsUntilRaidable() + "")
+                              .replace("%DTR-SYMBOL%", (this.getRegenStatus().getSymbol() != null ? this.getRegenStatus().getSymbol() : ""))
+                              .replace("%HOME%", this.home == null ? "None" : (df.format(this.getHome().getX()) + ", " + df.format(this.getHome().getZ())))
+                              .replace("%LEADER%", finalLeaderName != null ? finalLeaderName : "")
+                              .replace("%CAPTAINS%", !captainNames.isEmpty() ? StringUtils.join(captainNames, ChatColor.GRAY + ", ") : ChatColor.GRAY + "None")
+                              .replace("%MEMBERS%", !memberNames.isEmpty() ? StringUtils.join(memberNames, ChatColor.GRAY + ", ") : ChatColor.GRAY + "None")
+                              .replace("%ALLIES%", !allyNames.isEmpty() ? StringUtils.join(allyNames, ChatColor.GRAY + ", ") : ChatColor.GRAY + "None")
+                              .replace("%REGEN%", (dtrRegenRemaining > 0L) ? DurationFormatUtils.formatDurationWords(dtrRegenRemaining, true, true) : ChatColor.GRAY + "Fully Regenerated.")
+                      ));
+        });
 
   }
 
