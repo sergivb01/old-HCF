@@ -557,7 +557,7 @@ public class PlayerFaction
       long dtrRegenRemaining = this.getRemainingRegenerationTime();
       HCF.getInstance().getConfig().getStringList("faction-settings.show.player-faction").forEach(str -> {
               sender.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                      str.replace("%FACTION%", this.getDisplayName(sender))
+                      str = str.replace("%FACTION%", this.getDisplayName(sender))
                               .replace("%ONLINE%", this.getOnlineMembers().size() + "")
                               .replace("%MAX%", this.getMembers().size() + "")
                               .replace("%LINE%", BukkitUtils.STRAIGHT_LINE_DEFAULT + "")
@@ -569,9 +569,9 @@ public class PlayerFaction
                               .replace("%DTR-SYMBOL%", (this.getRegenStatus().getSymbol() != null ? this.getRegenStatus().getSymbol() : ""))
                               .replace("%HOME%", this.home == null ? "None" : (df.format(this.getHome().getX()) + ", " + df.format(this.getHome().getZ())))
                               .replace("%LEADER%", finalLeaderName != null ? finalLeaderName : "")
-                              .replace("%CAPTAINS%", !captainNames.isEmpty() ? StringUtils.join(captainNames, ChatColor.GRAY + ", ") : "")
-                              .replace("%MEMBERS%", !memberNames.isEmpty() ? StringUtils.join(memberNames, ChatColor.GRAY + ", ") : "")
-                              .replace("%ALLIES%", !allyNames.isEmpty() ? StringUtils.join(allyNames, ChatColor.GRAY + ", ") : "")
+                              .replace("%CAPTAINS%", !captainNames.isEmpty() ? StringUtils.join(captainNames, ChatColor.GRAY + ", ") : ChatColor.GRAY + "None")
+                              .replace("%MEMBERS%", !memberNames.isEmpty() ? StringUtils.join(memberNames, ChatColor.GRAY + ", ") : ChatColor.GRAY + "None")
+                              .replace("%ALLIES%", !allyNames.isEmpty() ? StringUtils.join(allyNames, ChatColor.GRAY + ", ") : ChatColor.GRAY + "None")
                               .replace("%REGEN%", (dtrRegenRemaining > 0L) ? DurationFormatUtils.formatDurationWords(dtrRegenRemaining, true, true) : ChatColor.GRAY + "Fully Regenerated.")
                       ));
         });
