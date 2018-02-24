@@ -19,6 +19,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import ru.tehkode.permissions.bukkit.PermissionsEx;
 
 public class DeathMessageListener
 implements Listener {
@@ -129,7 +130,8 @@ implements Listener {
 		Preconditions.checkNotNull((Object)entity, "Entity cannot be null");
 		if (entity instanceof Player) {
 			Player player = (Player)entity;
-			return player.getName() + ChatColor.GOLD + '[' + ChatColor.WHITE + this.plugin.getUserManager().getUser(player.getUniqueId()).getKills() + ChatColor.GOLD + ']';
+			String rank = ChatColor.translateAlternateColorCodes('&', "&e" + PermissionsEx.getUser(player).getPrefix()).replace("_", " ");
+			return rank + player.getName() + ChatColor.GOLD + '[' + ChatColor.WHITE + this.plugin.getUserManager().getUser(player.getUniqueId()).getKills() + ChatColor.GOLD + ']';
 		}
 		return WordUtils.capitalizeFully(entity.getType().name().replace('_', ' '));
 	}
