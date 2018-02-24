@@ -2,6 +2,7 @@ package net.veilmc.hcf.command;
 
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.utils.ConfigurationService;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -27,15 +28,18 @@ public class PlayerVaultCommand implements CommandExecutor {
         }
 
         Player player = (Player) sender;
-        /*PlayerFaction playerFaction;
-        Location location = player.getLocation();
-        Faction factionAt = this.plugin.getFactionManager().getFactionAt(location);
-        if (!(factionAt.isSafezone() || (playerFaction = this.plugin.getFactionManager().getPlayerFaction(player)) != null && playerFaction.equals(factionAt))) {
-            player.sendMessage(ChatColor.RED + "Your vault can be opened only in safe-zones or your own claim.");
-            return false;
-        }*/
+        Player target = player;
+        if(player.hasPermission("hcf.command.pv.others") && args.length != 0){
+            target = Bukkit.getPlayer(args[0]);
 
-        player.openInventory(player.getEnderChest());
+            if(target == null){
+                player.sendMessage(ChatColor.RED + "Uknown player.");
+                return true;
+            }
+        }
+
+        player.openInventory(target.getEnderChest());
+        player.sendMessage(ChatColor.WHITE + "Opened " + ChatColor.AQUA.toString() + ChatColor.BOLD + (player.equals(target) ? "your" : target.getName() + "'s") + ChatColor.WHITE + " player vault.");
 
         return true;
     }
