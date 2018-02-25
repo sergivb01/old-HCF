@@ -178,6 +178,16 @@ public class FactionUser
 		}
 	}
 
+	public void setTabStyle(int i){
+		if(i >= 0 && i < 3){
+			this.tabStyle = i;
+		}
+	}
+
+	public int getTabStyleInt(){
+		return this.tabStyle;
+	}
+
 	public TabStyles getTabStyle(){
 		switch(this.tabStyle){
 			default:
