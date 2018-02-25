@@ -139,7 +139,7 @@ implements Listener {
             player.setSaturation(4.0f);
         }
         if (this.getLastLandChangedMeta(player = event.getPlayer()) <= 0) {
-            if(ConfigurationService.KIT_MAP) {
+            if(ConfigurationService.KIT_MAP || ConfigurationService.VEILZ) {
                 Faction fromFaction = event.getFromFaction();
                 player.sendMessage(ChatColor.YELLOW + "Leaving: " + fromFaction.getDisplayName(player) + ChatColor.YELLOW + ", Entering: " + toFaction.getDisplayName(player));
             } else {
