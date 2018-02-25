@@ -35,7 +35,7 @@ public class DeathListener
 {
     public static HashMap<UUID, ItemStack[]> PlayerInventoryContents = new HashMap();
     public static HashMap<UUID, ItemStack[]> PlayerArmorContents = new HashMap();
-    private static final long BASE_REGEN_DELAY = TimeUnit.MINUTES.toMillis(60L);
+    private static final long REGEN_DELAY = TimeUnit.MINUTES.toMillis(60L);
     private final HCF plugin;
 
     public DeathListener(HCF plugin)
@@ -68,7 +68,7 @@ public class DeathListener
                 if(VEILZ) {
                     playerFaction.setRemainingRegenerationTime(regen);
                 } else {
-                    playerFaction.setRemainingRegenerationTime(BASE_REGEN_DELAY + playerFaction.getOnlinePlayers().size() * TimeUnit.MINUTES.toMillis(2L));
+                    playerFaction.setRemainingRegenerationTime(REGEN_DELAY);
                 }
                 playerFaction.broadcast(ChatColor.RED + "Member Death: " + ChatColor.WHITE + role.getAstrix() + player.getName() + ChatColor.YELLOW + " DTR:" + ChatColor.GRAY + " [" + playerFaction.getDtrColour() + JavaUtils.format(playerFaction.getDeathsUntilRaidable()) + ChatColor.WHITE + '/' + ChatColor.WHITE + playerFaction.getMaximumDeathsUntilRaidable() + ChatColor.GRAY + "].");
             }
@@ -76,7 +76,7 @@ public class DeathListener
                 if(VEILZ) {
                     playerFaction.setRemainingRegenerationTime(regen);
                 } else {
-                    playerFaction.setRemainingRegenerationTime(BASE_REGEN_DELAY + playerFaction.getOnlinePlayers().size() * TimeUnit.MINUTES.toMillis(2L));
+                    playerFaction.setRemainingRegenerationTime(REGEN_DELAY);
                 }
                 playerFaction.broadcast(ChatColor.RED + "Member Death: " + ChatColor.WHITE + role.getAstrix() + ChatColor.YELLOW + " DTR:" + ChatColor.GRAY + " [" + playerFaction.getDtrColour() + JavaUtils.format(playerFaction.getDeathsUntilRaidable()) + ChatColor.WHITE + '/' + ChatColor.WHITE + playerFaction.getMaximumDeathsUntilRaidable() + ChatColor.GRAY + "].");
             }
