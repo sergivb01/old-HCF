@@ -1,8 +1,7 @@
 
 package net.veilmc.hcf.timer.type;
 
-import java.util.concurrent.TimeUnit;
-
+import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.timer.PlayerTimer;
 import net.veilmc.hcf.utils.ConfigurationService;
 import org.bukkit.ChatColor;
@@ -15,13 +14,13 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import net.veilmc.hcf.HCF;
+import java.util.concurrent.TimeUnit;
 
 public class NotchAppleTimer
 extends PlayerTimer
 implements Listener {
     public NotchAppleTimer(JavaPlugin plugin) {
-        super(ConfigurationService.NOTCH_APPLE_TIMER, TimeUnit.HOURS.toMillis(6));
+        super(ConfigurationService.NOTCH_APPLE_TIMER, ConfigurationService.KIT_MAP ? TimeUnit.MINUTES.toMillis(30L) : TimeUnit.HOURS.toMillis(4));
     }
 
     @Override

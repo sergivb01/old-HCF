@@ -53,7 +53,7 @@ public class PvpProtectionTimer extends PlayerTimer implements Listener
     private static final long ITEM_PICKUP_DELAY;
     private static final long ITEM_PICKUP_MESSAGE_DELAY = 1250L;
     private static final String ITEM_PICKUP_MESSAGE_META_KEY = "pickupMessageDelay";
-    public final Set<UUID> legible;
+    private final Set<UUID> legible;
     private final ConcurrentMap<Object, Object> itemUUIDPickupDelays;
     private final HCF plugin;
 

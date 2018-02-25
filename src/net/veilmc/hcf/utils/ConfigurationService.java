@@ -215,21 +215,15 @@ public final class ConfigurationService {
         
         END_CANNOT_BUILD = ChatColor.translateAlternateColorCodes('&', config.getString("messages.end-cannot-build"));
         WORLD_CANNOT_BUILD = ChatColor.translateAlternateColorCodes('&', config.getString("messages.world-cannot-build"));
+
         FAILED_PEARL = ChatColor.translateAlternateColorCodes('&', config.getString("messages.failed-pearl"));
+
         TELEPORTED_SPAWN = ChatColor.translateAlternateColorCodes('&', config.getString("messages.teleport-spawn"));
+
         CANNOT_ATTACK = ChatColor.translateAlternateColorCodes('&', config.getString("messages.cannot-attack"));
         IN_FACTION = ChatColor.translateAlternateColorCodes('&', config.getString("messages.in-faction"));
         ALLY_FACTION = ChatColor.translateAlternateColorCodes('&', config.getString("messages.ally-faction"));
-        //LEAVING_ENTERING_MESSAGE = ChatColor.translateAlternateColorCodes('&', config.getString("messages.leaving-entering"));
 
-
-        /*
-        PVPTIMER_EXPIRED = ChatColor.translateAlternateColorCodes('&', config.getString("messages.pvptimer-expired"));
-        PVPTIMER_PLAYERSPAWN = ChatColor.translateAlternateColorCodes('&', config.getString("messages.pvptimer-playerspawn"));
-        PVPTIMER_STARTED = ChatColor.translateAlternateColorCodes('&', config.getString("messages.pvptimer-started"));
-        PVPTIMER_PAUSED = ChatColor.translateAlternateColorCodes('&', config.getString("messages.pvptimer-paused"));
-        PVPTIMER_UNPAUSED = ChatColor.translateAlternateColorCodes('&', config.getString("messages.pvptimer-unpaused"));
-        */
         REVIVE_MESSAGE = ChatColor.translateAlternateColorCodes('&', config.getString("messages.revive-message"));
         LOGOUT_TIMER = ChatColor.translateAlternateColorCodes('&', config.getString("timers.logout-timer"));
         LOGOUT_COLOUR = ChatColor.getByChar(config.getString("timers.logout-color", "&e").replace("&", "").trim());
