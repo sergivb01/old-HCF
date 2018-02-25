@@ -108,9 +108,6 @@ public class TimerSidebarProvider implements SidebarProvider {
                     continue;
                 }
                 String timerName = playerTimer.getName();
-                if (timerName.length() > 14) {
-                    timerName = timerName.substring(0, timerName.length());
-                }
                 if(playerTimer instanceof SpawnTagTimer){
                     lines.add(new SidebarEntry(playerTimer.getScoreboardPrefix(), "" + ChatColor.BOLD + timerName, ChatColor.DARK_GRAY + ": " + ChatColor.RED + getRemainingSpawn(remaining)));
                 }else {
@@ -122,9 +119,6 @@ public class TimerSidebarProvider implements SidebarProvider {
                 long remaining = playerTimer.getRemaining();
                 if (remaining > 0L) {
                     String timerName1 = playerTimer.getName();
-                    if (timerName1.length() > 14) {
-                        timerName1 = timerName1.substring(0, timerName1.length());
-                    }
                     lines.add(new SidebarEntry(ChatColor.RED.toString() + "" + playerTimer.getScoreboardPrefix(), timerName1, ChatColor.DARK_GRAY + ": " + ChatColor.RED + HCF.getRemaining(remaining, true)));
                 }
             }
@@ -236,23 +230,10 @@ public class TimerSidebarProvider implements SidebarProvider {
 
         final FactionUser factionUser = this.plugin.getUserManager().getUser(player.getUniqueId());
 
-        if (ConfigurationService.KIT_MAP && factionUser !=null) {
+        if ((ConfigurationService.KIT_MAP || ConfigurationService.VEILZ) && factionUser != null) {
             lines.add(new SidebarEntry(ChatColor.GOLD.toString() + " ", ChatColor.BLUE + "Balance: " + ChatColor.WHITE + "$", this.plugin.getEconomyManager().getBalance(player.getUniqueId())));
-            //lines.add(new SidebarEntry(ChatColor.GOLD.toString() + " ", ChatColor.BLUE + "Kills" + ": " + ChatColor.WHITE, player.getStatistic(Statistic.KILLSSS)));
-            //
             lines.add(new SidebarEntry(ChatColor.BLUE, " Kills", ": " + ChatColor.WHITE + factionUser.getKills()));
-          //  lines.add(new SidebarEntry(ChatColor.BLUE, " Deaths", ": " + ChatColor.WHITE + factionUser.getDeaths()));
             lines.add(new SidebarEntry(ChatColor.GOLD.toString() + " ", ChatColor.BLUE + "Deaths" + ": " + ChatColor.WHITE, player.getStatistic(Statistic.DEATHS)));
-
-
-//			Integer k = Integer.valueOf(player.getStatistic(Statistic.PLAYER_KILLS));
-//			double d = Integer.valueOf(player.getStatistic(Statistic.DEATHS));
-//			double kd = k / d;
-//			if (df.format(kd).matches(".*\\d+.*")){
-//				lines.add(new SidebarEntry(ChatColor.GOLD.toString() + " ", ChatColor.GREEN + "KDR" + ": " + ChatColor.YELLOW, df.format(kd)));
-//			} else {
-//				lines.add(new SidebarEntry(ChatColor.GOLD.toString() + " ", ChatColor.GREEN + "KDR" + ": " + ChatColor.YELLOW, "0"));
-//			}
 		}
 
         if (!lines.isEmpty()) {

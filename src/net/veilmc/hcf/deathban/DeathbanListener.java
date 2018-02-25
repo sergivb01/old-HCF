@@ -85,7 +85,7 @@ public class DeathbanListener
 
     @EventHandler(ignoreCancelled=true, priority=EventPriority.LOW)
     public void onPlayerDeath(PlayerDeathEvent event){
-    	if(ConfigurationService.KIT_MAP){
+    	if(ConfigurationService.KIT_MAP || ConfigurationService.VEILZ){
     		return;
     	}
     	
