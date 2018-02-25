@@ -39,18 +39,14 @@ public class CheckCommand implements Listener, CommandExecutor {
             sender.sendMessage(ChatColor.RED + "Usage: /" + command.getName() + " <player>");
             return false;
         }
-        OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
-        if(!target.hasPlayedBefore()) {
-            sender.sendMessage(ChatColor.RED + "Player not found.");
-            return false;
-        }
+        OfflinePlayer target = Bukkit.getPlayer(args[0]);
 
-        ((Player) sender).openInventory(getBanMenu(target.getPlayer()));
+        ((Player) sender).openInventory(getBanMenu(target));
         return true;
     }
 
 
-    private static Inventory getBanMenu(final Player target) {
+    private static Inventory getBanMenu(final OfflinePlayer target) {
         final Inventory inventory = Bukkit.createInventory(null, 54, ChatColor.DARK_GRAY + target.getName() + (target.getName().endsWith("s") ? "'" : "'s") + " Bans");
 
         Bukkit.getScheduler().runTaskAsynchronously(plugin, ()-> {
@@ -71,9 +67,11 @@ public class CheckCommand implements Listener, CommandExecutor {
                         removedNameList.add(rs.getString("removed_by_name"));
                         dateList.add(rs.getString("removed_by_date"));
                         activeList.add(rs.getString("active"));
-
                     }
 
+                    if(reasonList.size() == 0) {
+                        return;
+                    }
                     for (int i = 0; i < reasonList.size(); i++) {
                         ItemStack is = new ItemStack(35, 1, (short) 14);
                         ItemMeta meta = is.getItemMeta();

@@ -1,7 +1,7 @@
 
 # Scoreboard title for side bar.
 scoreboard:
-  title: '&e&lVeil &a[Map 1]'
+  title: '&9&lVeil &f[Map 1]'
   active-class: '&a&lActive Class&7'
 
 # Enable death-signs so when a player dies it spawns a sign.
@@ -9,7 +9,7 @@ death-signs: true
 
 online-medics:
   - '&7%LINE%'
-  - '&a&lOnline Medics'
+  - '&9&lOnline Donators'
   - ' '
   - ' &f&l* &e%MEDICS%'
   - '&7%LINE%'
@@ -41,7 +41,7 @@ unbuildable-range: 300
 
 help:
   - '&7&m-----------------------------------------------------'
-  - '&6&l  VeilMC Help'
+  - '&b&l  VeilMC Help'
   - '&a '
   - '&6  World Border:'
   - '  &7* &eOverworld&7: &f%OVERWORLD%'
