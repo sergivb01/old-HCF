@@ -24,9 +24,15 @@ public class TabListener{
 		this.plugin = plugin;
 		this.factionManager = plugin.getFactionManager();
 	}
-	
-	
 
+	/*
+		TODO:
+			* Add listeners
+			* Create player tab
+			* Check different tab styles
+			* Disable tab thing
+			* Caching system (?)
+	 */
 
 	private static String getCardinalDirection(final Player player){
 		double rotation = (player.getLocation().getYaw() - 90.0f) % 360.0f;
@@ -64,6 +70,7 @@ public class TabListener{
 	}
 
 	private String translate(final Player player, String path){
+		//TODO: Clean up replacements
 		PlayerFaction playerFaction = factionManager.getPlayerFaction(player.getUniqueId());
 
 		if(path.contains("%player_kills%")){
