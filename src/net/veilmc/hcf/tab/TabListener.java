@@ -10,6 +10,9 @@ import org.bukkit.*;
 import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.Comparator;
 import java.util.HashMap;
@@ -23,6 +26,7 @@ public class TabListener{
 	public TabListener(HCF plugin){
 		this.plugin = plugin;
 		this.factionManager = plugin.getFactionManager();
+		Tab.setPlugin(plugin);
 	}
 
 	/*
@@ -33,6 +37,23 @@ public class TabListener{
 			* Disable tab thing
 			* Caching system (?)
 	 */
+
+	@EventHandler
+	public void onPlayerJoin(PlayerJoinEvent event){
+		Player player = event.getPlayer();
+
+		Tab.createTabList(player).setPlayerListHeaderFooter("My cool header", "My boring footer");
+
+		for(int i = 1; i <= 80; i++){
+			Tab.getByPlayer(player).setSlot(i, "Position " + i);
+		}
+	}
+
+	@EventHandler
+	public void onPlayerQuit(PlayerQuitEvent event){
+		Tab.deleteTabList(event.getPlayer());
+	}
+
 
 	private static String getCardinalDirection(final Player player){
 		double rotation = (player.getLocation().getYaw() - 90.0f) % 360.0f;
