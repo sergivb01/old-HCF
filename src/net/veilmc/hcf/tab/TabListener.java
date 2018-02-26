@@ -11,6 +11,7 @@ import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
@@ -19,10 +20,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TabListener{
+public class TabListener implements Listener{
 	private HCF plugin;
 	private FactionManager factionManager;
-	
+
 	public TabListener(HCF plugin){
 		this.plugin = plugin;
 		this.factionManager = plugin.getFactionManager();
@@ -232,6 +233,6 @@ public class TabListener{
 		}
 		return ChatColor.translateAlternateColorCodes('&', path);
 	}
-	
-	
+
+
 }
