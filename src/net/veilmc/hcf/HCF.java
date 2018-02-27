@@ -172,6 +172,14 @@ public class HCF extends JavaPlugin{
 		Bukkit.getConsoleSender().sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
 
 
+		if(ConfigurationService.DEV){
+			Bukkit.getPluginManager().registerEvents(new TabListener(this), this);
+			for(int i = 0; i < 10; i++){
+				getLogger().warning("SERVER HAS BEEN LOADED AS DEV VERSION! PLUGIN MAY NOT BE STABLE!");
+			}
+		}
+		
+
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
 			List<String> donors = new ArrayList<>();
 			Bukkit.getOnlinePlayers().stream().filter(player -> player.hasPermission("vip.broadcast") && !player.isOp() && !player.hasPermission("*")).forEach(player -> donors.add(player.getDisplayName()));
@@ -275,9 +283,6 @@ public class HCF extends JavaPlugin{
 
 	private void registerListeners(){
 		PluginManager manager = this.getServer().getPluginManager();
-		if(ConfigurationService.DEV){
-			manager.registerEvents(new TabListener(this), this);
-		}
 		manager.registerEvents(new PotionLimitListener(), this);
 		manager.registerEvents(new AutoRespawnListener(this), this);
 		manager.registerEvents(new PortalFixListener(), this);
