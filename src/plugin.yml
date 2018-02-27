@@ -9,6 +9,8 @@ version: VEILMC
 main: net.veilmc.hcf.HCF
 softdepend: [ProtocolLib]
 commands:
+  death:
+    aliases: ["d"]
   token:
   platinum:
     description: Perk for platinum rank to revive players.

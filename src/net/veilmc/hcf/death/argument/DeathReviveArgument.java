@@ -19,5 +19,6 @@ public class DeathReviveArgument extends CommandArgument {
     }
 
     public boolean onCommand(final CommandSender sender, final Command command, final String label, final String[] args) {
+        return true;
     }
 }

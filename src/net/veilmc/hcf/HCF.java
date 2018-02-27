@@ -14,6 +14,7 @@ import net.veilmc.hcf.config.PotionLimiterData;
 import net.veilmc.hcf.crate.KeyListener;
 import net.veilmc.hcf.crate.KeyManager;
 import net.veilmc.hcf.crate.LootExecutor;
+import net.veilmc.hcf.death.DeathExecutor;
 import net.veilmc.hcf.deathban.Deathban;
 import net.veilmc.hcf.deathban.DeathbanListener;
 import net.veilmc.hcf.deathban.DeathbanManager;
@@ -379,6 +380,7 @@ public class HCF extends JavaPlugin{
 		this.getCommand("store").setExecutor(new StoreCommand(this));
 		this.getCommand("lives").setExecutor(new LivesExecutor(this));
 		this.getCommand("token").setExecutor(new TokenExecutor(this));
+		this.getCommand("death").setExecutor(new DeathExecutor(this));
 		this.getCommand("location").setExecutor(new LocationCommand(this));
 		this.getCommand("logout").setExecutor(new LogoutCommand(this));
 		this.getCommand("mapkit").setExecutor(new MapKitCommand(this));
