@@ -81,37 +81,37 @@ implements Listener {
 		if(killer instanceof Player){
 			ItemStack item = ((Player)killer).getItemInHand();
 			if(item != null && item.getType() == Material.BOW){
-				input = ChatColor.RED + getDisplayName(player) + ChatColor.YELLOW + " was shot by " + ChatColor.RED + getDisplayName(killer);
+				input = ChatColor.RED + getName(player) + ChatColor.YELLOW + " was shot by " + ChatColor.RED + getName(killer);
 				input += ChatColor.YELLOW + " from " + ChatColor.LIGHT_PURPLE + (int)player.getLocation().distance(killer.getLocation()) + ChatColor.LIGHT_PURPLE + " blocks" + ChatColor.YELLOW + ".";
 			}else{
-				input = ChatColor.RED + getDisplayName(player) + ChatColor.YELLOW + " was slain by " + ChatColor.RED + getDisplayName(killer);
+				input = ChatColor.RED + getName(player) + ChatColor.YELLOW + " was slain by " + ChatColor.RED + getName(killer);
 				input += toReadable(item);
 			}
 		}else{
 			if(cause== DamageCause.FALL){
-				input = ChatColor.RED + getDisplayName(player) + ChatColor.YELLOW + " fell from a high place.";
+				input = ChatColor.RED + getName(player) + ChatColor.YELLOW + " fell from a high place.";
 			}else if(cause== DamageCause.FIRE){
-				input = ChatColor.RED + getDisplayName(player) + ChatColor.YELLOW + " died to fire.";
+				input = ChatColor.RED + getName(player) + ChatColor.YELLOW + " died to fire.";
 			}else if(cause== DamageCause.LIGHTNING){
-				input = ChatColor.RED + getDisplayName(player) + ChatColor.YELLOW + " died to lightning.";
+				input = ChatColor.RED + getName(player) + ChatColor.YELLOW + " died to lightning.";
 			}else if(cause== DamageCause.WITHER){
-				input = ChatColor.RED + getDisplayName(player) + ChatColor.YELLOW + " withered away.";
+				input = ChatColor.RED + getName(player) + ChatColor.YELLOW + " withered away.";
 			}else if(cause== DamageCause.DROWNING){
-				input = ChatColor.RED + getDisplayName(player) + ChatColor.YELLOW + " drowned.";
+				input = ChatColor.RED + getName(player) + ChatColor.YELLOW + " drowned.";
 			}else if(cause== DamageCause.FALLING_BLOCK){
-				input = ChatColor.RED + getDisplayName(player) + ChatColor.YELLOW + " died to a falling block.";
+				input = ChatColor.RED + getName(player) + ChatColor.YELLOW + " died to a falling block.";
 			}else if(cause== DamageCause.MAGIC){
-				input = ChatColor.RED + getDisplayName(player) + ChatColor.YELLOW + " died to magic.";
+				input = ChatColor.RED + getName(player) + ChatColor.YELLOW + " died to magic.";
 			}else if(cause== DamageCause.VOID){
-				input = ChatColor.RED + getDisplayName(player) + ChatColor.YELLOW + " fell into the void.";
+				input = ChatColor.RED + getName(player) + ChatColor.YELLOW + " fell into the void.";
 			}else if(cause== DamageCause.ENTITY_EXPLOSION){
-				input = ChatColor.RED + getDisplayName(player) + ChatColor.YELLOW + " died to an explosion.";
+				input = ChatColor.RED + getName(player) + ChatColor.YELLOW + " died to an explosion.";
 			}else if(cause== DamageCause.LAVA){
-				input = ChatColor.RED + getDisplayName(player) + ChatColor.YELLOW + " burnt to a crisp.";
+				input = ChatColor.RED + getName(player) + ChatColor.YELLOW + " burnt to a crisp.";
 			}else if(cause== DamageCause.STARVATION){
-				input = ChatColor.RED + getDisplayName(player) + ChatColor.YELLOW + " starved to death.";
+				input = ChatColor.RED + getName(player) + ChatColor.YELLOW + " starved to death.";
 			}else{
-				input = ChatColor.RED + getDisplayName(player) + ChatColor.YELLOW + " died.";
+				input = ChatColor.RED + getName(player) + ChatColor.YELLOW + " died.";
 
 			}
 		}
@@ -126,13 +126,24 @@ implements Listener {
 		return entity instanceof Player ? ((Player)entity).getName() : ((CraftEntity)entity).getHandle().getName();
 	}
 
-	private String getDisplayName(org.bukkit.entity.Entity entity) {
-		Preconditions.checkNotNull((Object)entity, "Entity cannot be null");
-		if (entity instanceof Player) {
-			Player player = (Player)entity;
-			String rank = ChatColor.translateAlternateColorCodes('&', "&e" + PermissionsEx.getUser(player).getPrefix()).replace("_", " ");
-			return rank + player.getName() + ChatColor.GOLD + '[' + ChatColor.WHITE + this.plugin.getUserManager().getUser(player.getUniqueId()).getKills() + ChatColor.GOLD + ']';
-		}
-		return WordUtils.capitalizeFully(entity.getType().name().replace('_', ' '));
-	}
+    private String getDisplayName(org.bukkit.entity.Entity entity) {
+        Preconditions.checkNotNull((Object)entity, "Entity cannot be null");
+        if (entity instanceof Player) {
+            Player player = (Player)entity;
+            String rank = ChatColor.translateAlternateColorCodes('&', "&e" + PermissionsEx.getUser(player).getPrefix()).replace("_", " ");
+            return rank + player.getName() + ChatColor.GOLD + '[' + ChatColor.WHITE + this.plugin.getUserManager().getUser(player.getUniqueId()).getKills() + ChatColor.GOLD + ']';
+        }
+        return WordUtils.capitalizeFully(entity.getType().name().replace('_', ' '));
+    }
+
+    private String getName(org.bukkit.entity.Entity entity) {
+        Preconditions.checkNotNull((Object)entity, "Entity cannot be null");
+        if (entity instanceof Player) {
+            Player player = (Player)entity;
+            return ChatColor.RED + player.getName() + ChatColor.GOLD + '[' + ChatColor.WHITE + this.plugin.getUserManager().getUser(player.getUniqueId()).getKills() + ChatColor.GOLD + ']';
+        }
+        return WordUtils.capitalizeFully(entity.getType().name().replace('_', ' '));
+    }
+
+
 }
