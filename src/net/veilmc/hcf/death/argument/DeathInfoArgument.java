@@ -57,7 +57,7 @@ public class DeathInfoArgument extends CommandArgument {
                     .color(ChatColor.AQUA)
                     .then(df.format(x) + ", " + df.format(y) + ", " + df.format(z))
                     .color(ChatColor.BLUE)
-                    .command("/tp " + df.format(x) + ", " + df.format(y) + ", " + df.format(z))
+                    .command("/tp " + df.format(x) + " " + df.format(y) + " " + df.format(z))
                     .tooltip(ChatColor.GRAY + "Click to teleport to " + df.format(x) + ", " + df.format(y) + ", " + df.format(z))
                     .send(sender);
             //sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&bLocation: &9" + df.format(x) + ", " + df.format(y) + ", " + df.format(z)));
