@@ -28,18 +28,18 @@ public class DeathInfoArgument extends CommandArgument {
     }
 
     public boolean onCommand(final CommandSender sender, final Command command, final String label, final String[] args) {
-        if(args.length < 2) {
+        if (args.length < 2) {
             sender.sendMessage(ChatColor.RED + getUsage(command.getLabel()));
             return false;
         }
         OfflinePlayer target = Bukkit.getOfflinePlayer(args[1]);
-        if(target == null || (!(target.hasPlayedBefore()))){
+        if (target == null || (!(target.hasPlayedBefore()))) {
             sender.sendMessage(ChatColor.RED + "Error: Player not found.");
             return true;
         }
         FactionUser player = HCF.getPlugin().getUserManager().getUser(target.getUniqueId());
         Deathban deathban = player.getDeathban();
-        if(deathban == null || (!(deathban.isActive()))) {
+        if (deathban == null || (!(deathban.isActive()))) {
             sender.sendMessage(ChatColor.RED + "Error: This player is not deathbanned.");
             return true;
         } else {
@@ -58,7 +58,7 @@ public class DeathInfoArgument extends CommandArgument {
                     .then(df.format(x) + ", " + df.format(y) + ", " + df.format(z))
                     .color(ChatColor.BLUE)
                     .command("/tp " + df.format(x) + " " + df.format(y) + " " + df.format(z))
-                    .tooltip(ChatColor.GRAY + "Click to teleport to " + df.format(x) + ", " + df.format(y) + ", " + df.format(z))
+                    .tooltip(ChatColor.YELLOW + "Click to teleport to " + df.format(x) + ", " + df.format(y) + ", " + df.format(z))
                     .send(sender);
             //sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&bLocation: &9" + df.format(x) + ", " + df.format(y) + ", " + df.format(z)));
             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8" + BukkitUtils.STRAIGHT_LINE_DEFAULT));

@@ -41,6 +41,7 @@ public class RefundCommand
             Command.broadcastCommandMessage(p, ChatColor.YELLOW + "Returned " + target.getName() + "'s items for: " + reason);
             DeathListener.PlayerArmorContents.remove(target.getUniqueId());
             DeathListener.PlayerInventoryContents.remove(target.getUniqueId());
+            p.sendMessage(org.bukkit.ChatColor.translateAlternateColorCodes('&', "&c&lThis command will be deactivated soon, use command /death in future."));
             return true;
         }
         p.sendMessage(ChatColor.RED + "That player's inventory has already been rolledback!");

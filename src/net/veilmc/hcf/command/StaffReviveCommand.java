@@ -55,6 +55,7 @@ public class StaffReviveCommand
         }
         factionTarget.removeDeathban();
         Command.broadcastCommandMessage(sender, ChatColor.translateAlternateColorCodes('&', "&eYou have revived " + target.getName()));
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c&lThis command will be deactivated soon, use command /death in future."));
         return false;
     }
 
