@@ -1,5 +1,6 @@
 package net.veilmc.hcf.death.argument;
 
+import me.sergivb01.sutils.utils.fanciful.FancyMessage;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.deathban.Deathban;
 import net.veilmc.hcf.user.FactionUser;
@@ -52,7 +53,14 @@ public class DeathInfoArgument extends CommandArgument {
             sender.sendMessage(" ");
             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&bReason: &9" + deathban.getReason()));
             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&bRemaining: &9" + remaining));
-            sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&bLocation: &9" + df.format(x) + ", " + df.format(y) + ", " + df.format(z)));
+            new FancyMessage("Location:")
+                    .color(ChatColor.AQUA)
+                    .then(df.format(x) + ", " + df.format(y) + ", " + df.format(z))
+                    .color(ChatColor.BLUE)
+                    .command("/tp " + df.format(x) + ", " + df.format(y) + ", " + df.format(z))
+                    .tooltip(ChatColor.GRAY + "Click to teleport to " + df.format(x) + ", " + df.format(y) + ", " + df.format(z))
+                    .send(sender);
+            //sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&bLocation: &9" + df.format(x) + ", " + df.format(y) + ", " + df.format(z)));
             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
             return true;
         }

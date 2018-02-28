@@ -91,8 +91,7 @@ public class TabListener implements Listener{
 		return null;
 	}
 
-	private String translate(final Player player, String path){
-		//TODO: Clean up replacements
+	private String trs(final Player player, String path){
 		PlayerFaction playerFaction = factionManager.getPlayerFaction(player.getUniqueId());
 
 		if(path.contains("%player_kills%")){
