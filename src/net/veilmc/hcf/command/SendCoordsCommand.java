@@ -41,12 +41,12 @@ public class SendCoordsCommand
             sender.sendMessage(ChatColor.RED + "You must be in a faction to use this command.");
             return true;
         }
-        for(Player fm : this.plugin.getFactionManager().getPlayerFaction(player).getOnlinePlayers()) {
-            DecimalFormat df = new DecimalFormat("#");
-            fm.sendMessage(ChatColor.translateAlternateColorCodes('&', " &f&l* &6&lALERT &eCoordinates of " + player.getName() + " &c&n" + df.format(player.getLocation().getX()) + ", " + df.format(player.getLocation().getY()) + ", " + df.format(player.getLocation().getZ())));
-        }
-
+        PlayerFaction playerFaction = this.plugin.getFactionManager().getPlayerFaction(player.getUniqueId());
+        DecimalFormat df = new DecimalFormat("#");
+        playerFaction.broadcast(ChatColor.translateAlternateColorCodes('&', "&a&lFACTION &eCoordinates of " + player.getName() + "&c " + df.format(player.getLocation().getX()) + ", " + df.format(player.getLocation().getY()) + ", " + df.format(player.getLocation().getZ())));
         return true;
 
-    }
+        }
+
+
 }

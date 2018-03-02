@@ -530,10 +530,10 @@ public class PlayerFaction
             sender.sendMessage(ChatColor.YELLOW + " Leader: " + leaderName);
         }
         if (!captainNames.isEmpty()) {
-            sender.sendMessage(ChatColor.YELLOW + " Captains:" + StringUtils.join(captainNames, ChatColor.GRAY + ","));
+            sender.sendMessage(ChatColor.YELLOW + " Captains: " + StringUtils.join(captainNames, ChatColor.GRAY + ","));
         }
         if (!memberNames.isEmpty()) {
-            sender.sendMessage(ChatColor.YELLOW + " Members:" + StringUtils.join(memberNames, ChatColor.GRAY + ","));
+            sender.sendMessage(ChatColor.YELLOW + " Members: " + StringUtils.join(memberNames, ChatColor.GRAY + ","));
         }
         if (sender instanceof Player) {
             final Faction playerFaction2 = HCF.getPlugin().getFactionManager().getPlayerFaction((Player) sender);

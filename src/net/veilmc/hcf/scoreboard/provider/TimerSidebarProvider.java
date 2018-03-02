@@ -137,6 +137,9 @@ public class TimerSidebarProvider implements SidebarProvider {
             }
         }
 
+        if(ConfigurationService.DEV) {
+        lines.add(new SidebarEntry(ChatColor.RED.toString() + ChatColor.BOLD, "DEVELOPMENT MODE", ""));
+        }
 
         if (eventFaction instanceof ConquestFaction) {
             final ConquestFaction conquestFaction = (ConquestFaction) eventFaction;
