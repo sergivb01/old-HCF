@@ -476,7 +476,7 @@ public class PlayerFaction
             if (deathban != null && deathban.isActive()) {
                 colour = RED;
             }
-            final String memberName = colour + factionMember.getName() + ChatColor.YELLOW + '[' + ChatColor.GREEN + kills + ChatColor.YELLOW + ']';
+            final String memberName = colour + factionMember.getName() + ChatColor.GRAY + '[' + ChatColor.AQUA + kills + ChatColor.GRAY + ']';
             switch (factionMember.getRole()) {
                 case LEADER: {
                     leaderName = memberName;
@@ -520,36 +520,36 @@ public class PlayerFaction
                       .replace("%ALLIES%", !allyNames.isEmpty() ? StringUtils.join(allyNames, ChatColor.GRAY + ", ") : ChatColor.GRAY + "None")
                       .replace("%REGEN%", (dtrRegenRemaining > 0L) ? DurationFormatUtils.formatDurationWords(dtrRegenRemaining, true, true) : ChatColor.GRAY + "Fully Regenerated.")
               )));*/
-        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
-        sender.sendMessage(ChatColor.GOLD + "" + ChatColor.stripColor(this.getDisplayName(sender)) + ChatColor.GRAY + " [" + this.getOnlineMembers().size() + "/" + this.getMembers().size() + " online]" + ChatColor.YELLOW + " Status: " + (this.isOpen() ? ChatColor.GREEN + "Open" : RED + "Closed"));
-        sender.sendMessage(ChatColor.YELLOW + " Home: " + ((this.home == null ? RED + "Not Set" : RED.toString() + this.home.getLocation().getBlockX() + ", " + this.home.getLocation().getBlockZ())));
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&9" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
+        sender.sendMessage(ChatColor.AQUA + " " + ChatColor.BOLD + ChatColor.stripColor(this.getDisplayName(sender)) + ChatColor.GRAY + " [" + this.getOnlineMembers().size() + "/" + this.getMembers().size() + " online]" + ChatColor.BLUE + " Status: " + (this.isOpen() ? ChatColor.GREEN + "Open" : ChatColor.AQUA + "Closed"));
+        sender.sendMessage(ChatColor.BLUE + " Home: " + ((this.home == null ? RED + "Not Set" : ChatColor.AQUA.toString() + this.home.getLocation().getBlockX() + ", " + this.home.getLocation().getBlockZ())));
         if (!allyNames.isEmpty()) {
-            sender.sendMessage(ChatColor.YELLOW + " Allies: " + StringUtils.join(allyNames, ChatColor.GRAY + ", "));
+            sender.sendMessage(ChatColor.BLUE + " Allies: " + StringUtils.join(allyNames, ChatColor.GRAY + ", "));
         }
         if (leaderName != null) {
-            sender.sendMessage(ChatColor.YELLOW + " Leader: " + leaderName);
+            sender.sendMessage(ChatColor.BLUE + " Leader: " + leaderName);
         }
         if (!captainNames.isEmpty()) {
-            sender.sendMessage(ChatColor.YELLOW + " Captains: " + StringUtils.join(captainNames, ChatColor.GRAY + ","));
+            sender.sendMessage(ChatColor.BLUE + " Captains: " + StringUtils.join(captainNames, ChatColor.GRAY + ","));
         }
         if (!memberNames.isEmpty()) {
-            sender.sendMessage(ChatColor.YELLOW + " Members: " + StringUtils.join(memberNames, ChatColor.GRAY + ","));
+            sender.sendMessage(ChatColor.BLUE + " Members: " + StringUtils.join(memberNames, ChatColor.GRAY + ","));
         }
         if (sender instanceof Player) {
             final Faction playerFaction2 = HCF.getPlugin().getFactionManager().getPlayerFaction((Player) sender);
             if (playerFaction2 != null && this.announcement != null && playerFaction2.equals(this)) {
-                sender.sendMessage(ChatColor.YELLOW + " Announcement: " + ChatColor.LIGHT_PURPLE + this.announcement);
+                sender.sendMessage(ChatColor.BLUE + " Announcement: " + ChatColor.LIGHT_PURPLE + this.announcement);
             }
         }
         if (ConfigurationService.KIT_MAP) {
-            sender.sendMessage(ChatColor.YELLOW + " Balance:" + ChatColor.BLUE + "$" + this.balance);
-            sender.sendMessage(ChatColor.YELLOW + " Total Kills:" + RED + combinedKills1);
+            sender.sendMessage(ChatColor.BLUE + " Balance:" + ChatColor.AQUA + "$" + this.balance);
+            sender.sendMessage(ChatColor.BLUE + " Total Kills:" + ChatColor.AQUA + combinedKills1);
         } else {
-            sender.sendMessage(ChatColor.YELLOW + " Balance: " + ChatColor.BLUE + '$' + this.balance + ChatColor.YELLOW + ", " + "Total Kills: " + RED + combinedKills1 + RED + " kills");
+            sender.sendMessage(ChatColor.BLUE + " Balance: " + ChatColor.AQUA + '$' + this.balance + ChatColor.BLUE + ", " + "Total Kills: " + ChatColor.AQUA + combinedKills1 + ChatColor.AQUA + " kills");
             if (!(sender.hasPermission("rank.staff"))) {
-                sender.sendMessage(ChatColor.YELLOW + " Deaths until Raidable: " + this.getDtrColour() + JavaUtils.format(getDeathsUntilRaidable(false)) + ChatColor.YELLOW + "/" + this.getMaximumDeathsUntilRaidable() + this.getRegenStatus().getSymbol());
+                sender.sendMessage(ChatColor.BLUE + " Deaths until Raidable: " + this.getDtrColour() + JavaUtils.format(getDeathsUntilRaidable(false)) + ChatColor.GRAY + "/" + this.getMaximumDeathsUntilRaidable() + this.getRegenStatus().getSymbol());
             } else {
-                Text dtr = new Text(ChatColor.YELLOW + " Deaths until Raidable: " + this.getDtrColour() + JavaUtils.format(getDeathsUntilRaidable(false)) + ChatColor.YELLOW + "/" + this.getMaximumDeathsUntilRaidable() + this.getRegenStatus().getSymbol() + ChatColor.GRAY + " (");
+                Text dtr = new Text(ChatColor.BLUE + " Deaths until Raidable: " + this.getDtrColour() + JavaUtils.format(getDeathsUntilRaidable(false)) + ChatColor.GRAY + "/" + this.getMaximumDeathsUntilRaidable() + this.getRegenStatus().getSymbol() + ChatColor.GRAY + " (");
                 Text dtrUp = new Text(ChatColor.GREEN + "+1").setHoverText(ChatColor.GRAY + "Increase DTR").setClick(ClickAction.RUN_COMMAND, "/f setdtr " + ChatColor.stripColor(this.getDisplayName(sender) + " -i"));
                 Text line = new Text(ChatColor.GRAY + " | ");
                 Text dtrDown = new Text(ChatColor.RED + "-1").setHoverText(ChatColor.GRAY + "Decrease DTR").setClick(ClickAction.RUN_COMMAND, "/f setdtr " + ChatColor.stripColor(this.getDisplayName(sender) + " -d"));
@@ -574,7 +574,7 @@ public class PlayerFaction
         }
 
 
-        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&9" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
     }
 
 
