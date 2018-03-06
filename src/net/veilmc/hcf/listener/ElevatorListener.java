@@ -99,7 +99,7 @@ public class ElevatorListener implements Listener {
 
         Faction at = this.plugin.getFactionManager().getFactionAt(block);
         if(at instanceof PlayerFaction) {
-            if (((PlayerFaction) at).getMember(player) == null) {
+            if (((PlayerFaction) at).getMember(player) == null && !ConfigurationService.KIT_MAP) {
                 player.sendMessage(ChatColor.RED + "You cannot use this in the territory of " + ChatColor.stripColor(at.getDisplayName(player)));
                 return false;
             }
