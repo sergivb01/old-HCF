@@ -26,9 +26,12 @@ public class SupplydropCommand
             return true;
         }
         Player s = (Player)sender;
-        Bukkit.broadcastMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
-        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&9&lSUPPLYDROP &7» &3" + s.getName() + " &fhas dropped a supply drop at &b&l" + s.getLocation().getBlockX() + ", " + s.getLocation().getBlockZ()));
-        Bukkit.broadcastMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
+        if (s.hasPermission("hcf.command.supplydrop")) {
+            Bukkit.broadcastMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
+            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&9&lSUPPLYDROP &7» &3" + s.getName() + " &fhas dropped a supply drop at &b&l" + s.getLocation().getBlockX() + ", " + s.getLocation().getBlockZ()));
+            Bukkit.broadcastMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
+            return true;
+        }
         return true;
     }
 }
