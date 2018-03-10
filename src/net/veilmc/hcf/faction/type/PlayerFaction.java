@@ -542,8 +542,8 @@ public class PlayerFaction
             }
         }
         if (ConfigurationService.KIT_MAP) {
-            sender.sendMessage(ChatColor.BLUE + " Balance:" + ChatColor.AQUA + "$" + this.balance);
-            sender.sendMessage(ChatColor.BLUE + " Total Kills:" + ChatColor.AQUA + combinedKills1);
+            sender.sendMessage(ChatColor.BLUE + " Balance: " + ChatColor.AQUA + "$" + this.balance);
+            sender.sendMessage(ChatColor.BLUE + " Total Kills: " + ChatColor.AQUA + combinedKills1);
         } else {
             sender.sendMessage(ChatColor.BLUE + " Balance: " + ChatColor.AQUA + '$' + this.balance + ChatColor.BLUE + ", " + "Total Kills: " + ChatColor.AQUA + combinedKills1 + ChatColor.AQUA + " kills");
             if (!(sender.hasPermission("rank.staff"))) {

@@ -16,6 +16,7 @@ implements Listener {
     public final LogoutTimer logoutTimer;
     public final EnderPearlTimer enderPearlTimer;
     public final NotchAppleTimer notchAppleTimer;
+    public final GoldenAppleTimer goldenAppleTimer;
     public final PvpProtectionTimer pvpProtectionTimer;
     public final PvpClassWarmupTimer pvpClassWarmupTimer;
     public final StuckTimer stuckTimer;
@@ -38,8 +39,16 @@ implements Listener {
         this.registerTimer(this.enderPearlTimer);
         this.logoutTimer = new LogoutTimer();
         this.registerTimer(this.logoutTimer);
+
+
         this.notchAppleTimer = new NotchAppleTimer(plugin);
         this.registerTimer(this.notchAppleTimer);
+
+
+        this.goldenAppleTimer = new GoldenAppleTimer(plugin);
+        this.registerTimer(this.goldenAppleTimer);
+
+
         this.stuckTimer = new StuckTimer();
         this.registerTimer(this.stuckTimer);
         this.pvpProtectionTimer = new PvpProtectionTimer(plugin);

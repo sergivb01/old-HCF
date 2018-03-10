@@ -29,7 +29,7 @@ public class LagCommand
         DecimalFormat df = new DecimalFormat("#.#");
      //   ChatColor colour = tps >= 18.0 ? ChatColor.GREEN : (tps >= 15.0 ? ChatColor.YELLOW : ChatColor.RED);
       // Double tpsF = Math.round(tps * 10000.0) / 10000.0;
-        sender.sendMessage(ChatColor.GOLD.toString() + ChatColor.BOLD + "Server TPS: ");
+        sender.sendMessage(ChatColor.BLUE.toString() + ChatColor.BOLD + "Server TPS: ");
      //   sender.sendMessage(ChatColor.YELLOW + "  " + colour + df.format(tpsF));
         sender.sendMessage(ChatColor.GOLD.toString() + ChatColor.BOLD + "Server Lag: ");
      //   sender.sendMessage(ChatColor.YELLOW + "  " + colour + (double)Math.round(lag * 10000.0) / 10000.0 + '%');
