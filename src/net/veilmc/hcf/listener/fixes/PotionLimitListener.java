@@ -25,10 +25,10 @@ public class PotionLimitListener
 	private static PotionLimiterData limiter;
 
 	public boolean isPotionDisabled(ItemStack item){
-		if(item == null || !disabledPotions.contains(item.getData().getItemTypeId())){
-			return false;
-		}
-		return item.getType() == Material.POTION && disabledPotions.contains(item.getTypeId());
+		return item.getType() == Material.POTION && disabledPotions.contains(item.getDurability());
+	}
+
+	public static void init(){
 	}
 
 	public static void reload(){
@@ -66,7 +66,5 @@ public class PotionLimitListener
 			e.setCancelled(true);
 		}
 	}
-
-
 }
 
