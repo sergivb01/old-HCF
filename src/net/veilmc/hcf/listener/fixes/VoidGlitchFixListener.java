@@ -13,23 +13,23 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
 public class VoidGlitchFixListener
-implements Listener {
-    @EventHandler(ignoreCancelled=true, priority=EventPriority.HIGH)
-    public void onPlayerDamage(EntityDamageEvent event) {
-        Entity entity;
-        if (event.getCause() == EntityDamageEvent.DamageCause.VOID && (entity = event.getEntity()) instanceof Player) {
-            if (entity.getWorld().getEnvironment() == World.Environment.THE_END) {
-                return;
-            }
-            Location destination = Bukkit.getWorld("world").getSpawnLocation();
-            if (destination == null) {
-                return;
-            }
-            if (entity.teleport(destination, PlayerTeleportEvent.TeleportCause.PLUGIN)) {
-                event.setCancelled(true);
-                ((Player)entity).sendMessage(ChatColor.RED + "You were saved from the void.");
-            }
-        }
-    }
+		implements Listener{
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
+	public void onPlayerDamage(EntityDamageEvent event){
+		Entity entity;
+		if(event.getCause() == EntityDamageEvent.DamageCause.VOID && (entity = event.getEntity()) instanceof Player){
+			if(entity.getWorld().getEnvironment() == World.Environment.THE_END){
+				return;
+			}
+			Location destination = Bukkit.getWorld("world").getSpawnLocation();
+			if(destination == null){
+				return;
+			}
+			if(entity.teleport(destination, PlayerTeleportEvent.TeleportCause.PLUGIN)){
+				event.setCancelled(true);
+				((Player) entity).sendMessage(ChatColor.RED + "You were saved from the void.");
+			}
+		}
+	}
 }
 

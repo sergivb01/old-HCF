@@ -1,4 +1,3 @@
-
 package net.veilmc.hcf.timer;
 
 import net.veilmc.hcf.HCF;
@@ -8,11 +7,11 @@ import net.veilmc.util.command.ArgumentExecutor;
 import net.veilmc.util.command.CommandArgument;
 
 public class TimerExecutor
-extends ArgumentExecutor {
-    public TimerExecutor(HCF plugin) {
-        super("timer");
-        this.addArgument(new TimerCheckArgument(plugin));
-        this.addArgument(new TimerSetArgument(plugin));
-    }
+		extends ArgumentExecutor{
+	public TimerExecutor(HCF plugin){
+		super("timer");
+		this.addArgument(new TimerCheckArgument(plugin));
+		this.addArgument(new TimerSetArgument(plugin));
+	}
 }
 

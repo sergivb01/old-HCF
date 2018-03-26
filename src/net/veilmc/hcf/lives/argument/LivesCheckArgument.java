@@ -1,4 +1,3 @@
-
 package net.veilmc.hcf.lives.argument;
 
 import net.veilmc.hcf.HCF;
@@ -14,42 +13,40 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class LivesCheckArgument extends CommandArgument
-{
-    private final HCF plugin;
+public class LivesCheckArgument extends CommandArgument{
+	private final HCF plugin;
 
-    public LivesCheckArgument(final HCF plugin) {
-        super("check", "Check Lives");
-        this.plugin = plugin;
-        this.permission = "hcf.command.lives.argument." + this.getName();
-    }
+	public LivesCheckArgument(final HCF plugin){
+		super("check", "Check Lives");
+		this.plugin = plugin;
+		this.permission = "hcf.command.lives.argument." + this.getName();
+	}
 
-    public String getUsage(final String label) {
-        return '/' + label + ' ' + this.getName() + " [playerName]";
-    }
+	public String getUsage(final String label){
+		return '/' + label + ' ' + this.getName() + " [playerName]";
+	}
 
-    public boolean onCommand(final CommandSender sender, final Command command, final String label, final String[] args) {
-        OfflinePlayer target;
-        if (args.length > 1) {
-            target = Bukkit.getOfflinePlayer(args[1]);
-        }
-        else {
-            if (!(sender instanceof Player)) {
-                sender.sendMessage(ChatColor.RED + "Incorrect usage!" + ChatColor.YELLOW + " Use like this: " + ChatColor.AQUA + this.getUsage(label));
-                return true;
-            }
-            target = (OfflinePlayer)sender;
-        }
-        if (!target.hasPlayedBefore() && !target.isOnline()) {
-            sender.sendMessage(ChatColor.GOLD + "Player '" + ChatColor.WHITE + args[1] + ChatColor.GOLD + "' not found.");
-            return true;
-        }
-        final int targetLives = this.plugin.getDeathbanManager().getLives(target.getUniqueId());
-        sender.sendMessage(ChatColor.YELLOW + target.getName() + ChatColor.YELLOW + " has " + ChatColor.LIGHT_PURPLE + targetLives + ChatColor.YELLOW + ' ' + ((targetLives == 1) ? "life" : "lives") + '.');
-        return true;
-    }
+	public boolean onCommand(final CommandSender sender, final Command command, final String label, final String[] args){
+		OfflinePlayer target;
+		if(args.length > 1){
+			target = Bukkit.getOfflinePlayer(args[1]);
+		}else{
+			if(!(sender instanceof Player)){
+				sender.sendMessage(ChatColor.RED + "Incorrect usage!" + ChatColor.YELLOW + " Use like this: " + ChatColor.AQUA + this.getUsage(label));
+				return true;
+			}
+			target = (OfflinePlayer) sender;
+		}
+		if(!target.hasPlayedBefore() && !target.isOnline()){
+			sender.sendMessage(ChatColor.GOLD + "Player '" + ChatColor.WHITE + args[1] + ChatColor.GOLD + "' not found.");
+			return true;
+		}
+		final int targetLives = this.plugin.getDeathbanManager().getLives(target.getUniqueId());
+		sender.sendMessage(ChatColor.YELLOW + target.getName() + ChatColor.YELLOW + " has " + ChatColor.LIGHT_PURPLE + targetLives + ChatColor.YELLOW + ' ' + ((targetLives == 1) ? "life" : "lives") + '.');
+		return true;
+	}
 
-    public List<String> onTabComplete(final CommandSender sender, final Command command, final String label, final String[] args) {
-        return (args.length == 2) ? null : Collections.emptyList();
-    }
+	public List<String> onTabComplete(final CommandSender sender, final Command command, final String label, final String[] args){
+		return (args.length == 2) ? null : Collections.emptyList();
+	}
 }

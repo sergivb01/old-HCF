@@ -1,4 +1,3 @@
-
 package net.veilmc.hcf.command;
 
 import net.veilmc.hcf.HCF;
@@ -15,21 +14,21 @@ import java.util.Collections;
 import java.util.List;
 
 public class FactionFocusArgument
-implements CommandExecutor {
+		implements CommandExecutor{
 	private final HCF plugin;
 
-	public FactionFocusArgument(HCF plugin) {
+	public FactionFocusArgument(HCF plugin){
 		this.plugin = plugin;
 	}
 
 
-	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-		if (args.length <= 0) {
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
+		if(args.length <= 0){
 			sender.sendMessage(ChatColor.RED + "Usage: /focus <name>");
 			return true;
 		}
-		PlayerFaction namedFaction = this.plugin.getFactionManager().getPlayerFaction(((Player)sender).getUniqueId());
-		if (namedFaction == null) {
+		PlayerFaction namedFaction = this.plugin.getFactionManager().getPlayerFaction(((Player) sender).getUniqueId());
+		if(namedFaction == null){
 			sender.sendMessage(ChatColor.RED + "You are not in a faction.");
 			return true;
 		}
@@ -39,7 +38,7 @@ implements CommandExecutor {
 			return true;
 		}
 		PlayerFaction targetFaction = this.plugin.getFactionManager().getPlayerFaction(target.getUniqueId());
-		if(namedFaction  == targetFaction){
+		if(namedFaction == targetFaction){
 			sender.sendMessage(ChatColor.RED + "You can not focus your own faction.");
 			return true;
 		}
@@ -49,9 +48,9 @@ implements CommandExecutor {
 		}
 		namedFaction.setFocused(target.getName());
 		namedFaction.broadcast(ChatColor.LIGHT_PURPLE + target.getName() + ChatColor.YELLOW + " has been focused by " + ChatColor.LIGHT_PURPLE + sender.getName() + ChatColor.YELLOW + ".");
-		for(Player player :namedFaction.getOnlinePlayers()){
+		for(Player player : namedFaction.getOnlinePlayers()){
 			HCF.getPlugin().getScoreboardHandler().getPlayerBoard(player.getUniqueId()).init(target);
-			if(previous !=null){
+			if(previous != null){
 				HCF.getPlugin().getScoreboardHandler().getPlayerBoard(player.getUniqueId()).init(previous);
 
 			}
@@ -59,17 +58,17 @@ implements CommandExecutor {
 		return true;
 	}
 
-	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-		if (args.length != 2 || !(sender instanceof Player)) {
+	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args){
+		if(args.length != 2 || !(sender instanceof Player)){
 			return Collections.emptyList();
 		}
-		if (args[1].isEmpty()) {
+		if(args[1].isEmpty()){
 			return null;
 		}
-		Player player = (Player)sender;
+		Player player = (Player) sender;
 		ArrayList<String> results = new ArrayList<String>(this.plugin.getFactionManager().getFactionNameMap().keySet());
-		for (Player target : Bukkit.getOnlinePlayers()) {
-			if (!player.canSee(target) || results.contains(target.getName())) continue;
+		for(Player target : Bukkit.getOnlinePlayers()){
+			if(!player.canSee(target) || results.contains(target.getName())) continue;
 			results.add(target.getName());
 		}
 		return results;

@@ -1,4 +1,3 @@
-
 package net.veilmc.hcf.kothgame.faction;
 
 import net.veilmc.hcf.faction.claim.Claim;
@@ -24,156 +23,156 @@ import org.bukkit.configuration.serialization.ConfigurationSerializable;
 /**
  * Represents a 'Conquest' faction.
  */
-public class ConquestFaction extends CapturableFaction implements ConfigurationSerializable {
+public class ConquestFaction extends CapturableFaction implements ConfigurationSerializable{
 
-    private final EnumMap<ConquestZone, CaptureZone> captureZones = new EnumMap<>(ConquestZone.class);
+	private final EnumMap<ConquestZone, CaptureZone> captureZones = new EnumMap<>(ConquestZone.class);
 
-    public ConquestFaction(String name) {
-        super(name);
-    }
+	public ConquestFaction(String name){
+		super(name);
+	}
 
-    public ConquestFaction(Map<String, Object> map) {
-        super(map);
+	public ConquestFaction(Map<String, Object> map){
+		super(map);
 
-        Object object;
-        if ((object = map.get("red")) instanceof CaptureZone) {
-            captureZones.put(ConquestZone.RED, (CaptureZone) object);
-        }
+		Object object;
+		if((object = map.get("red")) instanceof CaptureZone){
+			captureZones.put(ConquestZone.RED, (CaptureZone) object);
+		}
 
-        if ((object = map.get("green")) instanceof CaptureZone) {
-            captureZones.put(ConquestZone.GREEN, (CaptureZone) object);
-        }
+		if((object = map.get("green")) instanceof CaptureZone){
+			captureZones.put(ConquestZone.GREEN, (CaptureZone) object);
+		}
 
-        if ((object = map.get("blue")) instanceof CaptureZone) {
-            captureZones.put(ConquestZone.BLUE, (CaptureZone) object);
-        }
+		if((object = map.get("blue")) instanceof CaptureZone){
+			captureZones.put(ConquestZone.BLUE, (CaptureZone) object);
+		}
 
-        if ((object = map.get("yellow")) instanceof CaptureZone) {
-            captureZones.put(ConquestZone.YELLOW, (CaptureZone) object);
-        }
-    }
+		if((object = map.get("yellow")) instanceof CaptureZone){
+			captureZones.put(ConquestZone.YELLOW, (CaptureZone) object);
+		}
+	}
 
-    @Override
-    public Map<String, Object> serialize() {
-        Map<String, Object> map = super.serialize();
-        for (Map.Entry<ConquestZone, CaptureZone> entry : captureZones.entrySet()) {
-            map.put(entry.getKey().name().toLowerCase(), entry.getValue());
-        }
+	@Override
+	public Map<String, Object> serialize(){
+		Map<String, Object> map = super.serialize();
+		for(Map.Entry<ConquestZone, CaptureZone> entry : captureZones.entrySet()){
+			map.put(entry.getKey().name().toLowerCase(), entry.getValue());
+		}
 
-        return map;
-    }
+		return map;
+	}
 
-    @Override
-    public EventType getEventType() {
-        return EventType.CONQUEST;
-    }
+	@Override
+	public EventType getEventType(){
+		return EventType.CONQUEST;
+	}
 
-    public ConquestZone getZone(final CaptureZone captureZone) {
-        for (final Map.Entry<ConquestZone, CaptureZone> captureZoneEntry : this.captureZones.entrySet()) {
-            if (captureZoneEntry.getValue() == captureZone) {
-                return captureZoneEntry.getKey();
-            }
-        }
-        return null;
-    }
+	public ConquestZone getZone(final CaptureZone captureZone){
+		for(final Map.Entry<ConquestZone, CaptureZone> captureZoneEntry : this.captureZones.entrySet()){
+			if(captureZoneEntry.getValue() == captureZone){
+				return captureZoneEntry.getKey();
+			}
+		}
+		return null;
+	}
 
-    @Override
-    public void printDetails(CommandSender sender) {
-        sender.sendMessage(ChatColor.GOLD + BukkitUtils.STRAIGHT_LINE_DEFAULT);
-        sender.sendMessage(getDisplayName(sender));
+	@Override
+	public void printDetails(CommandSender sender){
+		sender.sendMessage(ChatColor.GOLD + BukkitUtils.STRAIGHT_LINE_DEFAULT);
+		sender.sendMessage(getDisplayName(sender));
 
-        for (Claim claim : claims) {
-            Location location = claim.getCenter();
-            sender.sendMessage(ChatColor.YELLOW + "  Location: " + ChatColor.RED + '(' + ClaimableFaction.ENVIRONMENT_MAPPINGS.get(location.getWorld().getEnvironment()) + ", " + location.getBlockX() + " | " + location.getBlockZ() + ')');
-        }
+		for(Claim claim : claims){
+			Location location = claim.getCenter();
+			sender.sendMessage(ChatColor.YELLOW + "  Location: " + ChatColor.RED + '(' + ClaimableFaction.ENVIRONMENT_MAPPINGS.get(location.getWorld().getEnvironment()) + ", " + location.getBlockX() + " | " + location.getBlockZ() + ')');
+		}
 
-        sender.sendMessage(ChatColor.GOLD + BukkitUtils.STRAIGHT_LINE_DEFAULT);
-    }
+		sender.sendMessage(ChatColor.GOLD + BukkitUtils.STRAIGHT_LINE_DEFAULT);
+	}
 
-    public void setZone(ConquestZone conquestZone, CaptureZone captureZone) {
-        switch (conquestZone) {
-            case RED:
-                captureZones.put(ConquestZone.RED, captureZone);
-                break;
-            case BLUE:
-                captureZones.put(ConquestZone.BLUE, captureZone);
-                break;
-            case GREEN:
-                captureZones.put(ConquestZone.GREEN, captureZone);
-                break;
-            case YELLOW:
-                captureZones.put(ConquestZone.YELLOW, captureZone);
-                break;
-            default:
-                throw new AssertionError("Unsupported operation");
-        }
-    }
+	public void setZone(ConquestZone conquestZone, CaptureZone captureZone){
+		switch(conquestZone){
+			case RED:
+				captureZones.put(ConquestZone.RED, captureZone);
+				break;
+			case BLUE:
+				captureZones.put(ConquestZone.BLUE, captureZone);
+				break;
+			case GREEN:
+				captureZones.put(ConquestZone.GREEN, captureZone);
+				break;
+			case YELLOW:
+				captureZones.put(ConquestZone.YELLOW, captureZone);
+				break;
+			default:
+				throw new AssertionError("Unsupported operation");
+		}
+	}
 
-    public CaptureZone getRed() {
-        return captureZones.get(ConquestZone.RED);
-    }
+	public CaptureZone getRed(){
+		return captureZones.get(ConquestZone.RED);
+	}
 
-    public CaptureZone getGreen() {
-        return captureZones.get(ConquestZone.GREEN);
-    }
+	public CaptureZone getGreen(){
+		return captureZones.get(ConquestZone.GREEN);
+	}
 
-    public CaptureZone getBlue() {
-        return captureZones.get(ConquestZone.BLUE);
-    }
+	public CaptureZone getBlue(){
+		return captureZones.get(ConquestZone.BLUE);
+	}
 
-    public CaptureZone getYellow() {
-        return captureZones.get(ConquestZone.YELLOW);
-    }
+	public CaptureZone getYellow(){
+		return captureZones.get(ConquestZone.YELLOW);
+	}
 
-    public Collection<ConquestZone> getConquestZones() {
-        return ImmutableSet.copyOf(captureZones.keySet());
-    }
+	public Collection<ConquestZone> getConquestZones(){
+		return ImmutableSet.copyOf(captureZones.keySet());
+	}
 
-    @Override
-    public List<CaptureZone> getCaptureZones() {
-        return ImmutableList.copyOf(captureZones.values());
-    }
+	@Override
+	public List<CaptureZone> getCaptureZones(){
+		return ImmutableList.copyOf(captureZones.values());
+	}
 
-    public enum ConquestZone {
-        RED(ChatColor.RED, "Red"), BLUE(ChatColor.AQUA, "Blue"), YELLOW(ChatColor.YELLOW, "Yellow"), GREEN(ChatColor.GREEN, "Green");
+	public enum ConquestZone{
+		RED(ChatColor.RED, "Red"), BLUE(ChatColor.AQUA, "Blue"), YELLOW(ChatColor.YELLOW, "Yellow"), GREEN(ChatColor.GREEN, "Green");
 
-        private static final Map<String, ConquestZone> BY_NAME;
+		private static final Map<String, ConquestZone> BY_NAME;
 
-        static {
-            ImmutableMap.Builder<String, ConquestZone> builder = ImmutableMap.builder();
-            for (ConquestZone zone : values()) {
-                builder.put(zone.name().toUpperCase(), zone);
-            }
+		static{
+			ImmutableMap.Builder<String, ConquestZone> builder = ImmutableMap.builder();
+			for(ConquestZone zone : values()){
+				builder.put(zone.name().toUpperCase(), zone);
+			}
 
-            BY_NAME = builder.build();
-        }
+			BY_NAME = builder.build();
+		}
 
-        private final String name;
-        private final ChatColor color;
+		private final String name;
+		private final ChatColor color;
 
-        ConquestZone(ChatColor color, String name) {
-            this.color = color;
-            this.name = name;
-        }
+		ConquestZone(ChatColor color, String name){
+			this.color = color;
+			this.name = name;
+		}
 
-        public static ConquestZone getByName(String name) {
-            return BY_NAME.get(name.toUpperCase());
-        }
+		public static ConquestZone getByName(String name){
+			return BY_NAME.get(name.toUpperCase());
+		}
 
-        public static Collection<String> getNames() {
-            return new ArrayList<>(BY_NAME.keySet());
-        }
+		public static Collection<String> getNames(){
+			return new ArrayList<>(BY_NAME.keySet());
+		}
 
-        public ChatColor getColor() {
-            return color;
-        }
+		public ChatColor getColor(){
+			return color;
+		}
 
-        public String getName() {
-            return name;
-        }
+		public String getName(){
+			return name;
+		}
 
-        public String getDisplayName() {
-            return color.toString() + name;
-        }
-    }
+		public String getDisplayName(){
+			return color.toString() + name;
+		}
+	}
 }

@@ -1,4 +1,3 @@
-
 package net.veilmc.hcf.listener.fixes;
 
 import net.md_5.bungee.api.ChatColor;
@@ -24,16 +23,16 @@ public class PotionLimitListener
 	private static List<Short> disabledPotions;
 	private static PotionLimiterData limiter;
 
-	public boolean isPotionDisabled(ItemStack item){
-		return item.getType() == Material.POTION && disabledPotions.contains(item.getDurability());
-	}
-
 	public static void init(){
 	}
 
 	public static void reload(){
 		disabledPotions = PotionLimiterData.getInstance().getConfig().getShortList("disabled-potions");
 		System.out.println(disabledPotions.toString());
+	}
+
+	public boolean isPotionDisabled(ItemStack item){
+		return item.getType() == Material.POTION && disabledPotions.contains(item.getDurability());
 	}
 
 	@EventHandler

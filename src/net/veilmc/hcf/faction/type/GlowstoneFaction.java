@@ -1,4 +1,3 @@
-
 package net.veilmc.hcf.faction.type;
 
 import java.util.Map;
@@ -8,25 +7,25 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 
 public class GlowstoneFaction
-        extends ClaimableFaction
-        implements ConfigurationSerializable {
-    public GlowstoneFaction() {
-        super("Glowstone");
-        this.safezone = false;
-    }
+		extends ClaimableFaction
+		implements ConfigurationSerializable{
+	public GlowstoneFaction(){
+		super("Glowstone");
+		this.safezone = false;
+	}
 
-    public GlowstoneFaction(Map<String, Object> map) {
-        super(map);
-    }
+	public GlowstoneFaction(Map<String, Object> map){
+		super(map);
+	}
 
-    @Override
-    public String getDisplayName(CommandSender sender) {
-        return ChatColor.GOLD + this.getName().replace("Glowstone", "Glowstone");
-    }
+	@Override
+	public String getDisplayName(CommandSender sender){
+		return ChatColor.GOLD + this.getName().replace("Glowstone", "Glowstone");
+	}
 
-    @Override
-    public boolean isDeathban() {
-        return true;
-    }
+	@Override
+	public boolean isDeathban(){
+		return true;
+	}
 }
 

@@ -20,11 +20,11 @@ import java.util.regex.Pattern;
 
 public abstract class AbstractUserManager
 		implements Listener{
+	private static final Pattern USERNAME_REGEX = Pattern.compile("^[a-zA-Z0-9_]{2,16}$");
 	protected final HCF plugin;
 	protected final ConcurrentMap<UUID, FactionUser> inMemoryStorage;
 	protected final ConcurrentMap<UUID, FactionUser> onlineStorage;
 	protected final Map<String, UUID> uuidCache = Collections.synchronizedMap(new TreeMap(String.CASE_INSENSITIVE_ORDER));
-	private static final Pattern USERNAME_REGEX = Pattern.compile("^[a-zA-Z0-9_]{2,16}$");
 
 	public AbstractUserManager(HCF plugin){
 		this.inMemoryStorage = new ConcurrentHashMap();

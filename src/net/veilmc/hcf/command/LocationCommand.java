@@ -1,4 +1,3 @@
-
 package net.veilmc.hcf.command;
 
 import java.util.Collections;
@@ -17,43 +16,36 @@ import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.type.Faction;
 
 public class LocationCommand
-implements CommandExecutor,
-TabCompleter {
-    private final HCF plugin;
+		implements CommandExecutor,
+		TabCompleter{
+	private final HCF plugin;
 
-    public LocationCommand(HCF plugin) {
-        this.plugin = plugin;
-    }
+	public LocationCommand(HCF plugin){
+		this.plugin = plugin;
+	}
 
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
-    {
-        Player target;
-        if ((args.length >= 1) && (sender.hasPermission(command.getPermission() + ".others")))
-        {
-            target = Bukkit.getPlayer(args[0]);
-        }
-        else
-        {
-            if (!(sender instanceof Player))
-            {
-                sender.sendMessage(ChatColor.RED + "Usage: /" + label + " [playerName]");
-                return true;
-            }
-            target = (Player)sender;
-        }
-        if ((target == null) || (((sender instanceof Player)) && (!((Player)sender).canSee(target))))
-        {
-            sender.sendMessage(ChatColor.GOLD + "Player '" + ChatColor.WHITE + args[0] + ChatColor.GOLD + "' not found.");
-            return true;
-        }
-        Location location = target.getLocation();
-        Faction factionAt = this.plugin.getFactionManager().getFactionAt(location);
-        sender.sendMessage(ChatColor.YELLOW + target.getName() + " is in the territory of " + factionAt.getDisplayName(sender) + ChatColor.GRAY + '(' + (factionAt.isSafezone() ? ChatColor.GREEN + "Non-Deathban" : new StringBuilder().append(ChatColor.RED).append("Deathban").toString()) + ChatColor.GRAY + ')');
-        return true;
-    }
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
+		Player target;
+		if((args.length >= 1) && (sender.hasPermission(command.getPermission() + ".others"))){
+			target = Bukkit.getPlayer(args[0]);
+		}else{
+			if(!(sender instanceof Player)){
+				sender.sendMessage(ChatColor.RED + "Usage: /" + label + " [playerName]");
+				return true;
+			}
+			target = (Player) sender;
+		}
+		if((target == null) || (((sender instanceof Player)) && (!((Player) sender).canSee(target)))){
+			sender.sendMessage(ChatColor.GOLD + "Player '" + ChatColor.WHITE + args[0] + ChatColor.GOLD + "' not found.");
+			return true;
+		}
+		Location location = target.getLocation();
+		Faction factionAt = this.plugin.getFactionManager().getFactionAt(location);
+		sender.sendMessage(ChatColor.YELLOW + target.getName() + " is in the territory of " + factionAt.getDisplayName(sender) + ChatColor.GRAY + '(' + (factionAt.isSafezone() ? ChatColor.GREEN + "Non-Deathban" : new StringBuilder().append(ChatColor.RED).append("Deathban").toString()) + ChatColor.GRAY + ')');
+		return true;
+	}
 
-    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args)
-    {
-        return (args.length == 1) && (sender.hasPermission(command.getPermission() + ".others")) ? null : Collections.emptyList();
-    }
+	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args){
+		return (args.length == 1) && (sender.hasPermission(command.getPermission() + ".others")) ? null : Collections.emptyList();
+	}
 }

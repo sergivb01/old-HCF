@@ -22,13 +22,31 @@ import java.util.UUID;
 
 public class Tab{
 
+	private static final String SKIN_VALUE = "eyJ0aW1lc3RhbXAiOjE0MTEyNjg3OTI3NjUsInByb2ZpbGVJZCI6IjNmYmVjN2RkMGE1ZjQwYmY5ZDExODg1YTU0NTA3MTEyIiwicHJvZmlsZU5hbWUiOiJsYXN0X3VzZXJuYW1lIiwidGV4dHVyZXMiOnsiU0tJTiI6eyJ1cmwiOiJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzg0N2I1Mjc5OTg0NjUxNTRhZDZjMjM4YTFlM2MyZGQzZTMyOTY1MzUyZTNhNjRmMzZlMTZhOTQwNWFiOCJ9fX0=";
+	private static final String SKING_SIGNATURE = "u8sG8tlbmiekrfAdQjy4nXIcCfNdnUZzXSx9BE1X5K27NiUvE1dDNIeBBSPdZzQG1kHGijuokuHPdNi/KXHZkQM7OJ4aCu5JiUoOY28uz3wZhW4D+KG3dH4ei5ww2KwvjcqVL7LFKfr/ONU5Hvi7MIIty1eKpoGDYpWj3WjnbN4ye5Zo88I2ZEkP1wBw2eDDN4P3YEDYTumQndcbXFPuRRTntoGdZq3N5EBKfDZxlw4L3pgkcSLU5rWkd5UH4ZUOHAP/VaJ04mpFLsFXzzdU4xNZ5fthCwxwVBNLtHRWO26k/qcVBzvEXtKGFJmxfLGCzXScET/OjUBak/JEkkRG2m+kpmBMgFRNtjyZgQ1w08U6HHnLTiAiio3JswPlW5v56pGWRHQT5XWSkfnrXDalxtSmPnB5LmacpIImKgL8V9wLnWvBzI7SHjlyQbbgd+kUOkLlu7+717ySDEJwsFJekfuR6N/rpcYgNZYrxDwe4w57uDPlwNL6cJPfNUHV7WEbIU1pMgxsxaXe8WSvV87qLsR7H06xocl2C0JFfe2jZR4Zh3k9xzEnfCeFKBgGb4lrOWBu1eDWYgtKV67M2Y+B3W5pjuAjwAxn0waODtEn/3jKPbc/sxbPvljUCw65X+ok0UUN1eOwXV5l2EGzn05t3Yhwq19/GxARg63ISGE8CKw=";
 	// Static Manager
 	private static Plugin plugin;
 	private static HashMap<UUID, Tab> players = new HashMap<>();
 	private static List<String> tabEntrys = getTabEntrys();
 	private static List<String> teamNames = getTeamNames();
-	private static final String SKIN_VALUE = "eyJ0aW1lc3RhbXAiOjE0MTEyNjg3OTI3NjUsInByb2ZpbGVJZCI6IjNmYmVjN2RkMGE1ZjQwYmY5ZDExODg1YTU0NTA3MTEyIiwicHJvZmlsZU5hbWUiOiJsYXN0X3VzZXJuYW1lIiwidGV4dHVyZXMiOnsiU0tJTiI6eyJ1cmwiOiJodHRwOi8vdGV4dHVyZXMubWluZWNyYWZ0Lm5ldC90ZXh0dXJlLzg0N2I1Mjc5OTg0NjUxNTRhZDZjMjM4YTFlM2MyZGQzZTMyOTY1MzUyZTNhNjRmMzZlMTZhOTQwNWFiOCJ9fX0=";
-	private static final String SKING_SIGNATURE = "u8sG8tlbmiekrfAdQjy4nXIcCfNdnUZzXSx9BE1X5K27NiUvE1dDNIeBBSPdZzQG1kHGijuokuHPdNi/KXHZkQM7OJ4aCu5JiUoOY28uz3wZhW4D+KG3dH4ei5ww2KwvjcqVL7LFKfr/ONU5Hvi7MIIty1eKpoGDYpWj3WjnbN4ye5Zo88I2ZEkP1wBw2eDDN4P3YEDYTumQndcbXFPuRRTntoGdZq3N5EBKfDZxlw4L3pgkcSLU5rWkd5UH4ZUOHAP/VaJ04mpFLsFXzzdU4xNZ5fthCwxwVBNLtHRWO26k/qcVBzvEXtKGFJmxfLGCzXScET/OjUBak/JEkkRG2m+kpmBMgFRNtjyZgQ1w08U6HHnLTiAiio3JswPlW5v56pGWRHQT5XWSkfnrXDalxtSmPnB5LmacpIImKgL8V9wLnWvBzI7SHjlyQbbgd+kUOkLlu7+717ySDEJwsFJekfuR6N/rpcYgNZYrxDwe4w57uDPlwNL6cJPfNUHV7WEbIU1pMgxsxaXe8WSvV87qLsR7H06xocl2C0JFfe2jZR4Zh3k9xzEnfCeFKBgGb4lrOWBu1eDWYgtKV67M2Y+B3W5pjuAjwAxn0waODtEn/3jKPbc/sxbPvljUCw65X+ok0UUN1eOwXV5l2EGzn05t3Yhwq19/GxARg63ISGE8CKw=";
+	// Class
+	private Player player;
+	private boolean client18;
+	private int tabSize;
+	private Scoreboard scoreboard;
+
+	private Tab(Player player){
+		this.player = player;
+		this.client18 = Protocol.isClient18(player);
+		this.tabSize = client18 ? 80 : 60;
+		this.scoreboard = player.getScoreboard();
+		if(scoreboard.equals(Bukkit.getScoreboardManager().getMainScoreboard())){
+			scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+			player.setScoreboard(scoreboard);
+		}
+		this.setupTab();
+		Tab.players.put(player.getUniqueId(), this);
+	}
 
 	public static void setPlugin(Plugin plugin){
 		Tab.plugin = plugin;
@@ -51,23 +69,27 @@ public class Tab{
 		return players.get(player.getUniqueId());
 	}
 
-	// Class
-	private Player player;
-	private boolean client18;
-	private int tabSize;
-	private Scoreboard scoreboard;
-
-	private Tab(Player player){
-		this.player = player;
-		this.client18 = Protocol.isClient18(player);
-		this.tabSize = client18 ? 80 : 60;
-		this.scoreboard = player.getScoreboard();
-		if(scoreboard.equals(Bukkit.getScoreboardManager().getMainScoreboard())){
-			scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
-			player.setScoreboard(scoreboard);
+	private static ArrayList<String> getTabEntrys(){
+		ArrayList<String> list = new ArrayList<>();
+		for(int i = 1; i <= 15; i++){
+			String entry = ChatColor.values()[i].toString();
+			list.add(ChatColor.RED + entry);
+			list.add(ChatColor.DARK_RED + entry);
+			list.add(ChatColor.GREEN + entry);
+			list.add(ChatColor.DARK_GREEN + entry);
+			list.add(ChatColor.BLUE + entry);
+			list.add(ChatColor.DARK_BLUE + entry);
 		}
-		this.setupTab();
-		Tab.players.put(player.getUniqueId(), this);
+		return list;
+	}
+
+	private static ArrayList<String> getTeamNames(){
+		ArrayList<String> list = new ArrayList<>();
+		for(int i = 0; i < 80; i++){
+			String s = (i < 10 ? "\\u00010" : "\\u0001") + i;
+			list.add(s);
+		}
+		return list;
 	}
 
 	private void setupTab(){
@@ -208,29 +230,6 @@ public class Tab{
 			s = s.substring(0, 32);
 		}
 		return s.length() > 16 ? s.substring(16) : "";
-	}
-
-	private static ArrayList<String> getTabEntrys(){
-		ArrayList<String> list = new ArrayList<>();
-		for(int i = 1; i <= 15; i++){
-			String entry = ChatColor.values()[i].toString();
-			list.add(ChatColor.RED + entry);
-			list.add(ChatColor.DARK_RED + entry);
-			list.add(ChatColor.GREEN + entry);
-			list.add(ChatColor.DARK_GREEN + entry);
-			list.add(ChatColor.BLUE + entry);
-			list.add(ChatColor.DARK_BLUE + entry);
-		}
-		return list;
-	}
-
-	private static ArrayList<String> getTeamNames(){
-		ArrayList<String> list = new ArrayList<>();
-		for(int i = 0; i < 80; i++){
-			String s = (i < 10 ? "\\u00010" : "\\u0001") + i;
-			list.add(s);
-		}
-		return list;
 	}
 
 	private static class Protocol{

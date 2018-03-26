@@ -1,4 +1,3 @@
-
 package net.veilmc.hcf.faction.argument;
 
 import com.google.common.primitives.Ints;

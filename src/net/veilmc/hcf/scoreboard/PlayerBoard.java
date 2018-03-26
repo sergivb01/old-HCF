@@ -18,245 +18,236 @@ import org.bukkit.scoreboard.Team;
 import java.util.Collection;
 import java.util.Collections;
 
-public class PlayerBoard
-{
-    public static boolean NAMES_ENABLED;
-    public static boolean INVISIBILITYFIX;
-    public final BufferedObjective bufferedObjective;
-    private final Team members;
-    private final Team archers;
-    private final Team neutrals;
-    private final Team allies;
-    private final Team focused;
-    private final Scoreboard scoreboard;
-    private final Player player;
-    private final HCF plugin;
-    private boolean sidebarVisible;
-    private boolean removed;
-    private SidebarProvider defaultProvider;
+public class PlayerBoard{
+	public static boolean NAMES_ENABLED;
+	public static boolean INVISIBILITYFIX;
 
-    public PlayerBoard(final HCF plugin, final Player player) {
-        this.sidebarVisible = false;
-        this.removed = false;
-        this.plugin = plugin;
-        this.player = player;
-        this.scoreboard = plugin.getServer().getScoreboardManager().getNewScoreboard();
-        this.bufferedObjective = new BufferedObjective(this.scoreboard);
-        (this.members = this.scoreboard.registerNewTeam("members")).setPrefix(ConfigurationService.TEAMMATE_COLOUR.toString());
-        this.members.setCanSeeFriendlyInvisibles(true);
-        (this.archers = this.scoreboard.registerNewTeam("archers")).setPrefix(ChatColor.DARK_RED.toString());
-        (this.neutrals = this.scoreboard.registerNewTeam("neutrals")).setPrefix(ConfigurationService.ENEMY_COLOUR.toString());
-        (this.allies = this.scoreboard.registerNewTeam("allies")).setPrefix(ConfigurationService.ALLY_COLOUR.toString());
-        (this.focused = this.scoreboard.registerNewTeam("focused")).setPrefix(ChatColor.LIGHT_PURPLE.toString());
-        player.setScoreboard(this.scoreboard);
-    }
+	static{
+		PlayerBoard.NAMES_ENABLED = true;
+		PlayerBoard.INVISIBILITYFIX = true;
+	}
 
-    public void remove() {
-        this.removed = true;
-        if (this.scoreboard != null) {
-            synchronized (this.scoreboard) {
-                for (final Team team : this.scoreboard.getTeams()) {
-                    team.unregister();
-                }
-                for (final Objective objective : this.scoreboard.getObjectives()) {
-                    objective.unregister();
-                }
-            }
-        }
-    }
+	public final BufferedObjective bufferedObjective;
+	private final Team members;
+	private final Team archers;
+	private final Team neutrals;
+	private final Team allies;
+	private final Team focused;
+	private final Scoreboard scoreboard;
+	private final Player player;
+	private final HCF plugin;
+	private boolean sidebarVisible;
+	private boolean removed;
+	private SidebarProvider defaultProvider;
 
-    public Player getPlayer() {
-        return this.player;
-    }
+	public PlayerBoard(final HCF plugin, final Player player){
+		this.sidebarVisible = false;
+		this.removed = false;
+		this.plugin = plugin;
+		this.player = player;
+		this.scoreboard = plugin.getServer().getScoreboardManager().getNewScoreboard();
+		this.bufferedObjective = new BufferedObjective(this.scoreboard);
+		(this.members = this.scoreboard.registerNewTeam("members")).setPrefix(ConfigurationService.TEAMMATE_COLOUR.toString());
+		this.members.setCanSeeFriendlyInvisibles(true);
+		(this.archers = this.scoreboard.registerNewTeam("archers")).setPrefix(ChatColor.DARK_RED.toString());
+		(this.neutrals = this.scoreboard.registerNewTeam("neutrals")).setPrefix(ConfigurationService.ENEMY_COLOUR.toString());
+		(this.allies = this.scoreboard.registerNewTeam("allies")).setPrefix(ConfigurationService.ALLY_COLOUR.toString());
+		(this.focused = this.scoreboard.registerNewTeam("focused")).setPrefix(ChatColor.LIGHT_PURPLE.toString());
+		player.setScoreboard(this.scoreboard);
+	}
 
-    public Scoreboard getScoreboard() {
-        return this.scoreboard;
-    }
+	public void remove(){
+		this.removed = true;
+		if(this.scoreboard != null){
+			synchronized(this.scoreboard){
+				for(final Team team : this.scoreboard.getTeams()){
+					team.unregister();
+				}
+				for(final Objective objective : this.scoreboard.getObjectives()){
+					objective.unregister();
+				}
+			}
+		}
+	}
 
-    public boolean isSidebarVisible() {
-        return this.sidebarVisible;
-    }
+	public Player getPlayer(){
+		return this.player;
+	}
 
-    public void setSidebarVisible(final boolean visible) {
-        this.sidebarVisible = visible;
-        this.bufferedObjective.setDisplaySlot(visible ? DisplaySlot.SIDEBAR : null);
-    }
+	public Scoreboard getScoreboard(){
+		return this.scoreboard;
+	}
 
-    public void setDefaultSidebar(final SidebarProvider provider) {
-        if (provider != null && provider.equals(this.defaultProvider)) {
-            return;
-        }
-        if ((this.defaultProvider = provider) == null) {
-            synchronized (this.scoreboard) {
-                this.scoreboard.clearSlot(DisplaySlot.SIDEBAR);
-            }
-        }
-    }
+	public boolean isSidebarVisible(){
+		return this.sidebarVisible;
+	}
 
-    protected void updateObjective(final long now) {
-        synchronized (this.scoreboard) {
-            final SidebarProvider provider = this.defaultProvider;
-            if (provider == null) {
-                this.bufferedObjective.setVisible(false);
-            }
-            else {
-                this.bufferedObjective.setTitle(provider.getTitle());
-                this.bufferedObjective.setAllLines(provider.getLines(this.player));
-                this.bufferedObjective.flip();
-            }
-        }
-    }
+	public void setSidebarVisible(final boolean visible){
+		this.sidebarVisible = visible;
+		this.bufferedObjective.setDisplaySlot(visible ? DisplaySlot.SIDEBAR : null);
+	}
 
-    public boolean isRemoved() {
-        return this.removed;
-    }
+	public void setDefaultSidebar(final SidebarProvider provider){
+		if(provider != null && provider.equals(this.defaultProvider)){
+			return;
+		}
+		if((this.defaultProvider = provider) == null){
+			synchronized(this.scoreboard){
+				this.scoreboard.clearSlot(DisplaySlot.SIDEBAR);
+			}
+		}
+	}
 
-    public SidebarProvider getDefaultProvider() {
-        return this.defaultProvider;
-    }
+	protected void updateObjective(final long now){
+		synchronized(this.scoreboard){
+			final SidebarProvider provider = this.defaultProvider;
+			if(provider == null){
+				this.bufferedObjective.setVisible(false);
+			}else{
+				this.bufferedObjective.setTitle(provider.getTitle());
+				this.bufferedObjective.setAllLines(provider.getLines(this.player));
+				this.bufferedObjective.flip();
+			}
+		}
+	}
 
-    private void setArcherTagged(final Collection<Player> players) {
-        if (!PlayerBoard.NAMES_ENABLED || this.isRemoved()) {
-            return;
-        }
-        synchronized (this.scoreboard) {
-            for (final Player player : players) {
-                if (!this.checkInvis(player)) {
-                    this.archers.addPlayer(player);
-                }
-            }
-        }
-    }
+	public boolean isRemoved(){
+		return this.removed;
+	}
 
-    public void setMembers(final Collection<Player> players) {
-        if (!PlayerBoard.NAMES_ENABLED || this.isRemoved()) {
-            return;
-        }
-        synchronized (this.scoreboard) {
-            for (final Player player : players) {
-                this.members.addPlayer(player);
-            }
-        }
-    }
+	public SidebarProvider getDefaultProvider(){
+		return this.defaultProvider;
+	}
 
-    public void setAllies(final Collection<Player> players) {
-        if (!PlayerBoard.NAMES_ENABLED || this.isRemoved()) {
-            return;
-        }
-        synchronized (this.scoreboard) {
-            for (final Player player : players) {
-                if (!this.checkInvis(player)) {
-                    this.allies.addPlayer(player);
-                }
-            }
-        }
-    }
+	private void setArcherTagged(final Collection<Player> players){
+		if(!PlayerBoard.NAMES_ENABLED || this.isRemoved()){
+			return;
+		}
+		synchronized(this.scoreboard){
+			for(final Player player : players){
+				if(!this.checkInvis(player)){
+					this.archers.addPlayer(player);
+				}
+			}
+		}
+	}
 
-    public void setNeutrals(final Collection<Player> players) {
-        if (!PlayerBoard.NAMES_ENABLED || this.isRemoved()) {
-            return;
-        }
-        synchronized (this.scoreboard) {
-            for (final Player player : players) {
-                if (!this.checkInvis(player)) {
-                    this.neutrals.addPlayer(player);
-                }
-            }
-        }
-    }
+	public void setMembers(final Collection<Player> players){
+		if(!PlayerBoard.NAMES_ENABLED || this.isRemoved()){
+			return;
+		}
+		synchronized(this.scoreboard){
+			for(final Player player : players){
+				this.members.addPlayer(player);
+			}
+		}
+	}
 
-    public boolean checkInvis(final Player player) {
-        return PlayerBoard.INVISIBILITYFIX && player.hasPotionEffect(PotionEffectType.INVISIBILITY);
-    }
+	public void setAllies(final Collection<Player> players){
+		if(!PlayerBoard.NAMES_ENABLED || this.isRemoved()){
+			return;
+		}
+		synchronized(this.scoreboard){
+			for(final Player player : players){
+				if(!this.checkInvis(player)){
+					this.allies.addPlayer(player);
+				}
+			}
+		}
+	}
 
-    public void setFocused(final Collection<Player> players) {
-        if (!PlayerBoard.NAMES_ENABLED || this.isRemoved()) {
-            return;
-        }
-        synchronized (this.scoreboard) {
-            for (final Player player : players) {
-                if (!this.checkInvis(player)) {
-                    this.focused.addPlayer(player);
-                }
-            }
-        }
-    }
+	public void setNeutrals(final Collection<Player> players){
+		if(!PlayerBoard.NAMES_ENABLED || this.isRemoved()){
+			return;
+		}
+		synchronized(this.scoreboard){
+			for(final Player player : players){
+				if(!this.checkInvis(player)){
+					this.neutrals.addPlayer(player);
+				}
+			}
+		}
+	}
 
-    public void removeAll(final Player player) {
-        synchronized (this.scoreboard) {
-            this.neutrals.removePlayer(player);
-            this.allies.removePlayer(player);
-            this.archers.removePlayer(player);
-            this.focused.removePlayer(player);
-        }
-        ((CraftPlayer)this.player).getHandle().playerConnection.sendPacket(PacketPlayOutPlayerInfo.removePlayer(((CraftPlayer)player).getHandle()));
-    }
+	public boolean checkInvis(final Player player){
+		return PlayerBoard.INVISIBILITYFIX && player.hasPotionEffect(PotionEffectType.INVISIBILITY);
+	}
 
-    public void wipe(final String entry) {
-        synchronized (this.scoreboard) {
-            this.neutrals.removeEntry(entry);
-            this.members.removeEntry(entry);
-            this.focused.removeEntry(entry);
-            this.archers.removeEntry(entry);
-            this.allies.removeEntry(entry);
-        }
-    }
+	public void setFocused(final Collection<Player> players){
+		if(!PlayerBoard.NAMES_ENABLED || this.isRemoved()){
+			return;
+		}
+		synchronized(this.scoreboard){
+			for(final Player player : players){
+				if(!this.checkInvis(player)){
+					this.focused.addPlayer(player);
+				}
+			}
+		}
+	}
 
-    public void init(final Player player) {
-        this.init(Collections.singleton(player));
-    }
+	public void removeAll(final Player player){
+		synchronized(this.scoreboard){
+			this.neutrals.removePlayer(player);
+			this.allies.removePlayer(player);
+			this.archers.removePlayer(player);
+			this.focused.removePlayer(player);
+		}
+		((CraftPlayer) this.player).getHandle().playerConnection.sendPacket(PacketPlayOutPlayerInfo.removePlayer(((CraftPlayer) player).getHandle()));
+	}
 
-    public void init(final Collection<? extends Player> players) {
-        if (!PlayerBoard.NAMES_ENABLED || this.isRemoved()) {
-            return;
-        }
-        boolean foundFaction = false;
-        PlayerFaction playerFaction = null;
-        for (final Player player : players) {
-            this.wipe(player.getName());
-            final boolean invis = PlayerBoard.INVISIBILITYFIX && player.hasPotionEffect(PotionEffectType.INVISIBILITY);
-            if (player == this.player) {
-                this.setMembers(Collections.singleton(player));
-            }
-            else if (ArcherClass.tagged.containsKey(player.getUniqueId()) && !invis) {
-                this.setArcherTagged(Collections.singleton(player));
-            }
-            else {
-                if (!foundFaction) {
-                    playerFaction = this.plugin.getFactionManager().getPlayerFaction(this.player);
-                    foundFaction = true;
-                }
-                if (playerFaction != null) {
-                    if (playerFaction.getMembers().keySet().contains(player.getUniqueId())) {
-                        this.setMembers(Collections.singleton(player));
-                    }
-                    else if (invis) {
-                        this.removeAll(player);
-                    }
-                    else if (playerFaction.getRelation(player) == Relation.ALLY) {
-                        this.setAllies(Collections.singleton(player));
-                    }
-                    else if(playerFaction.getFocused() != null){
-                        if (playerFaction.getFocused().equals(player.getUniqueId().toString())) {
-                            this.setFocused(Collections.singleton(player));
-                        }
-                    }
-                    else {
-                        this.setNeutrals(Collections.singleton(player));
-                    }
-                }
-                else if (invis) {
-                    this.removeAll(player);
-                }
-                else {
-                    this.setNeutrals(Collections.singleton(player));
-                }
-            }
-        }
-    }
+	public void wipe(final String entry){
+		synchronized(this.scoreboard){
+			this.neutrals.removeEntry(entry);
+			this.members.removeEntry(entry);
+			this.focused.removeEntry(entry);
+			this.archers.removeEntry(entry);
+			this.allies.removeEntry(entry);
+		}
+	}
 
-    static {
-        PlayerBoard.NAMES_ENABLED = true;
-        PlayerBoard.INVISIBILITYFIX = true;
-    }
+	public void init(final Player player){
+		this.init(Collections.singleton(player));
+	}
+
+	public void init(final Collection<? extends Player> players){
+		if(!PlayerBoard.NAMES_ENABLED || this.isRemoved()){
+			return;
+		}
+		boolean foundFaction = false;
+		PlayerFaction playerFaction = null;
+		for(final Player player : players){
+			this.wipe(player.getName());
+			final boolean invis = PlayerBoard.INVISIBILITYFIX && player.hasPotionEffect(PotionEffectType.INVISIBILITY);
+			if(player == this.player){
+				this.setMembers(Collections.singleton(player));
+			}else if(ArcherClass.tagged.containsKey(player.getUniqueId()) && !invis){
+				this.setArcherTagged(Collections.singleton(player));
+			}else{
+				if(!foundFaction){
+					playerFaction = this.plugin.getFactionManager().getPlayerFaction(this.player);
+					foundFaction = true;
+				}
+				if(playerFaction != null){
+					if(playerFaction.getMembers().keySet().contains(player.getUniqueId())){
+						this.setMembers(Collections.singleton(player));
+					}else if(invis){
+						this.removeAll(player);
+					}else if(playerFaction.getRelation(player) == Relation.ALLY){
+						this.setAllies(Collections.singleton(player));
+					}else if(playerFaction.getFocused() != null){
+						if(playerFaction.getFocused().equals(player.getUniqueId().toString())){
+							this.setFocused(Collections.singleton(player));
+						}
+					}else{
+						this.setNeutrals(Collections.singleton(player));
+					}
+				}else if(invis){
+					this.removeAll(player);
+				}else{
+					this.setNeutrals(Collections.singleton(player));
+				}
+			}
+		}
+	}
 }

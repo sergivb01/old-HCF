@@ -40,73 +40,73 @@ import java.util.List;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-public class ConfigFile {
+public class ConfigFile{
 
 
-    private File file;
-    private YamlConfiguration configuration;
+	private File file;
+	private YamlConfiguration configuration;
 
-    public ConfigFile(JavaPlugin plugin, String name) {
-        file = new File(plugin.getDataFolder(), name + ".yml");
+	public ConfigFile(JavaPlugin plugin, String name){
+		file = new File(plugin.getDataFolder(), name + ".yml");
 
-        if (!file.getParentFile().exists()) {
-            file.getParentFile().mkdir();
-        }
+		if(!file.getParentFile().exists()){
+			file.getParentFile().mkdir();
+		}
 
-        plugin.saveResource(name + ".yml", true); //TODO: Change when finished (so configs aren't overwritten)
+		plugin.saveResource(name + ".yml", true); //TODO: Change when finished (so configs aren't overwritten)
 
-        configuration = YamlConfiguration.loadConfiguration(file);
-    }
+		configuration = YamlConfiguration.loadConfiguration(file);
+	}
 
-    public double getDouble(String path) {
-        if (configuration.contains(path)) {
-            return configuration.getDouble(path);
-        }
-        return 0;
-    }
+	public double getDouble(String path){
+		if(configuration.contains(path)){
+			return configuration.getDouble(path);
+		}
+		return 0;
+	}
 
-    public int getInt(String path) {
-        if (configuration.contains(path)) {
-            return configuration.getInt(path);
-        }
-        return 0;
-    }
+	public int getInt(String path){
+		if(configuration.contains(path)){
+			return configuration.getInt(path);
+		}
+		return 0;
+	}
 
-    public boolean getBoolean(String path) {
-        if (configuration.contains(path)) {
-            return configuration.getBoolean(path);
-        }
-        return false;
-    }
+	public boolean getBoolean(String path){
+		if(configuration.contains(path)){
+			return configuration.getBoolean(path);
+		}
+		return false;
+	}
 
-    public String getString(String path) {
-        if (configuration.contains(path)) {
-            return ChatColor.translateAlternateColorCodes('&', configuration.getString(path));
-        }
-        return "ERROR: STRING NOT FOUND";
-    }
+	public String getString(String path){
+		if(configuration.contains(path)){
+			return ChatColor.translateAlternateColorCodes('&', configuration.getString(path));
+		}
+		return "ERROR: STRING NOT FOUND";
+	}
 
-    public List<String> getReversedStringList(String path) {
-        List<String> list = getStringList(path);
-        if (list != null) {
-            int size = list.size();
-            List<String> toReturn = new ArrayList<>();
-            for (int i = size - 1; i >= 0; i--) {
-                toReturn.add(list.get(i));
-            }
-            return toReturn;
-        }
-        return Arrays.asList("ERROR: STRING LIST NOT FOUND!");
-    }
+	public List<String> getReversedStringList(String path){
+		List<String> list = getStringList(path);
+		if(list != null){
+			int size = list.size();
+			List<String> toReturn = new ArrayList<>();
+			for(int i = size - 1; i >= 0; i--){
+				toReturn.add(list.get(i));
+			}
+			return toReturn;
+		}
+		return Arrays.asList("ERROR: STRING LIST NOT FOUND!");
+	}
 
-    public List<String> getStringList(String path) {
-        if (configuration.contains(path)) {
-            ArrayList<String> strings = new ArrayList<>();
-            for (String string : configuration.getStringList(path)) {
-                strings.add(ChatColor.translateAlternateColorCodes('&', string));
-            }
-            return strings;
-        }
-        return Arrays.asList("ERROR: STRING LIST NOT FOUND!");
-    }
+	public List<String> getStringList(String path){
+		if(configuration.contains(path)){
+			ArrayList<String> strings = new ArrayList<>();
+			for(String string : configuration.getStringList(path)){
+				strings.add(ChatColor.translateAlternateColorCodes('&', string));
+			}
+			return strings;
+		}
+		return Arrays.asList("ERROR: STRING LIST NOT FOUND!");
+	}
 }

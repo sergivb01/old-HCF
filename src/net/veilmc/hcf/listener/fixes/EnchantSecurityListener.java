@@ -13,22 +13,22 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class EnchantSecurityListener
-        implements Listener {
-    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
-    public void onAttack(EntityDamageByEntityEvent event) {
-        final Entity attackerEntity = event.getDamager();
-        if (attackerEntity instanceof Player && BukkitUtils.getFinalAttacker(event, false) != null) {
-            final Player attacker = (Player) attackerEntity;
-            final ItemStack item = attacker.getItemInHand();
-            if(event.getEntityType().equals(EntityType.PLAYER)) {
-                final Player defender = (Player) event.getEntity();
-                if ((item.getEnchantmentLevel(Enchantment.DAMAGE_ALL) > 5) || (item.getEnchantmentLevel(Enchantment.KNOCKBACK) > 5) || (item.getEnchantmentLevel(Enchantment.THORNS) > 5)) {
-                    attacker.getInventory().removeItem(attacker.getInventory().getItemInHand());
-                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "ban " + attacker.getName() + " Illegal Enchants S:" + item.getEnchantmentLevel(Enchantment.DAMAGE_ALL) + " T:" + item.getEnchantmentLevel(Enchantment.THORNS) + " K:" + item.getEnchantmentLevel(Enchantment.KNOCKBACK) + " D:" + defender.getName());
-                    event.setCancelled(true);
+		implements Listener{
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
+	public void onAttack(EntityDamageByEntityEvent event){
+		final Entity attackerEntity = event.getDamager();
+		if(attackerEntity instanceof Player && BukkitUtils.getFinalAttacker(event, false) != null){
+			final Player attacker = (Player) attackerEntity;
+			final ItemStack item = attacker.getItemInHand();
+			if(event.getEntityType().equals(EntityType.PLAYER)){
+				final Player defender = (Player) event.getEntity();
+				if((item.getEnchantmentLevel(Enchantment.DAMAGE_ALL) > 5) || (item.getEnchantmentLevel(Enchantment.KNOCKBACK) > 5) || (item.getEnchantmentLevel(Enchantment.THORNS) > 5)){
+					attacker.getInventory().removeItem(attacker.getInventory().getItemInHand());
+					Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "ban " + attacker.getName() + " Illegal Enchants S:" + item.getEnchantmentLevel(Enchantment.DAMAGE_ALL) + " T:" + item.getEnchantmentLevel(Enchantment.THORNS) + " K:" + item.getEnchantmentLevel(Enchantment.KNOCKBACK) + " D:" + defender.getName());
+					event.setCancelled(true);
 
-                }
-            }
-        }
-    }
+				}
+			}
+		}
+	}
 }

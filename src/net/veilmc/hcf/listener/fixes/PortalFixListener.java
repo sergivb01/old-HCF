@@ -9,19 +9,18 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 public class PortalFixListener
-        implements Listener {
+		implements Listener{
 
-    @EventHandler
-    public void onClick(PlayerInteractEvent e)
-    {
+	@EventHandler
+	public void onClick(PlayerInteractEvent e){
 
-        if (e.getClickedBlock() == null) {
-            return;
-        }
-        if (e.getClickedBlock().getType() == Material.PORTAL) {
-            Player s = e.getPlayer();
-            s.sendMessage(ChatColor.LIGHT_PURPLE + "You activated your stuck timer by right clicking the Nether Portal.");
-            Bukkit.dispatchCommand(s, "f stuck");
-        }
-    }
+		if(e.getClickedBlock() == null){
+			return;
+		}
+		if(e.getClickedBlock().getType() == Material.PORTAL){
+			Player s = e.getPlayer();
+			s.sendMessage(ChatColor.LIGHT_PURPLE + "You activated your stuck timer by right clicking the Nether Portal.");
+			Bukkit.dispatchCommand(s, "f stuck");
+		}
+	}
 }

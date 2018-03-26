@@ -10,18 +10,17 @@ import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class BookQuillFixListener
-        implements Listener
-{
-    @EventHandler
-    public void craftBookEvent(PrepareItemCraftEvent e) {
-        Material itemType = e.getRecipe().getResult().getType();
-        if(itemType==Material.BOOK_AND_QUILL) {
-            e.getInventory().setResult(new ItemStack(Material.AIR));
-            for(HumanEntity he:e.getViewers()) {
-                if(he instanceof Player) {
-                    ((Player)he).sendMessage(ChatColor.RED + "This item is disabled.");
-                }
-            }
-        }
-    }
+		implements Listener{
+	@EventHandler
+	public void craftBookEvent(PrepareItemCraftEvent e){
+		Material itemType = e.getRecipe().getResult().getType();
+		if(itemType == Material.BOOK_AND_QUILL){
+			e.getInventory().setResult(new ItemStack(Material.AIR));
+			for(HumanEntity he : e.getViewers()){
+				if(he instanceof Player){
+					((Player) he).sendMessage(ChatColor.RED + "This item is disabled.");
+				}
+			}
+		}
+	}
 }

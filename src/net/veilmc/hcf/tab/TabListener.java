@@ -41,23 +41,6 @@ public class TabListener implements Listener{
 			* Caching system (?)
 	 */
 
-	@EventHandler
-	public void onPlayerJoin(PlayerJoinEvent event){
-		Player player = event.getPlayer();
-
-		Tab.createTabList(player).setPlayerListHeaderFooter("My cool header", "My boring footer");
-
-		for(int i = 1; i <= 80; i++){
-			Tab.getByPlayer(player).setSlot(i, "Position " + i);
-		}
-	}
-
-	@EventHandler
-	public void onPlayerQuit(PlayerQuitEvent event){
-		Tab.deleteTabList(event.getPlayer());
-	}
-
-
 	private static String getCardinalDirection(final Player player){
 		double rotation = (player.getLocation().getYaw() - 90.0f) % 360.0f;
 		if(rotation < 0.0){
@@ -141,7 +124,7 @@ public class TabListener implements Listener{
 
 		path.replace("%faction_location%", factionManager.getFactionAt(player.getLocation()).getDisplayName(player))
 				.replace("%f_title%", "Faction Info");
-				/*.replace("%f")*/
+		/*.replace("%f")*/
 
 
 		if(playerFaction != null){
@@ -211,6 +194,22 @@ public class TabListener implements Listener{
 			}
 		}
 		return ChatColor.translateAlternateColorCodes('&', path);
+	}
+
+	@EventHandler
+	public void onPlayerJoin(PlayerJoinEvent event){
+		Player player = event.getPlayer();
+
+		Tab.createTabList(player).setPlayerListHeaderFooter("My cool header", "My boring footer");
+
+		for(int i = 1; i <= 80; i++){
+			Tab.getByPlayer(player).setSlot(i, "Position " + i);
+		}
+	}
+
+	@EventHandler
+	public void onPlayerQuit(PlayerQuitEvent event){
+		Tab.deleteTabList(event.getPlayer());
 	}
 
 

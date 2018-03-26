@@ -1,4 +1,3 @@
-
 package net.veilmc.hcf.faction.argument;
 
 import net.veilmc.hcf.HCF;
@@ -15,45 +14,40 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class FactionMessageArgument
-extends CommandArgument {
-    private final HCF plugin;
+		extends CommandArgument{
+	private final HCF plugin;
 
-    public FactionMessageArgument(HCF plugin) {
-        super("message", "Sends a message to your faction.");
-        this.plugin = plugin;
-        this.aliases = new String[]{"msg"};
-    }
+	public FactionMessageArgument(HCF plugin){
+		super("message", "Sends a message to your faction.");
+		this.plugin = plugin;
+		this.aliases = new String[]{"msg"};
+	}
 
-    public String getUsage(String label) {
-        return "" + '/' + label + ' ' + this.getName() + " <message>";
-    }
+	public String getUsage(String label){
+		return "" + '/' + label + ' ' + this.getName() + " <message>";
+	}
 
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
-    {
-        if (!(sender instanceof Player))
-        {
-            sender.sendMessage(ChatColor.RED + "Only players can use faction chat.");
-            return true;
-        }
-        if (args.length < 2)
-        {
-            sender.sendMessage(ChatColor.RED + "Usage: " + getUsage(label));
-            return true;
-        }
-        Player player = (Player)sender;
-        PlayerFaction playerFaction = this.plugin.getFactionManager().getPlayerFaction(player);
-        if (playerFaction == null)
-        {
-            sender.sendMessage(ChatColor.RED + "You are not in a faction.");
-            return true;
-        }
-        String format = String.format(ChatChannel.FACTION.getRawFormat(player), "", StringUtils.join(args, ' ', 1, args.length));
-        Iterator<Player> iterator = playerFaction.getOnlinePlayers().iterator();
-        while (iterator.hasNext())
-        {
-            Player target = iterator.next();
-            target.sendMessage(format);
-        }
-        return true;
-    }
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
+		if(!(sender instanceof Player)){
+			sender.sendMessage(ChatColor.RED + "Only players can use faction chat.");
+			return true;
+		}
+		if(args.length < 2){
+			sender.sendMessage(ChatColor.RED + "Usage: " + getUsage(label));
+			return true;
+		}
+		Player player = (Player) sender;
+		PlayerFaction playerFaction = this.plugin.getFactionManager().getPlayerFaction(player);
+		if(playerFaction == null){
+			sender.sendMessage(ChatColor.RED + "You are not in a faction.");
+			return true;
+		}
+		String format = String.format(ChatChannel.FACTION.getRawFormat(player), "", StringUtils.join(args, ' ', 1, args.length));
+		Iterator<Player> iterator = playerFaction.getOnlinePlayers().iterator();
+		while(iterator.hasNext()){
+			Player target = iterator.next();
+			target.sendMessage(format);
+		}
+		return true;
+	}
 }

@@ -1,4 +1,3 @@
-
 package net.veilmc.hcf.user;
 
 import net.veilmc.hcf.HCF;

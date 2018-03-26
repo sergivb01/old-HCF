@@ -1,4 +1,3 @@
-
 package net.veilmc.hcf.user;
 
 import com.google.common.collect.Maps;
@@ -115,20 +114,20 @@ public class FactionUser
 		this.lastFactionLeaveMillis = lastFactionLeaveMillis;
 	}
 
-	public void setDeaths(Integer deaths){
-		this.deaths = deaths;
-	}
-
 	public int getDeaths(){
 		return this.deaths;
 	}
 
-	public void setSpawnTokens(Integer spawnTokens){
-		this.spawnTokens = spawnTokens;
+	public void setDeaths(Integer deaths){
+		this.deaths = deaths;
 	}
 
 	public int getSpawnTokens(){
 		return this.spawnTokens;
+	}
+
+	public void setSpawnTokens(Integer spawnTokens){
+		this.spawnTokens = spawnTokens;
 	}
 
 	public boolean isShowLightning(){
@@ -178,12 +177,6 @@ public class FactionUser
 		}
 	}
 
-	public void setTabStyle(int i){
-		if(i >= 0 && i < 3){
-			this.tabStyle = i;
-		}
-	}
-
 	public int getTabStyleInt(){
 		return this.tabStyle;
 	}
@@ -197,6 +190,12 @@ public class FactionUser
 				return TabStyles.FACTION_LIST;
 			case 2:
 				return TabStyles.STAFF;
+		}
+	}
+
+	public void setTabStyle(int i){
+		if(i >= 0 && i < 3){
+			this.tabStyle = i;
 		}
 	}
 

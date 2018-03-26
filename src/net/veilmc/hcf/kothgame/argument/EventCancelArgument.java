@@ -1,4 +1,3 @@
-
 package net.veilmc.hcf.kothgame.argument;
 
 import net.veilmc.hcf.HCF;
@@ -11,28 +10,28 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 public class EventCancelArgument
-extends CommandArgument {
-    private final HCF plugin;
+		extends CommandArgument{
+	private final HCF plugin;
 
-    public EventCancelArgument(HCF plugin) {
-        super("cancel", "Cancels a running event", new String[]{"stop", "end"});
-        this.plugin = plugin;
-        this.permission = "hcf.command.event.argument." + this.getName();
-    }
+	public EventCancelArgument(HCF plugin){
+		super("cancel", "Cancels a running event", new String[]{"stop", "end"});
+		this.plugin = plugin;
+		this.permission = "hcf.command.event.argument." + this.getName();
+	}
 
-    public String getUsage(String label) {
-        return "" + '/' + label + ' ' + this.getName();
-    }
+	public String getUsage(String label){
+		return "" + '/' + label + ' ' + this.getName();
+	}
 
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        EventTimer eventTimer = this.plugin.getTimerManager().eventTimer;
-        EventFaction eventFaction = eventTimer.getEventFaction();
-        if (!eventTimer.clearCooldown()) {
-            sender.sendMessage(ChatColor.RED + "There is not a running event.");
-            return true;
-        }
-        Bukkit.broadcastMessage(sender.getName() + ChatColor.YELLOW + " has cancelled " + (eventFaction == null ? "the active event" : ChatColor.AQUA + eventFaction.getName() + ChatColor.YELLOW) + ".");
-        return true;
-    }
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
+		EventTimer eventTimer = this.plugin.getTimerManager().eventTimer;
+		EventFaction eventFaction = eventTimer.getEventFaction();
+		if(!eventTimer.clearCooldown()){
+			sender.sendMessage(ChatColor.RED + "There is not a running event.");
+			return true;
+		}
+		Bukkit.broadcastMessage(sender.getName() + ChatColor.YELLOW + " has cancelled " + (eventFaction == null ? "the active event" : ChatColor.AQUA + eventFaction.getName() + ChatColor.YELLOW) + ".");
+		return true;
+	}
 }
 

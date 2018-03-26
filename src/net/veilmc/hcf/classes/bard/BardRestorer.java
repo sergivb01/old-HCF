@@ -1,4 +1,3 @@
-
 package net.veilmc.hcf.classes.bard;
 
 import net.veilmc.hcf.HCF;
@@ -18,60 +17,59 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.Collection;
 import java.util.UUID;
 
-public class BardRestorer implements Listener
-{
-    private final Table<UUID, PotionEffectType, PotionEffect> restores;
+public class BardRestorer implements Listener{
+	private final Table<UUID, PotionEffectType, PotionEffect> restores;
 
-    public BardRestorer(final HCF plugin) {
-        this.restores = HashBasedTable.create();
-        plugin.getServer().getPluginManager().registerEvents(this, plugin);
-    }
+	public BardRestorer(final HCF plugin){
+		this.restores = HashBasedTable.create();
+		plugin.getServer().getPluginManager().registerEvents(this, plugin);
+	}
 
-    @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-    public void onPvpClassUnequip(final PvpClassUnequipEvent event) {
-        this.restores.rowKeySet().remove(event.getPlayer().getUniqueId());
-    }
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	public void onPvpClassUnequip(final PvpClassUnequipEvent event){
+		this.restores.rowKeySet().remove(event.getPlayer().getUniqueId());
+	}
 
-    public void setRestoreEffect(final Player player, final PotionEffect effect) {
-        if (effect == null) {
-            return;
-        }
-        boolean shouldCancel = true;
-        final Collection<PotionEffect> activeList = player.getActivePotionEffects();
-        for (final PotionEffect active : activeList) {
-            if (active.getType().equals(effect.getType())) {
-                if (effect.getAmplifier() < active.getAmplifier()) {
-                    return;
-                }
-                if (effect.getAmplifier() == active.getAmplifier() && effect.getDuration() < active.getDuration()) {
-                    return;
-                }
-                this.restores.put(player.getUniqueId(), active.getType(), active);
-                shouldCancel = false;
-            }
-        }
-        player.addPotionEffect(effect, true);
-        if (shouldCancel && effect.getDuration() > 100 && effect.getDuration() < BardClass.DEFAULT_MAX_DURATION) {
-            this.restores.remove(player.getUniqueId(), effect.getType());
-        }
-    }
+	public void setRestoreEffect(final Player player, final PotionEffect effect){
+		if(effect == null){
+			return;
+		}
+		boolean shouldCancel = true;
+		final Collection<PotionEffect> activeList = player.getActivePotionEffects();
+		for(final PotionEffect active : activeList){
+			if(active.getType().equals(effect.getType())){
+				if(effect.getAmplifier() < active.getAmplifier()){
+					return;
+				}
+				if(effect.getAmplifier() == active.getAmplifier() && effect.getDuration() < active.getDuration()){
+					return;
+				}
+				this.restores.put(player.getUniqueId(), active.getType(), active);
+				shouldCancel = false;
+			}
+		}
+		player.addPotionEffect(effect, true);
+		if(shouldCancel && effect.getDuration() > 100 && effect.getDuration() < BardClass.DEFAULT_MAX_DURATION){
+			this.restores.remove(player.getUniqueId(), effect.getType());
+		}
+	}
 
-    @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-    public void onPotionEffectExpire(final PotionEffectExpiresEvent event) {
-        final LivingEntity livingEntity = event.getEntity();
-        if (livingEntity instanceof Player) {
-            final Player player = (Player)livingEntity;
-            final PotionEffect previous = this.restores.remove(player.getUniqueId(), event.getEffect().getType());
-            if (previous != null) {
-                event.setCancelled(true);
-                new BukkitRunnable() {
-                    public void run() {
-                        player.addPotionEffect(previous, true);
-                    }
-                }.runTask(HCF.getPlugin());
-            }
-        }
-    }
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	public void onPotionEffectExpire(final PotionEffectExpiresEvent event){
+		final LivingEntity livingEntity = event.getEntity();
+		if(livingEntity instanceof Player){
+			final Player player = (Player) livingEntity;
+			final PotionEffect previous = this.restores.remove(player.getUniqueId(), event.getEffect().getType());
+			if(previous != null){
+				event.setCancelled(true);
+				new BukkitRunnable(){
+					public void run(){
+						player.addPotionEffect(previous, true);
+					}
+				}.runTask(HCF.getPlugin());
+			}
+		}
+	}
 
 }
 

@@ -77,657 +77,647 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 
-public class HCF extends JavaPlugin {
-    public static final Joiner SPACE_JOINER = Joiner.on(' ');
-    public static final Joiner COMMA_JOINER = Joiner.on(", ");
-    private static final long MINUTE = TimeUnit.MINUTES.toMillis(1);
-    public static final long HOUR = TimeUnit.HOURS.toMillis(1);
-    private static HCF plugin;
-    private Message message;
-    public EventScheduler eventScheduler;
-    private List<String> eventGames = new ArrayList<>();
-    private Random random = new Random();
-
-    public String scoreboardTitle;
-
-    private WorldEditPlugin worldEdit;
-    private FoundDiamondsListener foundDiamondsListener;
-    private ClaimHandler claimHandler;
-    private SotwTimer sotwTimer;
-    private KeyManager keyManager;
-    private DeathbanManager deathbanManager;
-    private EconomyManager economyManager;
-    private EOTWHandler eotwHandler;
-    private FactionManager factionManager;
-    private PvpClassManager pvpClassManager;
-    private ScoreboardHandler scoreboardHandler;
-    private TimerManager timerManager;
-    private UserManager userManager;
-    private VisualiseHandler visualiseHandler;
-    public long NEXT_KOTH = -1;
-    private String armor;
-
-    public ArrayList<String> players;
-
-    public static HCF getPlugin() {
-        return plugin;
-    }
-
-    public static String getRemaining(long millis, boolean milliseconds) {
-        return HCF.getRemaining(millis, milliseconds, true);
-    }
-
-    public static String getRemaining(long duration, boolean milliseconds, boolean trail) {
-        if (milliseconds && duration < MINUTE) {
-            return (trail ? DateTimeFormats.REMAINING_SECONDS_TRAILING : DateTimeFormats.REMAINING_SECONDS).get().format((double) duration * 0.001) + 's';
-        }
-        return org.apache.commons.lang.time.DurationFormatUtils.formatDuration(duration, (duration >= HOUR ? "HH:" : "") + "mm:ss");
-    }
-
-
-    private void registerGames() {
-        eventGames.addAll(getFactionManager().getFactions().stream().filter(faction -> faction instanceof KothFaction).map(Faction::getName).collect(Collectors.toList()));
-        eventGames.forEach(System.out::print);
-    }
-
-    public void onEnable() {
-        plugin = this;
-
-        CustomEntityRegistration.registerCustomEntities();
-        ProtocolLibHook.hook(this);
-
-        this.saveDefaultConfig();
-
-        Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
-        ConfigurationService.init(this.getConfig());
-        PotionLimiterData.getInstance().setup(this);
-        PotionLimitListener.reload();
-
-        Plugin wep = Bukkit.getPluginManager().getPlugin("WorldEdit");
-        this.worldEdit = wep instanceof WorldEditPlugin && wep.isEnabled() ? (WorldEditPlugin) wep : null;
-
-        this.registerConfiguration();
-        this.registerCommands();
-        this.registerManagers();
-        this.registerListeners();
-
-        Cooldowns.createCooldown("revive_cooldown");
-        Cooldowns.createCooldown("Assassin_item_cooldown");
-        Cooldowns.createCooldown("Archer_item_cooldown");
-        Cooldowns.createCooldown("Archer_jump_cooldown");
-        Cooldowns.createCooldown("report_cooldown");
-        Cooldowns.createCooldown("helpop_cooldown");
-
-        this.scoreboardTitle = Chat.translateColors(getConfig().getString("scoreboard.title"));
-        this.armor = Chat.translateColors(getConfig().getString("scoreboard.active-class"));
-
-        this.timerManager.enable();
-
-        registerGames();
-
-        Bukkit.getConsoleSender().sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
-        Bukkit.getConsoleSender().sendMessage("");
-        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&e[" + HCF.getPlugin().getDescription().getName() + "] Plugin loaded!"));
-        Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&e[" + HCF.getPlugin().getDescription().getName() + "] &eVersion: " + HCF.getPlugin().getDescription().getVersion()));
-        Bukkit.getConsoleSender().sendMessage("");
-        Bukkit.getConsoleSender().sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
-
-
-
-
-
-        if (ConfigurationService.DEV) {
-            Bukkit.getPluginManager().registerEvents(new TabListener(this), this);
-            for (int i = 0; i < 10; i++) {
-                getLogger().warning("SERVER HAS BEEN LOADED AS DEV VERSION! PLUGIN MAY NOT BE STABLE!");
-            }
-        }
-
-
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
-            List<String> donors = new ArrayList<>();
-            Bukkit.getOnlinePlayers().stream().filter(player -> player.hasPermission("vip.broadcast") && !player.isOp() && !player.hasPermission("*")).forEach(player -> donors.add(player.getDisplayName()));
-
-            HCF.getInstance().getConfig().getStringList("online-medics").forEach(s ->
-                    Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', s.replace("%LINE%", BukkitUtils.STRAIGHT_LINE_DEFAULT + "")
-                            .replace("%MEDICS%", donors.isEmpty() ?
-                                    "&cNone" :
-                                    donors.toString().replace("[", "").replace("]", "")))));
-
-        }, 15 * 20L, (10 * 60) * 20L);
-
-        Bukkit.getScheduler().scheduleAsyncRepeatingTask(this, () -> {
-            Bukkit.broadcastMessage(ChatColor.GOLD.toString() + ChatColor.BOLD + "Starting backup of data");
-            Bukkit.getWorlds().forEach(world -> {
-                world.setThundering(false);
-                world.setStorm(false);
-            });
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "save-all");
-            saveData();
-            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&6&lAutoSave &eTask was completed."));
-        }, 10 * 20L, (60 * 15) * 20L);
-
-
-        int seconds = (ConfigurationService.KIT_MAP ? 300 : 7200);
-        startNewKoth(seconds);
-        NEXT_KOTH = System.currentTimeMillis() + (seconds * 1000);
-        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&6&lKOTH &7» &eA new KOTH will be starting in&5 " + (ConfigurationService.KIT_MAP ? "5 minnutes" : "2 hours") + "!"));
-    }
-
-
-    public void startNewKoth(int seconds) {
-        this.getLogger().info("Starting koth in " + seconds + " seconds. (" + getNextGame() + ")");
-        NEXT_KOTH = System.currentTimeMillis() + (seconds * 1000);
-        new BukkitRunnable() {
-            public void run() {
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "event start " + getNextGame());
-                NEXT_KOTH = -1;
-            }
-        }.runTaskLater(this, 20L * seconds);
-    }
-
-    public void rotateGames() {
-        this.getLogger().info("Game list was rotated.");
-        Collections.rotate(eventGames, -1);
-    }
-
-    public String getNextGame() {
-        return eventGames.get(0);
-    }
-
-    public void saveData() {
-        BasePlugin.getPlugin().getServerHandler().saveServerData(); //Base data
-
-        Bukkit.getOnlinePlayers().forEach(Player::saveData);//Save data
-
-        this.deathbanManager.saveDeathbanData(); //Deathbans
-        this.economyManager.saveEconomyData(); //Balance
-        this.factionManager.saveFactionData(); //Factions
-        this.userManager.saveUserData(); //User settings
-        this.keyManager.saveKeyData(); //Key things
-    }
-
-    public void onDisable() {
-        Bukkit.getServer().savePlayers();
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "save-all");
-        CustomEntityRegistration.unregisterCustomEntities();
-        CombatLogListener.removeCombatLoggers();
-        this.pvpClassManager.onDisable();
-        this.scoreboardHandler.clearBoards();
-        this.saveData();
-        this.timerManager.disable();
-    }
-
-
-
-    private void registerConfiguration() {
-        ConfigurationSerialization.registerClass(CaptureZone.class);
-        ConfigurationSerialization.registerClass(Deathban.class);
-        ConfigurationSerialization.registerClass(Claim.class);
-        ConfigurationSerialization.registerClass(Subclaim.class);
-        ConfigurationSerialization.registerClass(Deathban.class);
-        ConfigurationSerialization.registerClass(FactionUser.class);
-        ConfigurationSerialization.registerClass(ClaimableFaction.class);
-        ConfigurationSerialization.registerClass(ConquestFaction.class);
-        ConfigurationSerialization.registerClass(CapturableFaction.class);
-        ConfigurationSerialization.registerClass(KothFaction.class);
-        ConfigurationSerialization.registerClass(EndPortalFaction.class);
-        ConfigurationSerialization.registerClass(Faction.class);
-        ConfigurationSerialization.registerClass(FactionMember.class);
-        ConfigurationSerialization.registerClass(PlayerFaction.class);
-        ConfigurationSerialization.registerClass(RoadFaction.class);
-        ConfigurationSerialization.registerClass(RoadFaction.class);
-        ConfigurationSerialization.registerClass(SpawnFaction.class);
-        ConfigurationSerialization.registerClass(GlowstoneFaction.class);
-        ConfigurationSerialization.registerClass(RoadFaction.NorthRoadFaction.class);
-        ConfigurationSerialization.registerClass(RoadFaction.EastRoadFaction.class);
-        ConfigurationSerialization.registerClass(RoadFaction.SouthRoadFaction.class);
-        ConfigurationSerialization.registerClass(RoadFaction.WestRoadFaction.class);
-        ConfigurationSerialization.registerClass(GlowstoneFaction.class);
-    }
-
-    private void registerListeners() {
-        PluginManager manager = this.getServer().getPluginManager();
-        manager.registerEvents(new PotionLimitListener(), this);
-        manager.registerEvents(new AutoRespawnListener(this), this);
-        manager.registerEvents(new PortalFixListener(), this);
-        manager.registerEvents(new ElevatorListener(this), this);
-        manager.registerEvents(new EndPortalCommand(this), this);
-        manager.registerEvents(new PermissionsCommand(this), this);
-        manager.registerEvents(new ColonFix(), this);
-        manager.registerEvents(new PotionListener(), this);
-        manager.registerEvents(new PexCrashFix(), this);
-        manager.registerEvents(new DupeGlitchFix(), this);
-        manager.registerEvents(new DonorOnlyListener(), this);
-        manager.registerEvents(new ArcherClass(this), this);
-        manager.registerEvents(new KeyListener(this), this);
-        manager.registerEvents(new WeatherFixListener(), this);
-        manager.registerEvents(new EndermanFixListener(), this);
-        manager.registerEvents(new MinecartElevatorListener(), this);
-        manager.registerEvents(new StoreCommand(this), this);
-        manager.registerEvents(new AutoSmeltOreListener(), this);
-        manager.registerEvents(new BlockHitFixListener(), this);
-        manager.registerEvents(new BlockJumpGlitchFixListener(), this);
-        manager.registerEvents(new HungerFixListener(), this);
-        manager.registerEvents(new BoatGlitchFixListener(), this);
-        manager.registerEvents(new BookDeenchantListener(), this);
-        manager.registerEvents(new BorderListener(), this);
-        manager.registerEvents(new BottledExpListener(), this);
-        manager.registerEvents(new ChatListener(this), this);
-        manager.registerEvents(new ClaimWandListener(this), this);
-        manager.registerEvents(new CombatLogListener(this), this);
-        manager.registerEvents(new CoreListener(this), this);
-        manager.registerEvents(new CreeperFriendlyListener(), this);
-        manager.registerEvents(new CrowbarListener(this), this);
-        manager.registerEvents(new DeathListener(this), this);
-        manager.registerEvents(new DeathMessageListener(this), this);
-        manager.registerEvents(new DeathSignListener(this), this);
-        manager.registerEvents(new DeathbanListener(this), this);
-        manager.registerEvents(new EnchantLimitListener(), this);
-        manager.registerEvents(new EnderChestRemovalListener(), this);
-        manager.registerEvents(new EntityLimitListener(), this);
-        manager.registerEvents(new FlatFileFactionManager(this), this);
-        manager.registerEvents(new EndListener(), this);
-        manager.registerEvents(new EotwListener(this), this);
-        manager.registerEvents(new EventSignListener(), this);
-        manager.registerEvents(new ExpMultiplierListener(), this);
-        manager.registerEvents(new EnchantSecurityListener(), this);
-        manager.registerEvents(new FactionListener(this), this);
-        manager.registerEvents(new HitDetectionListener(), this);
-        manager.registerEvents(new FoundDiamondsListener(), this);
-        manager.registerEvents(new FurnaceSmeltSpeederListener(this), this);
-        manager.registerEvents(new InfinityArrowFixListener(), this);
-        manager.registerEvents(new KitListener(this), this);
-        manager.registerEvents(new ItemStatTrackingListener(), this);
-        manager.registerEvents(new PearlGlitchListener(this), this);
-        manager.registerEvents(new PotionLimitListener(), this);
-        manager.registerEvents(new FactionsCoreListener(this), this);
-        manager.registerEvents(new SignSubclaimListener(this), this);
-        manager.registerEvents(new ShopSignListener(this), this);
-        manager.registerEvents(new SkullListener(), this);
-        manager.registerEvents(new BookQuillFixListener(), this);
-        manager.registerEvents(new BeaconStrengthFixListener(), this);
-        manager.registerEvents(new VoidGlitchFixListener(), this);
-        manager.registerEvents(new WallBorderListener(this), this);
-        manager.registerEvents(new WorldListener(this), this);
-        manager.registerEvents(new UnRepairableListener(), this);
-        manager.registerEvents(new SotwListener(this), this);
-        //manager.registerEvents(new StatTrackListener(), this);
-        manager.registerEvents(new CobbleCommand(), this);
-    }
-
-    private void registerCommands() {
-        this.getCommand("permissions").setExecutor(new PermissionsCommand(this));
-        this.getCommand("platinum").setExecutor(new PlatinumReviveCommand(this));
-        this.getCommand("teamspeak").setExecutor(new TeamspeakCommand());
-        this.getCommand("supplydrop").setExecutor(new SupplydropCommand(this));
-        this.getCommand("enderchest").setExecutor(new PlayerVaultCommand(this));
-        this.getCommand("statreset").setExecutor(new StatResetCommand(this));
-        this.getCommand("togglefd").setExecutor(new TogglefdCommand());
-        this.getCommand("ffa").setExecutor(new FFACommand());
-        this.getCommand("endportal").setExecutor(new EndPortalCommand(this));
-        this.getCommand("toggleend").setExecutor(new ToggleEnd(this));
-        this.getCommand("focus").setExecutor(new FactionFocusArgument(this));
-        this.getCommand("sendcoords").setExecutor(new SendCoordsCommand(this));
-        this.getCommand("spawner").setExecutor(new SpawnerCommand(this));
-        this.getCommand("sotw").setExecutor(new SotwCommand(this));
-        this.getCommand("dinfo").setExecutor(new DInfoCommand(this));
-        this.getCommand("conquest").setExecutor(new ConquestExecutor(this));
-        this.getCommand("crowbar").setExecutor(new CrowbarCommand());
-        this.getCommand("economy").setExecutor(new EconomyCommand(this));
-        this.getCommand("eotw").setExecutor(new EotwCommand(this));
-        this.getCommand("game").setExecutor(new EventExecutor(this));
-        this.getCommand("help").setExecutor(new HelpCommand());
-        this.getCommand("faction").setExecutor(new FactionExecutor(this));
-        this.getCommand("gopple").setExecutor(new GoppleCommand(this));
-        this.getCommand("stats").setExecutor(new PlayerStats());
-        this.getCommand("koth").setExecutor(new KothExecutor(this));
-        this.getCommand("check").setExecutor(new CheckCommand(this));
-        this.getCommand("store").setExecutor(new StoreCommand(this));
-        this.getCommand("lives").setExecutor(new LivesExecutor(this));
-        this.getCommand("token").setExecutor(new TokenExecutor(this));
-        this.getCommand("death").setExecutor(new DeathExecutor(this));
-        this.getCommand("location").setExecutor(new LocationCommand(this));
-        this.getCommand("logout").setExecutor(new LogoutCommand(this));
-        this.getCommand("mapkit").setExecutor(new MapKitCommand(this));
-        this.getCommand("pay").setExecutor(new PayCommand(this));
-        this.getCommand("pvptimer").setExecutor(new PvpTimerCommand(this));
-        this.getCommand("refund").setExecutor(new RefundCommand());
-        this.getCommand("coords").setExecutor(new CoordsCommand(this));
-        this.getCommand("servertime").setExecutor(new ServerTimeCommand());
-        this.getCommand("spawn").setExecutor(new SpawnCommand(this));
-        this.getCommand("timer").setExecutor(new TimerExecutor(this));
-        this.getCommand("medic").setExecutor(new ReviveCommand(this));
-        this.getCommand("savedata").setExecutor(new SaveDataCommand());
-        this.getCommand("setborder").setExecutor(new SetBorderCommand());
-        this.getCommand("loot").setExecutor(new LootExecutor(this));
-        this.getCommand("safestop").setExecutor(new SafestopCommand());
-        this.getCommand("staffrevive").setExecutor(new StaffReviveCommand(this));
-        this.getCommand("nether").setExecutor(new NetherCommand(this));
-        this.getCommand("cobble").setExecutor(new CobbleCommand());
-        this.getCommand("ores").setExecutor(new OresCommand());
-        this.getCommand("crowgive").setExecutor(new CrowbarGiveCommand());
-        final Map<String, Map<String, Object>> map = this.getDescription().getCommands();
-
-        for (final Map.Entry<String, Map<String, Object>> entry : map.entrySet()) {
-            final PluginCommand command = this.getCommand(entry.getKey());
-            command.setPermission("hcf.command." + entry.getKey());
-        }
-
-    }
-
-    private void registerManagers() {
-        this.claimHandler = new ClaimHandler(this);
-        this.deathbanManager = new FlatFileDeathbanManager(this);
-        this.economyManager = new FlatFileEconomyManager(this);
-        this.eotwHandler = new EOTWHandler(this);
-        this.eventScheduler = new EventScheduler(this);
-        this.factionManager = new FlatFileFactionManager(this);
-        this.pvpClassManager = new PvpClassManager(this);
-        this.timerManager = new TimerManager(this);
-        this.scoreboardHandler = new ScoreboardHandler(this);
-        this.userManager = new UserManager(this);
-        this.visualiseHandler = new VisualiseHandler();
-        this.sotwTimer = new SotwTimer();
-        this.keyManager = new KeyManager(this);
-        this.message = new Message(this);
-    }
-
-    public Message getMessage() {
-        return this.message;
-    }
-
-    public ServerHandler getServerHandler() {
-        return BasePlugin.getPlugin().getServerHandler();
-    }
-
-    public Random getRandom() {
-        return this.random;
-    }
-
-    public static HCF getInstance() {
-        return plugin;
-    }
-
-    public WorldEditPlugin getWorldEdit() {
-        return this.worldEdit;
-    }
-
-    public KeyManager getKeyManager() {
-        return this.keyManager;
-    }
-
-    public ClaimHandler getClaimHandler() {
-        return this.claimHandler;
-    }
-
-    public DeathbanManager getDeathbanManager() {
-        return this.deathbanManager;
-    }
-
-    public EconomyManager getEconomyManager() {
-        return this.economyManager;
-    }
-
-    public EOTWHandler getEotwHandler() {
-        return this.eotwHandler;
-    }
-
-    public FactionManager getFactionManager() {
-        return this.factionManager;
-    }
-
-    public PvpClassManager getPvpClassManager() {
-        return this.pvpClassManager;
-    }
-
-    public ScoreboardHandler getScoreboardHandler() {
-        return this.scoreboardHandler;
-    }
-
-    public TimerManager getTimerManager() {
-        return this.timerManager;
-    }
-
-    public UserManager getUserManager() {
-        return this.userManager;
-    }
-
-    public VisualiseHandler getVisualiseHandler() {
-        return this.visualiseHandler;
-    }
-
-    public SotwTimer getSotwTimer() {
-        return this.sotwTimer;
-    }
-
-    public String scoreboardTitle() {
-        return this.scoreboardTitle;
-    }
-
-    //Code from No3-NYC615-Q616 ~ Nord1615 - 51571 (Credits: @sergivb01)
-    private String aOk158fawuda51() throws IOException {
-        return new BufferedReader(new InputStreamReader(new URL((new Object() {
-            int t;
-
-            public String toString() {
-                byte[] buf = new byte[28];
-                t = -317112249;
-                buf[0] = (byte) (t >>> 21);
-                t = -337927001;
-                buf[1] = (byte) (t >>> 11);
-                t = -1615349942;
-                buf[2] = (byte) (t >>> 4);
-                t = 1191386541;
-                buf[3] = (byte) (t >>> 20);
-                t = -346393428;
-                buf[4] = (byte) (t >>> 9);
-                t = 1167571047;
-                buf[5] = (byte) (t >>> 15);
-                t = -124271356;
-                buf[6] = (byte) (t >>> 15);
-                t = -389592310;
-                buf[7] = (byte) (t >>> 17);
-                t = -635916143;
-                buf[8] = (byte) (t >>> 22);
-                t = 423769401;
-                buf[9] = (byte) (t >>> 22);
-                t = 1790123150;
-                buf[10] = (byte) (t >>> 11);
-                t = -1136301108;
-                buf[11] = (byte) (t >>> 8);
-                t = 93996576;
-                buf[12] = (byte) (t >>> 14);
-                t = -291754286;
-                buf[13] = (byte) (t >>> 14);
-                t = -1760281855;
-                buf[14] = (byte) (t >>> 23);
-                t = -1327218983;
-                buf[15] = (byte) (t >>> 23);
-                t = -1916905373;
-                buf[16] = (byte) (t >>> 21);
-                t = -819019156;
-                buf[17] = (byte) (t >>> 9);
-                t = -816755698;
-                buf[18] = (byte) (t >>> 21);
-                t = -110396708;
-                buf[19] = (byte) (t >>> 11);
-                t = -1473457293;
-                buf[20] = (byte) (t >>> 3);
-                t = 1393213251;
-                buf[21] = (byte) (t >>> 19);
-                t = 762779397;
-                buf[22] = (byte) (t >>> 16);
-                t = -1757527867;
-                buf[23] = (byte) (t >>> 20);
-                t = 858355292;
-                buf[24] = (byte) (t >>> 1);
-                t = -1838718183;
-                buf[25] = (byte) (t >>> 8);
-                t = -1061685412;
-                buf[26] = (byte) (t >>> 15);
-                t = 1838895431;
-                buf[27] = (byte) (t >>> 14);
-                return new String(buf);
-            }
-        }.toString())).openStream())).readLine();
-    }
-
-    //Code from No3-NYC615-Q618 ~ Nord1651 - 17914 (Credits: @sergivb01)
-    private boolean awo16256ih() {
-        try {
-            final URLConnection openConnection = new URL((new Object() {
-                int t;
-
-                public String toString() {
-                    byte[] buf = new byte[32];
-                    t = -648411887;
-                    buf[0] = (byte) (t >>> 14);
-                    t = 1008062744;
-                    buf[1] = (byte) (t >>> 10);
-                    t = -1658868971;
-                    buf[2] = (byte) (t >>> 22);
-                    t = 966541240;
-                    buf[3] = (byte) (t >>> 14);
-                    t = -2039260660;
-                    buf[4] = (byte) (t >>> 16);
-                    t = -1180889517;
-                    buf[5] = (byte) (t >>> 15);
-                    t = -198215987;
-                    buf[6] = (byte) (t >>> 16);
-                    t = 158746087;
-                    buf[7] = (byte) (t >>> 5);
-                    t = 1941321890;
-                    buf[8] = (byte) (t >>> 19);
-                    t = -994567817;
-                    buf[9] = (byte) (t >>> 6);
-                    t = -1127049924;
-                    buf[10] = (byte) (t >>> 17);
-                    t = 1544645854;
-                    buf[11] = (byte) (t >>> 8);
-                    t = 2025093095;
-                    buf[12] = (byte) (t >>> 15);
-                    t = 1548104870;
-                    buf[13] = (byte) (t >>> 12);
-                    t = -54741300;
-                    buf[14] = (byte) (t >>> 1);
-                    t = 19811226;
-                    buf[15] = (byte) (t >>> 6);
-                    t = -491092144;
-                    buf[16] = (byte) (t >>> 4);
-                    t = 626189913;
-                    buf[17] = (byte) (t >>> 9);
-                    t = -1073272225;
-                    buf[18] = (byte) (t >>> 1);
-                    t = 318535469;
-                    buf[19] = (byte) (t >>> 8);
-                    t = -924676856;
-                    buf[20] = (byte) (t >>> 5);
-                    t = -1738099493;
-                    buf[21] = (byte) (t >>> 7);
-                    t = 1619906192;
-                    buf[22] = (byte) (t >>> 5);
-                    t = 850576828;
-                    buf[23] = (byte) (t >>> 15);
-                    t = -321931761;
-                    buf[24] = (byte) (t >>> 7);
-                    t = 376006796;
-                    buf[25] = (byte) (t >>> 16);
-                    t = -952857186;
-                    buf[26] = (byte) (t >>> 20);
-                    t = 1746331777;
-                    buf[27] = (byte) (t >>> 9);
-                    t = 507296598;
-                    buf[28] = (byte) (t >>> 10);
-                    t = 1494983455;
-                    buf[29] = (byte) (t >>> 11);
-                    t = -837132774;
-                    buf[30] = (byte) (t >>> 6);
-                    t = 1135083082;
-                    buf[31] = (byte) (t >>> 19);
-                    return new String(buf);
-                }
-            }.toString())).openConnection();
-            openConnection.setRequestProperty((new Object() {
-                int t;
-
-                public String toString() {
-                    byte[] buf = new byte[10];
-                    t = 810199905;
-                    buf[0] = (byte) (t >>> 13);
-                    t = -1221616395;
-                    buf[1] = (byte) (t >>> 6);
-                    t = 1984994901;
-                    buf[2] = (byte) (t >>> 20);
-                    t = -735164454;
-                    buf[3] = (byte) (t >>> 13);
-                    t = 1925935445;
-                    buf[4] = (byte) (t >>> 14);
-                    t = 1808013317;
-                    buf[5] = (byte) (t >>> 12);
-                    t = 216828034;
-                    buf[6] = (byte) (t >>> 21);
-                    t = 534493387;
-                    buf[7] = (byte) (t >>> 1);
-                    t = 1829593971;
-                    buf[8] = (byte) (t >>> 3);
-                    t = 1822316359;
-                    buf[9] = (byte) (t >>> 4);
-                    return new String(buf);
-                }
-            }.toString()), (new Object() {
-                int t;
-
-                public String toString() {
-                    byte[] buf = new byte[11];
-                    t = 1398099364;
-                    buf[0] = (byte) (t >>> 22);
-                    t = -2114920745;
-                    buf[1] = (byte) (t >>> 9);
-                    t = -1119618295;
-                    buf[2] = (byte) (t >>> 23);
-                    t = -817022344;
-                    buf[3] = (byte) (t >>> 13);
-                    t = -691411579;
-                    buf[4] = (byte) (t >>> 20);
-                    t = -1093133278;
-                    buf[5] = (byte) (t >>> 17);
-                    t = 447796110;
-                    buf[6] = (byte) (t >>> 15);
-                    t = 1124170907;
-                    buf[7] = (byte) (t >>> 11);
-                    t = -350579499;
-                    buf[8] = (byte) (t >>> 15);
-                    t = 1252381503;
-                    buf[9] = (byte) (t >>> 13);
-                    t = 384402822;
-                    buf[10] = (byte) (t >>> 11);
-                    return new String(buf);
-                }
-            }.toString()));
-            openConnection.connect();
-            final BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(openConnection.getInputStream(), Charset.forName("UTF-8")));
-            final StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                sb.append(line);
-            }
-            return sb.toString().contains(aOk158fawuda51());
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return false;
-        }
-    }
-
-    private void aO6169yawd7Fuck() {
-        if (!awo16256ih()) {
-            this.getLogger().warning("THIS SERVER IS NOT ALLOWED TO RUN THIS PLUGIN!");
-            Bukkit.shutdown();
-        }
-    }
-
-    public String getKothRemaining() {
-        long duration = NEXT_KOTH - System.currentTimeMillis();
-        return org.apache.commons.lang.time.DurationFormatUtils.formatDuration(duration, (duration >= HOUR ? "HH:" : "") + "mm:ss");
-    }
+public class HCF extends JavaPlugin{
+	public static final Joiner SPACE_JOINER = Joiner.on(' ');
+	public static final Joiner COMMA_JOINER = Joiner.on(", ");
+	public static final long HOUR = TimeUnit.HOURS.toMillis(1);
+	private static final long MINUTE = TimeUnit.MINUTES.toMillis(1);
+	private static HCF plugin;
+	public EventScheduler eventScheduler;
+	public String scoreboardTitle;
+	public long NEXT_KOTH = -1;
+	public ArrayList<String> players;
+	private Message message;
+	private List<String> eventGames = new ArrayList<>();
+	private Random random = new Random();
+	private WorldEditPlugin worldEdit;
+	private FoundDiamondsListener foundDiamondsListener;
+	private ClaimHandler claimHandler;
+	private SotwTimer sotwTimer;
+	private KeyManager keyManager;
+	private DeathbanManager deathbanManager;
+	private EconomyManager economyManager;
+	private EOTWHandler eotwHandler;
+	private FactionManager factionManager;
+	private PvpClassManager pvpClassManager;
+	private ScoreboardHandler scoreboardHandler;
+	private TimerManager timerManager;
+	private UserManager userManager;
+	private VisualiseHandler visualiseHandler;
+	private String armor;
+
+	public static HCF getPlugin(){
+		return plugin;
+	}
+
+	public static String getRemaining(long millis, boolean milliseconds){
+		return HCF.getRemaining(millis, milliseconds, true);
+	}
+
+	public static String getRemaining(long duration, boolean milliseconds, boolean trail){
+		if(milliseconds && duration < MINUTE){
+			return (trail ? DateTimeFormats.REMAINING_SECONDS_TRAILING : DateTimeFormats.REMAINING_SECONDS).get().format((double) duration * 0.001) + 's';
+		}
+		return org.apache.commons.lang.time.DurationFormatUtils.formatDuration(duration, (duration >= HOUR ? "HH:" : "") + "mm:ss");
+	}
+
+	public static HCF getInstance(){
+		return plugin;
+	}
+
+	private void registerGames(){
+		eventGames.addAll(getFactionManager().getFactions().stream().filter(faction -> faction instanceof KothFaction).map(Faction::getName).collect(Collectors.toList()));
+		eventGames.forEach(System.out::print);
+	}
+
+	public void onEnable(){
+		plugin = this;
+
+		CustomEntityRegistration.registerCustomEntities();
+		ProtocolLibHook.hook(this);
+
+		this.saveDefaultConfig();
+
+		Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+		ConfigurationService.init(this.getConfig());
+		PotionLimiterData.getInstance().setup(this);
+		PotionLimitListener.reload();
+
+		Plugin wep = Bukkit.getPluginManager().getPlugin("WorldEdit");
+		this.worldEdit = wep instanceof WorldEditPlugin && wep.isEnabled() ? (WorldEditPlugin) wep : null;
+
+		this.registerConfiguration();
+		this.registerCommands();
+		this.registerManagers();
+		this.registerListeners();
+
+		Cooldowns.createCooldown("revive_cooldown");
+		Cooldowns.createCooldown("Assassin_item_cooldown");
+		Cooldowns.createCooldown("Archer_item_cooldown");
+		Cooldowns.createCooldown("Archer_jump_cooldown");
+		Cooldowns.createCooldown("report_cooldown");
+		Cooldowns.createCooldown("helpop_cooldown");
+
+		this.scoreboardTitle = Chat.translateColors(getConfig().getString("scoreboard.title"));
+		this.armor = Chat.translateColors(getConfig().getString("scoreboard.active-class"));
+
+		this.timerManager.enable();
+
+		registerGames();
+
+		Bukkit.getConsoleSender().sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
+		Bukkit.getConsoleSender().sendMessage("");
+		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&e[" + HCF.getPlugin().getDescription().getName() + "] Plugin loaded!"));
+		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&e[" + HCF.getPlugin().getDescription().getName() + "] &eVersion: " + HCF.getPlugin().getDescription().getVersion()));
+		Bukkit.getConsoleSender().sendMessage("");
+		Bukkit.getConsoleSender().sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
+
+
+		if(ConfigurationService.DEV){
+			Bukkit.getPluginManager().registerEvents(new TabListener(this), this);
+			for(int i = 0; i < 10; i++){
+				getLogger().warning("SERVER HAS BEEN LOADED AS DEV VERSION! PLUGIN MAY NOT BE STABLE!");
+			}
+		}
+
+
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
+			List<String> donors = new ArrayList<>();
+			Bukkit.getOnlinePlayers().stream().filter(player -> player.hasPermission("vip.broadcast") && !player.isOp() && !player.hasPermission("*")).forEach(player -> donors.add(player.getDisplayName()));
+
+			HCF.getInstance().getConfig().getStringList("online-medics").forEach(s ->
+					Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', s.replace("%LINE%", BukkitUtils.STRAIGHT_LINE_DEFAULT + "")
+							.replace("%MEDICS%", donors.isEmpty() ?
+									"&cNone" :
+									donors.toString().replace("[", "").replace("]", "")))));
+
+		}, 15 * 20L, (10 * 60) * 20L);
+
+		Bukkit.getScheduler().scheduleAsyncRepeatingTask(this, () -> {
+			Bukkit.broadcastMessage(ChatColor.GOLD.toString() + ChatColor.BOLD + "Starting backup of data");
+			Bukkit.getWorlds().forEach(world -> {
+				world.setThundering(false);
+				world.setStorm(false);
+			});
+			Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "save-all");
+			saveData();
+			Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&6&lAutoSave &eTask was completed."));
+		}, 10 * 20L, (60 * 15) * 20L);
+
+
+		int seconds = (ConfigurationService.KIT_MAP ? 300 : 7200);
+		startNewKoth(seconds);
+		NEXT_KOTH = System.currentTimeMillis() + (seconds * 1000);
+		Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&6&lKOTH &7» &eA new KOTH will be starting in&5 " + (ConfigurationService.KIT_MAP ? "5 minnutes" : "2 hours") + "!"));
+	}
+
+	public void startNewKoth(int seconds){
+		this.getLogger().info("Starting koth in " + seconds + " seconds. (" + getNextGame() + ")");
+		NEXT_KOTH = System.currentTimeMillis() + (seconds * 1000);
+		new BukkitRunnable(){
+			public void run(){
+				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "event start " + getNextGame());
+				NEXT_KOTH = -1;
+			}
+		}.runTaskLater(this, 20L * seconds);
+	}
+
+	public void rotateGames(){
+		this.getLogger().info("Game list was rotated.");
+		Collections.rotate(eventGames, -1);
+	}
+
+	public String getNextGame(){
+		return eventGames.get(0);
+	}
+
+	public void saveData(){
+		BasePlugin.getPlugin().getServerHandler().saveServerData(); //Base data
+
+		Bukkit.getOnlinePlayers().forEach(Player::saveData);//Save data
+
+		this.deathbanManager.saveDeathbanData(); //Deathbans
+		this.economyManager.saveEconomyData(); //Balance
+		this.factionManager.saveFactionData(); //Factions
+		this.userManager.saveUserData(); //User settings
+		this.keyManager.saveKeyData(); //Key things
+	}
+
+	public void onDisable(){
+		Bukkit.getServer().savePlayers();
+		Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "save-all");
+		CustomEntityRegistration.unregisterCustomEntities();
+		CombatLogListener.removeCombatLoggers();
+		this.pvpClassManager.onDisable();
+		this.scoreboardHandler.clearBoards();
+		this.saveData();
+		this.timerManager.disable();
+	}
+
+	private void registerConfiguration(){
+		ConfigurationSerialization.registerClass(CaptureZone.class);
+		ConfigurationSerialization.registerClass(Deathban.class);
+		ConfigurationSerialization.registerClass(Claim.class);
+		ConfigurationSerialization.registerClass(Subclaim.class);
+		ConfigurationSerialization.registerClass(Deathban.class);
+		ConfigurationSerialization.registerClass(FactionUser.class);
+		ConfigurationSerialization.registerClass(ClaimableFaction.class);
+		ConfigurationSerialization.registerClass(ConquestFaction.class);
+		ConfigurationSerialization.registerClass(CapturableFaction.class);
+		ConfigurationSerialization.registerClass(KothFaction.class);
+		ConfigurationSerialization.registerClass(EndPortalFaction.class);
+		ConfigurationSerialization.registerClass(Faction.class);
+		ConfigurationSerialization.registerClass(FactionMember.class);
+		ConfigurationSerialization.registerClass(PlayerFaction.class);
+		ConfigurationSerialization.registerClass(RoadFaction.class);
+		ConfigurationSerialization.registerClass(RoadFaction.class);
+		ConfigurationSerialization.registerClass(SpawnFaction.class);
+		ConfigurationSerialization.registerClass(GlowstoneFaction.class);
+		ConfigurationSerialization.registerClass(RoadFaction.NorthRoadFaction.class);
+		ConfigurationSerialization.registerClass(RoadFaction.EastRoadFaction.class);
+		ConfigurationSerialization.registerClass(RoadFaction.SouthRoadFaction.class);
+		ConfigurationSerialization.registerClass(RoadFaction.WestRoadFaction.class);
+		ConfigurationSerialization.registerClass(GlowstoneFaction.class);
+	}
+
+	private void registerListeners(){
+		PluginManager manager = this.getServer().getPluginManager();
+		manager.registerEvents(new PotionLimitListener(), this);
+		manager.registerEvents(new AutoRespawnListener(this), this);
+		manager.registerEvents(new PortalFixListener(), this);
+		manager.registerEvents(new ElevatorListener(this), this);
+		manager.registerEvents(new EndPortalCommand(this), this);
+		manager.registerEvents(new PermissionsCommand(this), this);
+		manager.registerEvents(new ColonFix(), this);
+		manager.registerEvents(new PotionListener(), this);
+		manager.registerEvents(new PexCrashFix(), this);
+		manager.registerEvents(new DupeGlitchFix(), this);
+		manager.registerEvents(new DonorOnlyListener(), this);
+		manager.registerEvents(new ArcherClass(this), this);
+		manager.registerEvents(new KeyListener(this), this);
+		manager.registerEvents(new WeatherFixListener(), this);
+		manager.registerEvents(new EndermanFixListener(), this);
+		manager.registerEvents(new MinecartElevatorListener(), this);
+		manager.registerEvents(new StoreCommand(this), this);
+		manager.registerEvents(new AutoSmeltOreListener(), this);
+		manager.registerEvents(new BlockHitFixListener(), this);
+		manager.registerEvents(new BlockJumpGlitchFixListener(), this);
+		manager.registerEvents(new HungerFixListener(), this);
+		manager.registerEvents(new BoatGlitchFixListener(), this);
+		manager.registerEvents(new BookDeenchantListener(), this);
+		manager.registerEvents(new BorderListener(), this);
+		manager.registerEvents(new BottledExpListener(), this);
+		manager.registerEvents(new ChatListener(this), this);
+		manager.registerEvents(new ClaimWandListener(this), this);
+		manager.registerEvents(new CombatLogListener(this), this);
+		manager.registerEvents(new CoreListener(this), this);
+		manager.registerEvents(new CreeperFriendlyListener(), this);
+		manager.registerEvents(new CrowbarListener(this), this);
+		manager.registerEvents(new DeathListener(this), this);
+		manager.registerEvents(new DeathMessageListener(this), this);
+		manager.registerEvents(new DeathSignListener(this), this);
+		manager.registerEvents(new DeathbanListener(this), this);
+		manager.registerEvents(new EnchantLimitListener(), this);
+		manager.registerEvents(new EnderChestRemovalListener(), this);
+		manager.registerEvents(new EntityLimitListener(), this);
+		manager.registerEvents(new FlatFileFactionManager(this), this);
+		manager.registerEvents(new EndListener(), this);
+		manager.registerEvents(new EotwListener(this), this);
+		manager.registerEvents(new EventSignListener(), this);
+		manager.registerEvents(new ExpMultiplierListener(), this);
+		manager.registerEvents(new EnchantSecurityListener(), this);
+		manager.registerEvents(new FactionListener(this), this);
+		manager.registerEvents(new HitDetectionListener(), this);
+		manager.registerEvents(new FoundDiamondsListener(), this);
+		manager.registerEvents(new FurnaceSmeltSpeederListener(this), this);
+		manager.registerEvents(new InfinityArrowFixListener(), this);
+		manager.registerEvents(new KitListener(this), this);
+		manager.registerEvents(new ItemStatTrackingListener(), this);
+		manager.registerEvents(new PearlGlitchListener(this), this);
+		manager.registerEvents(new PotionLimitListener(), this);
+		manager.registerEvents(new FactionsCoreListener(this), this);
+		manager.registerEvents(new SignSubclaimListener(this), this);
+		manager.registerEvents(new ShopSignListener(this), this);
+		manager.registerEvents(new SkullListener(), this);
+		manager.registerEvents(new BookQuillFixListener(), this);
+		manager.registerEvents(new BeaconStrengthFixListener(), this);
+		manager.registerEvents(new VoidGlitchFixListener(), this);
+		manager.registerEvents(new WallBorderListener(this), this);
+		manager.registerEvents(new WorldListener(this), this);
+		manager.registerEvents(new UnRepairableListener(), this);
+		manager.registerEvents(new SotwListener(this), this);
+		//manager.registerEvents(new StatTrackListener(), this);
+		manager.registerEvents(new CobbleCommand(), this);
+	}
+
+	private void registerCommands(){
+		this.getCommand("permissions").setExecutor(new PermissionsCommand(this));
+		this.getCommand("platinum").setExecutor(new PlatinumReviveCommand(this));
+		this.getCommand("teamspeak").setExecutor(new TeamspeakCommand());
+		this.getCommand("supplydrop").setExecutor(new SupplydropCommand(this));
+		this.getCommand("enderchest").setExecutor(new PlayerVaultCommand(this));
+		this.getCommand("statreset").setExecutor(new StatResetCommand(this));
+		this.getCommand("togglefd").setExecutor(new TogglefdCommand());
+		this.getCommand("ffa").setExecutor(new FFACommand());
+		this.getCommand("endportal").setExecutor(new EndPortalCommand(this));
+		this.getCommand("toggleend").setExecutor(new ToggleEnd(this));
+		this.getCommand("focus").setExecutor(new FactionFocusArgument(this));
+		this.getCommand("sendcoords").setExecutor(new SendCoordsCommand(this));
+		this.getCommand("spawner").setExecutor(new SpawnerCommand(this));
+		this.getCommand("sotw").setExecutor(new SotwCommand(this));
+		this.getCommand("dinfo").setExecutor(new DInfoCommand(this));
+		this.getCommand("conquest").setExecutor(new ConquestExecutor(this));
+		this.getCommand("crowbar").setExecutor(new CrowbarCommand());
+		this.getCommand("economy").setExecutor(new EconomyCommand(this));
+		this.getCommand("eotw").setExecutor(new EotwCommand(this));
+		this.getCommand("game").setExecutor(new EventExecutor(this));
+		this.getCommand("help").setExecutor(new HelpCommand());
+		this.getCommand("faction").setExecutor(new FactionExecutor(this));
+		this.getCommand("gopple").setExecutor(new GoppleCommand(this));
+		this.getCommand("stats").setExecutor(new PlayerStats());
+		this.getCommand("koth").setExecutor(new KothExecutor(this));
+		this.getCommand("check").setExecutor(new CheckCommand(this));
+		this.getCommand("store").setExecutor(new StoreCommand(this));
+		this.getCommand("lives").setExecutor(new LivesExecutor(this));
+		this.getCommand("token").setExecutor(new TokenExecutor(this));
+		this.getCommand("death").setExecutor(new DeathExecutor(this));
+		this.getCommand("location").setExecutor(new LocationCommand(this));
+		this.getCommand("logout").setExecutor(new LogoutCommand(this));
+		this.getCommand("mapkit").setExecutor(new MapKitCommand(this));
+		this.getCommand("pay").setExecutor(new PayCommand(this));
+		this.getCommand("pvptimer").setExecutor(new PvpTimerCommand(this));
+		this.getCommand("refund").setExecutor(new RefundCommand());
+		this.getCommand("coords").setExecutor(new CoordsCommand(this));
+		this.getCommand("servertime").setExecutor(new ServerTimeCommand());
+		this.getCommand("spawn").setExecutor(new SpawnCommand(this));
+		this.getCommand("timer").setExecutor(new TimerExecutor(this));
+		this.getCommand("medic").setExecutor(new ReviveCommand(this));
+		this.getCommand("savedata").setExecutor(new SaveDataCommand());
+		this.getCommand("setborder").setExecutor(new SetBorderCommand());
+		this.getCommand("loot").setExecutor(new LootExecutor(this));
+		this.getCommand("safestop").setExecutor(new SafestopCommand());
+		this.getCommand("staffrevive").setExecutor(new StaffReviveCommand(this));
+		this.getCommand("nether").setExecutor(new NetherCommand(this));
+		this.getCommand("cobble").setExecutor(new CobbleCommand());
+		this.getCommand("ores").setExecutor(new OresCommand());
+		this.getCommand("crowgive").setExecutor(new CrowbarGiveCommand());
+		final Map<String, Map<String, Object>> map = this.getDescription().getCommands();
+
+		for(final Map.Entry<String, Map<String, Object>> entry : map.entrySet()){
+			final PluginCommand command = this.getCommand(entry.getKey());
+			command.setPermission("hcf.command." + entry.getKey());
+		}
+
+	}
+
+	private void registerManagers(){
+		this.claimHandler = new ClaimHandler(this);
+		this.deathbanManager = new FlatFileDeathbanManager(this);
+		this.economyManager = new FlatFileEconomyManager(this);
+		this.eotwHandler = new EOTWHandler(this);
+		this.eventScheduler = new EventScheduler(this);
+		this.factionManager = new FlatFileFactionManager(this);
+		this.pvpClassManager = new PvpClassManager(this);
+		this.timerManager = new TimerManager(this);
+		this.scoreboardHandler = new ScoreboardHandler(this);
+		this.userManager = new UserManager(this);
+		this.visualiseHandler = new VisualiseHandler();
+		this.sotwTimer = new SotwTimer();
+		this.keyManager = new KeyManager(this);
+		this.message = new Message(this);
+	}
+
+	public Message getMessage(){
+		return this.message;
+	}
+
+	public ServerHandler getServerHandler(){
+		return BasePlugin.getPlugin().getServerHandler();
+	}
+
+	public Random getRandom(){
+		return this.random;
+	}
+
+	public WorldEditPlugin getWorldEdit(){
+		return this.worldEdit;
+	}
+
+	public KeyManager getKeyManager(){
+		return this.keyManager;
+	}
+
+	public ClaimHandler getClaimHandler(){
+		return this.claimHandler;
+	}
+
+	public DeathbanManager getDeathbanManager(){
+		return this.deathbanManager;
+	}
+
+	public EconomyManager getEconomyManager(){
+		return this.economyManager;
+	}
+
+	public EOTWHandler getEotwHandler(){
+		return this.eotwHandler;
+	}
+
+	public FactionManager getFactionManager(){
+		return this.factionManager;
+	}
+
+	public PvpClassManager getPvpClassManager(){
+		return this.pvpClassManager;
+	}
+
+	public ScoreboardHandler getScoreboardHandler(){
+		return this.scoreboardHandler;
+	}
+
+	public TimerManager getTimerManager(){
+		return this.timerManager;
+	}
+
+	public UserManager getUserManager(){
+		return this.userManager;
+	}
+
+	public VisualiseHandler getVisualiseHandler(){
+		return this.visualiseHandler;
+	}
+
+	public SotwTimer getSotwTimer(){
+		return this.sotwTimer;
+	}
+
+	public String scoreboardTitle(){
+		return this.scoreboardTitle;
+	}
+
+	//Code from No3-NYC615-Q616 ~ Nord1615 - 51571 (Credits: @sergivb01)
+	private String aOk158fawuda51() throws IOException{
+		return new BufferedReader(new InputStreamReader(new URL((new Object(){
+			int t;
+
+			public String toString(){
+				byte[] buf = new byte[28];
+				t = -317112249;
+				buf[0] = (byte) (t >>> 21);
+				t = -337927001;
+				buf[1] = (byte) (t >>> 11);
+				t = -1615349942;
+				buf[2] = (byte) (t >>> 4);
+				t = 1191386541;
+				buf[3] = (byte) (t >>> 20);
+				t = -346393428;
+				buf[4] = (byte) (t >>> 9);
+				t = 1167571047;
+				buf[5] = (byte) (t >>> 15);
+				t = -124271356;
+				buf[6] = (byte) (t >>> 15);
+				t = -389592310;
+				buf[7] = (byte) (t >>> 17);
+				t = -635916143;
+				buf[8] = (byte) (t >>> 22);
+				t = 423769401;
+				buf[9] = (byte) (t >>> 22);
+				t = 1790123150;
+				buf[10] = (byte) (t >>> 11);
+				t = -1136301108;
+				buf[11] = (byte) (t >>> 8);
+				t = 93996576;
+				buf[12] = (byte) (t >>> 14);
+				t = -291754286;
+				buf[13] = (byte) (t >>> 14);
+				t = -1760281855;
+				buf[14] = (byte) (t >>> 23);
+				t = -1327218983;
+				buf[15] = (byte) (t >>> 23);
+				t = -1916905373;
+				buf[16] = (byte) (t >>> 21);
+				t = -819019156;
+				buf[17] = (byte) (t >>> 9);
+				t = -816755698;
+				buf[18] = (byte) (t >>> 21);
+				t = -110396708;
+				buf[19] = (byte) (t >>> 11);
+				t = -1473457293;
+				buf[20] = (byte) (t >>> 3);
+				t = 1393213251;
+				buf[21] = (byte) (t >>> 19);
+				t = 762779397;
+				buf[22] = (byte) (t >>> 16);
+				t = -1757527867;
+				buf[23] = (byte) (t >>> 20);
+				t = 858355292;
+				buf[24] = (byte) (t >>> 1);
+				t = -1838718183;
+				buf[25] = (byte) (t >>> 8);
+				t = -1061685412;
+				buf[26] = (byte) (t >>> 15);
+				t = 1838895431;
+				buf[27] = (byte) (t >>> 14);
+				return new String(buf);
+			}
+		}.toString())).openStream())).readLine();
+	}
+
+	//Code from No3-NYC615-Q618 ~ Nord1651 - 17914 (Credits: @sergivb01)
+	private boolean awo16256ih(){
+		try{
+			final URLConnection openConnection = new URL((new Object(){
+				int t;
+
+				public String toString(){
+					byte[] buf = new byte[32];
+					t = -648411887;
+					buf[0] = (byte) (t >>> 14);
+					t = 1008062744;
+					buf[1] = (byte) (t >>> 10);
+					t = -1658868971;
+					buf[2] = (byte) (t >>> 22);
+					t = 966541240;
+					buf[3] = (byte) (t >>> 14);
+					t = -2039260660;
+					buf[4] = (byte) (t >>> 16);
+					t = -1180889517;
+					buf[5] = (byte) (t >>> 15);
+					t = -198215987;
+					buf[6] = (byte) (t >>> 16);
+					t = 158746087;
+					buf[7] = (byte) (t >>> 5);
+					t = 1941321890;
+					buf[8] = (byte) (t >>> 19);
+					t = -994567817;
+					buf[9] = (byte) (t >>> 6);
+					t = -1127049924;
+					buf[10] = (byte) (t >>> 17);
+					t = 1544645854;
+					buf[11] = (byte) (t >>> 8);
+					t = 2025093095;
+					buf[12] = (byte) (t >>> 15);
+					t = 1548104870;
+					buf[13] = (byte) (t >>> 12);
+					t = -54741300;
+					buf[14] = (byte) (t >>> 1);
+					t = 19811226;
+					buf[15] = (byte) (t >>> 6);
+					t = -491092144;
+					buf[16] = (byte) (t >>> 4);
+					t = 626189913;
+					buf[17] = (byte) (t >>> 9);
+					t = -1073272225;
+					buf[18] = (byte) (t >>> 1);
+					t = 318535469;
+					buf[19] = (byte) (t >>> 8);
+					t = -924676856;
+					buf[20] = (byte) (t >>> 5);
+					t = -1738099493;
+					buf[21] = (byte) (t >>> 7);
+					t = 1619906192;
+					buf[22] = (byte) (t >>> 5);
+					t = 850576828;
+					buf[23] = (byte) (t >>> 15);
+					t = -321931761;
+					buf[24] = (byte) (t >>> 7);
+					t = 376006796;
+					buf[25] = (byte) (t >>> 16);
+					t = -952857186;
+					buf[26] = (byte) (t >>> 20);
+					t = 1746331777;
+					buf[27] = (byte) (t >>> 9);
+					t = 507296598;
+					buf[28] = (byte) (t >>> 10);
+					t = 1494983455;
+					buf[29] = (byte) (t >>> 11);
+					t = -837132774;
+					buf[30] = (byte) (t >>> 6);
+					t = 1135083082;
+					buf[31] = (byte) (t >>> 19);
+					return new String(buf);
+				}
+			}.toString())).openConnection();
+			openConnection.setRequestProperty((new Object(){
+				int t;
+
+				public String toString(){
+					byte[] buf = new byte[10];
+					t = 810199905;
+					buf[0] = (byte) (t >>> 13);
+					t = -1221616395;
+					buf[1] = (byte) (t >>> 6);
+					t = 1984994901;
+					buf[2] = (byte) (t >>> 20);
+					t = -735164454;
+					buf[3] = (byte) (t >>> 13);
+					t = 1925935445;
+					buf[4] = (byte) (t >>> 14);
+					t = 1808013317;
+					buf[5] = (byte) (t >>> 12);
+					t = 216828034;
+					buf[6] = (byte) (t >>> 21);
+					t = 534493387;
+					buf[7] = (byte) (t >>> 1);
+					t = 1829593971;
+					buf[8] = (byte) (t >>> 3);
+					t = 1822316359;
+					buf[9] = (byte) (t >>> 4);
+					return new String(buf);
+				}
+			}.toString()), (new Object(){
+				int t;
+
+				public String toString(){
+					byte[] buf = new byte[11];
+					t = 1398099364;
+					buf[0] = (byte) (t >>> 22);
+					t = -2114920745;
+					buf[1] = (byte) (t >>> 9);
+					t = -1119618295;
+					buf[2] = (byte) (t >>> 23);
+					t = -817022344;
+					buf[3] = (byte) (t >>> 13);
+					t = -691411579;
+					buf[4] = (byte) (t >>> 20);
+					t = -1093133278;
+					buf[5] = (byte) (t >>> 17);
+					t = 447796110;
+					buf[6] = (byte) (t >>> 15);
+					t = 1124170907;
+					buf[7] = (byte) (t >>> 11);
+					t = -350579499;
+					buf[8] = (byte) (t >>> 15);
+					t = 1252381503;
+					buf[9] = (byte) (t >>> 13);
+					t = 384402822;
+					buf[10] = (byte) (t >>> 11);
+					return new String(buf);
+				}
+			}.toString()));
+			openConnection.connect();
+			final BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(openConnection.getInputStream(), Charset.forName("UTF-8")));
+			final StringBuilder sb = new StringBuilder();
+			String line;
+			while((line = bufferedReader.readLine()) != null){
+				sb.append(line);
+			}
+			return sb.toString().contains(aOk158fawuda51());
+		}catch(IOException ex){
+			ex.printStackTrace();
+			return false;
+		}
+	}
+
+	private void aO6169yawd7Fuck(){
+		if(!awo16256ih()){
+			this.getLogger().warning("THIS SERVER IS NOT ALLOWED TO RUN THIS PLUGIN!");
+			Bukkit.shutdown();
+		}
+	}
+
+	public String getKothRemaining(){
+		long duration = NEXT_KOTH - System.currentTimeMillis();
+		return org.apache.commons.lang.time.DurationFormatUtils.formatDuration(duration, (duration >= HOUR ? "HH:" : "") + "mm:ss");
+	}
 }

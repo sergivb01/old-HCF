@@ -17,44 +17,44 @@ import java.util.ArrayList;
 
 public class CobbleCommand implements Listener, CommandExecutor{
 
-    private static ArrayList cobbletoggle = new ArrayList();
+	private static ArrayList cobbletoggle = new ArrayList();
 
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(ChatColor.RED + "This command is only executable by players.");
-            return false;
-        }
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
+		if(!(sender instanceof Player)){
+			sender.sendMessage(ChatColor.RED + "This command is only executable by players.");
+			return false;
+		}
 
-        Player p = (Player) sender;
-        if (args.length == 0) {
-            if ((!cobbletoggle.contains(p.getName()))) {
-                p.sendMessage(ConfigurationService.COBBLE_DISABLED);
-                cobbletoggle.add(p.getName());
-            } else if ((cobbletoggle.contains(p.getName()))) {
-                cobbletoggle.remove(p.getName());
-                p.sendMessage(ConfigurationService.COBBLE_ENABLED);
-            }
-        }
+		Player p = (Player) sender;
+		if(args.length == 0){
+			if((!cobbletoggle.contains(p.getName()))){
+				p.sendMessage(ConfigurationService.COBBLE_DISABLED);
+				cobbletoggle.add(p.getName());
+			}else if((cobbletoggle.contains(p.getName()))){
+				cobbletoggle.remove(p.getName());
+				p.sendMessage(ConfigurationService.COBBLE_ENABLED);
+			}
+		}
 
-        return true;
-    }
+		return true;
+	}
 
-    @EventHandler
-    public void onPlayerPickup(PlayerPickupItemEvent event) {
-        Material type = event.getItem().getItemStack().getType();
+	@EventHandler
+	public void onPlayerPickup(PlayerPickupItemEvent event){
+		Material type = event.getItem().getItemStack().getType();
 
-        if (type == Material.STONE || type == Material.COBBLESTONE) {
-            if (cobbletoggle.contains(event.getPlayer().getName())) {
-                event.setCancelled(true);
-            }
-        }
-    }
+		if(type == Material.STONE || type == Material.COBBLESTONE){
+			if(cobbletoggle.contains(event.getPlayer().getName())){
+				event.setCancelled(true);
+			}
+		}
+	}
 
 
-    @EventHandler(ignoreCancelled=true, priority= EventPriority.HIGH)
-    public void onQuit(PlayerQuitEvent event){
-        Player p = event.getPlayer();
-        cobbletoggle.remove(p.getName());
-    }
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
+	public void onQuit(PlayerQuitEvent event){
+		Player p = event.getPlayer();
+		cobbletoggle.remove(p.getName());
+	}
 
 }

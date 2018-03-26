@@ -1,19 +1,18 @@
-
 package net.veilmc.hcf.faction.struct;
 
-public interface Raidable {
-    boolean isRaidable();
+public interface Raidable{
+	boolean isRaidable();
 
-    double getDeathsUntilRaidable();
+	double getDeathsUntilRaidable();
 
-    double getMaximumDeathsUntilRaidable();
+	double getMaximumDeathsUntilRaidable();
 
-    double setDeathsUntilRaidable(double var1);
+	double setDeathsUntilRaidable(double var1);
 
-    long getRemainingRegenerationTime();
+	long getRemainingRegenerationTime();
 
-    void setRemainingRegenerationTime(long var1);
+	void setRemainingRegenerationTime(long var1);
 
-    RegenStatus getRegenStatus();
+	RegenStatus getRegenStatus();
 }
 

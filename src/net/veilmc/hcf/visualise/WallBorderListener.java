@@ -1,4 +1,3 @@
-
 package net.veilmc.hcf.visualise;
 
 import net.veilmc.hcf.HCF;

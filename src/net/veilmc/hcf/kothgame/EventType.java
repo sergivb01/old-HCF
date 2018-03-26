@@ -1,4 +1,3 @@
-
 package net.veilmc.hcf.kothgame;
 
 import net.veilmc.hcf.HCF;
@@ -10,38 +9,38 @@ import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableMap;
 
 
-public enum EventType
-{
-    CONQUEST("Conquest", new ConquestTracker(HCF.getPlugin())), PALACE("Palace", new PalaceTracker((HCF.getPlugin()))), KOTH("Koth", new KothTracker(HCF.getPlugin()));
+public enum EventType{
+	CONQUEST("Conquest", new ConquestTracker(HCF.getPlugin())), PALACE("Palace", new PalaceTracker((HCF.getPlugin()))), KOTH("Koth", new KothTracker(HCF.getPlugin()));
 
-    private static final ImmutableMap<String, EventType> byDisplayName;
-    private final EventTracker eventTracker;
-    private final String displayName;
+	private static final ImmutableMap<String, EventType> byDisplayName;
 
-    EventType(String displayName, EventTracker eventTracker) {
-        this.displayName = displayName;
-        this.eventTracker = eventTracker;
-    }
+	static{
+		ImmutableBiMap.Builder builder = new ImmutableBiMap.Builder();
+		for(EventType eventType : EventType.values()){
+			builder.put(eventType.displayName.toLowerCase(), eventType);
+		}
+		byDisplayName = builder.build();
+	}
 
-    @Deprecated
-    public static EventType getByDisplayName(String name) {
-        return (EventType) byDisplayName.get(name.toLowerCase());
-    }
+	private final EventTracker eventTracker;
+	private final String displayName;
 
-    public EventTracker getEventTracker() {
-        return this.eventTracker;
-    }
+	EventType(String displayName, EventTracker eventTracker){
+		this.displayName = displayName;
+		this.eventTracker = eventTracker;
+	}
 
-    public String getDisplayName() {
-        return this.displayName;
-    }
+	@Deprecated
+	public static EventType getByDisplayName(String name){
+		return (EventType) byDisplayName.get(name.toLowerCase());
+	}
 
-    static {
-        ImmutableBiMap.Builder builder = new ImmutableBiMap.Builder();
-        for (EventType eventType : EventType.values()) {
-            builder.put(eventType.displayName.toLowerCase(), eventType);
-        }
-        byDisplayName = builder.build();
-    }
+	public EventTracker getEventTracker(){
+		return this.eventTracker;
+	}
+
+	public String getDisplayName(){
+		return this.displayName;
+	}
 }
 

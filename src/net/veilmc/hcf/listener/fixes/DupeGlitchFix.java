@@ -16,44 +16,43 @@ import org.bukkit.inventory.meta.ItemMeta;
 import net.md_5.bungee.api.ChatColor;
 
 public class DupeGlitchFix implements Listener{
-	@EventHandler(ignoreCancelled=true, priority=EventPriority.HIGH)
-	public void onBlockPlace(PlayerInteractEvent e) {
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
+	public void onBlockPlace(PlayerInteractEvent e){
 		Player p = e.getPlayer();
-		if(p.getItemInHand() != null&&p.getItemInHand().hasItemMeta() && p.getItemInHand().getType() != Material.SKULL){
+		if(p.getItemInHand() != null && p.getItemInHand().hasItemMeta() && p.getItemInHand().getType() != Material.SKULL){
 			return;
 		}
 		ItemMeta meta = p.getItemInHand().getItemMeta();
-		if (meta != null && meta.hasDisplayName() && meta.getDisplayName().contains(" Key Reward")){
+		if(meta != null && meta.hasDisplayName() && meta.getDisplayName().contains(" Key Reward")){
 			p.sendMessage(ChatColor.RED + "[Warning] " + ChatColor.GRAY + "This duping glitch has been patched.");
 			e.setCancelled(true);
 		}
 	}
 
 
-
-	@EventHandler(ignoreCancelled=true, priority=EventPriority.HIGH)
-	public void onBlockPlace(BlockPlaceEvent e) {
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
+	public void onBlockPlace(BlockPlaceEvent e){
 		Player p = e.getPlayer();
 		if(!p.getItemInHand().hasItemMeta() && p.getItemInHand().getType() != Material.SKULL){
 			return;
 		}
 		ItemMeta meta = p.getItemInHand().getItemMeta();
-		if (meta.hasDisplayName() && meta.getDisplayName().contains(" Key Reward")){
+		if(meta.hasDisplayName() && meta.getDisplayName().contains(" Key Reward")){
 			p.sendMessage(ChatColor.RED + "[Warning] " + ChatColor.GRAY + "This duping glitch has been patched.");
 			e.setBuild(false);
 		}
 	}
 
-	@EventHandler(ignoreCancelled=true, priority=EventPriority.HIGH)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void onCraft(CraftItemEvent e){
 		ArrayList<Material> items = new ArrayList<Material>();
 		for(ItemStack item : e.getInventory().getContents()){
-			if(item.getType() == Material.MINECART || item.getType() == Material.CHEST || item.getType() == Material.TRAPPED_CHEST || item.getType() == Material.HOPPER || item.getType() == Material.HOPPER_MINECART) {
+			if(item.getType() == Material.MINECART || item.getType() == Material.CHEST || item.getType() == Material.TRAPPED_CHEST || item.getType() == Material.HOPPER || item.getType() == Material.HOPPER_MINECART){
 				items.add(item.getType());
 			}
 		}
 
-		if((items.contains(Material.MINECART) && items.contains(Material.CHEST)) || (items.contains(Material.MINECART) && items.contains(Material.TRAPPED_CHEST))  ||  (items.contains(Material.MINECART) && items.contains(Material.HOPPER))){
+		if((items.contains(Material.MINECART) && items.contains(Material.CHEST)) || (items.contains(Material.MINECART) && items.contains(Material.TRAPPED_CHEST)) || (items.contains(Material.MINECART) && items.contains(Material.HOPPER))){
 			((Player) e.getWhoClicked()).sendMessage(ChatColor.RED + "[Warning] " + ChatColor.GRAY + "This duping glitch has been patched.");
 			e.setCancelled(true);
 		}

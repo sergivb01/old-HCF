@@ -1,4 +1,3 @@
-
 package net.veilmc.hcf.command;
 
 import java.util.Collections;
@@ -14,17 +13,17 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 
 public class ServerTimeCommand
-implements CommandExecutor,
-TabCompleter {
-    private static final FastDateFormat FORMAT = FastDateFormat.getInstance((String)"E MMM dd h:mm:ssa z yyyy", (TimeZone) ConfigurationService.SERVER_TIME_ZONE);
+		implements CommandExecutor,
+		TabCompleter{
+	private static final FastDateFormat FORMAT = FastDateFormat.getInstance((String) "E MMM dd h:mm:ssa z yyyy", (TimeZone) ConfigurationService.SERVER_TIME_ZONE);
 
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        sender.sendMessage(ChatColor.YELLOW + "The server time is " + ChatColor.AQUA + FORMAT.format(System.currentTimeMillis()) + ChatColor.AQUA + '.');
-        return true;
-    }
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
+		sender.sendMessage(ChatColor.YELLOW + "The server time is " + ChatColor.AQUA + FORMAT.format(System.currentTimeMillis()) + ChatColor.AQUA + '.');
+		return true;
+	}
 
-    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-        return Collections.emptyList();
-    }
+	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args){
+		return Collections.emptyList();
+	}
 }
 

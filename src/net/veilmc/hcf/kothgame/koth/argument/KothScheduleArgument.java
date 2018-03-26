@@ -1,4 +1,3 @@
-
 package net.veilmc.hcf.kothgame.koth.argument;
 
 import net.veilmc.hcf.HCF;
@@ -14,24 +13,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class KothScheduleArgument
-extends CommandArgument {
-    private static final String TIME_UNTIL_PATTERN = "d'd' H'h' mm'm'";
-    public static final DateTimeFormatter HHMMA;
-    private static List<String> shownEvents;
-    private final HCF plugin;
+		extends CommandArgument{
+	public static final DateTimeFormatter HHMMA;
+	private static final String TIME_UNTIL_PATTERN = "d'd' H'h' mm'm'";
+	private static List<String> shownEvents;
 
-    public KothScheduleArgument(HCF plugin) {
-        super("schedule", "View the schedule for KOTH arenas");
-        this.plugin = plugin;
-        this.aliases = new String[]{"info", "i", "time"};
-        this.permission = "hcf.command.koth.argument." + this.getName();
-    }
+	static{
+		shownEvents = new ArrayList<>();
+		HHMMA = DateTimeFormatter.ofPattern("h:mma");
+	}
 
-    public String getUsage(String label) {
-        return "" + '/' + label + ' ' + this.getName();
-    }
+	private final HCF plugin;
 
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+	public KothScheduleArgument(HCF plugin){
+		super("schedule", "View the schedule for KOTH arenas");
+		this.plugin = plugin;
+		this.aliases = new String[]{"info", "i", "time"};
+		this.permission = "hcf.command.koth.argument." + this.getName();
+	}
+
+	public String getUsage(String label){
+		return "" + '/' + label + ' ' + this.getName();
+	}
+
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
         /*LocalDateTime now = LocalDateTime.now(DateTimeFormats.SERVER_ZONE_ID);
         int currentDay = now.getDayOfYear();
         Map<LocalDateTime, String> scheduleMap = this.plugin.eventScheduler.getScheduleMap();
@@ -56,19 +61,14 @@ extends CommandArgument {
         sender.sendMessage(ChatColor.YELLOW + "Current Server time " + ChatColor.GREEN + weekName2 + ' ' + now.getDayOfMonth() + ' ' + monthName2 + ' ' + HHMMA.format(now) + ChatColor.YELLOW + '.');
         sender.sendMessage(shownEvents.toArray(new String[shownEvents.size()]));*/
 
-        sender.sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
-        if(ConfigurationService.KIT_MAP && (this.plugin.NEXT_KOTH > 0)) {
-                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&eNext koth will be &a&l" + this.plugin.getNextGame() + " &ein &9&l" + this.plugin.getKothRemaining() + "&e."));
-        }else{
-            sender.sendMessage(ChatColor.RED + "No koths are scheduled. Please check back later.");
-        }
-        sender.sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
-        return true;
-    }
-
-    static {
-        shownEvents = new ArrayList<>();
-        HHMMA = DateTimeFormatter.ofPattern("h:mma");
-    }
+		sender.sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
+		if(ConfigurationService.KIT_MAP && (this.plugin.NEXT_KOTH > 0)){
+			sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&eNext koth will be &a&l" + this.plugin.getNextGame() + " &ein &9&l" + this.plugin.getKothRemaining() + "&e."));
+		}else{
+			sender.sendMessage(ChatColor.RED + "No koths are scheduled. Please check back later.");
+		}
+		sender.sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
+		return true;
+	}
 }
 
