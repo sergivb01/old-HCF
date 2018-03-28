@@ -191,7 +191,7 @@ public class Tab{
 			else if(slot == 57) slot = 59;
 		}
 		Team team = scoreboard.getTeam(teamNames.get(slot - 1));
-		updateTeam(team, value);
+		updateTeam(team, ChatColor.translateAlternateColorCodes('&', value));
 	}
 
 	public void clearTab(){

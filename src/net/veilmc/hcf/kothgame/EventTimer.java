@@ -1,7 +1,7 @@
 package net.veilmc.hcf.kothgame;
 
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.crate.Key;
+import net.veilmc.hcf.command.crate.Key;
 import net.veilmc.hcf.faction.event.CaptureZoneEnterEvent;
 import net.veilmc.hcf.faction.event.CaptureZoneLeaveEvent;
 import net.veilmc.hcf.faction.type.Faction;

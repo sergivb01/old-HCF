@@ -174,25 +174,6 @@ public class BardClass
 								this.bardRestorer.setRestoreEffect(target, bardEffect.clickable);
 							}
 						}
-					}else if(playerFaction != null && bardEffect.clickable.getType().equals(PotionEffectType.WITHER)){
-						final Collection<Entity> nearbyEntities = player.getNearbyEntities(25.0, 25.0, 25.0);
-						for(final Entity nearby : nearbyEntities){
-							if(nearby instanceof Player && !player.equals(nearby)){
-								final Player target = (Player) nearby;
-								if(playerFaction.getMembers().containsKey(target.getUniqueId())){
-									continue;
-								}
-								this.bardRestorer.setRestoreEffect(target, bardEffect.clickable);
-							}
-						}
-					}else if(bardEffect.clickable.getType().equals(PotionEffectType.WITHER)){
-						final Collection<Entity> nearbyEntities = player.getNearbyEntities(25.0, 25.0, 25.0);
-						for(final Entity nearby : nearbyEntities){
-							if(nearby instanceof Player && !player.equals(nearby)){
-								final Player target = (Player) nearby;
-								this.bardRestorer.setRestoreEffect(target, bardEffect.clickable);
-							}
-						}
 					}
 				}
 				this.bardRestorer.setRestoreEffect(player, bardEffect.clickable);
