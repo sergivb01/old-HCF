@@ -2,11 +2,8 @@ package net.veilmc.hcf.command.lives.argument;
 
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.user.FactionUser;
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.user.FactionUser;
->>>>>>> origin/new
 import net.veilmc.util.command.CommandArgument;
 
 import org.bukkit.ChatColor;

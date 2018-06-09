@@ -1,20 +1,13 @@
 package net.veilmc.hcf.tab;
 
-<<<<<<< HEAD
-import net.veilmc.hcf.HCF;
-=======
 import net.veilmc.base.event.PlayerMoveByBlockEvent;
 import net.veilmc.hcf.HCF;
 import org.bukkit.ChatColor;
->>>>>>> origin/new
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-<<<<<<< HEAD
-=======
 import org.bukkit.event.player.PlayerMoveEvent;
->>>>>>> origin/new
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class TabListener implements Listener{
@@ -49,16 +42,6 @@ public class TabListener implements Listener{
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event){
 		Player player = event.getPlayer();
-<<<<<<< HEAD
-
-		Tab.createTabList(player).setPlayerListHeaderFooter("My cool header", "My boring footer");
-
-		for(int i = 1; i <= 80; i++){
-			Tab.getByPlayer(player).setSlot(i, "Position " + i);
-		}
-	}
-
-=======
 		if(Tab.hasTabList(player)){
 			Tab.deleteTabList(player);
 		}
@@ -72,7 +55,6 @@ public class TabListener implements Listener{
 
 
 
->>>>>>> origin/new
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent event){
 		Tab.deleteTabList(event.getPlayer());

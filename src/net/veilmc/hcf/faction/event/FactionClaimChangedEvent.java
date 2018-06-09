@@ -2,10 +2,7 @@ package net.veilmc.hcf.faction.event;
 
 import java.util.Collection;
 
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.faction.event.cause.ClaimChangeCause;
->>>>>>> origin/new
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;

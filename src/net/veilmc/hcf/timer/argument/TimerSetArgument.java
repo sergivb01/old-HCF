@@ -3,23 +3,17 @@ package net.veilmc.hcf.timer.argument;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.timer.PlayerTimer;
 import net.veilmc.hcf.timer.Timer;
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.timer.PlayerTimer;
 import net.veilmc.hcf.timer.Timer;
->>>>>>> origin/new
 import net.veilmc.util.JavaUtils;
 import net.veilmc.util.command.CommandArgument;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.FluentIterable;
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.timer.PlayerTimer;
 import net.veilmc.hcf.timer.Timer;
->>>>>>> origin/new
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

@@ -3,12 +3,9 @@ package net.veilmc.hcf.faction;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.argument.*;
 import net.veilmc.hcf.faction.argument.staff.*;
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.argument.*;
 import net.veilmc.hcf.faction.argument.staff.*;
->>>>>>> origin/new
 import net.veilmc.util.command.ArgumentExecutor;
 import net.veilmc.util.command.CommandArgument;
 import org.bukkit.command.Command;

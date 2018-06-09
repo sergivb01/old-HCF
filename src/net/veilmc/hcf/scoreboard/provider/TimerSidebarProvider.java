@@ -1,13 +1,10 @@
 package net.veilmc.hcf.scoreboard.provider;
 
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.timer.GlobalTimer;
 import net.veilmc.hcf.timer.PlayerTimer;
 import net.veilmc.hcf.timer.Timer;
 import net.veilmc.hcf.user.FactionUser;
->>>>>>> origin/new
 import net.veilmc.base.BasePlugin;
 import net.veilmc.base.user.BaseUser;
 import net.veilmc.hcf.HCF;
@@ -97,35 +94,19 @@ public class TimerSidebarProvider implements SidebarProvider{
 
 
 		if(sotwRunnable != null){
-<<<<<<< HEAD
-			lines.add(new SidebarEntry(ChatColor.GREEN.toString() + ChatColor.BOLD, "SOTW" + ChatColor.DARK_GRAY + ": ", ChatColor.GOLD + DurationFormatter.getRemaining(sotwRunnable.getRemaining(), true)));
-		}
-
-		if((pvpClass instanceof MinerClass)){
-			lines.add(new SidebarEntry(ChatColor.DARK_GRAY + "", ChatColor.AQUA + "" + ChatColor.BOLD + "Miner Class", ChatColor.DARK_GRAY + ":"));
-			lines.add(new SidebarEntry(ChatColor.DARK_GRAY + " » ", ChatColor.AQUA + "Diamonds", ChatColor.DARK_GRAY + ": " + ChatColor.RED + player.getStatistic(Statistic.MINE_BLOCK, Material.DIAMOND_ORE)));
-=======
 			lines.add(new SidebarEntry(ChatColor.GREEN.toString() + ChatColor.BOLD, "SOTW" + ChatColor.DARK_GRAY + ": ", ChatColor.RED + DurationFormatter.getRemaining(sotwRunnable.getRemaining(), true)));
 		}
 
 		if((pvpClass instanceof MinerClass)){
 			lines.add(new SidebarEntry(ChatColor.GRAY + " » ", ChatColor.AQUA + "Diamonds", ChatColor.DARK_GRAY + ": " + ChatColor.RED + player.getStatistic(Statistic.MINE_BLOCK, Material.DIAMOND_ORE)));
->>>>>>> origin/new
 		}
 
 		if(pvpClass != null && pvpClass instanceof BardClass){
 			final BardClass bardClass = (BardClass) pvpClass;
-<<<<<<< HEAD
-			lines.add(new SidebarEntry(ChatColor.AQUA.toString() + ChatColor.BOLD, "Bard Energy", ChatColor.DARK_GRAY + ": " + ChatColor.RED + handleBardFormat(bardClass.getEnergyMillis(player), true)));
-			final long remaining = bardClass.getRemainingBuffDelay(player);
-			if(remaining > 0L){
-				lines.add(new SidebarEntry(ChatColor.AQUA.toString() + ChatColor.BOLD, "Buff Cooldown", ChatColor.DARK_GRAY + ": " + ChatColor.RED + HCF.getRemaining(remaining, true)));
-=======
 			lines.add(new SidebarEntry(ChatColor.YELLOW.toString() + ChatColor.BOLD, "Bard Energy", ChatColor.DARK_GRAY + ": " + ChatColor.RED + handleBardFormat(bardClass.getEnergyMillis(player), true)));
 			final long remaining = bardClass.getRemainingBuffDelay(player);
 			if(remaining > 0L){
 				lines.add(new SidebarEntry(ChatColor.YELLOW.toString() + ChatColor.BOLD, "Buff Cooldown", ChatColor.DARK_GRAY + ": " + ChatColor.RED + HCF.getRemaining(remaining, true)));
->>>>>>> origin/new
 			}
 		}
 
@@ -249,24 +230,6 @@ public class TimerSidebarProvider implements SidebarProvider{
 
 
 		if(baseUser.isVanished() && !baseUser.isStaffUtil()){
-<<<<<<< HEAD
-			lines.add(new SidebarEntry(ChatColor.WHITE + " » " + ChatColor.BLUE.toString(), "Vanished" + ChatColor.DARK_GRAY + ": ", ChatColor.GREEN + "True"));
-		}else if(baseUser.isStaffUtil()){
-			lines.add(new SidebarEntry(ChatColor.WHITE + "" + ChatColor.BLUE + "Staff Mode: "));
-
-			lines.add(new SidebarEntry(ChatColor.WHITE + " » " + ChatColor.BLUE.toString(), "Vanished" + ChatColor.DARK_GRAY + ": ", baseUser.isVanished() ? (ChatColor.GREEN + "True") : (ChatColor.RED + "Visible")));
-			lines.add(new SidebarEntry(ChatColor.WHITE + " » " + ChatColor.BLUE.toString(), "Channel" + ChatColor.DARK_GRAY + ": ", baseUser.isInStaffChat() ? (ChatColor.AQUA + "Staff Chat") : (ChatColor.GREEN + "Global")));
-
-			if(HCF.getPlugin().getServerHandler().isChatDisabled()){
-				lines.add(new SidebarEntry("§f » §9Chat", "§8: §fLocked ", "(" + HCF.getRemaining(HCF.getPlugin().getServerHandler().getChatDisabledMillis() - System.currentTimeMillis(), true) + ")"));
-			}
-
-			if(isChatSlowed()){
-				lines.add(new SidebarEntry("§f » §9Chat", "§8: §fSlowed ", "(" + BasePlugin.getPlugin().getServerHandler().getChatSlowedDelay() + "s)"));
-			}
-
-			lines.add(new SidebarEntry("§f » §9Players", "§8: ", "§c" + Bukkit.getOnlinePlayers().size()));
-=======
 			lines.add(new SidebarEntry(ChatColor.GRAY + " » " + ChatColor.YELLOW.toString(), "Vanished" + ChatColor.GRAY + ": ", ChatColor.GREEN + "True"));
 		}else if(baseUser.isStaffUtil()){
 			lines.add(new SidebarEntry(ChatColor.GOLD + "" + ChatColor.BOLD + "Staff Mode: "));
@@ -283,23 +246,15 @@ public class TimerSidebarProvider implements SidebarProvider{
 			}
 
 			lines.add(new SidebarEntry("§7 » §ePlayers", "§7: ", "§c" + Bukkit.getOnlinePlayers().size()));
->>>>>>> origin/new
 		}
 
 
 		final FactionUser factionUser = this.plugin.getUserManager().getUser(player.getUniqueId());
 
-<<<<<<< HEAD
-		if((ConfigurationService.KIT_MAP || ConfigurationService.VEILZ) && factionUser != null){
-			lines.add(new SidebarEntry(ChatColor.GOLD.toString() + " ", ChatColor.BLUE + "Balance: " + ChatColor.WHITE + "$", this.plugin.getEconomyManager().getBalance(player.getUniqueId())));
-			lines.add(new SidebarEntry(ChatColor.BLUE, " Kills", ": " + ChatColor.WHITE + factionUser.getKills()));
-			lines.add(new SidebarEntry(ChatColor.GOLD.toString() + " ", ChatColor.BLUE + "Deaths" + ": " + ChatColor.WHITE, player.getStatistic(Statistic.DEATHS)));
-=======
 		if((ConfigurationService.KIT_MAP) && factionUser != null){
 			lines.add(new SidebarEntry(ChatColor.GOLD.toString() + " ", ChatColor.RED + "Balance: " + ChatColor.WHITE + "$", this.plugin.getEconomyManager().getBalance(player.getUniqueId())));
 			lines.add(new SidebarEntry(ChatColor.RED, " Kills", ": " + ChatColor.WHITE + factionUser.getKills()));
 			lines.add(new SidebarEntry(ChatColor.GOLD.toString() + " ", ChatColor.RED + "Deaths" + ": " + ChatColor.WHITE, player.getStatistic(Statistic.DEATHS)));
->>>>>>> origin/new
 		}
 
 		if(!lines.isEmpty()){

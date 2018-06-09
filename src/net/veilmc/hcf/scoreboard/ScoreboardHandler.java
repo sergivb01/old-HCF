@@ -1,11 +1,8 @@
 package net.veilmc.hcf.scoreboard;
 
 import net.veilmc.hcf.HCF;
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.scoreboard.provider.TimerSidebarProvider;
 import net.veilmc.hcf.HCF;
->>>>>>> origin/new
 import net.veilmc.hcf.faction.event.FactionRelationCreateEvent;
 import net.veilmc.hcf.faction.event.FactionRelationRemoveEvent;
 import net.veilmc.hcf.faction.event.PlayerJoinedFactionEvent;

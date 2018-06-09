@@ -1,10 +1,7 @@
 package net.veilmc.hcf.deathban;
 
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.user.FactionUser;
->>>>>>> origin/new
 import net.minecraft.util.com.google.common.cache.CacheBuilder;
 import net.veilmc.base.BasePlugin;
 import net.veilmc.hcf.HCF;
@@ -87,11 +84,7 @@ public class DeathbanListener
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.LOW)
 	public void onPlayerDeath(PlayerDeathEvent event){
-<<<<<<< HEAD
-		if(ConfigurationService.KIT_MAP || ConfigurationService.VEILZ){
-=======
 		if(ConfigurationService.KIT_MAP){
->>>>>>> origin/new
 			return;
 		}
 

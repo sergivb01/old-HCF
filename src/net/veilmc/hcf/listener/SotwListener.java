@@ -1,9 +1,6 @@
 package net.veilmc.hcf.listener;
 
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.HCF;
->>>>>>> origin/new
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

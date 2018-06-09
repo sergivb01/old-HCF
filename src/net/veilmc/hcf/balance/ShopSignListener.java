@@ -1,10 +1,7 @@
 package net.veilmc.hcf.balance;
 
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.crowbar.Crowbar;
->>>>>>> origin/new
 import net.veilmc.base.BasePlugin;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.crowbar.Crowbar;

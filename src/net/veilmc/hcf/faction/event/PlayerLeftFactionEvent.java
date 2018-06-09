@@ -1,10 +1,7 @@
 package net.veilmc.hcf.faction.event;
 
 import net.veilmc.hcf.faction.event.cause.FactionLeaveCause;
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.faction.event.cause.FactionLeaveCause;
->>>>>>> origin/new
 import net.veilmc.hcf.faction.type.PlayerFaction;
 import com.google.common.base.Optional;
 

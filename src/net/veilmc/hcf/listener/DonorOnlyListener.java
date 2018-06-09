@@ -1,9 +1,6 @@
 package net.veilmc.hcf.listener;
 
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.HCF;
->>>>>>> origin/new
 import net.md_5.bungee.api.ChatColor;
 import net.veilmc.hcf.HCF;
 import org.bukkit.event.EventHandler;

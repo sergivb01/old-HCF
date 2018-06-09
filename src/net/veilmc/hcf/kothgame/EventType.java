@@ -4,13 +4,10 @@ import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.kothgame.tracker.ConquestTracker;
 import net.veilmc.hcf.kothgame.tracker.EventTracker;
 import net.veilmc.hcf.kothgame.tracker.KothTracker;
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.kothgame.tracker.ConquestTracker;
 import net.veilmc.hcf.kothgame.tracker.EventTracker;
 import net.veilmc.hcf.kothgame.tracker.KothTracker;
->>>>>>> origin/new
 import net.veilmc.hcf.palace.PalaceTracker;
 import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableMap;

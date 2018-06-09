@@ -2,11 +2,8 @@ package net.veilmc.hcf.faction.event;
 
 import net.veilmc.hcf.kothgame.CaptureZone;
 import net.veilmc.hcf.kothgame.faction.CapturableFaction;
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.kothgame.CaptureZone;
 import net.veilmc.hcf.kothgame.faction.CapturableFaction;
->>>>>>> origin/new
 import com.google.common.base.Preconditions;
 
 import org.bukkit.entity.Player;

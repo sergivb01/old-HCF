@@ -1,10 +1,7 @@
 package net.veilmc.hcf.command;
 
 import net.veilmc.hcf.HCF;
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.HCF;
->>>>>>> origin/new
 import net.veilmc.hcf.utils.ConfigurationService;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -26,11 +23,7 @@ public class PlayerVaultCommand implements CommandExecutor{
 			return false;
 		}
 
-<<<<<<< HEAD
-		if(!ConfigurationService.KIT_MAP && !ConfigurationService.VEILZ){
-=======
 		if(!ConfigurationService.KIT_MAP){
->>>>>>> origin/new
 			sender.sendMessage(ChatColor.RED + "This command can be executed on Kits only.");
 			return true;
 		}

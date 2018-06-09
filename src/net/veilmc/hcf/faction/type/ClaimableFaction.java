@@ -7,14 +7,11 @@ import net.veilmc.hcf.faction.claim.Claim;
 import net.veilmc.hcf.faction.event.FactionClaimChangeEvent;
 import net.veilmc.hcf.faction.event.FactionClaimChangedEvent;
 import net.veilmc.hcf.faction.event.cause.ClaimChangeCause;
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.claim.Claim;
 import net.veilmc.hcf.faction.event.FactionClaimChangeEvent;
 import net.veilmc.hcf.faction.event.FactionClaimChangedEvent;
 import net.veilmc.hcf.faction.event.cause.ClaimChangeCause;
->>>>>>> origin/new
 import net.veilmc.util.BukkitUtils;
 import net.veilmc.util.GenericUtils;
 import org.bukkit.Bukkit;

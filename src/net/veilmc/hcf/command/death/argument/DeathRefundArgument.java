@@ -1,10 +1,7 @@
 package net.veilmc.hcf.command.death.argument;
 
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.listener.DeathListener;
->>>>>>> origin/new
 import net.md_5.bungee.api.ChatColor;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.listener.DeathListener;

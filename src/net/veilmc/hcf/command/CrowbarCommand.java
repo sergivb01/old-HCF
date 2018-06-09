@@ -1,10 +1,7 @@
 package net.veilmc.hcf.command;
 
 import net.veilmc.hcf.crowbar.Crowbar;
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.crowbar.Crowbar;
->>>>>>> origin/new
 import net.veilmc.util.BukkitUtils;
 import com.google.common.base.Optional;
 import com.google.common.primitives.Ints;

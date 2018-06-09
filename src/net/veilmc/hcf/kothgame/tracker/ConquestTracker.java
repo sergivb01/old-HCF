@@ -1,9 +1,6 @@
 package net.veilmc.hcf.kothgame.tracker;
 
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.HCF;
->>>>>>> origin/new
 import me.sergivb01.sutils.ServerUtils;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.event.FactionRemoveEvent;

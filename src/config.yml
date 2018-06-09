@@ -1,23 +1,4 @@
 
-<<<<<<< HEAD
-# Scoreboard title for side bar.
-scoreboard:
-  title: '&9&lVeil &f[Map 1]'
-  active-class: '&a&lActive Class&7'
-
-# Enable death-signs so when a player dies it spawns a sign.
-death-signs: true
-
-online-medics:
-  - '&7%LINE%'
-  - '&9&lOnline Donators'
-  - ' '
-  - ' &f&l* &e%MEDICS%'
-  - '&7%LINE%'
-
-server-info:
-  teamspeak: 'ts.veilhcf.us'
-=======
 server-name: 'Large HCF' # Example: Squads, Large HCF
 
 
@@ -46,7 +27,6 @@ scoreboard:
 
 # Enable death-signs so when a player dies it spawns a sign.
 death-signs: true
->>>>>>> origin/new
 
 warzone: 750
 
@@ -56,15 +36,6 @@ found-diamonds: true
 # Is kit-map mode enabled?
 kit-map: false
 
-<<<<<<< HEAD
-veilz: false
-veilz-options:
-# Minutes - example: 5
-  regen: 5
-
-
-=======
->>>>>>> origin/new
 #Deathban Permissions
 
 # hcf.deathban.150m
@@ -75,32 +46,13 @@ unbuildable-range: 300
 
 help:
   - '&7&m-----------------------------------------------------'
-<<<<<<< HEAD
-  - '&b&l  VeilMC Help'
-  - '&a '
-  - '&6  World Border:'
-=======
   - '&7&l  Factions Help'
   - '&a '
   - '&e  World Border:'
->>>>>>> origin/new
   - '  &7* &eOverworld&7: &f%OVERWORLD%'
   - '  &7* &eNether&7: &f%NETHER%'
   - '  &7* &eEnd&7: &f%END%'
   - '&a '
-<<<<<<< HEAD
-  - '&6  End Portals:'
-  - '  &7* &f%ENDPORTAL%'
-  - '&a '
-  - '&6 Support:'
-  - '  &7* &ets.veilhcf.us'
-  - '&a '
-  - '&6 Discord:'
-  - '  &7* &eveilhcf.us/discord'
-  - '&a '
-  - '&6 Website:'
-  - '  &7* &eveilhcf.us'
-=======
   - '&e Support:'
   - '  &7* &ets.example.com'
   - '&a '
@@ -109,13 +61,10 @@ help:
   - '&a '
   - '&6 Website:'
   - '  &7* &eexample.us'
->>>>>>> origin/new
   - '&7&m-----------------------------------------------------'
 
 # Configurable messages
 messages:
-<<<<<<< HEAD
-=======
   economy:
     your-balance: '&eYour balance is &d$%BALANCE%'
     others-balance: '&eBalance of &a%PLAYER%&e is &d$%BALANCE%'
@@ -124,7 +73,6 @@ messages:
       - '&f*'
       - '&aServer has been stopped by &a&l%PLAYER%'
       - '&f*'
->>>>>>> origin/new
   cobble-enabled: '&aYou can now pick up cobblestone.'
   cobble-disabled: '&cYou can no longer pick up cobblestone.'
   revive-message: '&cDonate at store.buycraft.net to receive these perks.'
@@ -142,33 +90,15 @@ messages:
   cannot-attack: '&cYou cannot attack players in safezones.'
   in-faction: '&a%player% &eis in your faction.'
   ally-faction: '&eYou are hurting an ally &7[%allyplayer%]&e.'
-<<<<<<< HEAD
-  
-# Timers
-=======
 
->>>>>>> origin/new
 sotw:
   started: '&cStarted SOTW protection for &c&l%time%&c.'
   not-active: '&cSOTW protection already active.'
   cancelled: '&cSOTW protection has been cancelled.'
   ended-one: '&cSOTW Protection is now over!'
   ended-two: '&cYou are no longer invincible!'
-<<<<<<< HEAD
-  
-
-  
-  #pvptimer-started: '&aYour &a&lPVP Timer &ahas started.'
-  #pvptimer-paused: '&cYour &a&lPVP Timer &ctimer is now paused.'
-  #pvptimer-unpaused: '&cYour &a&lPVP Timer &ctimer is no longer paused.'
-  #pvptimer-expired: '&cYour &a&lPVP Timer &chas expired.'
-  #pvptimer-playerspawn: '&cOnce you leave Spawn your 30 minutes of &a&lPVP Timer &cwill start.'
-  
-# PVP Timer
-=======
 
 
->>>>>>> origin/new
 pvp-timer:
   - '&7%LINE%'
   - '&e/pvp enable &7- &fRemoves your PvP Timer.'
@@ -207,17 +137,10 @@ timers:
     enderpearl-expired: '&eYour &c&lEnderpearl &ecooldown has expired.'
     enderpearl-item: '&cEnderpearl Cooldown&e: &f%time%'
     spawn-tagged: '&cYou are now spawn-tagged for %time%.'
-<<<<<<< HEAD
-  
-# Faction colors
-
-
-=======
 
 
 # Faction colors
 
->>>>>>> origin/new
 faction-settings:
   max-players: 5
   max-allies: 1
@@ -283,8 +206,6 @@ enchant-limits:
   LOOT_BONUS_MOBS: 3
   LUCK: 3
   LURE: 3
-<<<<<<< HEAD
-=======
 
 reclaim:
   message: '&b{PLAYER} &7has reclaimed their &e{GROUP}'
@@ -295,4 +216,3 @@ reclaim:
       - bc {PLAYER} redeemed perks from {GROUP}
     redeemedPlayers:
       default:
->>>>>>> origin/new

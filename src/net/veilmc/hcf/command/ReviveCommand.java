@@ -1,12 +1,9 @@
 package net.veilmc.hcf.command;
 
 import net.veilmc.hcf.HCF;
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.deathban.Deathban;
 import net.veilmc.hcf.user.FactionUser;
 import net.veilmc.hcf.HCF;
->>>>>>> origin/new
 import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.hcf.utils.Cooldowns;
 import net.veilmc.hcf.deathban.Deathban;

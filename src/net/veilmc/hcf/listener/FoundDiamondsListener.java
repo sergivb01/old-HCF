@@ -1,10 +1,7 @@
 package net.veilmc.hcf.listener;
 
 import net.veilmc.hcf.HCF;
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.HCF;
->>>>>>> origin/new
 import net.veilmc.util.chat.ClickAction;
 import net.veilmc.util.chat.Text;
 import org.bukkit.Bukkit;
@@ -62,12 +59,6 @@ public class FoundDiamondsListener implements Listener{
 				Text message = new Text(ChatColor.translateAlternateColorCodes('&', "&f[FD]&b " + player.getName() + " has found&b " + i + " diamond."));
 				for(Player other : Bukkit.getOnlinePlayers()){
 					if(!other.hasMetadata("FD_ALERTS")){
-<<<<<<< HEAD
-						if(other.hasPermission("rank.staff")){
-							message.setHoverText(ChatColor.GREEN + "Click to teleport to " + player.getName()).setClick(ClickAction.RUN_COMMAND, "/tp " + player.getName());
-						}
-=======
->>>>>>> origin/new
 						message.send(other);
 					}
 				}
@@ -75,12 +66,6 @@ public class FoundDiamondsListener implements Listener{
 				Text message1 = new Text(ChatColor.translateAlternateColorCodes('&', "&f[FD]&b " + player.getName() + " has found&b " + i + " diamond."));
 				for(Player other : Bukkit.getOnlinePlayers()){
 					if(!other.hasMetadata("FD_ALERTS")){
-<<<<<<< HEAD
-						if(other.hasPermission("rank.staff")){
-							message1.setHoverText(ChatColor.GREEN + "Click to teleport to " + player.getName()).setClick(ClickAction.RUN_COMMAND, "/tp " + player.getName());
-						}
-=======
->>>>>>> origin/new
 						message1.send(other);
 					}
 				}

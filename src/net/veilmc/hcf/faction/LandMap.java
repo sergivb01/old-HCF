@@ -1,14 +1,11 @@
 package net.veilmc.hcf.faction;
 
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.claim.Claim;
 import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.hcf.faction.type.PlayerFaction;
 import net.veilmc.hcf.visualise.VisualBlockData;
 import net.veilmc.hcf.visualise.VisualType;
->>>>>>> origin/new
 import net.veilmc.base.BasePlugin;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.claim.Claim;

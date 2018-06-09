@@ -1,10 +1,7 @@
 package net.veilmc.hcf.faction.argument;
 
 import net.veilmc.hcf.HCF;
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.HCF;
->>>>>>> origin/new
 import net.veilmc.hcf.faction.FactionMember;
 import net.veilmc.hcf.faction.struct.Relation;
 import net.veilmc.hcf.faction.struct.Role;

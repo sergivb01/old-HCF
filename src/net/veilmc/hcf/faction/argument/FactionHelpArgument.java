@@ -4,10 +4,7 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.primitives.Ints;
 import net.veilmc.hcf.faction.FactionExecutor;
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.utils.ConfigurationService;
->>>>>>> origin/new
 import net.veilmc.util.BukkitUtils;
 import net.veilmc.util.chat.ClickAction;
 import net.veilmc.util.chat.Text;
@@ -56,11 +53,7 @@ public class FactionHelpArgument
 				String permission;
 				if(argument.equals(this) || (permission = argument.getPermission()) != null && !sender.hasPermission(permission) || argument.isPlayerOnly() && !isPlayer)
 					continue;
-<<<<<<< HEAD
-				pages.get(val).add(new Text(ChatColor.BLUE + "  /" + label + ' ' + argument.getName() + ChatColor.GRAY + " - " + ChatColor.WHITE + argument.getDescription()).setColor(ChatColor.GRAY).setClick(ClickAction.SUGGEST_COMMAND, "/" + label + " " + argument.getName()));
-=======
 				pages.get(val).add(new Text(ChatColor.YELLOW + "  /" + label + ' ' + argument.getName() + ChatColor.GRAY + " - " + ChatColor.WHITE + argument.getDescription()).setColor(ChatColor.GRAY).setClick(ClickAction.SUGGEST_COMMAND, "/" + label + " " + argument.getName()));
->>>>>>> origin/new
 				if(++count % 10 != 0) continue;
 				++val;
 			}
@@ -76,11 +69,7 @@ public class FactionHelpArgument
 			return;
 		}
 		sender.sendMessage(ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH + BukkitUtils.STRAIGHT_LINE_DEFAULT);
-<<<<<<< HEAD
-		sender.sendMessage(ChatColor.AQUA + "" + ChatColor.BOLD + " Faction Help " + ChatColor.GRAY + "(Page " + pageNumber + " out of " + totalPageCount + ")");
-=======
 		sender.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + " " + ConfigurationService.SERVER_NAME + " Help " + ChatColor.GRAY + "(Page " + pageNumber + " out of " + totalPageCount + ")");
->>>>>>> origin/new
 		sender.sendMessage(" ");
 		for(Text message : this.pages.get(pageNumber)){
 			message.send(sender);
@@ -90,11 +79,7 @@ public class FactionHelpArgument
 		if(pageNumber == totalPageCount){
 			text.append(ChatColor.translateAlternateColorCodes('&', " &f* &cYou are on the final page.")).send(sender);
 		}else{
-<<<<<<< HEAD
-			text.append(ChatColor.translateAlternateColorCodes('&', " &f* &b&lNext Page")).setHoverText(ChatColor.AQUA + "Click for next page.").setClick(ClickAction.RUN_COMMAND, "/f help " + (pageNumber + 1)).send(sender);
-=======
 			text.append(ChatColor.translateAlternateColorCodes('&', " &f* &6&lNext Page")).setHoverText(ChatColor.GREEN + "Click for next page.").setClick(ClickAction.RUN_COMMAND, "/f help " + (pageNumber + 1)).send(sender);
->>>>>>> origin/new
 		}
 		sender.sendMessage(ChatColor.GRAY.toString() + ChatColor.STRIKETHROUGH + BukkitUtils.STRAIGHT_LINE_DEFAULT);
 	}

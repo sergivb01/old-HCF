@@ -1,10 +1,7 @@
 package net.veilmc.hcf.faction.event;
 
 import net.veilmc.hcf.faction.struct.Relation;
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.faction.struct.Relation;
->>>>>>> origin/new
 import net.veilmc.hcf.faction.type.PlayerFaction;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;

@@ -1,18 +1,12 @@
 package net.veilmc.hcf.tab;
 
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.tab.utils.tinyprotocol.comphenix.TinyProtocol;
->>>>>>> origin/new
 import net.minecraft.server.v1_7_R4.*;
 import net.minecraft.util.com.mojang.authlib.GameProfile;
 import net.minecraft.util.com.mojang.authlib.properties.Property;
 import net.minecraft.util.io.netty.channel.Channel;
 import net.veilmc.hcf.tab.utils.tinyprotocol.comphenix.TinyProtocol;
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.tab.utils.tinyprotocol.comphenix.TinyProtocol;
->>>>>>> origin/new
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;

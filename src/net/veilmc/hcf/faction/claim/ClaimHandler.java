@@ -1,12 +1,9 @@
 package net.veilmc.hcf.faction.claim;
 
 import net.veilmc.hcf.HCF;
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.faction.struct.Role;
 import net.veilmc.hcf.visualise.VisualType;
 import net.veilmc.hcf.HCF;
->>>>>>> origin/new
 import net.veilmc.hcf.faction.type.*;
 import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.hcf.faction.FactionManager;

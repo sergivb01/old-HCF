@@ -2,11 +2,8 @@ package net.veilmc.hcf.faction;
 
 import net.veilmc.hcf.faction.struct.ChatChannel;
 import net.veilmc.hcf.faction.struct.Role;
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.faction.struct.ChatChannel;
 import net.veilmc.hcf.faction.struct.Role;
->>>>>>> origin/new
 import com.google.common.base.Enums;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;

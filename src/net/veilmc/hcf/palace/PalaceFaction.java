@@ -7,8 +7,6 @@ import net.veilmc.hcf.faction.type.PlayerFaction;
 import net.veilmc.hcf.kothgame.CaptureZone;
 import net.veilmc.hcf.kothgame.EventType;
 import net.veilmc.hcf.kothgame.faction.CapturableFaction;
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.claim.Claim;
 import net.veilmc.hcf.faction.type.ClaimableFaction;
@@ -19,7 +17,6 @@ import net.veilmc.hcf.faction.type.PlayerFaction;
 import net.veilmc.hcf.kothgame.CaptureZone;
 import net.veilmc.hcf.kothgame.EventType;
 import net.veilmc.hcf.kothgame.faction.CapturableFaction;
->>>>>>> origin/new
 import net.veilmc.util.BukkitUtils;
 import com.google.common.collect.ImmutableList;
 

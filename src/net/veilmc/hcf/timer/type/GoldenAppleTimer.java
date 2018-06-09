@@ -1,11 +1,8 @@
 package net.veilmc.hcf.timer.type;
 
 import net.veilmc.hcf.timer.PlayerTimer;
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.timer.PlayerTimer;
 import net.veilmc.hcf.timer.PlayerTimer;
->>>>>>> origin/new
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

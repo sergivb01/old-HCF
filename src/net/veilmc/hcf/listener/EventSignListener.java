@@ -1,10 +1,7 @@
 package net.veilmc.hcf.listener;
 
 import net.veilmc.hcf.HCF;
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.HCF;
->>>>>>> origin/new
 import net.veilmc.hcf.utils.DateTimeFormats;
 import com.google.common.collect.Lists;
 import org.bukkit.ChatColor;

@@ -1,20 +1,14 @@
 package net.veilmc.hcf.scoreboard;
 
 import net.veilmc.hcf.HCF;
-<<<<<<< HEAD
-=======
 import net.veilmc.base.BasePlugin;
 import net.veilmc.hcf.HCF;
->>>>>>> origin/new
 import net.veilmc.hcf.classes.archer.ArcherClass;
 import net.veilmc.hcf.faction.struct.Relation;
 import net.veilmc.hcf.faction.type.PlayerFaction;
 import net.veilmc.hcf.utils.ConfigurationService;
 import net.minecraft.server.v1_7_R4.PacketPlayOutPlayerInfo;
-<<<<<<< HEAD
-=======
 import org.bukkit.Bukkit;
->>>>>>> origin/new
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
 import org.bukkit.entity.Player;
@@ -152,12 +146,9 @@ public class PlayerBoard{
 		}
 	}
 
-<<<<<<< HEAD
-=======
 
 
 
->>>>>>> origin/new
 	public void setAllies(final Collection<Player> players){
 		if(!PlayerBoard.NAMES_ENABLED || this.isRemoved()){
 			return;
@@ -243,10 +234,7 @@ public class PlayerBoard{
 					playerFaction = this.plugin.getFactionManager().getPlayerFaction(this.player);
 					foundFaction = true;
 				}
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/new
 				if(playerFaction != null){
 					if(playerFaction.getMembers().keySet().contains(player.getUniqueId())){
 						this.setMembers(Collections.singleton(player));

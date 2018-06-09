@@ -1,10 +1,7 @@
 package net.veilmc.hcf.faction.argument.staff;
 
 import net.veilmc.hcf.HCF;
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.HCF;
->>>>>>> origin/new
 import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.hcf.faction.type.PlayerFaction;
 import net.veilmc.util.command.CommandArgument;
@@ -47,20 +44,11 @@ public class FactionBanArgument
 		String extraArgs = HCF.SPACE_JOINER.join(Arrays.copyOfRange(args, 2, args.length));
 		ConsoleCommandSender console = Bukkit.getConsoleSender();
 		for(UUID uuid : playerFaction.getMembers().keySet()){
-<<<<<<< HEAD
-			String commandLine = "tempban " + uuid.toString() + " " + extraArgs;
-			sender.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "Executing " + ChatColor.RED + commandLine);
-			console.getServer().dispatchCommand(sender, commandLine);
-		}
-		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c&lExecuting command to ban the faction " + playerFaction.getName()));
-		Bukkit.getServer().broadcastMessage("§eThe faction §6§l" + playerFaction.getName() + " §ehas been tempban for §6§l" + extraArgs);
-=======
 			String commandLine = "ban " + uuid.toString() + " " + extraArgs;
 			sender.sendMessage(ChatColor.RED + "Ban: " + ChatColor.YELLOW + uuid.toString() );
 			console.getServer().dispatchCommand(sender, commandLine);
 		}
 		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cExecuting command to ban the faction " + playerFaction.getName()));
->>>>>>> origin/new
 		return true;
 	}
 

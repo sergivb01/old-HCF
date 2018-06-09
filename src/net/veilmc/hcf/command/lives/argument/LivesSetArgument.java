@@ -1,9 +1,6 @@
 package net.veilmc.hcf.command.lives.argument;
 
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.HCF;
->>>>>>> origin/new
 import net.veilmc.base.BaseConstants;
 import net.veilmc.hcf.HCF;
 import net.veilmc.util.BukkitUtils;

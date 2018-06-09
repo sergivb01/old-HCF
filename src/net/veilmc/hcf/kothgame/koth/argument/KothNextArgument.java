@@ -1,10 +1,7 @@
 package net.veilmc.hcf.kothgame.koth.argument;
 
 import net.veilmc.hcf.HCF;
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.HCF;
->>>>>>> origin/new
 import net.veilmc.hcf.utils.DateTimeFormats;
 import net.veilmc.util.command.CommandArgument;
 

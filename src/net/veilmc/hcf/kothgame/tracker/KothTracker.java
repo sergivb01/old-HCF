@@ -1,10 +1,7 @@
 package net.veilmc.hcf.kothgame.tracker;
 
 import net.veilmc.hcf.HCF;
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.HCF;
->>>>>>> origin/new
 import net.veilmc.hcf.kothgame.CaptureZone;
 import net.veilmc.hcf.kothgame.EventTimer;
 import net.veilmc.hcf.kothgame.EventType;

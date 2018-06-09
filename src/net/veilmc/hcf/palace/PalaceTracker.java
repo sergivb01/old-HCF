@@ -6,15 +6,12 @@ import net.veilmc.hcf.kothgame.EventTimer;
 import net.veilmc.hcf.kothgame.EventType;
 import net.veilmc.hcf.kothgame.faction.EventFaction;
 import net.veilmc.hcf.kothgame.tracker.EventTracker;
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.kothgame.CaptureZone;
 import net.veilmc.hcf.kothgame.EventTimer;
 import net.veilmc.hcf.kothgame.EventType;
 import net.veilmc.hcf.kothgame.faction.EventFaction;
 import net.veilmc.hcf.kothgame.tracker.EventTracker;
->>>>>>> origin/new
 import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.hcf.utils.DateTimeFormats;
 import org.bukkit.Bukkit;

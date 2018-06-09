@@ -3,10 +3,7 @@ package net.veilmc.hcf.command;
 import java.util.Collections;
 import java.util.List;
 
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.HCF;
->>>>>>> origin/new
 import net.veilmc.hcf.timer.type.NotchAppleTimer;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;

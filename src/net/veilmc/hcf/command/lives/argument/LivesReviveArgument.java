@@ -1,14 +1,11 @@
 package net.veilmc.hcf.command.lives.argument;
 
 import net.veilmc.hcf.HCF;
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.deathban.Deathban;
 import net.veilmc.hcf.faction.struct.Relation;
 import net.veilmc.hcf.faction.type.PlayerFaction;
 import net.veilmc.hcf.user.FactionUser;
 import net.veilmc.hcf.HCF;
->>>>>>> origin/new
 import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.hcf.deathban.Deathban;
 import net.veilmc.hcf.faction.struct.Relation;

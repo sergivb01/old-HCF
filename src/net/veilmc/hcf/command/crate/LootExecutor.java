@@ -1,11 +1,8 @@
 package net.veilmc.hcf.command.crate;
 
 import net.veilmc.hcf.HCF;
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.command.crate.argument.*;
 import net.veilmc.hcf.HCF;
->>>>>>> origin/new
 import net.veilmc.hcf.command.crate.argument.LootBankArgument;
 import net.veilmc.hcf.command.crate.argument.LootBroadcastsArgument;
 import net.veilmc.hcf.command.crate.argument.LootDepositArgument;

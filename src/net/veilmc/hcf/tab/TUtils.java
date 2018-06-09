@@ -26,11 +26,7 @@ class TUtils{
 		this.factionManager = plugin.getFactionManager();
 	}
 
-<<<<<<< HEAD
-	private String getCardinalDirection(final Player player){
-=======
 	public String getCardinalDirection(final Player player){
->>>>>>> origin/new
 		double rotation = (player.getLocation().getYaw() - 90.0f) % 360.0f;
 		if(rotation < 0.0){
 			rotation += 360.0;

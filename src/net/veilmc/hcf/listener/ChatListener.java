@@ -1,10 +1,7 @@
 package net.veilmc.hcf.listener;
 
-<<<<<<< HEAD
-=======
 import net.veilmc.base.BasePlugin;
 import net.veilmc.hcf.HCF;
->>>>>>> origin/new
 import net.minecraft.util.com.google.common.cache.CacheBuilder;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.event.FactionChatEvent;
@@ -20,10 +17,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-<<<<<<< HEAD
-import ru.tehkode.permissions.bukkit.PermissionsEx;
-=======
->>>>>>> origin/new
 
 import java.util.List;
 import java.util.Set;
@@ -95,11 +88,7 @@ public class ChatListener
 
 		//String kdrPrefix = (kdr > 2 ? ChatColor.RED + kdr : ChatColor.GREEN + kdr);
 
-<<<<<<< HEAD
-		String rank = ChatColor.translateAlternateColorCodes('&', "&e" + PermissionsEx.getUser(player).getPrefix()).replace("_", " ");
-=======
 		String rank = ChatColor.translateAlternateColorCodes('&', "&e" + HCF.getChat().getPlayerPrefix(player)).replace("_", " ");
->>>>>>> origin/new
 		String displayName = player.getDisplayName();
 		displayName = rank + displayName;
 

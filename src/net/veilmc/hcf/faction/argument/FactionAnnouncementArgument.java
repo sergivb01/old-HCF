@@ -1,10 +1,7 @@
 package net.veilmc.hcf.faction.argument;
 
 import net.veilmc.hcf.HCF;
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.HCF;
->>>>>>> origin/new
 import net.veilmc.hcf.faction.struct.Role;
 import net.veilmc.hcf.faction.type.PlayerFaction;
 import net.veilmc.util.command.CommandArgument;
@@ -30,11 +27,7 @@ public class FactionAnnouncementArgument
 	}
 
 	public String getUsage(String label){
-<<<<<<< HEAD
-		return "" + '/' + label + ' ' + this.getName() + " <newAnnouncement>";
-=======
 		return "" + '/' + label + ' ' + this.getName() + " <newAnnouncement|clear>";
->>>>>>> origin/new
 	}
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
@@ -71,11 +64,7 @@ public class FactionAnnouncementArgument
 			playerFaction.broadcast(ChatColor.AQUA + sender.getName() + ChatColor.YELLOW + " has cleared the factions' announcement.");
 			return true;
 		}
-<<<<<<< HEAD
-		playerFaction.broadcast(ChatColor.GREEN + player.getName() + ChatColor.YELLOW + " has updated the factions' announcement from " + ChatColor.GREEN + (oldAnnouncement != null ? oldAnnouncement : "none") + ChatColor.YELLOW + " to " + ChatColor.GREEN + newAnnouncement + ChatColor.YELLOW + '.');
-=======
 		playerFaction.broadcast(ChatColor.GREEN + player.getName() + ChatColor.YELLOW + " has updated the factions' announcement from " + ChatColor.GREEN + (oldAnnouncement != null ? oldAnnouncement : ChatColor.RED +  "nothing") + ChatColor.YELLOW + " to " + ChatColor.GREEN + newAnnouncement + ChatColor.YELLOW + '.');
->>>>>>> origin/new
 		return true;
 	}
 

@@ -1,9 +1,6 @@
 package net.veilmc.hcf.deathban;
 
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.HCF;
->>>>>>> origin/new
 import net.minecraft.util.gnu.trove.map.TObjectIntMap;
 import net.minecraft.util.gnu.trove.map.hash.TObjectIntHashMap;
 import net.veilmc.hcf.HCF;
@@ -15,14 +12,7 @@ import org.bukkit.Location;
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.entity.Player;
 
-<<<<<<< HEAD
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
-=======
 import java.util.*;
->>>>>>> origin/new
 
 public class FlatFileDeathbanManager implements DeathbanManager{
 	private static final int MAX_DEATHBAN_MULTIPLIER = 300;
@@ -62,11 +52,8 @@ public class FlatFileDeathbanManager implements DeathbanManager{
 		return this.setLives(uuid, this.getLives(uuid) - amount);
 	}
 
-<<<<<<< HEAD
-=======
 
 
->>>>>>> origin/new
    /*@Override
     public long getDeathBanMultiplier(final Player player) {
         //if (player.hasPermission("hcf.deathban.extra")) {

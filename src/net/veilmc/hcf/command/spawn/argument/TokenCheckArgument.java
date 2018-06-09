@@ -1,10 +1,7 @@
 package net.veilmc.hcf.command.spawn.argument;
 
 import net.veilmc.hcf.HCF;
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.HCF;
->>>>>>> origin/new
 import net.veilmc.util.command.CommandArgument;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

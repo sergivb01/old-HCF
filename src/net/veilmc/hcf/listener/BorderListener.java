@@ -1,9 +1,6 @@
 package net.veilmc.hcf.listener;
 
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.HCF;
->>>>>>> origin/new
 import net.veilmc.base.ServerHandler;
 import net.veilmc.hcf.HCF;
 

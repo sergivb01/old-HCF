@@ -1,11 +1,8 @@
 package net.veilmc.hcf.faction.argument;
 
 import net.veilmc.hcf.HCF;
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.kothgame.faction.EventFaction;
 import net.veilmc.hcf.HCF;
->>>>>>> origin/new
 import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.hcf.kothgame.faction.EventFaction;
 import net.veilmc.hcf.timer.type.StuckTimer;

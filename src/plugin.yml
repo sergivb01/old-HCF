@@ -1,16 +1,5 @@
-<<<<<<< HEAD
-################################################################################
-#
-# THIS PLUGIN WAS MADE FOR USE ON VeilMC/VeilHCF OR LINKED NETWORKS ONLY
-# DO NOT DISTRIBUTE
-#
-################################################################################
-name: HCF
-version: VEILMC
-=======
 name: HCF
 version: DEV
->>>>>>> origin/new
 main: net.veilmc.hcf.HCF
 softdepend: [ProtocolLib]
 commands:
@@ -27,10 +16,7 @@ commands:
   spawner:
     description: Spawn in a spawner.
   permissions:
-<<<<<<< HEAD
-=======
   user:
->>>>>>> origin/new
   ffa:
     description: Give all players FFA potion effects.
   sendcoords:
@@ -40,10 +26,7 @@ commands:
     description: Reset a players K/D statistics.
   togglefd:
     description: Toggle found diamond alerts.
-<<<<<<< HEAD
-=======
   reclaim:
->>>>>>> origin/new
   focus:
     description: Focus a player in another faction.
   endportal:
@@ -60,18 +43,8 @@ commands:
     description: Open the ingame store GUI.
   stats:
     description: Checks the staticstics on a player.
-<<<<<<< HEAD
-  dinfo:
-    aliases: ["deathinfo"]
-    description: View the death information of a player.
   sotw:
     description: Start the SOTW Timer.
-  refund:
-    description: Refunds an inventory.
-=======
-  sotw:
-    description: Start the SOTW Timer.
->>>>>>> origin/new
   check:
   crowbar:
     description: Management of crowbar tools.
@@ -121,11 +94,6 @@ commands:
     description: Sets the border size of an Environment.
   coords:
     description: Shows coordinates of events.
-<<<<<<< HEAD
-  staffrevive:
-    description: Revive a deathbanned player.
-=======
->>>>>>> origin/new
   revive:
     aliases: [medic]
     description: Premium perk to revive a player.

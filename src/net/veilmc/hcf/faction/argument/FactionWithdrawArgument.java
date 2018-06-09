@@ -1,10 +1,7 @@
 package net.veilmc.hcf.faction.argument;
 
 import net.veilmc.hcf.HCF;
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.HCF;
->>>>>>> origin/new
 import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.hcf.faction.FactionMember;
 import net.veilmc.hcf.faction.struct.Role;
@@ -79,11 +76,7 @@ public class FactionWithdrawArgument
 		}
 		this.plugin.getEconomyManager().addBalance(uuid, amount);
 		playerFaction.setBalance(factionBalance - amount);
-<<<<<<< HEAD
-		playerFaction.broadcast(ConfigurationService.TEAMMATE_COLOUR + factionMember.getRole().getAstrix() + sender.getName() + ChatColor.YELLOW + " has withdrew " + ChatColor.BOLD + '$' + JavaUtils.format(amount) + ChatColor.YELLOW + " from the faction balance.");
-=======
 		playerFaction.broadcast(ConfigurationService.TEAMMATE_COLOUR + factionMember.getRole().getAstrix() + sender.getName() + ChatColor.YELLOW + " has withdrew " + ChatColor.GREEN + '$' + JavaUtils.format(amount) + ChatColor.YELLOW + " from the faction balance.");
->>>>>>> origin/new
 		return true;
 	}
 

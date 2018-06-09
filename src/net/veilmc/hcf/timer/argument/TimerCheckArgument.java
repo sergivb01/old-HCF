@@ -4,9 +4,6 @@ import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.timer.PlayerTimer;
 import net.veilmc.hcf.timer.Timer;
 import net.veilmc.hcf.utils.UUIDFetcher;
-<<<<<<< HEAD
-import net.veilmc.util.command.CommandArgument;
-=======
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.timer.PlayerTimer;
 import net.veilmc.hcf.timer.Timer;
@@ -16,7 +13,6 @@ import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.timer.PlayerTimer;
 import net.veilmc.hcf.timer.Timer;
 import net.veilmc.hcf.utils.UUIDFetcher;
->>>>>>> origin/new
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;

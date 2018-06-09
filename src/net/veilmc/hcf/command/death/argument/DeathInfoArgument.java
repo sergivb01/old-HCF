@@ -1,11 +1,8 @@
 package net.veilmc.hcf.command.death.argument;
 
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.deathban.Deathban;
 import net.veilmc.hcf.user.FactionUser;
->>>>>>> origin/new
 import me.sergivb01.sutils.utils.fanciful.FancyMessage;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.deathban.Deathban;

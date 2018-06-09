@@ -1,10 +1,7 @@
 package net.veilmc.hcf.command;
 
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.user.FactionUser;
->>>>>>> origin/new
 import net.veilmc.base.BasePlugin;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.utils.ConfigurationService;
@@ -65,11 +62,7 @@ public class PlayerStats
 		if(hcf.getDeathban() != null){
 			new Text(ChatColor.YELLOW + "  Deathbanned: " + (hcf.getDeathban().isActive() ? new StringBuilder().append(ChatColor.GREEN).append("true").toString() : new StringBuilder().append(ChatColor.RED).append("false").toString())).setHoverText(ChatColor.AQUA + "Un-Deathbanned at: " + HCF.getRemaining(hcf.getDeathban().getExpiryMillis(), true, true)).send(player);
 		}else{
-<<<<<<< HEAD
-			if(!ConfigurationService.KIT_MAP || !ConfigurationService.VEILZ){
-=======
 			if(!ConfigurationService.KIT_MAP){
->>>>>>> origin/new
 				player.sendMessage(ChatColor.YELLOW + "  Deathbanned: " + ChatColor.RED + "false");
 			}
 		}

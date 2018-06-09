@@ -3,11 +3,8 @@ package net.veilmc.hcf.classes.type;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.classes.event.PvpClassUnequipEvent;
->>>>>>> origin/new
 import net.veilmc.hcf.classes.PvpClass;
 import net.veilmc.hcf.utils.Cooldowns;
 import org.bukkit.Bukkit;

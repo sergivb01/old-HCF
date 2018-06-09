@@ -4,10 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import net.veilmc.hcf.HCF;
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.HCF;
->>>>>>> origin/new
 import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.hcf.timer.type.SotwTimer;
 import net.veilmc.util.BukkitUtils;

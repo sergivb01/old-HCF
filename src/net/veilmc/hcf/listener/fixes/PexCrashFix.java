@@ -23,11 +23,7 @@ public class PexCrashFix implements Listener{
 		if((cmd.startsWith("pex ")) && (!e.isCancelled())){
 			String[] args = cmd.substring("pex ".length()).split(" ");
 			if((args.length == 1) && (args[0].equalsIgnoreCase("user") || (args.length == 1) && (args[0].equalsIgnoreCase("users")))){
-<<<<<<< HEAD
-				e.getPlayer().sendMessage(ChatColor.RED + "Cannot run that command with no args.");
-=======
 				e.getPlayer().sendMessage(ChatColor.RED + "Incorrect syntax.");
->>>>>>> origin/new
 				e.setCancelled(true);
 			}
 		}

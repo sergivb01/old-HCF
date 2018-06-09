@@ -55,16 +55,6 @@ public class ItemStatTrackingListener
 		List lore;
 		ItemMeta meta = stack.getItemMeta();
 		List list = lore = meta.hasLore() ? meta.getLore() : new ArrayList(2);
-<<<<<<< HEAD
-		if(lore.isEmpty() || lore.size() <= 1 || !((String) lore.get(1)).startsWith((Object) ChatColor.GOLD + "Kills ")){
-			lore.add(0, ChatColor.WHITE + "");
-			lore.add(1, (Object) ChatColor.GOLD + "Kills " + (Object) ChatColor.WHITE + 1);
-			lore.add(2, ChatColor.WHITE + "");
-			lore.add(3, (Object) ChatColor.YELLOW + this.getEntityName(killer) + ChatColor.WHITE + " killed " + ChatColor.YELLOW + this.getDisplayName(player) + (Object) ChatColor.WHITE + ".");
-
-		}else{
-			String killsString = ((String) lore.get(1)).replace((Object) ChatColor.GOLD + "Kills ", "").replace((Object) ChatColor.WHITE + "]", "");
-=======
 		if(lore.isEmpty() || lore.size() <= 1 || !((String) lore.get(1)).startsWith((Object) ChatColor.YELLOW + "" + ChatColor.BOLD + "Kill Counter: ")){
 			lore.add(0, (Object) ChatColor.YELLOW + "" + ChatColor.BOLD + "Kill Counter: " + (Object) ChatColor.WHITE + 1);
 			lore.add(1, ChatColor.WHITE + "");
@@ -72,7 +62,6 @@ public class ItemStatTrackingListener
 
 		}else{
 			String killsString = ((String) lore.get(1)).replace((Object) ChatColor.YELLOW + "" + ChatColor.BOLD + "Kill Counter: ", "").replace((Object) ChatColor.WHITE + "]", "");
->>>>>>> origin/new
 			Integer kills = 1;
 			try{
 				kills = Integer.parseInt(ChatColor.stripColor(killsString));
@@ -81,11 +70,7 @@ public class ItemStatTrackingListener
 			}
 			Integer killafteradd = kills + 1;
 			lore.set(1, (Object) ChatColor.GOLD + "Kills " + (Object) ChatColor.WHITE + killafteradd);
-<<<<<<< HEAD
-			lore.add((Object) ChatColor.YELLOW + this.getDisplayName(killer) + ChatColor.WHITE + " killed " + ChatColor.YELLOW + this.getDisplayName(player) + (Object) ChatColor.WHITE + ".");
-=======
 			lore.add((Object) ChatColor.RED + this.getDisplayName(killer) + ChatColor.WHITE + " killed " + ChatColor.RED + this.getDisplayName(player));
->>>>>>> origin/new
 
 		}
 		meta.setLore(lore.subList(0, Math.min(6, lore.size())));

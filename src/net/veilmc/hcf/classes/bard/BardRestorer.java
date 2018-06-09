@@ -2,11 +2,8 @@ package net.veilmc.hcf.classes.bard;
 
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.classes.event.PvpClassUnequipEvent;
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.classes.event.PvpClassUnequipEvent;
->>>>>>> origin/new
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 import me.sergivb01.event.PotionEffectExpiresEvent;

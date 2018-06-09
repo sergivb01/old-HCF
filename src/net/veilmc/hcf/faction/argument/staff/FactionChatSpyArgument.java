@@ -1,11 +1,8 @@
 package net.veilmc.hcf.faction.argument.staff;
 
 import net.veilmc.hcf.HCF;
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.user.FactionUser;
 import net.veilmc.hcf.HCF;
->>>>>>> origin/new
 import net.veilmc.hcf.faction.event.FactionChatEvent;
 import net.veilmc.hcf.faction.event.FactionRemoveEvent;
 import net.veilmc.hcf.faction.type.Faction;

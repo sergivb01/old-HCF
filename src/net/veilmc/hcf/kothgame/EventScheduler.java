@@ -1,10 +1,7 @@
 package net.veilmc.hcf.kothgame;
 
 import net.veilmc.hcf.HCF;
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.HCF;
->>>>>>> origin/new
 import com.google.common.primitives.Ints;
 
 import java.io.BufferedReader;

@@ -1,9 +1,6 @@
 package net.veilmc.hcf.deathban;
 
-<<<<<<< HEAD
-=======
 import java.util.Map;
->>>>>>> origin/new
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -32,10 +29,7 @@ public interface DeathbanManager{
 	void reloadDeathbanData();
 
 	void saveDeathbanData();
-<<<<<<< HEAD
-=======
 
 
->>>>>>> origin/new
 }
 

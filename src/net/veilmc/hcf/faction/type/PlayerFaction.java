@@ -8,8 +8,6 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.deathban.Deathban;
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.faction.event.FactionDtrChangeEvent;
 import net.veilmc.hcf.faction.event.PlayerJoinedFactionEvent;
 import net.veilmc.hcf.faction.event.PlayerLeaveFactionEvent;
@@ -22,7 +20,6 @@ import net.veilmc.hcf.faction.struct.Role;
 import net.veilmc.hcf.user.FactionUser;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.deathban.Deathban;
->>>>>>> origin/new
 import net.veilmc.hcf.faction.FactionMember;
 import net.veilmc.hcf.faction.event.FactionDtrChangeEvent;
 import net.veilmc.hcf.faction.event.PlayerJoinedFactionEvent;
@@ -489,11 +486,7 @@ public class PlayerFaction
 			if(deathban != null && deathban.isActive()){
 				colour = RED;
 			}
-<<<<<<< HEAD
-			final String memberName = colour + factionMember.getName() + ChatColor.GRAY + '[' + ChatColor.AQUA + kills + ChatColor.GRAY + ']';
-=======
 			final String memberName = colour + factionMember.getName() + ChatColor.YELLOW + '[' + ChatColor.GREEN + kills + ChatColor.YELLOW + ']';
->>>>>>> origin/new
 			switch(factionMember.getRole()){
 				case LEADER:{
 					leaderName = memberName;
@@ -537,22 +530,6 @@ public class PlayerFaction
                       .replace("%ALLIES%", !allyNames.isEmpty() ? StringUtils.join(allyNames, ChatColor.GRAY + ", ") : ChatColor.GRAY + "None")
                       .replace("%REGEN%", (dtrRegenRemaining > 0L) ? DurationFormatUtils.formatDurationWords(dtrRegenRemaining, true, true) : ChatColor.GRAY + "Fully Regenerated.")
               )));*/
-<<<<<<< HEAD
-		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&9" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
-		sender.sendMessage(ChatColor.AQUA + " " + ChatColor.BOLD + ChatColor.stripColor(this.getDisplayName(sender)) + ChatColor.GRAY + " [" + this.getOnlineMembers().size() + "/" + this.getMembers().size() + " online]" + ChatColor.BLUE + " Status: " + (this.isOpen() ? ChatColor.GREEN + "Open" : ChatColor.AQUA + "Closed"));
-		sender.sendMessage(ChatColor.BLUE + " Home: " + ((this.home == null ? RED + "Not Set" : ChatColor.AQUA.toString() + this.home.getLocation().getBlockX() + ", " + this.home.getLocation().getBlockZ())));
-		if(!allyNames.isEmpty()){
-			sender.sendMessage(ChatColor.BLUE + " Allies: " + StringUtils.join(allyNames, ChatColor.GRAY + ", "));
-		}
-		if(leaderName != null){
-			sender.sendMessage(ChatColor.BLUE + " Leader: " + leaderName);
-		}
-		if(!captainNames.isEmpty()){
-			sender.sendMessage(ChatColor.BLUE + " Captains: " + StringUtils.join(captainNames, ChatColor.GRAY + ","));
-		}
-		if(!memberNames.isEmpty()){
-			sender.sendMessage(ChatColor.BLUE + " Members: " + StringUtils.join(memberNames, ChatColor.GRAY + ","));
-=======
 		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
 		sender.sendMessage(ChatColor.GOLD + " " + ChatColor.BOLD + ChatColor.stripColor(this.getDisplayName(sender)) + ChatColor.GRAY + " [" + this.getOnlineMembers().size() + "/" + this.getMembers().size() + " online]" + ChatColor.YELLOW + " Status: " + (this.isOpen() ? ChatColor.GREEN + "Open" : ChatColor.RED + "Closed"));
 		sender.sendMessage(ChatColor.YELLOW + " Home: " + ((this.home == null ? RED + "Not Set" : ChatColor.RED.toString() + this.home.getLocation().getBlockX() + ", " + this.home.getLocation().getBlockZ())));
@@ -567,25 +544,10 @@ public class PlayerFaction
 		}
 		if(!memberNames.isEmpty()){
 			sender.sendMessage(ChatColor.YELLOW + " Members: " + StringUtils.join(memberNames, ChatColor.GRAY + ", "));
->>>>>>> origin/new
 		}
 		if(sender instanceof Player){
 			final Faction playerFaction2 = HCF.getPlugin().getFactionManager().getPlayerFaction((Player) sender);
 			if(playerFaction2 != null && this.announcement != null && playerFaction2.equals(this)){
-<<<<<<< HEAD
-				sender.sendMessage(ChatColor.BLUE + " Announcement: " + ChatColor.LIGHT_PURPLE + this.announcement);
-			}
-		}
-		if(ConfigurationService.KIT_MAP){
-			sender.sendMessage(ChatColor.BLUE + " Balance: " + ChatColor.AQUA + "$" + this.balance);
-			sender.sendMessage(ChatColor.BLUE + " Total Kills: " + ChatColor.AQUA + combinedKills1);
-		}else{
-			sender.sendMessage(ChatColor.BLUE + " Balance: " + ChatColor.AQUA + '$' + this.balance + ChatColor.BLUE + ", " + "Total Kills: " + ChatColor.AQUA + combinedKills1 + ChatColor.AQUA + " kills");
-			if(!(sender.hasPermission("rank.staff"))){
-				sender.sendMessage(ChatColor.BLUE + " Deaths until Raidable: " + this.getDtrColour() + JavaUtils.format(getDeathsUntilRaidable(false)) + ChatColor.GRAY + "/" + this.getMaximumDeathsUntilRaidable() + this.getRegenStatus().getSymbol());
-			}else{
-				Text dtr = new Text(ChatColor.BLUE + " Deaths until Raidable: " + this.getDtrColour() + JavaUtils.format(getDeathsUntilRaidable(false)) + ChatColor.GRAY + "/" + this.getMaximumDeathsUntilRaidable() + this.getRegenStatus().getSymbol() + ChatColor.GRAY + " (");
-=======
 				sender.sendMessage(ChatColor.YELLOW + " Announcement: " + ChatColor.LIGHT_PURPLE + this.announcement);
 			}
 		}
@@ -598,7 +560,6 @@ public class PlayerFaction
 				sender.sendMessage(ChatColor.YELLOW + " Deaths until Raidable: " + this.getDtrColour() + JavaUtils.format(getDeathsUntilRaidable(false)) + ChatColor.GRAY + "/" + this.getMaximumDeathsUntilRaidable() + this.getRegenStatus().getSymbol());
 			}else{
 				Text dtr = new Text(ChatColor.YELLOW + " Deaths until Raidable: " + this.getDtrColour() + JavaUtils.format(getDeathsUntilRaidable(false)) + ChatColor.GRAY + "/" + this.getMaximumDeathsUntilRaidable() + this.getRegenStatus().getSymbol() + ChatColor.GRAY + " (");
->>>>>>> origin/new
 				Text dtrUp = new Text(ChatColor.GREEN + "+1").setHoverText(ChatColor.GRAY + "Increase DTR").setClick(ClickAction.RUN_COMMAND, "/f setdtr " + ChatColor.stripColor(this.getDisplayName(sender) + " -i"));
 				Text line = new Text(ChatColor.GRAY + " | ");
 				Text dtrDown = new Text(ChatColor.RED + "-1").setHoverText(ChatColor.GRAY + "Decrease DTR").setClick(ClickAction.RUN_COMMAND, "/f setdtr " + ChatColor.stripColor(this.getDisplayName(sender) + " -d"));
@@ -623,11 +584,7 @@ public class PlayerFaction
 		}
 
 
-<<<<<<< HEAD
-		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&9" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
-=======
 		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
->>>>>>> origin/new
 	}
 
 

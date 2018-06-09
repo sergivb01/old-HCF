@@ -2,11 +2,8 @@ package net.veilmc.hcf.kothgame;
 
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.kothgame.argument.*;
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.kothgame.argument.*;
->>>>>>> origin/new
 import net.veilmc.hcf.kothgame.argument.*;
 import net.veilmc.hcf.palace.EventSetCapzone;
 import net.veilmc.util.command.ArgumentExecutor;

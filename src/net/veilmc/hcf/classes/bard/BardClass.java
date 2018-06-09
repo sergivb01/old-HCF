@@ -1,10 +1,7 @@
 package net.veilmc.hcf.classes.bard;
 
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.type.PlayerFaction;
->>>>>>> origin/new
 import net.minecraft.util.gnu.trove.map.TObjectLongMap;
 import net.minecraft.util.gnu.trove.map.hash.TObjectLongHashMap;
 import net.veilmc.hcf.HCF;
@@ -13,10 +10,7 @@ import net.veilmc.hcf.faction.type.PlayerFaction;
 import net.veilmc.util.chat.Lang;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-<<<<<<< HEAD
-=======
 import org.bukkit.Sound;
->>>>>>> origin/new
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -181,11 +175,8 @@ public class BardClass
 									continue;
 								}
 								this.bardRestorer.setRestoreEffect(target, bardEffect.clickable);
-<<<<<<< HEAD
-=======
 								target.sendMessage(ChatColor.translateAlternateColorCodes('&', "&a" + player.getName() + "&e has just given you &b" + Lang.fromPotionEffectType(bardEffect.clickable.getType()) + ' ' + (bardEffect.clickable.getAmplifier() + 1) + " Bard Buff."));
 								target.playSound(target.getLocation(), Sound.LEVEL_UP, 10, 1);
->>>>>>> origin/new
 							}
 						}
 					}

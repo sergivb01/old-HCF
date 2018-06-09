@@ -2,10 +2,7 @@ package net.veilmc.hcf.faction.event;
 
 import java.util.Collection;
 
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.faction.struct.ChatChannel;
->>>>>>> origin/new
 import net.veilmc.hcf.faction.FactionMember;
 import net.veilmc.hcf.faction.struct.ChatChannel;
 import org.bukkit.command.CommandSender;

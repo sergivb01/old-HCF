@@ -1,19 +1,13 @@
 package net.veilmc.hcf.utils;
 
 import net.veilmc.hcf.HCF;
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.HCF;
->>>>>>> origin/new
 import net.veilmc.util.chat.Text;
 
 import java.util.HashMap;
 import java.util.UUID;
 
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.HCF;
->>>>>>> origin/new
 import org.bukkit.entity.Player;
 
 public final class Message{

@@ -1,14 +1,9 @@
 package net.veilmc.hcf.balance;
 
-<<<<<<< HEAD
-import net.veilmc.base.BaseConstants;
-import net.veilmc.hcf.HCF;
-=======
 import net.veilmc.hcf.HCF;
 import net.veilmc.base.BaseConstants;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.utils.ConfigurationService;
->>>>>>> origin/new
 import net.veilmc.util.BukkitUtils;
 import net.veilmc.util.JavaUtils;
 import com.google.common.collect.ImmutableList;
@@ -63,15 +58,9 @@ public class EconomyCommand
 			return true;
 		}
 		UUID uuid = target.getUniqueId();
-<<<<<<< HEAD
-		int balance = this.plugin.getEconomyManager().getBalance(uuid);
-		if(args.length < 2 || !hasStaffPermission){
-			sender.sendMessage(ChatColor.YELLOW + (sender.equals(target) ? "Your balance" : new StringBuilder().append("Balance of ").append(target.getName()).toString()) + " is " + ChatColor.LIGHT_PURPLE + '$' + balance + ChatColor.YELLOW + '.');
-=======
 		String balance = this.plugin.getEconomyManager().getBalance(uuid) + "";
 		if(args.length < 2 || !hasStaffPermission){
 			sender.sendMessage(sender.equals(target) ? ConfigurationService.ECONOMY_YOUR_BALANCE.replace("%BALANCE%", balance) : ConfigurationService.ECONOMY_OTHERS_BALANCE.replace("%BALANCE%", balance).replace("%PLAYER%", target.getName()));
->>>>>>> origin/new
 			return true;
 		}
 		if(GIVE.contains(args[1].toLowerCase())){

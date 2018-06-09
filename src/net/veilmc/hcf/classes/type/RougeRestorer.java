@@ -1,11 +1,8 @@
 package net.veilmc.hcf.classes.type;
 
 import net.veilmc.hcf.HCF;
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.classes.event.PvpClassUnequipEvent;
 import net.veilmc.hcf.HCF;
->>>>>>> origin/new
 import net.veilmc.hcf.classes.bard.BardClass;
 import net.veilmc.hcf.classes.event.PvpClassUnequipEvent;
 import com.google.common.collect.HashBasedTable;

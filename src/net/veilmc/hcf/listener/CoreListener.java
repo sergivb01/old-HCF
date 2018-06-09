@@ -1,15 +1,10 @@
 package net.veilmc.hcf.listener;
 
 import net.veilmc.hcf.HCF;
-<<<<<<< HEAD
-import net.veilmc.hcf.faction.type.Faction;
-import net.veilmc.util.BukkitUtils;
-=======
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.util.BukkitUtils;
 import org.bukkit.Bukkit;
->>>>>>> origin/new
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -32,21 +27,6 @@ public class CoreListener
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-<<<<<<< HEAD
-	public void onPlayerJoinKit(PlayerJoinEvent event){
-		Player p = event.getPlayer();
-		p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
-		p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&f&l⨠ &9Welcome &f" + p.getName() + " &9to VeilMC"));
-		p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7 ⨠ &9Support: &fts.veilhcf.us"));
-		p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7 ⨠ &9Website: &fveilhcf.us"));
-		p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7 ⨠ &9Mapkit: &fProt: " + this.plugin.getConfig().get("enchant-limits.PROTECTION_ENVIRONMENTAL") + " &fSharp: " + this.plugin.getConfig().get("enchant-limits.DAMAGE_ALL")));
-		p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7 ⨠ &9Faction: &f" + this.plugin.getConfig().get("faction-settings.max-players") + " Members &9/ &f" + (this.plugin.getConfig().get("faction-settings.max-allies").toString().equalsIgnoreCase("0") ? "No" : this.plugin.getConfig().get("faction-settings.max-allies")) + " Allies"));
-		p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
-	}
-
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-=======
->>>>>>> origin/new
 	public void onCreatureSpawn(CreatureSpawnEvent event){
 		CreatureSpawnEvent.SpawnReason reason = event.getSpawnReason();
 		if(reason == CreatureSpawnEvent.SpawnReason.SLIME_SPLIT){ // allow slimes to always split

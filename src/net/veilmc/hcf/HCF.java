@@ -2,8 +2,6 @@ package net.veilmc.hcf;
 
 import com.google.common.base.Joiner;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
-<<<<<<< HEAD
-=======
 import jdk.nashorn.internal.objects.annotations.Getter;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
@@ -14,7 +12,6 @@ import net.veilmc.hcf.timer.TimerManager;
 import net.veilmc.hcf.user.FactionUser;
 import net.veilmc.hcf.user.PlayerManager;
 import net.veilmc.hcf.user.UserManager;
->>>>>>> origin/new
 import net.veilmc.base.BasePlugin;
 import net.veilmc.base.ServerHandler;
 import net.veilmc.hcf.balance.*;
@@ -58,17 +55,8 @@ import net.veilmc.hcf.command.lives.LivesExecutor;
 import net.veilmc.hcf.scoreboard.ScoreboardHandler;
 import net.veilmc.hcf.command.spawn.SpawnCommand;
 import net.veilmc.hcf.command.spawn.TokenExecutor;
-<<<<<<< HEAD
-import net.veilmc.hcf.tab.TabListener;
-import net.veilmc.hcf.timer.TimerExecutor;
-import net.veilmc.hcf.timer.TimerManager;
-import net.veilmc.hcf.timer.type.SotwTimer;
-import net.veilmc.hcf.user.FactionUser;
-import net.veilmc.hcf.user.UserManager;
-=======
 import net.veilmc.hcf.timer.TimerExecutor;
 import net.veilmc.hcf.timer.type.SotwTimer;
->>>>>>> origin/new
 import net.veilmc.hcf.utils.*;
 import net.veilmc.hcf.visualise.ProtocolLibHook;
 import net.veilmc.hcf.visualise.VisualiseHandler;
@@ -79,22 +67,14 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.entity.Player;
-<<<<<<< HEAD
-import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.PluginManager;
-=======
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
->>>>>>> origin/new
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
-<<<<<<< HEAD
-=======
 import java.util.logging.Logger;
->>>>>>> origin/new
 import java.util.stream.Collectors;
 
 
@@ -127,8 +107,6 @@ public class HCF extends JavaPlugin{
 	private VisualiseHandler visualiseHandler;
 	private String armor;
 
-<<<<<<< HEAD
-=======
 	private static final Logger log = Logger.getLogger("Minecraft");
 
 	private static Permission perms = null;
@@ -146,7 +124,6 @@ public class HCF extends JavaPlugin{
 	private int port;
 
 
->>>>>>> origin/new
 	public static HCF getPlugin(){
 		return plugin;
 	}
@@ -168,14 +145,6 @@ public class HCF extends JavaPlugin{
 
 	private void registerGames(){
 		eventGames.addAll(getFactionManager().getFactions().stream().filter(faction -> faction instanceof KothFaction).map(Faction::getName).collect(Collectors.toList()));
-<<<<<<< HEAD
-		eventGames.forEach(System.out::print);
-	}
-
-	public void onEnable(){
-		plugin = this;
-
-=======
 		if(!(eventGames.isEmpty())){
 			eventGames.forEach(System.out::print);
 		}
@@ -190,7 +159,6 @@ public class HCF extends JavaPlugin{
 		plugin = this;
 
 
->>>>>>> origin/new
 		CustomEntityRegistration.registerCustomEntities();
 		ProtocolLibHook.hook(this);
 
@@ -201,12 +169,7 @@ public class HCF extends JavaPlugin{
 		PotionLimiterData.getInstance().setup(this);
 		PotionLimitListener.reload();
 
-<<<<<<< HEAD
-		Plugin wep = Bukkit.getPluginManager().getPlugin("WorldEdit");
-		this.worldEdit = wep instanceof WorldEditPlugin && wep.isEnabled() ? (WorldEditPlugin) wep : null;
-=======
 		this.worldEdit = Bukkit.getPluginManager().getPlugin("WorldEdit") instanceof WorldEditPlugin && Bukkit.getPluginManager().getPlugin("WorldEdit").isEnabled() ? (WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit") : null;
->>>>>>> origin/new
 
 		this.registerConfiguration();
 		this.registerCommands();
@@ -220,45 +183,13 @@ public class HCF extends JavaPlugin{
 		Cooldowns.createCooldown("report_cooldown");
 		Cooldowns.createCooldown("helpop_cooldown");
 
-<<<<<<< HEAD
-		this.scoreboardTitle = Chat.translateColors(getConfig().getString("scoreboard.title"));
-		this.armor = Chat.translateColors(getConfig().getString("scoreboard.active-class"));
-=======
 		this.scoreboardTitle = ChatUtil.translateColors(getConfig().getString("scoreboard.title"));
 		this.armor = ChatUtil.translateColors(getConfig().getString("scoreboard.active-class"));
->>>>>>> origin/new
 
 		this.timerManager.enable();
 
 		registerGames();
 
-<<<<<<< HEAD
-		Bukkit.getConsoleSender().sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
-		Bukkit.getConsoleSender().sendMessage("");
-		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&e[" + HCF.getPlugin().getDescription().getName() + "] Plugin loaded!"));
-		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&e[" + HCF.getPlugin().getDescription().getName() + "] &eVersion: " + HCF.getPlugin().getDescription().getVersion()));
-		Bukkit.getConsoleSender().sendMessage("");
-		Bukkit.getConsoleSender().sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
-
-
-		if(ConfigurationService.DEV){
-			Bukkit.getPluginManager().registerEvents(new TabListener(this), this);
-			for(int i = 0; i < 10; i++){
-				getLogger().warning("SERVER HAS BEEN LOADED AS DEV VERSION! PLUGIN MAY NOT BE STABLE!");
-			}
-		}
-
-
-		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
-			List<String> donors = new ArrayList<>();
-			Bukkit.getOnlinePlayers().stream().filter(player -> player.hasPermission("vip.broadcast") && !player.isOp() && !player.hasPermission("*")).forEach(player -> donors.add(player.getDisplayName()));
-
-			HCF.getInstance().getConfig().getStringList("online-medics").forEach(s ->
-					Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', s.replace("%LINE%", BukkitUtils.STRAIGHT_LINE_DEFAULT + "")
-							.replace("%MEDICS%", donors.isEmpty() ?
-									"&cNone" :
-									donors.toString().replace("[", "").replace("]", "")))));
-=======
 		Bukkit.getConsoleSender().sendMessage("");
 		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&7----------------[&3*'&bOpulent&3'*]----------------"));
 		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&7| - &bVersion: &f" + HCF.getPlugin().getDescription().getVersion()));
@@ -276,7 +207,6 @@ public class HCF extends JavaPlugin{
 									donors.toString()
 											.replace("[", "")
 											.replace("]", "")))));
->>>>>>> origin/new
 
 		}, 15 * 20L, (10 * 60) * 20L);
 
@@ -286,11 +216,7 @@ public class HCF extends JavaPlugin{
 				world.setThundering(false);
 				world.setStorm(false);
 			});
-<<<<<<< HEAD
-			Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "save-all");
-=======
 
->>>>>>> origin/new
 			saveData();
 			Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&6&lAutoSave &eTask was completed."));
 		}, 10 * 20L, (60 * 15) * 20L);
@@ -303,18 +229,6 @@ public class HCF extends JavaPlugin{
 	}
 
 	public void startNewKoth(int seconds){
-<<<<<<< HEAD
-		this.getLogger().info("Starting koth in " + seconds + " seconds. (" + getNextGame() + ")");
-		NEXT_KOTH = System.currentTimeMillis() + (seconds * 1000);
-		new BukkitRunnable(){
-			public void run(){
-				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "event start " + getNextGame());
-				NEXT_KOTH = -1;
-			}
-		}.runTaskLater(this, 20L * seconds);
-	}
-
-=======
 		if(eventGames.isEmpty()){
 			Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&e[" + HCF.getPlugin().getDescription().getName() + "] &cCould not find any events to automatically start."));
 			Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&e[" + HCF.getPlugin().getDescription().getName() + "] &cRegister KOTHs and restart server to enable this feature."));
@@ -332,7 +246,6 @@ public class HCF extends JavaPlugin{
 	}
 
 
->>>>>>> origin/new
 	public void rotateGames(){
 		this.getLogger().info("Game list was rotated.");
 		Collections.rotate(eventGames, -1);
@@ -342,13 +255,6 @@ public class HCF extends JavaPlugin{
 		return eventGames.get(0);
 	}
 
-<<<<<<< HEAD
-	public void saveData(){
-		BasePlugin.getPlugin().getServerHandler().saveServerData(); //Base data
-
-		Bukkit.getOnlinePlayers().forEach(Player::saveData);//Save data
-
-=======
 
 
 
@@ -356,7 +262,6 @@ public class HCF extends JavaPlugin{
 		Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "save-all");
 		BasePlugin.getPlugin().getServerHandler().saveServerData(); //Base data
 		Bukkit.getOnlinePlayers().forEach(Player::saveData);//Save data
->>>>>>> origin/new
 		this.deathbanManager.saveDeathbanData(); //Deathbans
 		this.economyManager.saveEconomyData(); //Balance
 		this.factionManager.saveFactionData(); //Factions
@@ -401,10 +306,7 @@ public class HCF extends JavaPlugin{
 		ConfigurationSerialization.registerClass(GlowstoneFaction.class);
 	}
 
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/new
 	private void registerListeners(){
 		PluginManager manager = this.getServer().getPluginManager();
 		manager.registerEvents(new PotionLimitListener(), this);
@@ -475,15 +377,10 @@ public class HCF extends JavaPlugin{
 		manager.registerEvents(new CobbleCommand(), this);
 	}
 
-<<<<<<< HEAD
-	private void registerCommands(){
-		this.getCommand("permissions").setExecutor(new PermissionsCommand(this));
-=======
 
 	private void registerCommands(){
 		this.getCommand("permissions").setExecutor(new PermissionsCommand(this));
 		this.getCommand("reclaim").setExecutor(new ReclaimCommand(this));
->>>>>>> origin/new
 		this.getCommand("platinum").setExecutor(new PlatinumReviveCommand(this));
 		this.getCommand("teamspeak").setExecutor(new TeamspeakCommand());
 		this.getCommand("supplydrop").setExecutor(new SupplydropCommand(this));
@@ -497,10 +394,6 @@ public class HCF extends JavaPlugin{
 		this.getCommand("sendcoords").setExecutor(new SendCoordsCommand(this));
 		this.getCommand("spawner").setExecutor(new SpawnerCommand(this));
 		this.getCommand("sotw").setExecutor(new SotwCommand(this));
-<<<<<<< HEAD
-		this.getCommand("dinfo").setExecutor(new DInfoCommand(this));
-=======
->>>>>>> origin/new
 		this.getCommand("conquest").setExecutor(new ConquestExecutor(this));
 		this.getCommand("crowbar").setExecutor(new CrowbarCommand());
 		this.getCommand("economy").setExecutor(new EconomyCommand(this));
@@ -521,10 +414,6 @@ public class HCF extends JavaPlugin{
 		this.getCommand("mapkit").setExecutor(new MapKitCommand(this));
 		this.getCommand("pay").setExecutor(new PayCommand(this));
 		this.getCommand("pvptimer").setExecutor(new PvpTimerCommand(this));
-<<<<<<< HEAD
-		this.getCommand("refund").setExecutor(new RefundCommand());
-=======
->>>>>>> origin/new
 		this.getCommand("coords").setExecutor(new CoordsCommand(this));
 		this.getCommand("servertime").setExecutor(new ServerTimeCommand());
 		this.getCommand("spawn").setExecutor(new SpawnCommand(this));
@@ -534,18 +423,11 @@ public class HCF extends JavaPlugin{
 		this.getCommand("setborder").setExecutor(new SetBorderCommand());
 		this.getCommand("loot").setExecutor(new LootExecutor(this));
 		this.getCommand("safestop").setExecutor(new SafestopCommand());
-<<<<<<< HEAD
-		this.getCommand("staffrevive").setExecutor(new StaffReviveCommand(this));
-=======
->>>>>>> origin/new
 		this.getCommand("nether").setExecutor(new NetherCommand(this));
 		this.getCommand("cobble").setExecutor(new CobbleCommand());
 		this.getCommand("ores").setExecutor(new OresCommand());
 		this.getCommand("crowgive").setExecutor(new CrowbarGiveCommand());
-<<<<<<< HEAD
-=======
 		this.getCommand("user").setExecutor(new UserCommand(this));
->>>>>>> origin/new
 		final Map<String, Map<String, Object>> map = this.getDescription().getCommands();
 
 		for(final Map.Entry<String, Map<String, Object>> entry : map.entrySet()){
@@ -560,10 +442,6 @@ public class HCF extends JavaPlugin{
 		this.deathbanManager = new FlatFileDeathbanManager(this);
 		this.economyManager = new FlatFileEconomyManager(this);
 		this.eotwHandler = new EOTWHandler(this);
-<<<<<<< HEAD
-		this.eventScheduler = new EventScheduler(this);
-=======
->>>>>>> origin/new
 		this.factionManager = new FlatFileFactionManager(this);
 		this.pvpClassManager = new PvpClassManager(this);
 		this.timerManager = new TimerManager(this);
@@ -575,11 +453,8 @@ public class HCF extends JavaPlugin{
 		this.message = new Message(this);
 	}
 
-<<<<<<< HEAD
-=======
 
 
->>>>>>> origin/new
 	public Message getMessage(){
 		return this.message;
 	}
@@ -652,8 +527,6 @@ public class HCF extends JavaPlugin{
 		long duration = NEXT_KOTH - System.currentTimeMillis();
 		return org.apache.commons.lang.time.DurationFormatUtils.formatDuration(duration, (duration >= HOUR ? "HH:" : "") + "mm:ss");
 	}
-<<<<<<< HEAD
-=======
 
 
 
@@ -693,5 +566,4 @@ public class HCF extends JavaPlugin{
 	}
 
 
->>>>>>> origin/new
 }

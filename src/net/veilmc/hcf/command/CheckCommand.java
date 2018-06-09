@@ -2,10 +2,7 @@ package net.veilmc.hcf.command;
 
 import litebans.api.Database;
 import net.veilmc.hcf.HCF;
-<<<<<<< HEAD
-=======
 import net.veilmc.hcf.HCF;
->>>>>>> origin/new
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -136,11 +133,7 @@ public class CheckCommand implements Listener, CommandExecutor{
 		}
 		OfflinePlayer target = Bukkit.getPlayer(args[0]);
 
-<<<<<<< HEAD
-		((Player) sender).openInventory(getBanMenu(target));
-=======
 		((Player) sender).openInventory(getMenu(target.getPlayer()));
->>>>>>> origin/new
 		return true;
 	}
 
