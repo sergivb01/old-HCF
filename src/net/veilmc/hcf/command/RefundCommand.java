@@ -1,5 +1,9 @@
 package net.veilmc.hcf.command;
 
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.listener.DeathListener;
+>>>>>>> origin/new
 import net.md_5.bungee.api.ChatColor;
 import net.veilmc.hcf.listener.DeathListener;
 import org.apache.commons.lang3.StringUtils;

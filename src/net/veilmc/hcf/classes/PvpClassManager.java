@@ -7,6 +7,16 @@ import net.veilmc.hcf.classes.event.PvpClassEquipEvent;
 import net.veilmc.hcf.classes.event.PvpClassUnequipEvent;
 import net.veilmc.hcf.classes.type.MinerClass;
 import net.veilmc.hcf.classes.type.RogueClass;
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.HCF;
+import net.veilmc.hcf.classes.archer.ArcherClass;
+import net.veilmc.hcf.classes.bard.BardClass;
+import net.veilmc.hcf.classes.event.PvpClassEquipEvent;
+import net.veilmc.hcf.classes.event.PvpClassUnequipEvent;
+import net.veilmc.hcf.classes.type.MinerClass;
+import net.veilmc.hcf.classes.type.RogueClass;
+>>>>>>> origin/new
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;

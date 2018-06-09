@@ -5,6 +5,14 @@ import net.veilmc.hcf.kothgame.koth.argument.KothNextArgument;
 import net.veilmc.hcf.kothgame.koth.argument.KothScheduleArgument;
 import net.veilmc.hcf.kothgame.koth.argument.KothSetCapDelayArgument;
 import net.veilmc.hcf.kothgame.koth.argument.KothShowArgument;
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.HCF;
+import net.veilmc.hcf.kothgame.koth.argument.KothNextArgument;
+import net.veilmc.hcf.kothgame.koth.argument.KothScheduleArgument;
+import net.veilmc.hcf.kothgame.koth.argument.KothSetCapDelayArgument;
+import net.veilmc.hcf.kothgame.koth.argument.KothShowArgument;
+>>>>>>> origin/new
 import net.veilmc.util.command.ArgumentExecutor;
 import net.veilmc.util.command.CommandArgument;
 

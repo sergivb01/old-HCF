@@ -1,5 +1,17 @@
 package net.veilmc.hcf.timer.type;
 
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.HCF;
+import net.veilmc.hcf.faction.event.PlayerClaimEnterEvent;
+import net.veilmc.hcf.faction.event.PlayerJoinFactionEvent;
+import net.veilmc.hcf.faction.event.PlayerLeaveFactionEvent;
+import net.veilmc.hcf.timer.PlayerTimer;
+import net.veilmc.hcf.timer.event.TimerClearEvent;
+import net.veilmc.hcf.timer.event.TimerStartEvent;
+import net.veilmc.hcf.utils.ConfigurationService;
+import net.veilmc.hcf.visualise.VisualType;
+>>>>>>> origin/new
 import net.veilmc.base.kit.event.KitApplyEvent;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.utils.ConfigurationService;
@@ -12,6 +24,18 @@ import net.veilmc.hcf.timer.event.TimerStartEvent;
 import net.veilmc.hcf.visualise.VisualType;
 import net.veilmc.util.BukkitUtils;
 import com.google.common.base.Optional;
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.HCF;
+import net.veilmc.hcf.faction.event.PlayerClaimEnterEvent;
+import net.veilmc.hcf.faction.event.PlayerJoinFactionEvent;
+import net.veilmc.hcf.faction.event.PlayerLeaveFactionEvent;
+import net.veilmc.hcf.timer.PlayerTimer;
+import net.veilmc.hcf.timer.event.TimerClearEvent;
+import net.veilmc.hcf.timer.event.TimerStartEvent;
+import net.veilmc.hcf.utils.ConfigurationService;
+import net.veilmc.hcf.visualise.VisualType;
+>>>>>>> origin/new
 import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

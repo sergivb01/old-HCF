@@ -1,5 +1,12 @@
 package net.veilmc.hcf.timer.type;
 
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.HCF;
+import net.veilmc.hcf.utils.ConfigurationService;
+import net.veilmc.hcf.utils.ConfigurationService;
+import net.veilmc.hcf.HCF;
+>>>>>>> origin/new
 import net.veilmc.hcf.utils.ConfigurationService;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;

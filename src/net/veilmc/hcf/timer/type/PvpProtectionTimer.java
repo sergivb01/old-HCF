@@ -1,6 +1,25 @@
 package net.veilmc.hcf.timer.type;
 
 import net.veilmc.hcf.HCF;
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.faction.claim.Claim;
+import net.veilmc.hcf.faction.event.FactionClaimChangedEvent;
+import net.veilmc.hcf.faction.event.PlayerClaimEnterEvent;
+import net.veilmc.hcf.faction.event.cause.ClaimChangeCause;
+import net.veilmc.hcf.faction.type.ClaimableFaction;
+import net.veilmc.hcf.faction.type.Faction;
+import net.veilmc.hcf.faction.type.PlayerFaction;
+import net.veilmc.hcf.faction.type.RoadFaction;
+import net.veilmc.hcf.timer.PlayerTimer;
+import net.veilmc.hcf.timer.TimerRunnable;
+import net.veilmc.hcf.timer.event.TimerClearEvent;
+import net.veilmc.hcf.timer.event.TimerStartEvent;
+import net.veilmc.hcf.utils.ConfigurationService;
+import net.veilmc.hcf.utils.DurationFormatter;
+import net.veilmc.hcf.visualise.VisualType;
+import net.veilmc.hcf.HCF;
+>>>>>>> origin/new
 import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.hcf.utils.DurationFormatter;
 import net.veilmc.hcf.faction.claim.Claim;
@@ -20,6 +39,25 @@ import net.veilmc.util.BukkitUtils;
 import net.veilmc.util.Config;
 import com.google.common.base.Optional;
 import net.minecraft.util.com.google.common.cache.CacheBuilder;
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.HCF;
+import net.veilmc.hcf.faction.claim.Claim;
+import net.veilmc.hcf.faction.event.FactionClaimChangedEvent;
+import net.veilmc.hcf.faction.event.PlayerClaimEnterEvent;
+import net.veilmc.hcf.faction.event.cause.ClaimChangeCause;
+import net.veilmc.hcf.faction.type.ClaimableFaction;
+import net.veilmc.hcf.faction.type.Faction;
+import net.veilmc.hcf.faction.type.PlayerFaction;
+import net.veilmc.hcf.faction.type.RoadFaction;
+import net.veilmc.hcf.timer.PlayerTimer;
+import net.veilmc.hcf.timer.TimerRunnable;
+import net.veilmc.hcf.timer.event.TimerClearEvent;
+import net.veilmc.hcf.timer.event.TimerStartEvent;
+import net.veilmc.hcf.utils.ConfigurationService;
+import net.veilmc.hcf.utils.DurationFormatter;
+import net.veilmc.hcf.visualise.VisualType;
+>>>>>>> origin/new
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -120,7 +158,11 @@ public class PvpProtectionTimer extends PlayerTimer implements Listener{
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onPlayerRespawn(PlayerRespawnEvent event){
+<<<<<<< HEAD
 		if(ConfigurationService.KIT_MAP || ConfigurationService.VEILZ){
+=======
+		if(ConfigurationService.KIT_MAP){
+>>>>>>> origin/new
 			return;
 		}
 		Player player = event.getPlayer();
@@ -132,7 +174,11 @@ public class PvpProtectionTimer extends PlayerTimer implements Listener{
 
 	@EventHandler
 	public void onTimer(TimerStartEvent e){
+<<<<<<< HEAD
 		if(ConfigurationService.KIT_MAP || ConfigurationService.VEILZ){
+=======
+		if(ConfigurationService.KIT_MAP){
+>>>>>>> origin/new
 			if(e.getTimer() instanceof PvpProtectionTimer){
 				this.plugin.getTimerManager().pvpProtectionTimer.clearCooldown(e.getUserUUID().get());
 			}
@@ -141,7 +187,11 @@ public class PvpProtectionTimer extends PlayerTimer implements Listener{
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onPlayerDeath(final PlayerDeathEvent event){
+<<<<<<< HEAD
 		if(ConfigurationService.KIT_MAP || ConfigurationService.VEILZ){
+=======
+		if(ConfigurationService.KIT_MAP){
+>>>>>>> origin/new
 			return;
 		}
 		final Player player = event.getEntity();
@@ -214,7 +264,11 @@ public class PvpProtectionTimer extends PlayerTimer implements Listener{
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onPlayerSpawnLocation(final PlayerSpawnLocationEvent event){
 		final Player player = event.getPlayer();
+<<<<<<< HEAD
 		if(!player.hasPlayedBefore() && (!ConfigurationService.KIT_MAP && !ConfigurationService.VEILZ)){
+=======
+		if(!player.hasPlayedBefore() && (!ConfigurationService.KIT_MAP)){
+>>>>>>> origin/new
 			if(!this.plugin.getEotwHandler().isEndOfTheWorld() && this.legible.add(player.getUniqueId())){
 				player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cYou now have PvP Protection since you have died."));
 			}

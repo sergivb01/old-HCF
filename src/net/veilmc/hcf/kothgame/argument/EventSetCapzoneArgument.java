@@ -1,6 +1,10 @@
 package net.veilmc.hcf.kothgame.argument;
 
 import net.veilmc.hcf.HCF;
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.HCF;
+>>>>>>> origin/new
 import net.veilmc.hcf.faction.FactionManager;
 import net.veilmc.hcf.faction.claim.Claim;
 import net.veilmc.hcf.faction.type.Faction;

@@ -1,8 +1,15 @@
 package net.veilmc.hcf.listener;
 
 import net.veilmc.hcf.HCF;
+<<<<<<< HEAD
 import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.util.BukkitUtils;
+=======
+import net.veilmc.hcf.HCF;
+import net.veilmc.hcf.faction.type.Faction;
+import net.veilmc.util.BukkitUtils;
+import org.bukkit.Bukkit;
+>>>>>>> origin/new
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -25,6 +32,7 @@ public class CoreListener
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
+<<<<<<< HEAD
 	public void onPlayerJoinKit(PlayerJoinEvent event){
 		Player p = event.getPlayer();
 		p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
@@ -37,6 +45,8 @@ public class CoreListener
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
+=======
+>>>>>>> origin/new
 	public void onCreatureSpawn(CreatureSpawnEvent event){
 		CreatureSpawnEvent.SpawnReason reason = event.getSpawnReason();
 		if(reason == CreatureSpawnEvent.SpawnReason.SLIME_SPLIT){ // allow slimes to always split

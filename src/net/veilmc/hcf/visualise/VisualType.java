@@ -2,6 +2,10 @@ package net.veilmc.hcf.visualise;
 
 import java.util.ArrayList;
 
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.HCF;
+>>>>>>> origin/new
 import org.bukkit.DyeColor;
 import org.bukkit.Location;
 import org.bukkit.Material;

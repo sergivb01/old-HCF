@@ -21,6 +21,10 @@ public final class ConfigurationService{
 	public static int SPAWNER_PRICE = 40000;
 
 	public static String TEAMSPEAK_IP;
+<<<<<<< HEAD
+=======
+	public static String SERVER_NAME;
+>>>>>>> origin/new
 
 	public static ChatColor TEAMMATE_COLOUR;
 	public static ChatColor ALLY_COLOUR;
@@ -57,6 +61,19 @@ public final class ConfigurationService{
 	public static String LOGOUT_STARTED;
 	public static String LOGOUT_DISCONNECT;
 
+<<<<<<< HEAD
+=======
+	public static Boolean MONGO_ENABLED;
+	public static String MONGO_HOST;
+	public static String MONGO_PORT;
+	public static String MONGO_USERNAME;
+	public static String MONGO_PASSWORD;
+	public static String MONGO_DATABASE;
+
+	public static String ECONOMY_YOUR_BALANCE;
+	public static String ECONOMY_OTHERS_BALANCE;
+
+>>>>>>> origin/new
 	public static String ENDERPEARL_TIMER;
 	public static ChatColor ENDERPEARL_COLOUR;
 	public static String ARCHER_TIMER;
@@ -95,6 +112,10 @@ public final class ConfigurationService{
 	public static String DEATHBANNED_USE_A_LIFE;
 	public static String DEATHBANNED_EOTW_ENTIRE;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/new
 	public static String END_CANNOT_BUILD;
 	public static String WORLD_CANNOT_BUILD;
 	public static String FAILED_PEARL;
@@ -118,7 +139,10 @@ public final class ConfigurationService{
     public static String PVPTIMER_STARTED;*/
 
 	public static boolean KIT_MAP;
+<<<<<<< HEAD
 	public static boolean VEILZ;
+=======
+>>>>>>> origin/new
 	public static boolean DEV;
 
 	public static long VEILZ_REGEN;
@@ -132,10 +156,23 @@ public final class ConfigurationService{
 	public static void init(FileConfiguration config){
 
 		KIT_MAP = config.getBoolean("kit-map");
+<<<<<<< HEAD
 		VEILZ = config.getBoolean("veilz");
 		DEV = config.getBoolean("dev", false);
 		TAB = config.getBoolean("tab");
 
+=======
+		DEV = config.getBoolean("dev", false);
+		TAB = config.getBoolean("tab");
+
+		MONGO_ENABLED = config.getBoolean("mongo.enabled", false);
+		MONGO_HOST = config.getString("mongo.host", "127.0.0.1");
+		MONGO_PORT = config.getString("mongo.port", "123");
+		MONGO_USERNAME = config.getString("mongo.username", "username");
+		MONGO_PASSWORD = config.getString("mongo.password", "password");
+		MONGO_DATABASE = config.getString("mongo.database", "database");
+
+>>>>>>> origin/new
 		TEAMSPEAK_IP = config.getString("server-info.teamspeak");
 
 		WARZONE_RADIUS = config.getInt("warzone");
@@ -175,10 +212,13 @@ public final class ConfigurationService{
 
 		DEFAULT_DEATHBAN_DURATION = TimeUnit.MINUTES.toMillis(config.getInt("deathban-time", 120));
 
+<<<<<<< HEAD
 
 		VEILZ_REGEN = TimeUnit.MINUTES.toMillis(config.getInt("veilz-options.regen", 5));
 
 
+=======
+>>>>>>> origin/new
 		TEAMMATE_COLOUR = ChatColor.getByChar(config.getString("faction-settings.colors.teammate", "&2").replace("&", "").trim());
 		ALLY_COLOUR = ChatColor.getByChar(config.getString("faction-settings.colors.ally", "&3").replace("&", "").trim());
 		ENEMY_COLOUR = ChatColor.getByChar(config.getString("faction-settings.colors.enemy", "&c").replace("&", "").trim());
@@ -195,6 +235,11 @@ public final class ConfigurationService{
 
 		CRATE_BROADCASTS = false;
 
+<<<<<<< HEAD
+=======
+		SERVER_NAME = config.getString("server-name", "HCF");
+
+>>>>>>> origin/new
 		COBBLE_ENABLED = ChatColor.translateAlternateColorCodes('&', config.getString("messages.cobble-enabled"));
 		COBBLE_DISABLED = ChatColor.translateAlternateColorCodes('&', config.getString("messages.cobble-disabled"));
 
@@ -214,6 +259,12 @@ public final class ConfigurationService{
 		STILL_DEATHBANNED = ChatColor.translateAlternateColorCodes('&', config.getString("messages.still-deathbanned"));
 		DEATHBANNED_EOTW_ENTIRE = ChatColor.translateAlternateColorCodes('&', config.getString("messages.deathbanned-eotw-entire"));
 
+<<<<<<< HEAD
+=======
+		ECONOMY_YOUR_BALANCE = ChatColor.translateAlternateColorCodes('&', config.getString("messages.economy.your-balance", "&eYour balance is &d%BALANCE%"));
+		ECONOMY_OTHERS_BALANCE = ChatColor.translateAlternateColorCodes('&', config.getString("messages.economy.others-balance", "&eBalance of &a%PLAYER%&e is &d%BALANCE%"));
+
+>>>>>>> origin/new
 		END_CANNOT_BUILD = ChatColor.translateAlternateColorCodes('&', config.getString("messages.end-cannot-build"));
 		WORLD_CANNOT_BUILD = ChatColor.translateAlternateColorCodes('&', config.getString("messages.world-cannot-build"));
 

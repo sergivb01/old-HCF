@@ -1,9 +1,17 @@
 package net.veilmc.hcf.faction.argument;
 
 import com.google.common.primitives.Ints;
+<<<<<<< HEAD
 import net.md_5.bungee.api.chat.*;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.type.PlayerFaction;
+=======
+import net.veilmc.hcf.HCF;
+import net.md_5.bungee.api.chat.*;
+import net.veilmc.hcf.HCF;
+import net.veilmc.hcf.faction.type.PlayerFaction;
+import net.veilmc.util.BukkitUtils;
+>>>>>>> origin/new
 import net.veilmc.util.MapSorting;
 import net.veilmc.util.command.CommandArgument;
 import org.bukkit.Bukkit;
@@ -13,6 +21,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
+<<<<<<< HEAD
+=======
+import java.text.DecimalFormat;
+>>>>>>> origin/new
 import java.util.*;
 
 public class FactionListArgument extends CommandArgument{
@@ -76,12 +88,22 @@ public class FactionListArgument extends CommandArgument{
 			if(results == null || results.size() >= 10){
 				pages.put(++currentPage, results = new ArrayList<>(10));
 			}
+<<<<<<< HEAD
+=======
+			DecimalFormat format = new DecimalFormat("##.##");
+>>>>>>> origin/new
 			final PlayerFaction playerFaction2 = entry.getKey();
 			final String displayName = playerFaction2.getName();
 			final int index = results.size() + ((currentPage > 1) ? ((currentPage - 1) * 10) : 0) + 1;
 			final ComponentBuilder builder = new ComponentBuilder("  " + index + ". ").color(net.md_5.bungee.api.ChatColor.GRAY);
+<<<<<<< HEAD
 			builder.append(ChatColor.AQUA + ChatColor.stripColor(displayName)).color(net.md_5.bungee.api.ChatColor.YELLOW).event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, '/' + label + " show " + playerFaction2.getName())).event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(net.md_5.bungee.api.ChatColor.BLUE + "Click to view " + displayName + ChatColor.GREEN + '.').create()));
 			builder.append(" (" + ChatColor.BLUE + entry.getValue() + '/' + playerFaction2.getMembers().size() + ")", ComponentBuilder.FormatRetention.FORMATTING).color(net.md_5.bungee.api.ChatColor.BLUE);
+=======
+			builder.append(ChatColor.YELLOW + ChatColor.stripColor(displayName)).color(net.md_5.bungee.api.ChatColor.YELLOW).event(new ClickEvent(ClickEvent.Action.RUN_COMMAND, '/' + label + " show " + playerFaction2.getName())).event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(net.md_5.bungee.api.ChatColor.GREEN + "Click to view " + displayName + ChatColor.GREEN + '.').create()));
+			builder.append(" (" + ChatColor.GRAY + entry.getValue() + '/' + playerFaction2.getMembers().size() + ")", ComponentBuilder.FormatRetention.FORMATTING).color(net.md_5.bungee.api.ChatColor.GRAY);
+			builder.append(" " + ChatColor.GRAY + "[" + playerFaction2.getDtrColour() + format.format(playerFaction2.getDeathsUntilRaidable()) + ChatColor.YELLOW + "/" + format.format(playerFaction2.getMaximumDeathsUntilRaidable()) + ChatColor.GRAY + "]");
+>>>>>>> origin/new
 			results.add(builder.create());
 		}
 		final int maxPages = pages.size();
@@ -89,8 +111,13 @@ public class FactionListArgument extends CommandArgument{
 			sender.sendMessage(ChatColor.RED + "There " + ((maxPages == 1) ? ("is only " + maxPages + " page") : "no factions to be displayed at this time") + ".");
 			return;
 		}
+<<<<<<< HEAD
 		sender.sendMessage(ChatColor.BLUE.toString() + ChatColor.STRIKETHROUGH + "----------------------------------------------------");
 		sender.sendMessage(ChatColor.AQUA.toString() + ChatColor.BOLD + " Faction List " + ChatColor.GRAY + "(Page " + pageNumber + " out of " + maxPages + " pages)");
+=======
+		sender.sendMessage(ChatColor.DARK_GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
+		sender.sendMessage(ChatColor.GOLD.toString() + ChatColor.BOLD + " Faction List " + ChatColor.GRAY + "(Page " + pageNumber + " out of " + maxPages + ")");
+>>>>>>> origin/new
 		final Player player = (Player) sender;
 		final Collection<BaseComponent[]> components = pages.get(pageNumber);
 		for(final BaseComponent[] component : components){
@@ -103,6 +130,11 @@ public class FactionListArgument extends CommandArgument{
 				sender.sendMessage(TextComponent.toPlainText(component));
 			}
 		}
+<<<<<<< HEAD
 		sender.sendMessage(ChatColor.AQUA + " Use " + ChatColor.WHITE + '/' + label + ' ' + this.getName() + " <#>" + ChatColor.AQUA + " to view the other pages.");
+=======
+		sender.sendMessage(ChatColor.YELLOW + " Use " + ChatColor.WHITE + '/' + label + ' ' + this.getName() + " <#>" + ChatColor.YELLOW + " to view the other pages.");
+		sender.sendMessage(ChatColor.DARK_GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
+>>>>>>> origin/new
 	}
 }

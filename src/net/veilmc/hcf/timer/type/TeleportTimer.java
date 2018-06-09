@@ -1,6 +1,15 @@
 package net.veilmc.hcf.timer.type;
 
 import net.veilmc.hcf.HCF;
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.faction.FactionManager;
+import net.veilmc.hcf.faction.type.Faction;
+import net.veilmc.hcf.timer.PlayerTimer;
+import net.veilmc.hcf.timer.TimerRunnable;
+import net.veilmc.hcf.utils.ConfigurationService;
+import net.veilmc.hcf.HCF;
+>>>>>>> origin/new
 import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.hcf.faction.FactionManager;
 import net.veilmc.hcf.faction.type.Faction;
@@ -13,6 +22,15 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.TimeUnit;
 
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.HCF;
+import net.veilmc.hcf.faction.FactionManager;
+import net.veilmc.hcf.faction.type.Faction;
+import net.veilmc.hcf.timer.PlayerTimer;
+import net.veilmc.hcf.timer.TimerRunnable;
+import net.veilmc.hcf.utils.ConfigurationService;
+>>>>>>> origin/new
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;

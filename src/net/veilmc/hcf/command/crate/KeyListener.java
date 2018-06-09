@@ -1,6 +1,10 @@
 package net.veilmc.hcf.command.crate;
 
 import net.veilmc.hcf.HCF;
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.HCF;
+>>>>>>> origin/new
 import net.veilmc.util.InventoryUtils;
 import net.veilmc.util.chat.Text;
 import net.veilmc.util.chat.TextUtils;

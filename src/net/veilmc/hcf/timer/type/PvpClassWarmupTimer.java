@@ -1,5 +1,13 @@
 package net.veilmc.hcf.timer.type;
 
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.HCF;
+import net.veilmc.hcf.classes.PvpClass;
+import net.veilmc.hcf.timer.PlayerTimer;
+import net.veilmc.hcf.timer.TimerRunnable;
+import net.veilmc.hcf.utils.ConfigurationService;
+>>>>>>> origin/new
 import net.minecraft.util.com.google.common.cache.CacheBuilder;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.classes.PvpClass;
@@ -7,6 +15,14 @@ import net.veilmc.hcf.timer.PlayerTimer;
 import net.veilmc.hcf.timer.TimerRunnable;
 import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.util.Config;
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.HCF;
+import net.veilmc.hcf.classes.PvpClass;
+import net.veilmc.hcf.timer.PlayerTimer;
+import net.veilmc.hcf.timer.TimerRunnable;
+import net.veilmc.hcf.utils.ConfigurationService;
+>>>>>>> origin/new
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.HumanEntity;

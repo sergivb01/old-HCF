@@ -1,6 +1,14 @@
 package net.veilmc.hcf.kothgame;
 
 import net.veilmc.hcf.HCF;
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.kothgame.faction.ConquestFaction;
+import net.veilmc.hcf.kothgame.faction.EventFaction;
+import net.veilmc.hcf.kothgame.faction.KothFaction;
+import net.veilmc.hcf.timer.GlobalTimer;
+import net.veilmc.hcf.HCF;
+>>>>>>> origin/new
 import net.veilmc.hcf.command.crate.Key;
 import net.veilmc.hcf.faction.event.CaptureZoneEnterEvent;
 import net.veilmc.hcf.faction.event.CaptureZoneLeaveEvent;
@@ -69,10 +77,17 @@ public class EventTimer
 				int day = now.getDayOfYear();
 				int hour = now.getHour();
 				int minute = now.getMinute();
+<<<<<<< HEAD
 				Iterator<Map.Entry<LocalDateTime, String>> iterator = plugin.eventScheduler.getScheduleMap().entrySet().iterator();
 				while(!(!iterator.hasNext() || day == (scheduledTime = (entry = iterator.next()).getKey()).getDayOfYear() && hour == scheduledTime.getHour() && minute == scheduledTime.getMinute() && (faction = plugin.getFactionManager().getFaction(entry.getValue())) instanceof EventFaction && EventTimer.this.tryContesting((EventFaction) faction, Bukkit.getConsoleSender()))){
 
 				}
+=======
+				//Iterator<Map.Entry<LocalDateTime, String>> iterator = plugin.eventScheduler.getScheduleMap().entrySet().iterator();
+				//while(!(!iterator.hasNext() || day == (scheduledTime = (entry = iterator.next()).getKey()).getDayOfYear() && hour == scheduledTime.getHour() && minute == scheduledTime.getMinute() && (faction = plugin.getFactionManager().getFaction(entry.getValue())) instanceof EventFaction && EventTimer.this.tryContesting((EventFaction) faction, Bukkit.getConsoleSender()))){
+
+			//	}
+>>>>>>> origin/new
 			}
 		}.runTaskTimer(plugin, 20, 20);
 	}

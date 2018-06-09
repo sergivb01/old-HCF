@@ -1,5 +1,9 @@
 package net.veilmc.hcf.faction.event;
 
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.faction.struct.Raidable;
+>>>>>>> origin/new
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;

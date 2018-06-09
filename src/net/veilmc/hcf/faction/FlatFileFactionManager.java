@@ -9,6 +9,17 @@ import net.veilmc.hcf.faction.struct.ChatChannel;
 import net.veilmc.hcf.faction.struct.Relation;
 import net.veilmc.hcf.faction.struct.Role;
 import net.veilmc.hcf.faction.type.*;
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.HCF;
+import net.veilmc.hcf.faction.claim.Claim;
+import net.veilmc.hcf.faction.event.*;
+import net.veilmc.hcf.faction.event.cause.ClaimChangeCause;
+import net.veilmc.hcf.faction.struct.ChatChannel;
+import net.veilmc.hcf.faction.struct.Relation;
+import net.veilmc.hcf.faction.struct.Role;
+import net.veilmc.hcf.faction.type.*;
+>>>>>>> origin/new
 import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.util.Config;
 import net.veilmc.util.JavaUtils;

@@ -1,5 +1,9 @@
 package net.veilmc.hcf.faction.event;
 
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.faction.event.cause.ClaimChangeCause;
+>>>>>>> origin/new
 import net.veilmc.hcf.faction.claim.Claim;
 import net.veilmc.hcf.faction.event.cause.ClaimChangeCause;
 import net.veilmc.hcf.faction.type.ClaimableFaction;

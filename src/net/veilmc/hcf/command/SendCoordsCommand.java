@@ -2,6 +2,11 @@ package net.veilmc.hcf.command;
 
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.type.PlayerFaction;
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.HCF;
+import net.veilmc.hcf.faction.type.PlayerFaction;
+>>>>>>> origin/new
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -42,7 +47,11 @@ public class SendCoordsCommand
 		}
 		PlayerFaction playerFaction = this.plugin.getFactionManager().getPlayerFaction(player.getUniqueId());
 		DecimalFormat df = new DecimalFormat("#");
+<<<<<<< HEAD
 		playerFaction.broadcast(ChatColor.translateAlternateColorCodes('&', "&a&lFACTION &eCoordinates of " + player.getName() + "&c " + df.format(player.getLocation().getX()) + ", " + df.format(player.getLocation().getY()) + ", " + df.format(player.getLocation().getZ())));
+=======
+		playerFaction.broadcast(ChatColor.translateAlternateColorCodes('&', "&eCoordinates of " + player.getName() + "&c " + df.format(player.getLocation().getX()) + ", " + df.format(player.getLocation().getY()) + ", " + df.format(player.getLocation().getZ())));
+>>>>>>> origin/new
 		return true;
 
 	}

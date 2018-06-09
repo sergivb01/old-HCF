@@ -1,6 +1,10 @@
 package net.veilmc.hcf.listener.fixes;
 
 import net.veilmc.hcf.HCF;
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.HCF;
+>>>>>>> origin/new
 import org.bukkit.event.Listener;
 
 public class AutoRespawnListener implements Listener{

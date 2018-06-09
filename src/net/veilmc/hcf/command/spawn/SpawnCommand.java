@@ -1,6 +1,10 @@
 package net.veilmc.hcf.command.spawn;
 
 import net.veilmc.hcf.HCF;
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.HCF;
+>>>>>>> origin/new
 import net.veilmc.hcf.utils.ConfigurationService;
 import org.bukkit.*;
 import org.bukkit.command.Command;
@@ -30,7 +34,11 @@ public class SpawnCommand
 			player.sendMessage(ChatColor.YELLOW + "You have been teleported to spawn.");
 			return true;
 		}
+<<<<<<< HEAD
 		if(ConfigurationService.KIT_MAP || ConfigurationService.VEILZ){
+=======
+		if(ConfigurationService.KIT_MAP){
+>>>>>>> origin/new
 			if(this.plugin.getTimerManager().spawnTagTimer.getRemaining(player) > 0L){
 				player.sendMessage(ChatColor.RED + "You can not do this while your " + ChatColor.BOLD + "Spawn Tag" + ChatColor.RED + " is active.");
 				return false;

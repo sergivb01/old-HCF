@@ -2,6 +2,10 @@ package net.veilmc.hcf.command;
 
 import com.google.common.collect.ImmutableList;
 import net.veilmc.hcf.HCF;
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.HCF;
+>>>>>>> origin/new
 import net.veilmc.hcf.timer.type.PvpProtectionTimer;
 import net.veilmc.util.BukkitUtils;
 import org.bukkit.ChatColor;

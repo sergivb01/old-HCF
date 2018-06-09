@@ -2,6 +2,10 @@ package net.veilmc.hcf.faction.argument.staff;
 
 import com.google.common.primitives.Doubles;
 import net.veilmc.hcf.HCF;
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.HCF;
+>>>>>>> origin/new
 import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.hcf.faction.type.PlayerFaction;
 import net.veilmc.hcf.utils.ConfigurationService;

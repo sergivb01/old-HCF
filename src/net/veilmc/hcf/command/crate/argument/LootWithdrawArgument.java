@@ -1,6 +1,10 @@
 package net.veilmc.hcf.command.crate.argument;
 
 import net.veilmc.hcf.HCF;
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.HCF;
+>>>>>>> origin/new
 import net.veilmc.hcf.command.crate.Key;
 import net.veilmc.util.command.CommandArgument;
 import com.google.common.primitives.Ints;

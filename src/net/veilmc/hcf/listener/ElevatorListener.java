@@ -1,6 +1,11 @@
 package net.veilmc.hcf.listener;
 
 import net.veilmc.hcf.HCF;
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.timer.PlayerTimer;
+import net.veilmc.hcf.HCF;
+>>>>>>> origin/new
 import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.hcf.faction.type.PlayerFaction;
 import net.veilmc.hcf.timer.PlayerTimer;
@@ -106,7 +111,11 @@ public class ElevatorListener implements Listener{
 		}
 		PlayerTimer timer = this.plugin.getTimerManager().spawnTagTimer;
 		long remaining = timer.getRemaining(player);
+<<<<<<< HEAD
 		if(((timer = this.plugin.getTimerManager().spawnTagTimer).getRemaining(player) > 0L) && (!ConfigurationService.KIT_MAP && !ConfigurationService.VEILZ)){
+=======
+		if(((timer = this.plugin.getTimerManager().spawnTagTimer).getRemaining(player) > 0L) && (!ConfigurationService.KIT_MAP)){
+>>>>>>> origin/new
 			player.sendMessage(ChatColor.RED + "You can not use this while your " + ChatColor.BOLD + "Spawn Tag" + ChatColor.RED + " is active.");
 			return false;
 

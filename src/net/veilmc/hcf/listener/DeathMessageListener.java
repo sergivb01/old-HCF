@@ -1,5 +1,12 @@
 package net.veilmc.hcf.listener;
 
+<<<<<<< HEAD
+=======
+import me.lucko.luckperms.LuckPerms;
+import me.lucko.luckperms.api.LuckPermsApi;
+import net.veilmc.base.BasePlugin;
+import net.veilmc.hcf.HCF;
+>>>>>>> origin/new
 import net.veilmc.hcf.HCF;
 import com.google.common.base.Preconditions;
 
@@ -19,7 +26,10 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+<<<<<<< HEAD
 import ru.tehkode.permissions.bukkit.PermissionsEx;
+=======
+>>>>>>> origin/new
 
 public class DeathMessageListener
 		implements Listener{
@@ -130,7 +140,12 @@ public class DeathMessageListener
 		Preconditions.checkNotNull((Object) entity, "Entity cannot be null");
 		if(entity instanceof Player){
 			Player player = (Player) entity;
+<<<<<<< HEAD
 			String rank = ChatColor.translateAlternateColorCodes('&', "&e" + PermissionsEx.getUser(player).getPrefix()).replace("_", " ");
+=======
+			//String rank = ChatColor.translateAlternateColorCodes('&', "&e" + PermissionsEx.getUser(player).getPrefix()).replace("_", " ");
+			String rank = ChatColor.translateAlternateColorCodes('&', "&e" + HCF.getChat().getPlayerPrefix(player).replace("_", " "));
+>>>>>>> origin/new
 			return rank + player.getName() + ChatColor.GOLD + '[' + ChatColor.WHITE + this.plugin.getUserManager().getUser(player.getUniqueId()).getKills() + ChatColor.GOLD + ']';
 		}
 		return WordUtils.capitalizeFully(entity.getType().name().replace('_', ' '));

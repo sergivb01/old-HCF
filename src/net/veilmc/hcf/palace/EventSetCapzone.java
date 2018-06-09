@@ -1,6 +1,18 @@
 package net.veilmc.hcf.palace;
 
 import net.veilmc.hcf.HCF;
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.faction.FactionManager;
+import net.veilmc.hcf.faction.claim.Claim;
+import net.veilmc.hcf.faction.type.Faction;
+import net.veilmc.hcf.kothgame.CaptureZone;
+import net.veilmc.hcf.kothgame.faction.CapturableFaction;
+import net.veilmc.hcf.kothgame.faction.ConquestFaction;
+import net.veilmc.hcf.kothgame.faction.EventFaction;
+import net.veilmc.hcf.kothgame.tracker.ConquestTracker;
+import net.veilmc.hcf.HCF;
+>>>>>>> origin/new
 import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.hcf.faction.FactionManager;
 import net.veilmc.hcf.faction.claim.Claim;

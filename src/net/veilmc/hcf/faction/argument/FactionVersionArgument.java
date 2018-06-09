@@ -1,6 +1,10 @@
 package net.veilmc.hcf.faction.argument;
 
 import net.veilmc.hcf.HCF;
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.HCF;
+>>>>>>> origin/new
 import net.veilmc.util.BukkitUtils;
 import net.veilmc.util.command.CommandArgument;
 import org.bukkit.ChatColor;
@@ -23,7 +27,12 @@ public class FactionVersionArgument
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
 		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
 		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&eThis server is running &6" + HCF.getPlugin().getDescription().getName() + "&e. Version: &6" + HCF.getPlugin().getDescription().getVersion()));
+<<<<<<< HEAD
 		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&eCreated for use on &6Veil Network &7(veilmc.net/veilhcf.us)"));
+=======
+		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&eVersion by: &6sergivb01 &eand &6ltd"));
+		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c&oThis version can be remotely disabled."));
+>>>>>>> origin/new
 		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8" + BukkitUtils.STRAIGHT_LINE_DEFAULT));
 		return true;
 	}

@@ -1,6 +1,12 @@
 package net.veilmc.hcf.faction.argument;
 
 import net.veilmc.hcf.HCF;
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.user.FactionUser;
+import net.veilmc.hcf.visualise.VisualType;
+import net.veilmc.hcf.HCF;
+>>>>>>> origin/new
 import net.veilmc.hcf.faction.LandMap;
 import net.veilmc.hcf.user.FactionUser;
 import net.veilmc.hcf.visualise.VisualType;

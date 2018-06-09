@@ -1,5 +1,10 @@
 package net.veilmc.hcf.kothgame.eotw;
 
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.HCF;
+import net.veilmc.hcf.listener.BorderListener;
+>>>>>>> origin/new
 import net.veilmc.base.ServerHandler;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.claim.Claim;

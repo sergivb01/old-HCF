@@ -2,6 +2,11 @@ package net.veilmc.hcf.command.crate;
 
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.command.crate.type.*;
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.HCF;
+import net.veilmc.hcf.command.crate.type.*;
+>>>>>>> origin/new
 import net.veilmc.util.Config;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Sets;

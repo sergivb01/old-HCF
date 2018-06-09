@@ -1,5 +1,10 @@
 package net.veilmc.hcf.command.lives;
 
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.HCF;
+import net.veilmc.hcf.command.lives.argument.*;
+>>>>>>> origin/new
 import net.veilmc.hcf.command.lives.argument.LivesClearDeathbansArgument;
 
 import net.veilmc.hcf.HCF;

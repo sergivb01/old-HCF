@@ -1,6 +1,10 @@
 package net.veilmc.hcf.faction.argument.staff;
 
 import net.veilmc.hcf.HCF;
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.HCF;
+>>>>>>> origin/new
 import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.util.command.CommandArgument;
 import com.google.common.primitives.Doubles;

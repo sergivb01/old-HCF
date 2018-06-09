@@ -3,6 +3,12 @@ package net.veilmc.hcf.faction;
 import net.veilmc.hcf.faction.claim.Claim;
 import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.hcf.faction.type.PlayerFaction;
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.faction.claim.Claim;
+import net.veilmc.hcf.faction.type.Faction;
+import net.veilmc.hcf.faction.type.PlayerFaction;
+>>>>>>> origin/new
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.Location;
 import org.bukkit.World;

@@ -3,6 +3,12 @@ package net.veilmc.hcf.command.death.argument;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.deathban.Deathban;
 import net.veilmc.hcf.user.FactionUser;
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.HCF;
+import net.veilmc.hcf.deathban.Deathban;
+import net.veilmc.hcf.user.FactionUser;
+>>>>>>> origin/new
 import net.veilmc.util.BukkitUtils;
 import net.veilmc.util.command.CommandArgument;
 import org.bukkit.Bukkit;

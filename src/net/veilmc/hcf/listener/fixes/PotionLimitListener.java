@@ -1,5 +1,9 @@
 package net.veilmc.hcf.listener.fixes;
 
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.HCF;
+>>>>>>> origin/new
 import net.md_5.bungee.api.ChatColor;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.config.PotionLimiterData;

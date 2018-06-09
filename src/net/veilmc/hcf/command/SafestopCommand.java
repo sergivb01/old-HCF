@@ -1,6 +1,10 @@
 package net.veilmc.hcf.command;
 
 import net.veilmc.hcf.HCF;
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.HCF;
+>>>>>>> origin/new
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -25,9 +29,15 @@ public class SafestopCommand
 		HCF.getPlugin().getUserManager().saveUserData();
 		HCF.getPlugin().getFactionManager().saveFactionData();
 		HCF.getPlugin().getEconomyManager().saveEconomyData();
+<<<<<<< HEAD
 		Bukkit.broadcastMessage(" ");
 		Bukkit.broadcastMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "The server has been stopped by " + sender.getName());
 		Bukkit.broadcastMessage(" ");
+=======
+		for(String messages : HCF.getInstance().getConfig().getStringList("messages.autosave.message")){
+			sender.sendMessage(ChatColor.translateAlternateColorCodes('&', messages).replace("%PLAYER%", sender.getName()));
+		}
+>>>>>>> origin/new
 		Bukkit.shutdown();
 		return true;
 	}

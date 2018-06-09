@@ -1,5 +1,9 @@
 package net.veilmc.hcf.command;
 
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.crowbar.Crowbar;
+>>>>>>> origin/new
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;

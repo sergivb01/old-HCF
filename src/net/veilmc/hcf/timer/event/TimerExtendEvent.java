@@ -3,11 +3,23 @@ package net.veilmc.hcf.timer.event;
 import net.veilmc.hcf.timer.GlobalTimer;
 import net.veilmc.hcf.timer.PlayerTimer;
 import net.veilmc.hcf.timer.Timer;
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.timer.GlobalTimer;
+import net.veilmc.hcf.timer.PlayerTimer;
+import net.veilmc.hcf.timer.Timer;
+>>>>>>> origin/new
 import com.google.common.base.Optional;
 
 import java.util.UUID;
 import javax.annotation.Nullable;
 
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.timer.GlobalTimer;
+import net.veilmc.hcf.timer.PlayerTimer;
+import net.veilmc.hcf.timer.Timer;
+>>>>>>> origin/new
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;

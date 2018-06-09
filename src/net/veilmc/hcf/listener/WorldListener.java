@@ -1,5 +1,9 @@
 package net.veilmc.hcf.listener;
 
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.HCF;
+>>>>>>> origin/new
 import net.veilmc.hcf.utils.ConfigurationService;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -142,7 +146,11 @@ public class WorldListener implements Listener{
 
 	@EventHandler
 	public void onPlayerDeath(PlayerDeathEvent event){
+<<<<<<< HEAD
 		if((ConfigurationService.KIT_MAP || ConfigurationService.VEILZ) && event.getEntity().getKiller() != null){
+=======
+		if((ConfigurationService.KIT_MAP) && event.getEntity().getKiller() != null){
+>>>>>>> origin/new
 			Player killer = event.getEntity().getKiller();
 			if(killer != event.getEntity().getPlayer()){
 				int mult = getMultiplier(killer);

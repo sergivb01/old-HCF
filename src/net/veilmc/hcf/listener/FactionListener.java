@@ -1,6 +1,10 @@
 package net.veilmc.hcf.listener;
 
 import com.google.common.base.Optional;
+<<<<<<< HEAD
+=======
+import net.veilmc.base.BasePlugin;
+>>>>>>> origin/new
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.claim.Claim;
 import net.veilmc.hcf.faction.event.*;
@@ -9,6 +13,10 @@ import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.hcf.faction.type.PlayerFaction;
 import net.veilmc.hcf.kothgame.faction.KothFaction;
 import net.veilmc.hcf.utils.ConfigurationService;
+<<<<<<< HEAD
+=======
+import net.milkbowl.vault.economy.EconomyResponse;
+>>>>>>> origin/new
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -23,7 +31,10 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.metadata.MetadataValue;
+<<<<<<< HEAD
 import ru.tehkode.permissions.bukkit.PermissionsEx;
+=======
+>>>>>>> origin/new
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -57,7 +68,12 @@ public class FactionListener
 
 	private String getDisplayName(CommandSender sender){
 		if(sender instanceof Player){
+<<<<<<< HEAD
 			return ChatColor.translateAlternateColorCodes('&', "&e" + PermissionsEx.getUser((Player) sender).getPrefix()).replace("_", " ") + ((Player) sender).getDisplayName();
+=======
+			return ChatColor.translateAlternateColorCodes('&', "&e" + HCF.getChat().getPlayerPrefix(((Player) sender).getPlayer()).replace("_", " ") + ((Player) sender).getDisplayName());
+			//return ChatColor.translateAlternateColorCodes('&', "&e" + PermissionsEx.getUser((Player) sender).getPrefix()).replace("_", " ") + ((Player) sender).getDisplayName();
+>>>>>>> origin/new
 		}
 		return sender.getName();
 	}
@@ -139,7 +155,11 @@ public class FactionListener
 			player.setSaturation(4.0f);
 		}
 		if(this.getLastLandChangedMeta(player = event.getPlayer()) <= 0){
+<<<<<<< HEAD
 			if(ConfigurationService.KIT_MAP || ConfigurationService.VEILZ){
+=======
+			if(ConfigurationService.KIT_MAP){
+>>>>>>> origin/new
 				Faction fromFaction = event.getFromFaction();
 				player.sendMessage(ChatColor.YELLOW + "Leaving: " + fromFaction.getDisplayName(player) + ChatColor.YELLOW + ", Entering: " + toFaction.getDisplayName(player));
 			}else{

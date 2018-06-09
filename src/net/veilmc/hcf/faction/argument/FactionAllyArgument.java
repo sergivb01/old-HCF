@@ -1,6 +1,10 @@
 package net.veilmc.hcf.faction.argument;
 
 import net.veilmc.hcf.HCF;
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.HCF;
+>>>>>>> origin/new
 import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.hcf.faction.event.FactionRelationCreateEvent;
 import net.veilmc.hcf.faction.struct.Relation;

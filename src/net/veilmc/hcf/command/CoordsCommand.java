@@ -5,6 +5,14 @@ import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.hcf.kothgame.faction.ConquestFaction;
 import net.veilmc.hcf.kothgame.faction.EventFaction;
 import net.veilmc.hcf.kothgame.faction.KothFaction;
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.HCF;
+import net.veilmc.hcf.faction.type.Faction;
+import net.veilmc.hcf.kothgame.faction.ConquestFaction;
+import net.veilmc.hcf.kothgame.faction.EventFaction;
+import net.veilmc.hcf.kothgame.faction.KothFaction;
+>>>>>>> origin/new
 import net.veilmc.util.BukkitUtils;
 import net.veilmc.util.chat.ClickAction;
 import net.veilmc.util.chat.Text;

@@ -1,6 +1,13 @@
 package net.veilmc.hcf.timer.type;
 
 import net.veilmc.hcf.HCF;
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.timer.PlayerTimer;
+import net.veilmc.hcf.timer.TimerRunnable;
+import net.veilmc.hcf.utils.ConfigurationService;
+import net.veilmc.hcf.HCF;
+>>>>>>> origin/new
 import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.hcf.timer.PlayerTimer;
 import net.veilmc.hcf.timer.TimerRunnable;
@@ -10,6 +17,13 @@ import net.minecraft.server.v1_7_R4.ItemStack;
 import net.minecraft.server.v1_7_R4.PacketPlayOutSetSlot;
 import net.minecraft.server.v1_7_R4.PlayerInventory;
 import net.minecraft.util.com.google.common.cache.CacheBuilder;
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.HCF;
+import net.veilmc.hcf.timer.PlayerTimer;
+import net.veilmc.hcf.timer.TimerRunnable;
+import net.veilmc.hcf.utils.ConfigurationService;
+>>>>>>> origin/new
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

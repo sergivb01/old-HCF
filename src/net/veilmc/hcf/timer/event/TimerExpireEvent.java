@@ -1,10 +1,18 @@
 package net.veilmc.hcf.timer.event;
 
 import net.veilmc.hcf.timer.Timer;
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.timer.Timer;
+>>>>>>> origin/new
 import com.google.common.base.Optional;
 
 import java.util.UUID;
 
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.timer.Timer;
+>>>>>>> origin/new
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 

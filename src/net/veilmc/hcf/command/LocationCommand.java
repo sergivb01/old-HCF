@@ -3,6 +3,11 @@ package net.veilmc.hcf.command;
 import java.util.Collections;
 import java.util.List;
 
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.HCF;
+import net.veilmc.hcf.faction.type.Faction;
+>>>>>>> origin/new
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;

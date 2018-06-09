@@ -1,6 +1,10 @@
 package net.veilmc.hcf.faction.argument;
 
 import net.veilmc.hcf.HCF;
+<<<<<<< HEAD
+=======
+import net.veilmc.hcf.HCF;
+>>>>>>> origin/new
 import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.hcf.faction.FactionMember;
 import net.veilmc.hcf.faction.struct.ChatChannel;
@@ -61,7 +65,11 @@ public class FactionAcceptArgument
 			return true;
 		}
 		if(targetFaction.isLocked()){
+<<<<<<< HEAD
 			sender.sendMessage(ChatColor.RED + "You cannot join locked factions.");
+=======
+			sender.sendMessage(ChatColor.RED + "This faction has been locked, please contact staff if you believe this is an error.");
+>>>>>>> origin/new
 			return true;
 		}
 		if(targetFaction.setMember(player, new FactionMember(player, ChatChannel.PUBLIC, Role.MEMBER))){
