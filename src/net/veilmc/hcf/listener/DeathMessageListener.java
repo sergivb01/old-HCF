@@ -1,14 +1,8 @@
 package net.veilmc.hcf.listener;
 
-import me.lucko.luckperms.LuckPerms;
-import me.lucko.luckperms.api.LuckPermsApi;
-import net.veilmc.base.BasePlugin;
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.HCF;
 import com.google.common.base.Preconditions;
-
 import net.minecraft.server.v1_7_R4.EntityLiving;
-
+import net.veilmc.hcf.HCF;
 import org.apache.commons.lang3.text.WordUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -19,8 +13,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
