@@ -10,14 +10,12 @@ import net.veilmc.hcf.faction.struct.Relation;
 import net.veilmc.hcf.faction.struct.Role;
 import net.veilmc.hcf.faction.type.*;
 import net.veilmc.hcf.utils.ConfigurationService;
-import net.veilmc.util.Config;
 import net.veilmc.util.JavaUtils;
 import net.veilmc.util.cuboid.CoordinatePair;
 import org.apache.commons.collections4.map.CaseInsensitiveMap;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.MemorySection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -26,7 +24,7 @@ import org.bukkit.event.Listener;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class FlatFileFactionManager implements Listener, FactionManager{
+public class MongoFactionManager implements Listener, FactionManager{
 	private final WarzoneFaction warzone;
 	private final WildernessFaction wilderness;
 	private final Map<CoordinatePair, Claim> claimPositionMap;
@@ -34,9 +32,8 @@ public class FlatFileFactionManager implements Listener, FactionManager{
 	private final Map<UUID, Faction> factionUUIDMap;
 	private final Map<String, UUID> factionNameMap;
 	private final HCF plugin;
-	private Config config;
 
-	public FlatFileFactionManager(final HCF plugin){
+	public MongoFactionManager(final HCF plugin){
 		super();
 		this.claimPositionMap = new HashMap<>();
 		this.factionPlayerUuidMap = new ConcurrentHashMap<>();
@@ -78,6 +75,7 @@ public class FlatFileFactionManager implements Listener, FactionManager{
 	}
 
 	public List<Faction> getFactions(){
+		this.factionUUIDMap.values();
 		final List<Faction> asd = new ArrayList<Faction>();
 		for(final Faction fac : this.factionUUIDMap.values()){
 			asd.add(fac);
@@ -253,8 +251,8 @@ public class FlatFileFactionManager implements Listener, FactionManager{
 
 	public void reloadFactionData(){
 		this.factionNameMap.clear();
-		this.config = new Config(this.plugin, "factions");
-		final Object object = this.config.get("factions");
+		//TODO: Handle mongodb
+		/*final Object object = this.config.get("factions");
 		if(object instanceof MemorySection){
 			final MemorySection section = (MemorySection) object;
 			for(final String factionName : section.getKeys(false)){
@@ -270,7 +268,7 @@ public class FlatFileFactionManager implements Listener, FactionManager{
 					this.cacheFaction((Faction) next2);
 				}
 			}
-		}
+		}*/
 		final Set<Faction> adding = new HashSet<Faction>();
 		if(!this.factionNameMap.containsKey("Warzone")){
 			adding.add(new WarzoneFaction());
@@ -306,8 +304,9 @@ public class FlatFileFactionManager implements Listener, FactionManager{
 	}
 
 	public void saveFactionData(){
-		this.config.set("factions", new ArrayList(this.factionUUIDMap.values()));
-		this.config.save();
+		//TODO: Handle mongodb
+		/*this.config.set("factions", new ArrayList(this.factionUUIDMap.values()));
+		this.config.save();*/
 	}
 }
 

@@ -331,7 +331,10 @@ public class HCF extends JavaPlugin{
 		manager.registerEvents(new EnchantLimitListener(), this);
 		manager.registerEvents(new EnderChestRemovalListener(), this);
 		manager.registerEvents(new EntityLimitListener(), this);
+
+		//TODO: Switch between flatfile & mongodb
 		manager.registerEvents(new FlatFileFactionManager(this), this);
+
 		manager.registerEvents(new EndListener(), this);
 		manager.registerEvents(new EotwListener(this), this);
 		manager.registerEvents(new EventSignListener(), this);

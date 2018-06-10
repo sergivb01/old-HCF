@@ -1,11 +1,11 @@
 package net.veilmc.hcf.command.death.argument;
 
-import me.sergivb01.sutils.utils.fanciful.FancyMessage;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.deathban.Deathban;
 import net.veilmc.hcf.user.FactionUser;
 import net.veilmc.util.BukkitUtils;
 import net.veilmc.util.command.CommandArgument;
+import net.veilmc.util.mkremins.fanciful.FancyMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
