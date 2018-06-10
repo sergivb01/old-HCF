@@ -2,7 +2,6 @@ package net.veilmc.hcf.faction.struct;
 
 import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.util.BukkitUtils;
-
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 

@@ -4,11 +4,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 
-public class LocationUtils
-{
-	public static String getString(final Location loc) {
+public class LocationUtils{
+	public static String getString(final Location loc){
 		final StringBuilder builder = new StringBuilder();
-		if (loc == null) {
+		if(loc == null){
 			return "unset";
 		}
 		builder.append(loc.getX()).append("|");
@@ -20,8 +19,8 @@ public class LocationUtils
 		return builder.toString();
 	}
 
-	public static Location getLocation(final String s) {
-		if (s == null || s.equals("unset") || s.equals("")) {
+	public static Location getLocation(final String s){
+		if(s == null || s.equals("unset") || s.equals("")){
 			return null;
 		}
 		final String[] data = s.split("\\|");
@@ -31,10 +30,12 @@ public class LocationUtils
 		final World world = Bukkit.getWorld(data[3]);
 		final Float yaw = Float.parseFloat(data[4]);
 		final Float pitch = Float.parseFloat(data[5]);
-		return new Location(world, x, y, z, (float)yaw, (float)pitch);
+		return new Location(world, x, y, z, yaw, pitch);
 	}
 
-	public static boolean isSameLocation(final Location loc1, final Location loc2) {
-		return loc1 != null && loc2 != null && loc1.equals((Object)loc2);
+	public static boolean isSameLocation(final Location loc1, final Location loc2){
+		return loc1 != null && loc2 != null && loc1.equals(loc2);
 	}
+
+
 }

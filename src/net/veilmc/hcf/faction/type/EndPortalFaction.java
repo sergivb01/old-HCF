@@ -1,7 +1,6 @@
 package net.veilmc.hcf.faction.type;
 
 import net.veilmc.hcf.faction.claim.Claim;
-import net.veilmc.hcf.faction.claim.Claim;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;

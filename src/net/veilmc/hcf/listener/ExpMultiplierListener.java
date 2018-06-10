@@ -14,8 +14,7 @@ import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.projectiles.ProjectileSource;
 
-public class ExpMultiplierListener
-		implements Listener{
+public class ExpMultiplierListener implements Listener{
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)
 	public void onEntityDeath(EntityDeathEvent event){
 		int enchantmentLevel;

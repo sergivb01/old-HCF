@@ -1,7 +1,6 @@
 package net.veilmc.hcf.faction.argument;
 
 import com.google.common.primitives.Ints;
-import net.veilmc.hcf.HCF;
 import net.md_5.bungee.api.chat.*;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.type.PlayerFaction;

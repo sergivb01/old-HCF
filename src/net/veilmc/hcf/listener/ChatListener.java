@@ -1,7 +1,5 @@
 package net.veilmc.hcf.listener;
 
-import net.veilmc.base.BasePlugin;
-import net.veilmc.hcf.HCF;
 import net.minecraft.util.com.google.common.cache.CacheBuilder;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.event.FactionChatEvent;
@@ -88,7 +86,7 @@ public class ChatListener
 
 		//String kdrPrefix = (kdr > 2 ? ChatColor.RED + kdr : ChatColor.GREEN + kdr);
 
-		String rank = ChatColor.translateAlternateColorCodes('&', "&e" + HCF.getChat().getPlayerPrefix(player)).replace("_", " ");
+		String rank = ChatColor.translateAlternateColorCodes('&', "&e" + HCF.chat.getPlayerPrefix(player)).replace("_", " ");
 		String displayName = player.getDisplayName();
 		displayName = rank + displayName;
 

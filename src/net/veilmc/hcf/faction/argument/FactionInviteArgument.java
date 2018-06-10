@@ -1,25 +1,23 @@
 package net.veilmc.hcf.faction.argument;
 
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.struct.Relation;
 import net.veilmc.hcf.faction.struct.Role;
 import net.veilmc.hcf.faction.type.PlayerFaction;
 import net.veilmc.util.chat.ClickAction;
 import net.veilmc.util.chat.Text;
 import net.veilmc.util.command.CommandArgument;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
-
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 public class FactionInviteArgument
 		extends CommandArgument{

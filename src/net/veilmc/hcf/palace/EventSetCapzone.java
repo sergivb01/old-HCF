@@ -1,36 +1,29 @@
 package net.veilmc.hcf.palace;
 
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.faction.FactionManager;
-import net.veilmc.hcf.faction.claim.Claim;
-import net.veilmc.hcf.faction.type.Faction;
-import net.veilmc.hcf.kothgame.CaptureZone;
-import net.veilmc.hcf.kothgame.faction.CapturableFaction;
-import net.veilmc.hcf.kothgame.faction.ConquestFaction;
-import net.veilmc.hcf.kothgame.faction.EventFaction;
-import net.veilmc.hcf.kothgame.tracker.ConquestTracker;
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.utils.ConfigurationService;
-import net.veilmc.hcf.faction.FactionManager;
-import net.veilmc.hcf.faction.claim.Claim;
-import net.veilmc.hcf.faction.type.Faction;
-import net.veilmc.hcf.kothgame.CaptureZone;
-import net.veilmc.hcf.kothgame.faction.CapturableFaction;
-import net.veilmc.hcf.kothgame.faction.ConquestFaction;
-import net.veilmc.hcf.kothgame.faction.EventFaction;
-import net.veilmc.hcf.kothgame.tracker.ConquestTracker;
-import net.veilmc.util.command.CommandArgument;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldedit.bukkit.selections.Selection;
-
 import net.minecraft.util.org.apache.commons.lang3.StringUtils;
+import net.veilmc.hcf.HCF;
+import net.veilmc.hcf.faction.FactionManager;
+import net.veilmc.hcf.faction.claim.Claim;
+import net.veilmc.hcf.faction.type.Faction;
+import net.veilmc.hcf.kothgame.CaptureZone;
+import net.veilmc.hcf.kothgame.faction.CapturableFaction;
+import net.veilmc.hcf.kothgame.faction.ConquestFaction;
+import net.veilmc.hcf.kothgame.faction.EventFaction;
+import net.veilmc.hcf.kothgame.tracker.ConquestTracker;
+import net.veilmc.hcf.utils.ConfigurationService;
+import net.veilmc.util.command.CommandArgument;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 public class EventSetCapzone extends CommandArgument{
 	private final HCF plugin;

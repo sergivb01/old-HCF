@@ -1,13 +1,11 @@
 package net.veilmc.hcf.kothgame.eotw;
 
-import net.veilmc.hcf.HCF;
 import net.veilmc.base.kit.event.KitApplyEvent;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.event.FactionClaimChangeEvent;
 import net.veilmc.hcf.faction.event.cause.ClaimChangeCause;
 import net.veilmc.hcf.faction.type.ClaimableFaction;
 import net.veilmc.hcf.faction.type.PlayerFaction;
-
 import org.bukkit.ChatColor;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;

@@ -1,18 +1,16 @@
 package net.veilmc.hcf.command.lives.argument;
 
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.HCF;
 import net.veilmc.util.command.CommandArgument;
-
-import java.util.Collections;
-import java.util.List;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.Collections;
+import java.util.List;
 
 public class LivesCheckArgument extends CommandArgument{
 	private final HCF plugin;

@@ -1,12 +1,11 @@
 package net.veilmc.hcf.deathban;
 
-import net.veilmc.util.PersistableLocation;
 import com.google.common.collect.Maps;
-
-import java.util.Map;
-
+import net.veilmc.util.PersistableLocation;
 import org.bukkit.Location;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
+
+import java.util.Map;
 
 public class Deathban
 		implements ConfigurationSerializable{

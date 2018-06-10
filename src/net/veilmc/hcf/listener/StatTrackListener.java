@@ -1,13 +1,12 @@
 package net.veilmc.hcf.listener;
 
+import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.user.FactionUser;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
-
-import net.veilmc.hcf.HCF;
 
 public class StatTrackListener implements Listener{
 

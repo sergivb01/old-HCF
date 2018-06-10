@@ -1,19 +1,7 @@
 package net.veilmc.hcf.timer;
 
-import net.veilmc.hcf.timer.event.TimerClearEvent;
-import net.veilmc.hcf.timer.event.TimerExpireEvent;
-import net.veilmc.hcf.timer.event.TimerExtendEvent;
-import net.veilmc.hcf.timer.event.TimerPauseEvent;
-import net.veilmc.hcf.timer.event.TimerStartEvent;
 import com.google.common.base.Optional;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
-import javax.annotation.Nullable;
-
+import net.veilmc.hcf.timer.event.*;
 import net.veilmc.util.Config;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.MemorySection;
@@ -21,8 +9,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 
-public abstract class PlayerTimer
-		extends Timer{
+import javax.annotation.Nullable;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+
+public abstract class PlayerTimer extends Timer{
 	private static final String COOLDOWN_PATH = "timer-cooldowns";
 	protected final boolean persistable;
 	protected final Map<UUID, TimerRunnable> cooldowns = new ConcurrentHashMap<UUID, TimerRunnable>();
@@ -170,5 +164,7 @@ public abstract class PlayerTimer
 			config.set("timer-cooldowns." + this.name, cooldownSavemap);
 		}
 	}
+
+
 }
 

@@ -1,7 +1,6 @@
 package net.veilmc.hcf.kothgame.argument;
 
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.kothgame.EventTimer;
 import net.veilmc.hcf.kothgame.faction.EventFaction;
 import net.veilmc.util.command.CommandArgument;

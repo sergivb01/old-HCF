@@ -7,8 +7,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 
-import net.veilmc.hcf.HCF;
-
 public class SotwListener implements Listener{
 	private final HCF plugin;
 

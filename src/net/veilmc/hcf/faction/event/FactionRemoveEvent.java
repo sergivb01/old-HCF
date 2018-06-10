@@ -1,10 +1,9 @@
 package net.veilmc.hcf.faction.event;
 
+import net.veilmc.hcf.faction.type.Faction;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
-
-import net.veilmc.hcf.faction.type.Faction;
 
 public class FactionRemoveEvent
 		extends FactionEvent

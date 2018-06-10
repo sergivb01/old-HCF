@@ -1,8 +1,6 @@
 package net.veilmc.hcf.classes.type;
 
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.classes.event.PvpClassEquipEvent;
-import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.classes.PvpClass;
 import net.veilmc.hcf.classes.event.PvpClassEquipEvent;
 import net.veilmc.util.BukkitUtils;

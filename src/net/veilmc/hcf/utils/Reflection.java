@@ -14,7 +14,6 @@ public class Reflection{
 	private Object serverInstance;
 	private Field tpsField;
 
-
 	private Class<?> getNMSClass(String className){
 		try{
 			return Class.forName("net.minecraft.server." + version + "." + className);

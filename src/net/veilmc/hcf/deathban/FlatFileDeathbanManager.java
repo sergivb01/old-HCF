@@ -1,6 +1,5 @@
 package net.veilmc.hcf.deathban;
 
-import net.veilmc.hcf.HCF;
 import net.minecraft.util.gnu.trove.map.TObjectIntMap;
 import net.minecraft.util.gnu.trove.map.hash.TObjectIntHashMap;
 import net.veilmc.hcf.HCF;
@@ -12,7 +11,10 @@ import org.bukkit.Location;
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.entity.Player;
 
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
 
 public class FlatFileDeathbanManager implements DeathbanManager{
 	private static final int MAX_DEATHBAN_MULTIPLIER = 300;

@@ -1,6 +1,6 @@
 package net.veilmc.hcf.faction.argument;
 
-import net.veilmc.hcf.HCF;
+import com.google.common.collect.ImmutableList;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.FactionMember;
 import net.veilmc.hcf.faction.claim.Claim;
@@ -9,15 +9,13 @@ import net.veilmc.hcf.faction.type.PlayerFaction;
 import net.veilmc.util.chat.ClickAction;
 import net.veilmc.util.chat.Text;
 import net.veilmc.util.command.CommandArgument;
-import com.google.common.collect.ImmutableList;
-
-import java.util.HashSet;
-import java.util.Set;
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class FactionUnclaimArgument
 		extends CommandArgument{

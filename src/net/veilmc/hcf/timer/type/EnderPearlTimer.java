@@ -1,14 +1,5 @@
 package net.veilmc.hcf.timer.type;
 
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.timer.PlayerTimer;
-import net.veilmc.hcf.timer.TimerRunnable;
-import net.veilmc.hcf.utils.ConfigurationService;
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.utils.ConfigurationService;
-import net.veilmc.hcf.timer.PlayerTimer;
-import net.veilmc.hcf.timer.TimerRunnable;
-import net.veilmc.util.Config;
 import net.minecraft.server.v1_7_R4.EntityPlayer;
 import net.minecraft.server.v1_7_R4.ItemStack;
 import net.minecraft.server.v1_7_R4.PacketPlayOutSetSlot;
@@ -18,6 +9,7 @@ import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.timer.PlayerTimer;
 import net.veilmc.hcf.timer.TimerRunnable;
 import net.veilmc.hcf.utils.ConfigurationService;
+import net.veilmc.util.Config;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -46,9 +38,7 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.TimeUnit;
 
-public class EnderPearlTimer
-		extends PlayerTimer
-		implements Listener{
+public class EnderPearlTimer extends PlayerTimer implements Listener{
 	private static final long REFRESH_DELAY_TICKS = 2;
 	private static final long REFRESH_DELAY_TICKS_18 = 20;
 	private static final long EXPIRE_SHOW_MILLISECONDS = 1500;
@@ -166,7 +156,7 @@ public class EnderPearlTimer
 				return;
 			}
 			for(Map.Entry entry : event.getNewItems().entrySet()){
-				if(((Integer) entry.getKey()).intValue() != player.getInventory().getHeldItemSlot()) continue;
+				if((Integer) entry.getKey() != player.getInventory().getHeldItemSlot()) continue;
 				pearlNameFaker.setFakeItem(CraftItemStack.asNMSCopy(player.getItemInHand()), player.getInventory().getHeldItemSlot());
 				break;
 			}
@@ -255,6 +245,7 @@ public class EnderPearlTimer
 			entityPlayer.playerConnection.sendPacket(new PacketPlayOutSetSlot(entityPlayer.activeContainer.windowId, index, nms));
 		}
 	}
+
 
 }
 

@@ -3,12 +3,6 @@ package net.veilmc.hcf.timer.type;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.timer.PlayerTimer;
 import net.veilmc.hcf.utils.ConfigurationService;
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.timer.PlayerTimer;
-import net.veilmc.hcf.utils.ConfigurationService;
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.timer.PlayerTimer;
-import net.veilmc.hcf.utils.ConfigurationService;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -21,9 +15,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.concurrent.TimeUnit;
 
-public class NotchAppleTimer
-		extends PlayerTimer
-		implements Listener{
+public class NotchAppleTimer extends PlayerTimer implements Listener{
 	public NotchAppleTimer(JavaPlugin plugin){
 		super(ConfigurationService.NOTCH_APPLE_TIMER, ConfigurationService.KIT_MAP ? TimeUnit.MINUTES.toMillis(30L) : TimeUnit.HOURS.toMillis(4));
 	}
@@ -55,5 +47,7 @@ public class NotchAppleTimer
 			}
 		}
 	}
+
+
 }
 

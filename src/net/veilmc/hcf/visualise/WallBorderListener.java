@@ -1,7 +1,6 @@
 package net.veilmc.hcf.visualise;
 
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.claim.Claim;
 import net.veilmc.hcf.faction.type.ClaimableFaction;
 import net.veilmc.hcf.faction.type.Faction;

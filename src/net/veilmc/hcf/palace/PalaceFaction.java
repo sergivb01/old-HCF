@@ -1,15 +1,6 @@
 package net.veilmc.hcf.palace;
 
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.faction.claim.Claim;
-import net.veilmc.hcf.faction.type.ClaimableFaction;
-import net.veilmc.hcf.faction.type.PlayerFaction;
-import net.veilmc.hcf.kothgame.CaptureZone;
-import net.veilmc.hcf.kothgame.EventType;
-import net.veilmc.hcf.kothgame.faction.CapturableFaction;
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.faction.claim.Claim;
-import net.veilmc.hcf.faction.type.ClaimableFaction;
+import com.google.common.collect.ImmutableList;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.claim.Claim;
 import net.veilmc.hcf.faction.type.ClaimableFaction;
@@ -18,8 +9,6 @@ import net.veilmc.hcf.kothgame.CaptureZone;
 import net.veilmc.hcf.kothgame.EventType;
 import net.veilmc.hcf.kothgame.faction.CapturableFaction;
 import net.veilmc.util.BukkitUtils;
-import com.google.common.collect.ImmutableList;
-
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;

@@ -1,22 +1,18 @@
 package net.veilmc.hcf.command.crate;
 
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.command.crate.type.*;
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.command.crate.type.*;
-import net.veilmc.util.Config;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Sets;
 import com.google.common.collect.Table;
+import net.veilmc.hcf.HCF;
+import net.veilmc.hcf.command.crate.type.*;
+import net.veilmc.util.Config;
+import org.bukkit.configuration.MemorySection;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
-
-import net.veilmc.hcf.command.crate.type.*;
-import org.bukkit.configuration.MemorySection;
-import org.bukkit.inventory.ItemStack;
 
 public class KeyManager{
 	private final KothKey kothKey;

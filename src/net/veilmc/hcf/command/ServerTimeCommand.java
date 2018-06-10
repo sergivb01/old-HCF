@@ -1,9 +1,5 @@
 package net.veilmc.hcf.command;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.TimeZone;
-
 import net.veilmc.hcf.utils.ConfigurationService;
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.bukkit.ChatColor;
@@ -11,6 +7,10 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.TimeZone;
 
 public class ServerTimeCommand
 		implements CommandExecutor,

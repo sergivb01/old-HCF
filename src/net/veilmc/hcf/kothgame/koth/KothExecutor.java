@@ -5,14 +5,7 @@ import net.veilmc.hcf.kothgame.koth.argument.KothNextArgument;
 import net.veilmc.hcf.kothgame.koth.argument.KothScheduleArgument;
 import net.veilmc.hcf.kothgame.koth.argument.KothSetCapDelayArgument;
 import net.veilmc.hcf.kothgame.koth.argument.KothShowArgument;
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.kothgame.koth.argument.KothNextArgument;
-import net.veilmc.hcf.kothgame.koth.argument.KothScheduleArgument;
-import net.veilmc.hcf.kothgame.koth.argument.KothSetCapDelayArgument;
-import net.veilmc.hcf.kothgame.koth.argument.KothShowArgument;
 import net.veilmc.util.command.ArgumentExecutor;
-import net.veilmc.util.command.CommandArgument;
-
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 

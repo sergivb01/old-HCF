@@ -2,7 +2,6 @@ package net.veilmc.hcf.kothgame.faction;
 
 import com.google.common.collect.ImmutableList;
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.claim.Claim;
 import net.veilmc.hcf.faction.type.PlayerFaction;
 import net.veilmc.hcf.kothgame.CaptureZone;

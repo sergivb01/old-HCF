@@ -1,17 +1,10 @@
 package net.veilmc.hcf.faction.claim;
 
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.visualise.VisualBlock;
-import net.veilmc.hcf.visualise.VisualType;
+import com.google.common.base.Predicate;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.type.PlayerFaction;
 import net.veilmc.hcf.visualise.VisualBlock;
 import net.veilmc.hcf.visualise.VisualType;
-import com.google.common.base.Predicate;
-
-import java.util.ArrayList;
-import java.util.UUID;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -27,13 +20,12 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerKickEvent;
-import org.bukkit.event.player.PlayerPickupItemEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.ArrayList;
+import java.util.UUID;
 
 public class ClaimWandListener
 		implements Listener{

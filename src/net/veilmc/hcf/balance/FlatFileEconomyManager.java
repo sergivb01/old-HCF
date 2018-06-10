@@ -1,15 +1,14 @@
 package net.veilmc.hcf.balance;
 
+import net.minecraft.util.gnu.trove.map.TObjectIntMap;
+import net.minecraft.util.gnu.trove.map.hash.TObjectIntHashMap;
 import net.veilmc.util.Config;
+import org.bukkit.configuration.MemorySection;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.LinkedHashMap;
 import java.util.Set;
 import java.util.UUID;
-
-import net.minecraft.util.gnu.trove.map.TObjectIntMap;
-import net.minecraft.util.gnu.trove.map.hash.TObjectIntHashMap;
-import org.bukkit.configuration.MemorySection;
-import org.bukkit.plugin.java.JavaPlugin;
 
 public class FlatFileEconomyManager
 		implements EconomyManager{

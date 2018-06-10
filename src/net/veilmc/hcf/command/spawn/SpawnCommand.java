@@ -1,7 +1,6 @@
 package net.veilmc.hcf.command.spawn;
 
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.utils.ConfigurationService;
 import org.bukkit.*;
 import org.bukkit.command.Command;

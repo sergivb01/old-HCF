@@ -1,19 +1,15 @@
 package net.veilmc.hcf.faction.claim;
 
+import com.google.common.base.Preconditions;
+import net.minecraft.util.com.google.common.cache.CacheBuilder;
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.faction.struct.Role;
-import net.veilmc.hcf.visualise.VisualType;
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.faction.type.*;
-import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.hcf.faction.FactionManager;
 import net.veilmc.hcf.faction.struct.Role;
 import net.veilmc.hcf.faction.type.*;
+import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.hcf.visualise.VisualType;
 import net.veilmc.util.ItemBuilder;
 import net.veilmc.util.cuboid.Cuboid;
-import com.google.common.base.Preconditions;
-import net.minecraft.util.com.google.common.cache.CacheBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;

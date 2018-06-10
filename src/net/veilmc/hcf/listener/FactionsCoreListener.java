@@ -1,22 +1,19 @@
 package net.veilmc.hcf.listener;
 
+import com.google.common.collect.ImmutableMultimap;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.faction.type.*;
-import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.hcf.faction.event.CaptureZoneEnterEvent;
 import net.veilmc.hcf.faction.event.CaptureZoneLeaveEvent;
 import net.veilmc.hcf.faction.event.PlayerClaimEnterEvent;
 import net.veilmc.hcf.faction.struct.Raidable;
-import net.veilmc.hcf.faction.struct.Role;
 import net.veilmc.hcf.faction.type.*;
 import net.veilmc.hcf.kothgame.CaptureZone;
 import net.veilmc.hcf.kothgame.faction.CapturableFaction;
+import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.util.BukkitUtils;
 import net.veilmc.util.cuboid.Cuboid;
-import com.google.common.collect.ImmutableMultimap;
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Sets;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.*;
@@ -35,8 +32,7 @@ import org.bukkit.projectiles.ProjectileSource;
 
 import java.util.Objects;
 
-public class FactionsCoreListener
-		implements Listener{
+public class FactionsCoreListener implements Listener{
 	public static final String PROTECTION_BYPASS_PERMISSION = "hcf.faction.protection.bypass";
 	private static final ImmutableMultimap<Object, Object> ITEM_BLOCK_INTERACTABLES;
 	private static final ImmutableSet<Material> BLOCK_INTERACTABLES;
@@ -62,10 +58,10 @@ public class FactionsCoreListener
 		if(entity instanceof Player){
 			PlayerFaction playerFaction;
 			Player player = (Player) entity;
-			if(player != null && player.getGameMode() == GameMode.CREATIVE && player.hasPermission("hcf.faction.protection.bypass")){
+			if(player.getGameMode() == GameMode.CREATIVE && player.hasPermission("hcf.faction.protection.bypass")){
 				return true;
 			}
-			if(player != null && player.getWorld().getEnvironment() == World.Environment.THE_END){
+			if(player.getWorld().getEnvironment() == World.Environment.THE_END){
 				player.sendMessage(ConfigurationService.END_CANNOT_BUILD);
 				return false;
 			}
@@ -75,17 +71,17 @@ public class FactionsCoreListener
 			}else if(factionAt instanceof Raidable && ((Raidable) factionAt).isRaidable()){
 				result = true;
 			}
-			if(player != null && factionAt instanceof PlayerFaction && (playerFaction = HCF.getPlugin().getFactionManager().getPlayerFaction(player.getUniqueId())) != null && playerFaction.equals(factionAt)){
+			if(factionAt instanceof PlayerFaction && (playerFaction = HCF.getPlugin().getFactionManager().getPlayerFaction(player.getUniqueId())) != null && playerFaction.equals(factionAt)){
 				result = true;
 			}
 			if(result){
 				if(!isInteraction && Math.abs(location.getBlockX()) <= ConfigurationService.UNBUILDABLE_RANGE && Math.abs(location.getBlockZ()) <= ConfigurationService.UNBUILDABLE_RANGE){
-					if(denyMessage != null && player != null){
+					if(denyMessage != null){
 						player.sendMessage(ConfigurationService.WORLD_CANNOT_BUILD);
 					}
 					return false;
 				}
-			}else if(denyMessage != null && player != null){
+			}else if(denyMessage != null){
 				player.sendMessage(String.format(denyMessage, factionAt.getDisplayName(player)));
 			}
 		}
@@ -93,9 +89,8 @@ public class FactionsCoreListener
 	}
 
 	public static boolean canBuildAt(Location from, Location to){
-		Faction fromFactionAt;
 		Faction toFactionAt = HCF.getPlugin().getFactionManager().getFactionAt(to);
-		return !(toFactionAt instanceof Raidable) || ((Raidable) toFactionAt).isRaidable() || toFactionAt.equals(fromFactionAt = HCF.getPlugin().getFactionManager().getFactionAt(from));
+		return !(toFactionAt instanceof Raidable) || ((Raidable) toFactionAt).isRaidable() || toFactionAt.equals(HCF.getPlugin().getFactionManager().getFactionAt(from));
 	}
 
 	private void handleMove(PlayerMoveEvent event, PlayerClaimEnterEvent.EnterCause enterCause){
@@ -206,8 +201,7 @@ public class FactionsCoreListener
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void onPlayerTeleport(PlayerTeleportEvent event){
-		Faction toFactionAt;
-		if(event.getCause() == PlayerTeleportEvent.TeleportCause.ENDER_PEARL && (toFactionAt = this.plugin.getFactionManager().getFactionAt(event.getTo())).isSafezone() && !this.plugin.getFactionManager().getFactionAt(event.getFrom()).isSafezone()){
+		if(event.getCause() == PlayerTeleportEvent.TeleportCause.ENDER_PEARL && this.plugin.getFactionManager().getFactionAt(event.getTo()).isSafezone() && !this.plugin.getFactionManager().getFactionAt(event.getFrom()).isSafezone()){
 			Player player = event.getPlayer();
 			player.sendMessage(ConfigurationService.FAILED_PEARL);
 			this.plugin.getTimerManager().enderPearlTimer.refund(player);
@@ -251,19 +245,6 @@ public class FactionsCoreListener
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-	public void onCreatureSpawn(CreatureSpawnEvent event){
-		CreatureSpawnEvent.SpawnReason reason = event.getSpawnReason();
-		if(reason == CreatureSpawnEvent.SpawnReason.SLIME_SPLIT){
-			return;
-		}
-		Location location = event.getLocation();
-		Faction factionAt = this.plugin.getFactionManager().getFactionAt(location);
-		if(factionAt.isSafezone() && reason == CreatureSpawnEvent.SpawnReason.SPAWNER){
-			return;
-		}
-	}
-
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void onEntityDamage(EntityDamageEvent event){
 		Entity entity = event.getEntity();
 		if(entity instanceof Player){
@@ -288,8 +269,6 @@ public class FactionsCoreListener
 				}
 				PlayerFaction playerFaction = this.plugin.getFactionManager().getPlayerFaction(player.getUniqueId());
 				if(playerFaction != null && (attackerFaction = this.plugin.getFactionManager().getPlayerFaction(attacker)) != null){
-					Role role = playerFaction.getMember(player).getRole();
-					String astrix = role.getAstrix();
 					if(attackerFaction.equals(playerFaction)){
 						this.plugin.getMessage().sendMessage(attacker, ConfigurationService.IN_FACTION.replace("%player%", player.getName()));
 						event.setCancelled(true);
@@ -304,11 +283,9 @@ public class FactionsCoreListener
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void onVehicleEnter(VehicleEnterEvent event){
-		Vehicle vehicle;
 		AnimalTamer owner;
-		Horse horse;
 		Entity entered = event.getEntered();
-		if(entered instanceof Player && (vehicle = event.getVehicle()) instanceof Horse && (owner = (horse = (Horse) event.getVehicle()).getOwner()) != null && !owner.equals(entered)){
+		if(entered instanceof Player && event.getVehicle() instanceof Horse && (owner = ((Horse) event.getVehicle()).getOwner()) != null && !owner.equals(entered)){
 			((Player) entered).sendMessage(ChatColor.YELLOW + "You cannot enter a Horse that belongs to " + ChatColor.RED + owner.getName() + ChatColor.YELLOW + '.');
 			event.setCancelled(true);
 		}
@@ -372,17 +349,15 @@ public class FactionsCoreListener
 			event.setCancelled(true);
 		}
 		if(action == Action.RIGHT_CLICK_BLOCK){
-			boolean canBuild;
-			boolean bl = canBuild = !BLOCK_INTERACTABLES.contains(block.getType());
+			boolean canBuild = !BLOCK_INTERACTABLES.contains(block.getType());
 			if(canBuild){
 				Material itemType;
-				Material material = itemType = event.hasItem() ? event.getItem().getType() : null;
+				itemType = event.hasItem() ? event.getItem().getType() : null;
 				if(itemType != null && ITEM_BLOCK_INTERACTABLES.containsKey(itemType) && ITEM_BLOCK_INTERACTABLES.get(itemType).contains(event.getClickedBlock().getType())){
 					canBuild = false;
 				}else{
-					Cauldron cauldron;
 					MaterialData materialData = block.getState().getData();
-					if(materialData instanceof Cauldron && !(cauldron = (Cauldron) materialData).isEmpty() && event.hasItem() && event.getItem().getType() == Material.GLASS_BOTTLE){
+					if(materialData instanceof Cauldron && !((Cauldron) materialData).isEmpty() && event.hasItem() && event.getItem().getType() == Material.GLASS_BOTTLE){
 						canBuild = false;
 					}
 				}
@@ -486,9 +461,8 @@ public class FactionsCoreListener
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void onHangingDamageByEntity(EntityDamageByEntityEvent event){
-		Player attacker;
 		Entity entity = event.getEntity();
-		if(entity instanceof Hanging && !FactionsCoreListener.attemptBuild(attacker = BukkitUtils.getFinalAttacker(event, false), entity.getLocation(), ChatColor.YELLOW + "You cannot build in the territory of %1$s" + ChatColor.YELLOW + '.')){
+		if(entity instanceof Hanging && !FactionsCoreListener.attemptBuild(BukkitUtils.getFinalAttacker(event, false), entity.getLocation(), ChatColor.YELLOW + "You cannot build in the territory of %1$s" + ChatColor.YELLOW + '.')){
 			event.setCancelled(true);
 		}
 	}

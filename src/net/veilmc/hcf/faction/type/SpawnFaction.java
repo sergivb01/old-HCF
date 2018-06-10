@@ -1,11 +1,11 @@
 package net.veilmc.hcf.faction.type;
 
-import java.util.Map;
-
 import net.veilmc.hcf.utils.ConfigurationService;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
+
+import java.util.Map;
 
 public class SpawnFaction
 		extends ClaimableFaction

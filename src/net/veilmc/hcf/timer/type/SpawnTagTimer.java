@@ -1,35 +1,17 @@
 package net.veilmc.hcf.timer.type;
 
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.faction.event.PlayerClaimEnterEvent;
-import net.veilmc.hcf.faction.event.PlayerJoinFactionEvent;
-import net.veilmc.hcf.faction.event.PlayerLeaveFactionEvent;
-import net.veilmc.hcf.timer.PlayerTimer;
-import net.veilmc.hcf.timer.event.TimerClearEvent;
-import net.veilmc.hcf.timer.event.TimerStartEvent;
-import net.veilmc.hcf.utils.ConfigurationService;
-import net.veilmc.hcf.visualise.VisualType;
+import com.google.common.base.Optional;
 import net.veilmc.base.kit.event.KitApplyEvent;
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.hcf.faction.event.PlayerClaimEnterEvent;
 import net.veilmc.hcf.faction.event.PlayerJoinFactionEvent;
 import net.veilmc.hcf.faction.event.PlayerLeaveFactionEvent;
 import net.veilmc.hcf.timer.PlayerTimer;
 import net.veilmc.hcf.timer.event.TimerClearEvent;
 import net.veilmc.hcf.timer.event.TimerStartEvent;
+import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.hcf.visualise.VisualType;
 import net.veilmc.util.BukkitUtils;
-import com.google.common.base.Optional;
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.faction.event.PlayerClaimEnterEvent;
-import net.veilmc.hcf.faction.event.PlayerJoinFactionEvent;
-import net.veilmc.hcf.faction.event.PlayerLeaveFactionEvent;
-import net.veilmc.hcf.timer.PlayerTimer;
-import net.veilmc.hcf.timer.event.TimerClearEvent;
-import net.veilmc.hcf.timer.event.TimerStartEvent;
-import net.veilmc.hcf.utils.ConfigurationService;
-import net.veilmc.hcf.visualise.VisualType;
 import org.apache.commons.lang.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -47,9 +29,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-public class SpawnTagTimer
-		extends PlayerTimer
-		implements Listener{
+public class SpawnTagTimer extends PlayerTimer implements Listener{
 	private static final long NON_WEAPON_TAG = 5000;
 	private final HCF plugin;
 
@@ -161,5 +141,7 @@ public class SpawnTagTimer
 			this.clearCooldown(event.getPlayer());
 		}
 	}
+
+
 }
 

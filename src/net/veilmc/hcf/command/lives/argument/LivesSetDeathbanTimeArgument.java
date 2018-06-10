@@ -3,14 +3,13 @@ package net.veilmc.hcf.command.lives.argument;
 import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.util.JavaUtils;
 import net.veilmc.util.command.CommandArgument;
-
-import java.util.Collections;
-import java.util.List;
-
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+
+import java.util.Collections;
+import java.util.List;
 
 public class LivesSetDeathbanTimeArgument
 		extends CommandArgument{

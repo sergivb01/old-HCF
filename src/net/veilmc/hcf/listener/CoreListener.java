@@ -1,11 +1,7 @@
 package net.veilmc.hcf.listener;
 
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.type.Faction;
-import net.veilmc.util.BukkitUtils;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

@@ -1,14 +1,9 @@
 package net.veilmc.hcf.command.crate.argument;
 
-import net.veilmc.hcf.HCF;
+import com.google.common.primitives.Ints;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.command.crate.Key;
 import net.veilmc.util.command.CommandArgument;
-import com.google.common.primitives.Ints;
-
-import java.util.*;
-import java.util.stream.Collectors;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -18,6 +13,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class LootGiveArgument
 		extends CommandArgument{

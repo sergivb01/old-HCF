@@ -1,7 +1,6 @@
 package net.veilmc.hcf.faction.argument;
 
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.HCF;
 import net.veilmc.util.BukkitUtils;
 import net.veilmc.util.command.CommandArgument;
 import org.bukkit.ChatColor;

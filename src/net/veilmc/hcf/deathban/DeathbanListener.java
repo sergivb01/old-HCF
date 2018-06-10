@@ -1,7 +1,5 @@
 package net.veilmc.hcf.deathban;
 
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.user.FactionUser;
 import net.minecraft.util.com.google.common.cache.CacheBuilder;
 import net.veilmc.base.BasePlugin;
 import net.veilmc.hcf.HCF;

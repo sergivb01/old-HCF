@@ -1,10 +1,10 @@
 package net.veilmc.hcf.faction.struct;
 
-import java.util.Locale;
-
 import net.veilmc.hcf.utils.ConfigurationService;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+
+import java.util.Locale;
 
 public enum ChatChannel{
 	FACTION("Faction"),

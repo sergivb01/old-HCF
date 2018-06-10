@@ -11,8 +11,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-public class TimerManager
-		implements Listener{
+public class TimerManager implements Listener{
 	public final LogoutTimer logoutTimer;
 	public final EnderPearlTimer enderPearlTimer;
 	public final NotchAppleTimer notchAppleTimer;

@@ -1,7 +1,6 @@
 package net.veilmc.hcf.kothgame.eotw;
 
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.HCF;
 import net.veilmc.util.BukkitUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

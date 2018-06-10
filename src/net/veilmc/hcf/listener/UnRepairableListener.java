@@ -8,8 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 
-public class UnRepairableListener
-		implements Listener{
+public class UnRepairableListener implements Listener{
 	@EventHandler
 	public void onRepair(PrepareAnvilRepairEvent e){
 		for(ItemStack itemStack : e.getInventory().getContents()){
@@ -18,13 +17,13 @@ public class UnRepairableListener
 			}
 
 			for(String lore : itemStack.getItemMeta().getLore()){
-				String fixedLore = ChatColor.stripColor((String) lore.toLowerCase());
+				String fixedLore = ChatColor.stripColor(lore.toLowerCase());
 				if(!fixedLore.contains("no repair") && !fixedLore.contains("unrepairable") && !fixedLore.contains("norepair") && !fixedLore.contains("nofix") && !fixedLore.contains("no fix"))
 					continue;
 				e.setCancelled(true);
 				e.setResult(new ItemStack(Material.AIR));
 				e.getRepairer().closeInventory();
-				((Player) e.getRepairer()).sendMessage((Object) ChatColor.RED + "This item cannot be repaired.");
+				((Player) e.getRepairer()).sendMessage(ChatColor.RED + "This item cannot be repaired.");
 			}
 		}
 	}

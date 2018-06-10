@@ -1,22 +1,20 @@
 package net.veilmc.hcf.kothgame.argument;
 
-import net.veilmc.hcf.HCF;
+import com.sk89q.worldedit.bukkit.WorldEditPlugin;
+import com.sk89q.worldedit.bukkit.selections.Selection;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.hcf.kothgame.faction.EventFaction;
 import net.veilmc.util.command.CommandArgument;
 import net.veilmc.util.cuboid.Cuboid;
-import com.sk89q.worldedit.bukkit.WorldEditPlugin;
-import com.sk89q.worldedit.bukkit.selections.Selection;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class EventSetAreaArgument
 		extends CommandArgument{

@@ -9,8 +9,7 @@ import org.bukkit.event.entity.PotionSplashEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.util.Vector;
 
-public class PotionListener
-		implements Listener{
+public class PotionListener implements Listener{
 	@EventHandler
 	void onProjectileLaunch(ProjectileLaunchEvent event){
 		if(event.getEntityType() == EntityType.SPLASH_POTION){

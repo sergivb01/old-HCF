@@ -1,17 +1,13 @@
 package net.veilmc.hcf.timer.event;
 
-import net.veilmc.hcf.timer.Timer;
-import net.veilmc.hcf.timer.Timer;
 import com.google.common.base.Optional;
-
-import java.util.UUID;
-
 import net.veilmc.hcf.timer.Timer;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-public class TimerExpireEvent
-		extends Event{
+import java.util.UUID;
+
+public class TimerExpireEvent extends Event{
 	private static final HandlerList handlers = new HandlerList();
 	private final Optional<UUID> userUUID;
 	private final Timer timer;

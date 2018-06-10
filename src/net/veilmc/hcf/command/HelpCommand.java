@@ -1,6 +1,6 @@
 package net.veilmc.hcf.command;
 
-import net.veilmc.hcf.HCF;
+import net.veilmc.base.BasePlugin;
 import net.veilmc.hcf.HCF;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -15,9 +15,9 @@ public class HelpCommand implements CommandExecutor, TabCompleter{
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
 		for(String messages : HCF.getInstance().getConfig().getStringList("help")){
-			sender.sendMessage(ChatColor.translateAlternateColorCodes('&', messages).replace("%OVERWORLD%", HCF.getPlugin().getServerHandler().getWorldBorder() + "")
-					.replace("%NETHER%", HCF.getPlugin().getServerHandler().getNetherBorder() + "")
-					.replace("%END%", HCF.getPlugin().getServerHandler().getEndBorder() + ""));
+			sender.sendMessage(ChatColor.translateAlternateColorCodes('&', messages).replace("%OVERWORLD%", BasePlugin.getPlugin().getServerHandler().getWorldBorder() + "")
+					.replace("%NETHER%", BasePlugin.getPlugin().getServerHandler().getNetherBorder() + "")
+					.replace("%END%", BasePlugin.getPlugin().getServerHandler().getEndBorder() + ""));
 		}
 
 		return true;

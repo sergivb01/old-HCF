@@ -1,11 +1,10 @@
 package net.veilmc.hcf.deathban;
 
-import java.util.Map;
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
-
 import net.minecraft.util.gnu.trove.map.TObjectIntMap;
 import org.bukkit.entity.Player;
+
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public interface DeathbanManager{
 	long MAX_DEATHBAN_TIME = TimeUnit.HOURS.toMillis(8);

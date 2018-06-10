@@ -2,29 +2,25 @@ package net.veilmc.hcf;
 
 import com.google.common.base.Joiner;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
-import jdk.nashorn.internal.objects.annotations.Getter;
+import lombok.Getter;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
-
-import net.veilmc.hcf.tab.TabListener;
-import net.veilmc.hcf.timer.TimerManager;
-import net.veilmc.hcf.user.FactionUser;
-import net.veilmc.hcf.user.PlayerManager;
-import net.veilmc.hcf.user.UserManager;
 import net.veilmc.base.BasePlugin;
-import net.veilmc.base.ServerHandler;
 import net.veilmc.hcf.balance.*;
 import net.veilmc.hcf.classes.PvpClassManager;
 import net.veilmc.hcf.classes.archer.ArcherClass;
 import net.veilmc.hcf.combatlog.CombatLogListener;
 import net.veilmc.hcf.combatlog.CustomEntityRegistration;
 import net.veilmc.hcf.command.*;
-import net.veilmc.hcf.config.PotionLimiterData;
 import net.veilmc.hcf.command.crate.KeyListener;
 import net.veilmc.hcf.command.crate.KeyManager;
 import net.veilmc.hcf.command.crate.LootExecutor;
 import net.veilmc.hcf.command.death.DeathExecutor;
+import net.veilmc.hcf.command.lives.LivesExecutor;
+import net.veilmc.hcf.command.spawn.SpawnCommand;
+import net.veilmc.hcf.command.spawn.TokenExecutor;
+import net.veilmc.hcf.config.PotionLimiterData;
 import net.veilmc.hcf.deathban.Deathban;
 import net.veilmc.hcf.deathban.DeathbanListener;
 import net.veilmc.hcf.deathban.DeathbanManager;
@@ -51,13 +47,16 @@ import net.veilmc.hcf.kothgame.faction.KothFaction;
 import net.veilmc.hcf.kothgame.koth.KothExecutor;
 import net.veilmc.hcf.listener.*;
 import net.veilmc.hcf.listener.fixes.*;
-import net.veilmc.hcf.command.lives.LivesExecutor;
 import net.veilmc.hcf.scoreboard.ScoreboardHandler;
-import net.veilmc.hcf.command.spawn.SpawnCommand;
-import net.veilmc.hcf.command.spawn.TokenExecutor;
 import net.veilmc.hcf.timer.TimerExecutor;
+import net.veilmc.hcf.timer.TimerManager;
 import net.veilmc.hcf.timer.type.SotwTimer;
-import net.veilmc.hcf.utils.*;
+import net.veilmc.hcf.user.FactionUser;
+import net.veilmc.hcf.user.UserManager;
+import net.veilmc.hcf.utils.ConfigurationService;
+import net.veilmc.hcf.utils.Cooldowns;
+import net.veilmc.hcf.utils.DateTimeFormats;
+import net.veilmc.hcf.utils.Message;
 import net.veilmc.hcf.visualise.ProtocolLibHook;
 import net.veilmc.hcf.visualise.VisualiseHandler;
 import net.veilmc.hcf.visualise.WallBorderListener;
@@ -74,10 +73,10 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 
+@Getter
 public class HCF extends JavaPlugin{
 	public static final Joiner SPACE_JOINER = Joiner.on(' ');
 	public static final Joiner COMMA_JOINER = Joiner.on(", ");
@@ -92,7 +91,6 @@ public class HCF extends JavaPlugin{
 	private List<String> eventGames = new ArrayList<>();
 	private Random random = new Random();
 	private WorldEditPlugin worldEdit;
-	private FoundDiamondsListener foundDiamondsListener;
 	private ClaimHandler claimHandler;
 	private SotwTimer sotwTimer;
 	private KeyManager keyManager;
@@ -107,22 +105,9 @@ public class HCF extends JavaPlugin{
 	private VisualiseHandler visualiseHandler;
 	private String armor;
 
-	private static final Logger log = Logger.getLogger("Minecraft");
-
-	private static Permission perms = null;
-
-	private static Chat chat = null;
-
-	private static Economy econ = null;
-
-
-	private String host;
-	private String database;
-	private String username;
-	private String password;
-	private String table;
-	private int port;
-
+	public static Permission permission = null;
+	public static Chat chat = null;
+	public static Economy econ = null;
 
 	public static HCF getPlugin(){
 		return plugin;
@@ -151,8 +136,8 @@ public class HCF extends JavaPlugin{
 	}
 
 	public void onEnable(){
-		if (!setupChat() ) {
-			log.severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
+		if(!setupChat()){
+			getLogger().severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
 			getServer().getPluginManager().disablePlugin(this);
 			return;
 		}
@@ -169,12 +154,12 @@ public class HCF extends JavaPlugin{
 		PotionLimiterData.getInstance().setup(this);
 		PotionLimitListener.reload();
 
-		this.worldEdit = Bukkit.getPluginManager().getPlugin("WorldEdit") instanceof WorldEditPlugin && Bukkit.getPluginManager().getPlugin("WorldEdit").isEnabled() ? (WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit") : null;
+		worldEdit = Bukkit.getPluginManager().getPlugin("WorldEdit") instanceof WorldEditPlugin && Bukkit.getPluginManager().getPlugin("WorldEdit").isEnabled() ? (WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit") : null;
 
-		this.registerConfiguration();
-		this.registerCommands();
-		this.registerManagers();
-		this.registerListeners();
+		registerConfiguration();
+		registerCommands();
+		registerManagers();
+		registerListeners();
 
 		Cooldowns.createCooldown("revive_cooldown");
 		Cooldowns.createCooldown("Assassin_item_cooldown");
@@ -183,10 +168,10 @@ public class HCF extends JavaPlugin{
 		Cooldowns.createCooldown("report_cooldown");
 		Cooldowns.createCooldown("helpop_cooldown");
 
-		this.scoreboardTitle = ChatUtil.translateColors(getConfig().getString("scoreboard.title"));
-		this.armor = ChatUtil.translateColors(getConfig().getString("scoreboard.active-class"));
+		scoreboardTitle = ChatColor.translateAlternateColorCodes('&', getConfig().getString("scoreboard.title"));
+		armor = ChatColor.translateAlternateColorCodes('&', getConfig().getString("scoreboard.active-class"));
 
-		this.timerManager.enable();
+		timerManager.enable();
 
 		registerGames();
 
@@ -234,7 +219,7 @@ public class HCF extends JavaPlugin{
 			Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&e[" + HCF.getPlugin().getDescription().getName() + "] &cRegister KOTHs and restart server to enable this feature."));
 
 		}else{
-			this.getLogger().info("Starting koth in " + seconds + " seconds. (" + getNextGame() + ")");
+			getLogger().info("Starting koth in " + seconds + " seconds. (" + getNextGame() + ")");
 			NEXT_KOTH = System.currentTimeMillis() + (seconds * 1000);
 			new BukkitRunnable(){
 				public void run(){
@@ -245,9 +230,8 @@ public class HCF extends JavaPlugin{
 		}
 	}
 
-
 	public void rotateGames(){
-		this.getLogger().info("Game list was rotated.");
+		getLogger().info("Game list was rotated.");
 		Collections.rotate(eventGames, -1);
 	}
 
@@ -255,18 +239,15 @@ public class HCF extends JavaPlugin{
 		return eventGames.get(0);
 	}
 
-
-
-
 	public void saveData(){
 		Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "save-all");
 		BasePlugin.getPlugin().getServerHandler().saveServerData(); //Base data
 		Bukkit.getOnlinePlayers().forEach(Player::saveData);//Save data
-		this.deathbanManager.saveDeathbanData(); //Deathbans
-		this.economyManager.saveEconomyData(); //Balance
-		this.factionManager.saveFactionData(); //Factions
-		this.userManager.saveUserData(); //User settings
-		this.keyManager.saveKeyData(); //Key things
+		deathbanManager.saveDeathbanData(); //Deathbans
+		economyManager.saveEconomyData(); //Balance
+		factionManager.saveFactionData(); //Factions
+		userManager.saveUserData(); //User settings
+		keyManager.saveKeyData(); //Key things
 	}
 
 	public void onDisable(){
@@ -274,10 +255,10 @@ public class HCF extends JavaPlugin{
 		Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "save-all");
 		CustomEntityRegistration.unregisterCustomEntities();
 		CombatLogListener.removeCombatLoggers();
-		this.pvpClassManager.onDisable();
-		this.scoreboardHandler.clearBoards();
-		this.saveData();
-		this.timerManager.disable();
+		pvpClassManager.onDisable();
+		scoreboardHandler.clearBoards();
+		saveData();
+		timerManager.disable();
 	}
 
 	private void registerConfiguration(){
@@ -308,7 +289,7 @@ public class HCF extends JavaPlugin{
 
 
 	private void registerListeners(){
-		PluginManager manager = this.getServer().getPluginManager();
+		PluginManager manager = getServer().getPluginManager();
 		manager.registerEvents(new PotionLimitListener(), this);
 		manager.registerEvents(new AutoRespawnListener(this), this);
 		manager.registerEvents(new PortalFixListener(), this);
@@ -379,148 +360,78 @@ public class HCF extends JavaPlugin{
 
 
 	private void registerCommands(){
-		this.getCommand("permissions").setExecutor(new PermissionsCommand(this));
-		this.getCommand("reclaim").setExecutor(new ReclaimCommand(this));
-		this.getCommand("platinum").setExecutor(new PlatinumReviveCommand(this));
-		this.getCommand("teamspeak").setExecutor(new TeamspeakCommand());
-		this.getCommand("supplydrop").setExecutor(new SupplydropCommand(this));
-		this.getCommand("enderchest").setExecutor(new PlayerVaultCommand(this));
-		this.getCommand("statreset").setExecutor(new StatResetCommand(this));
-		this.getCommand("togglefd").setExecutor(new TogglefdCommand());
-		this.getCommand("ffa").setExecutor(new FFACommand());
-		this.getCommand("endportal").setExecutor(new EndPortalCommand(this));
-		this.getCommand("toggleend").setExecutor(new ToggleEnd(this));
-		this.getCommand("focus").setExecutor(new FactionFocusArgument(this));
-		this.getCommand("sendcoords").setExecutor(new SendCoordsCommand(this));
-		this.getCommand("spawner").setExecutor(new SpawnerCommand(this));
-		this.getCommand("sotw").setExecutor(new SotwCommand(this));
-		this.getCommand("conquest").setExecutor(new ConquestExecutor(this));
-		this.getCommand("crowbar").setExecutor(new CrowbarCommand());
-		this.getCommand("economy").setExecutor(new EconomyCommand(this));
-		this.getCommand("eotw").setExecutor(new EotwCommand(this));
-		this.getCommand("game").setExecutor(new EventExecutor(this));
-		this.getCommand("help").setExecutor(new HelpCommand());
-		this.getCommand("faction").setExecutor(new FactionExecutor(this));
-		this.getCommand("gopple").setExecutor(new GoppleCommand(this));
-		this.getCommand("stats").setExecutor(new PlayerStats());
-		this.getCommand("koth").setExecutor(new KothExecutor(this));
-		this.getCommand("check").setExecutor(new CheckCommand(this));
-		this.getCommand("store").setExecutor(new StoreCommand(this));
-		this.getCommand("lives").setExecutor(new LivesExecutor(this));
-		this.getCommand("token").setExecutor(new TokenExecutor(this));
-		this.getCommand("death").setExecutor(new DeathExecutor(this));
-		this.getCommand("location").setExecutor(new LocationCommand(this));
-		this.getCommand("logout").setExecutor(new LogoutCommand(this));
-		this.getCommand("mapkit").setExecutor(new MapKitCommand(this));
-		this.getCommand("pay").setExecutor(new PayCommand(this));
-		this.getCommand("pvptimer").setExecutor(new PvpTimerCommand(this));
-		this.getCommand("coords").setExecutor(new CoordsCommand(this));
-		this.getCommand("servertime").setExecutor(new ServerTimeCommand());
-		this.getCommand("spawn").setExecutor(new SpawnCommand(this));
-		this.getCommand("timer").setExecutor(new TimerExecutor(this));
-		this.getCommand("medic").setExecutor(new ReviveCommand(this));
-		this.getCommand("savedata").setExecutor(new SaveDataCommand());
-		this.getCommand("setborder").setExecutor(new SetBorderCommand());
-		this.getCommand("loot").setExecutor(new LootExecutor(this));
-		this.getCommand("safestop").setExecutor(new SafestopCommand());
-		this.getCommand("nether").setExecutor(new NetherCommand(this));
-		this.getCommand("cobble").setExecutor(new CobbleCommand());
-		this.getCommand("ores").setExecutor(new OresCommand());
-		this.getCommand("crowgive").setExecutor(new CrowbarGiveCommand());
-		this.getCommand("user").setExecutor(new UserCommand(this));
-		final Map<String, Map<String, Object>> map = this.getDescription().getCommands();
+		getCommand("permissions").setExecutor(new PermissionsCommand(this));
+		getCommand("reclaim").setExecutor(new ReclaimCommand(this));
+		getCommand("platinum").setExecutor(new PlatinumReviveCommand(this));
+		getCommand("teamspeak").setExecutor(new TeamspeakCommand());
+		getCommand("supplydrop").setExecutor(new SupplydropCommand(this));
+		getCommand("enderchest").setExecutor(new PlayerVaultCommand(this));
+		getCommand("statreset").setExecutor(new StatResetCommand(this));
+		getCommand("togglefd").setExecutor(new TogglefdCommand());
+		getCommand("ffa").setExecutor(new FFACommand());
+		getCommand("endportal").setExecutor(new EndPortalCommand(this));
+		getCommand("toggleend").setExecutor(new ToggleEnd(this));
+		getCommand("focus").setExecutor(new FactionFocusArgument(this));
+		getCommand("sendcoords").setExecutor(new SendCoordsCommand(this));
+		getCommand("spawner").setExecutor(new SpawnerCommand(this));
+		getCommand("sotw").setExecutor(new SotwCommand(this));
+		getCommand("conquest").setExecutor(new ConquestExecutor(this));
+		getCommand("crowbar").setExecutor(new CrowbarCommand());
+		getCommand("economy").setExecutor(new EconomyCommand(this));
+		getCommand("eotw").setExecutor(new EotwCommand(this));
+		getCommand("game").setExecutor(new EventExecutor(this));
+		getCommand("help").setExecutor(new HelpCommand());
+		getCommand("faction").setExecutor(new FactionExecutor(this));
+		getCommand("gopple").setExecutor(new GoppleCommand(this));
+		getCommand("stats").setExecutor(new PlayerStats());
+		getCommand("koth").setExecutor(new KothExecutor(this));
+		getCommand("check").setExecutor(new CheckCommand(this));
+		getCommand("store").setExecutor(new StoreCommand(this));
+		getCommand("lives").setExecutor(new LivesExecutor(this));
+		getCommand("token").setExecutor(new TokenExecutor(this));
+		getCommand("death").setExecutor(new DeathExecutor(this));
+		getCommand("location").setExecutor(new LocationCommand(this));
+		getCommand("logout").setExecutor(new LogoutCommand(this));
+		getCommand("mapkit").setExecutor(new MapKitCommand(this));
+		getCommand("pay").setExecutor(new PayCommand(this));
+		getCommand("pvptimer").setExecutor(new PvpTimerCommand(this));
+		getCommand("coords").setExecutor(new CoordsCommand(this));
+		getCommand("servertime").setExecutor(new ServerTimeCommand());
+		getCommand("spawn").setExecutor(new SpawnCommand(this));
+		getCommand("timer").setExecutor(new TimerExecutor(this));
+		getCommand("medic").setExecutor(new ReviveCommand(this));
+		getCommand("savedata").setExecutor(new SaveDataCommand());
+		getCommand("setborder").setExecutor(new SetBorderCommand());
+		getCommand("loot").setExecutor(new LootExecutor(this));
+		getCommand("safestop").setExecutor(new SafestopCommand());
+		getCommand("nether").setExecutor(new NetherCommand(this));
+		getCommand("cobble").setExecutor(new CobbleCommand());
+		getCommand("ores").setExecutor(new OresCommand());
+		getCommand("crowgive").setExecutor(new CrowbarGiveCommand());
+		getCommand("user").setExecutor(new UserCommand(this));
+		final Map<String, Map<String, Object>> map = getDescription().getCommands();
 
 		for(final Map.Entry<String, Map<String, Object>> entry : map.entrySet()){
-			final PluginCommand command = this.getCommand(entry.getKey());
+			final PluginCommand command = getCommand(entry.getKey());
 			command.setPermission("hcf.command." + entry.getKey());
 		}
 
 	}
 
 	private void registerManagers(){
-		this.claimHandler = new ClaimHandler(this);
-		this.deathbanManager = new FlatFileDeathbanManager(this);
-		this.economyManager = new FlatFileEconomyManager(this);
-		this.eotwHandler = new EOTWHandler(this);
-		this.factionManager = new FlatFileFactionManager(this);
-		this.pvpClassManager = new PvpClassManager(this);
-		this.timerManager = new TimerManager(this);
-		this.scoreboardHandler = new ScoreboardHandler(this);
-		this.userManager = new UserManager(this);
-		this.visualiseHandler = new VisualiseHandler();
-		this.sotwTimer = new SotwTimer();
-		this.keyManager = new KeyManager(this);
-		this.message = new Message(this);
-	}
-
-
-
-	public Message getMessage(){
-		return this.message;
-	}
-
-	public ServerHandler getServerHandler(){
-		return BasePlugin.getPlugin().getServerHandler();
-	}
-
-	public Random getRandom(){
-		return this.random;
-	}
-
-	public WorldEditPlugin getWorldEdit(){
-		return this.worldEdit;
-	}
-
-	public KeyManager getKeyManager(){
-		return this.keyManager;
-	}
-
-	public ClaimHandler getClaimHandler(){
-		return this.claimHandler;
-	}
-
-	public DeathbanManager getDeathbanManager(){
-		return this.deathbanManager;
-	}
-
-	public EconomyManager getEconomyManager(){
-		return this.economyManager;
-	}
-
-	public EOTWHandler getEotwHandler(){
-		return this.eotwHandler;
-	}
-
-	public FactionManager getFactionManager(){
-		return this.factionManager;
-	}
-
-	public PvpClassManager getPvpClassManager(){
-		return this.pvpClassManager;
-	}
-
-	public ScoreboardHandler getScoreboardHandler(){
-		return this.scoreboardHandler;
-	}
-
-	public TimerManager getTimerManager(){
-		return this.timerManager;
-	}
-
-	public UserManager getUserManager(){
-		return this.userManager;
-	}
-
-	public VisualiseHandler getVisualiseHandler(){
-		return this.visualiseHandler;
-	}
-
-	public SotwTimer getSotwTimer(){
-		return this.sotwTimer;
-	}
-
-	public String scoreboardTitle(){
-		return this.scoreboardTitle;
+		claimHandler = new ClaimHandler(this);
+		deathbanManager = new FlatFileDeathbanManager(this);
+		economyManager = new FlatFileEconomyManager(this);
+		eotwHandler = new EOTWHandler(this);
+		factionManager = new FlatFileFactionManager(this);
+		pvpClassManager = new PvpClassManager(this);
+		timerManager = new TimerManager(this);
+		scoreboardHandler = new ScoreboardHandler(this);
+		userManager = new UserManager(this);
+		visualiseHandler = new VisualiseHandler();
+		sotwTimer = new SotwTimer();
+		keyManager = new KeyManager(this);
+		message = new Message(this);
 	}
 
 	public String getKothRemaining(){
@@ -528,42 +439,18 @@ public class HCF extends JavaPlugin{
 		return org.apache.commons.lang.time.DurationFormatUtils.formatDuration(duration, (duration >= HOUR ? "HH:" : "") + "mm:ss");
 	}
 
-
-
-
-
-
-
-
-
-	private boolean setupChat() {
-		if (getServer().getPluginManager().getPlugin("Vault") == null) {
-			log.severe("DB: Vault plugin = null");
+	private boolean setupChat(){
+		if(getServer().getPluginManager().getPlugin("Vault") == null){
+			getLogger().severe("DB: Vault plugin = null");
 			return false;
 		}
 		RegisteredServiceProvider<Chat> rsp = getServer().getServicesManager().getRegistration(Chat.class);
-		if (rsp == null) {
-			log.severe("rsp = null");
+		if(rsp == null){
+			getLogger().severe("rsp = null");
 			return false;
 		}
 		chat = rsp.getProvider();
 		return chat != null;
 	}
-
-
-
-
-	public static Economy getEconomy() {
-		return econ;
-	}
-
-	public static Permission getPermissions() {
-		return perms;
-	}
-
-	public static Chat getChat() {
-		return chat;
-	}
-
 
 }

@@ -1,19 +1,16 @@
 package net.veilmc.hcf.command;
 
-import net.veilmc.hcf.HCF;
 import net.veilmc.base.BasePlugin;
-import net.veilmc.base.ServerHandler;
 import net.veilmc.hcf.HCF;
-
-import java.util.Collections;
-import java.util.List;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
+
+import java.util.Collections;
+import java.util.List;
 
 public class ToggleEnd
 		implements CommandExecutor,

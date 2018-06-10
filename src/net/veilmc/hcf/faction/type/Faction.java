@@ -1,26 +1,20 @@
 package net.veilmc.hcf.faction.type;
 
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.faction.event.FactionRenameEvent;
-import net.veilmc.hcf.faction.struct.Relation;
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.utils.ConfigurationService;
-import net.veilmc.hcf.faction.event.FactionRenameEvent;
-import net.veilmc.hcf.faction.struct.Relation;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
+import net.veilmc.hcf.HCF;
+import net.veilmc.hcf.faction.event.FactionRenameEvent;
+import net.veilmc.hcf.faction.struct.Relation;
+import net.veilmc.hcf.utils.ConfigurationService;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.serialization.ConfigurationSerializable;
+import org.bukkit.entity.Player;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
-
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-
-
-import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.serialization.ConfigurationSerializable;
-import org.bukkit.entity.Player;
 
 public abstract class Faction
 		implements ConfigurationSerializable{

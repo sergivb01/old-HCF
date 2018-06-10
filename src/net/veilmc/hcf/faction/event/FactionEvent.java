@@ -1,8 +1,7 @@
 package net.veilmc.hcf.faction.event;
 
-import net.veilmc.hcf.faction.type.Faction;
 import com.google.common.base.Preconditions;
-
+import net.veilmc.hcf.faction.type.Faction;
 import org.bukkit.event.Event;
 
 public abstract class FactionEvent

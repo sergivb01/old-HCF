@@ -1,6 +1,5 @@
 package net.veilmc.hcf.command;
 
-import net.veilmc.base.BasePlugin;
 import net.veilmc.hcf.HCF;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -25,21 +24,6 @@ public class UserCommand implements CommandExecutor,
 	public UserCommand(HCF plugin){
 		this.plugin = plugin;
 	}
-
-	public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
-		OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
-		//if(target.hasPlayedBefore()){
-			((Player) sender).openInventory(getMenu(target));
-		//} else {
-		//	sender.sendMessage(ChatColor.RED + "This player has not played before.");
-	//	}
-
-		return true;
-	}
-
-
-
-
 
 	private static Inventory getMenu(final OfflinePlayer player){
 		final Inventory inventory = Bukkit.createInventory(null, 9, player.getName() + (player.getName().endsWith("s") ? "'" : "'s") + " Punishments");
@@ -68,14 +52,19 @@ public class UserCommand implements CommandExecutor,
 		inventory.setItem(6, c);
 
 
-
-
 		return inventory;
 	}
 
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
+		OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
+		//if(target.hasPlayedBefore()){
+		((Player) sender).openInventory(getMenu(target));
+		//} else {
+		//	sender.sendMessage(ChatColor.RED + "This player has not played before.");
+		//	}
 
-
-
+		return true;
+	}
 
 	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args){
 		return Collections.emptyList();

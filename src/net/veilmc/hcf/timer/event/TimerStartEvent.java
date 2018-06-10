@@ -1,22 +1,16 @@
 package net.veilmc.hcf.timer.event;
 
-import net.veilmc.hcf.timer.PlayerTimer;
-import net.veilmc.hcf.timer.Timer;
-import net.veilmc.hcf.timer.PlayerTimer;
-import net.veilmc.hcf.timer.Timer;
 import com.google.common.base.Optional;
-
-import java.util.UUID;
-import javax.annotation.Nullable;
-
 import net.veilmc.hcf.timer.PlayerTimer;
 import net.veilmc.hcf.timer.Timer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-public class TimerStartEvent
-		extends Event{
+import javax.annotation.Nullable;
+import java.util.UUID;
+
+public class TimerStartEvent extends Event{
 	private static final HandlerList handlers = new HandlerList();
 	private final Optional<Player> player;
 	private final Optional<UUID> userUUID;

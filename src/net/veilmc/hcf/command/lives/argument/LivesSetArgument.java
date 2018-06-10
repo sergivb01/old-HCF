@@ -1,19 +1,17 @@
 package net.veilmc.hcf.command.lives.argument;
 
-import net.veilmc.hcf.HCF;
+import com.google.common.primitives.Ints;
 import net.veilmc.base.BaseConstants;
 import net.veilmc.hcf.HCF;
 import net.veilmc.util.BukkitUtils;
 import net.veilmc.util.command.CommandArgument;
-import com.google.common.primitives.Ints;
-
-import java.util.Collections;
-import java.util.List;
-
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+
+import java.util.Collections;
+import java.util.List;
 
 public class LivesSetArgument
 		extends CommandArgument{

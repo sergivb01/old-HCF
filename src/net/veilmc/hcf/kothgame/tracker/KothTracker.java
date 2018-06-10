@@ -1,7 +1,6 @@
 package net.veilmc.hcf.kothgame.tracker;
 
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.kothgame.CaptureZone;
 import net.veilmc.hcf.kothgame.EventTimer;
 import net.veilmc.hcf.kothgame.EventType;

@@ -1,8 +1,8 @@
 package net.veilmc.hcf.balance;
 
-import java.util.UUID;
-
 import net.minecraft.util.gnu.trove.map.TObjectIntMap;
+
+import java.util.UUID;
 
 public interface EconomyManager{
 	char ECONOMY_SYMBOL = '$';

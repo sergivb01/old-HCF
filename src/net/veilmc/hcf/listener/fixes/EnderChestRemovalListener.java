@@ -1,7 +1,5 @@
 package net.veilmc.hcf.listener.fixes;
 
-import java.util.Iterator;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
@@ -12,6 +10,8 @@ import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.material.EnderChest;
+
+import java.util.Iterator;
 
 public class EnderChestRemovalListener
 		implements Listener{

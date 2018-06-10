@@ -128,7 +128,7 @@ public class DeathMessageListener
 		if(entity instanceof Player){
 			Player player = (Player) entity;
 			//String rank = ChatColor.translateAlternateColorCodes('&', "&e" + PermissionsEx.getUser(player).getPrefix()).replace("_", " ");
-			String rank = ChatColor.translateAlternateColorCodes('&', "&e" + HCF.getChat().getPlayerPrefix(player).replace("_", " "));
+			String rank = ChatColor.translateAlternateColorCodes('&', "&e" + HCF.chat.getPlayerPrefix(player).replace("_", " "));
 			return rank + player.getName() + ChatColor.GOLD + '[' + ChatColor.WHITE + this.plugin.getUserManager().getUser(player.getUniqueId()).getKills() + ChatColor.GOLD + ']';
 		}
 		return WordUtils.capitalizeFully(entity.getType().name().replace('_', ' '));

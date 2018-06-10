@@ -8,8 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.vehicle.VehicleEnterEvent;
 
-public class MinecartElevatorListener
-		implements Listener{
+public class MinecartElevatorListener implements Listener{
 	@EventHandler
 	public void onMinecart(VehicleEnterEvent event){
 		if((!(event.getVehicle() instanceof Minecart)) || (!(event.getEntered() instanceof Player))){

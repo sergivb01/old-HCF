@@ -1,24 +1,17 @@
 package net.veilmc.hcf.visualise;
 
-import net.veilmc.util.cuboid.Cuboid;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Table;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.UUID;
-
+import net.veilmc.util.cuboid.Cuboid;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+
+import java.util.*;
 
 public class VisualiseHandler{
 	private final Table<UUID, Location, VisualBlock> storedVisualises = HashBasedTable.create();
@@ -34,11 +27,11 @@ public class VisualiseHandler{
 
 
 	public VisualBlock getVisualBlockAt(Player player, Location location) throws NullPointerException{
-		Preconditions.checkNotNull((Object) player, (Object) "Player cannot be null");
-		Preconditions.checkNotNull((Object) location, (Object) "Location cannot be null");
+		Preconditions.checkNotNull((Object) player, "Player cannot be null");
+		Preconditions.checkNotNull((Object) location, "Location cannot be null");
 		Table<UUID, Location, VisualBlock> table = this.storedVisualises;
 		synchronized(table){
-			return (VisualBlock) this.storedVisualises.get((Object) player.getUniqueId(), (Object) location);
+			return this.storedVisualises.get(player.getUniqueId(), location);
 		}
 	}
 
@@ -77,7 +70,7 @@ public class VisualiseHandler{
 				int count = 0;
 				for(Location location : locations){
 					Material previousType;
-					if(!canOverwrite && this.storedVisualises.contains((Object) player.getUniqueId(), (Object) location) || (previousType = location.getBlock().getType()).isSolid() || previousType != Material.AIR)
+					if(!canOverwrite && this.storedVisualises.contains(player.getUniqueId(), location) || (previousType = location.getBlock().getType()).isSolid() || previousType != Material.AIR)
 						continue;
 					VisualBlockData visualBlockData = filled.get(count++);
 					results.put(location, visualBlockData);
@@ -97,7 +90,7 @@ public class VisualiseHandler{
 	public boolean clearVisualBlock(Player player, Location location, boolean sendRemovalPacket){
 		Table<UUID, Location, VisualBlock> table = this.storedVisualises;
 		synchronized(table){
-			VisualBlock visualBlock = (VisualBlock) this.storedVisualises.remove((Object) player.getUniqueId(), (Object) location);
+			VisualBlock visualBlock = this.storedVisualises.remove(player.getUniqueId(), location);
 			if(sendRemovalPacket && visualBlock != null){
 				Block block = location.getBlock();
 				VisualBlockData visualBlockData = visualBlock.getBlockData();
@@ -121,7 +114,7 @@ public class VisualiseHandler{
 	@Deprecated
 	public Map<Location, VisualBlock> clearVisualBlocks(final Player player, final VisualType visualType, final Predicate<VisualBlock> predicate, final boolean sendRemovalPackets){
 		synchronized(this.storedVisualises){
-			if(!this.storedVisualises.containsRow((Object) player.getUniqueId())){
+			if(!this.storedVisualises.containsRow(player.getUniqueId())){
 				return Collections.emptyMap();
 			}
 			final Map<Location, VisualBlock> results = new HashMap<Location, VisualBlock>(this.storedVisualises.row(player.getUniqueId()));

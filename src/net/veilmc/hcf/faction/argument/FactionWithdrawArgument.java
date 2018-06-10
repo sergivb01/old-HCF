@@ -1,24 +1,22 @@
 package net.veilmc.hcf.faction.argument;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.primitives.Ints;
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.hcf.faction.FactionMember;
 import net.veilmc.hcf.faction.struct.Role;
 import net.veilmc.hcf.faction.type.PlayerFaction;
+import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.util.JavaUtils;
 import net.veilmc.util.command.CommandArgument;
-import com.google.common.collect.ImmutableList;
-import com.google.common.primitives.Ints;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.UUID;
 
 public class FactionWithdrawArgument
 		extends CommandArgument{

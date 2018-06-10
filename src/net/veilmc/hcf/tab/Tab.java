@@ -1,11 +1,9 @@
 package net.veilmc.hcf.tab;
 
-import net.veilmc.hcf.tab.utils.tinyprotocol.comphenix.TinyProtocol;
 import net.minecraft.server.v1_7_R4.*;
 import net.minecraft.util.com.mojang.authlib.GameProfile;
 import net.minecraft.util.com.mojang.authlib.properties.Property;
 import net.minecraft.util.io.netty.channel.Channel;
-import net.veilmc.hcf.tab.utils.tinyprotocol.comphenix.TinyProtocol;
 import net.veilmc.hcf.tab.utils.tinyprotocol.comphenix.TinyProtocol;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

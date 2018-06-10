@@ -1,7 +1,6 @@
 package net.veilmc.hcf.command;
 
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.timer.type.LogoutTimer;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;

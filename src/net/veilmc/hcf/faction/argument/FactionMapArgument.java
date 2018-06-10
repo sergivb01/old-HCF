@@ -1,24 +1,20 @@
 package net.veilmc.hcf.faction.argument;
 
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.user.FactionUser;
-import net.veilmc.hcf.visualise.VisualType;
+import com.google.common.base.Enums;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.LandMap;
 import net.veilmc.hcf.user.FactionUser;
 import net.veilmc.hcf.visualise.VisualType;
 import net.veilmc.util.command.CommandArgument;
-import com.google.common.base.Enums;
+import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
-
-import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 public class FactionMapArgument
 		extends CommandArgument{

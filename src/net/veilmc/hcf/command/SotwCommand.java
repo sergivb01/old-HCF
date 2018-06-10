@@ -1,22 +1,20 @@
 package net.veilmc.hcf.command;
 
-import java.util.Collections;
-import java.util.List;
-
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.utils.ConfigurationService;
-import net.veilmc.hcf.timer.type.SotwTimer;
-import net.veilmc.util.BukkitUtils;
-import net.veilmc.util.JavaUtils;
-
 import net.md_5.bungee.api.ChatColor;
 import net.minecraft.util.com.google.common.collect.ImmutableList;
 import net.minecraft.util.org.apache.commons.lang3.time.DurationFormatUtils;
+import net.veilmc.hcf.HCF;
+import net.veilmc.hcf.timer.type.SotwTimer;
+import net.veilmc.hcf.utils.ConfigurationService;
+import net.veilmc.util.BukkitUtils;
+import net.veilmc.util.JavaUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
+
+import java.util.Collections;
+import java.util.List;
 
 public class SotwCommand implements CommandExecutor, TabCompleter{
 	private static final List<String> COMPLETIONS;

@@ -1,6 +1,7 @@
 package net.veilmc.hcf.kothgame.tracker;
 
-import net.veilmc.hcf.HCF;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Ordering;
 import me.sergivb01.sutils.ServerUtils;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.event.FactionRemoveEvent;
@@ -11,8 +12,6 @@ import net.veilmc.hcf.kothgame.EventTimer;
 import net.veilmc.hcf.kothgame.EventType;
 import net.veilmc.hcf.kothgame.faction.ConquestFaction;
 import net.veilmc.hcf.kothgame.faction.EventFaction;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Ordering;
 import net.veilmc.hcf.utils.ConfigurationService;
 import org.apache.commons.lang3.ObjectUtils;
 import org.bukkit.Bukkit;

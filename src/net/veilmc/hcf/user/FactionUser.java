@@ -10,8 +10,7 @@ import org.bukkit.entity.Player;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class FactionUser
-		implements ConfigurationSerializable{
+public class FactionUser implements ConfigurationSerializable{
 	private final Set<UUID> factionChatSpying = new HashSet<>();
 	private final Set<String> shownScoreboardScores = new HashSet<>();
 	private final UUID userUUID;

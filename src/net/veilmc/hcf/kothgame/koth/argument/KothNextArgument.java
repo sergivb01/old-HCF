@@ -1,19 +1,17 @@
 package net.veilmc.hcf.kothgame.koth.argument;
 
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.utils.DateTimeFormats;
 import net.veilmc.util.command.CommandArgument;
+import org.apache.commons.lang3.text.WordUtils;
+import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 
 import java.time.LocalDateTime;
 import java.time.format.TextStyle;
 import java.util.Locale;
 import java.util.Map;
-
-import org.apache.commons.lang3.text.WordUtils;
-import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 
 public class KothNextArgument
 		extends CommandArgument{

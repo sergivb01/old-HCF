@@ -1,17 +1,12 @@
 package net.veilmc.hcf.timer.event;
 
-import net.veilmc.hcf.timer.PlayerTimer;
-import net.veilmc.hcf.timer.Timer;
-import net.veilmc.hcf.timer.PlayerTimer;
-import net.veilmc.hcf.timer.Timer;
 import com.google.common.base.Optional;
-
-import java.util.UUID;
-
 import net.veilmc.hcf.timer.PlayerTimer;
 import net.veilmc.hcf.timer.Timer;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+
+import java.util.UUID;
 
 public class TimerClearEvent
 		extends Event{

@@ -2,7 +2,6 @@ package net.veilmc.hcf.command.crate.argument;
 
 import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.util.command.CommandArgument;
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

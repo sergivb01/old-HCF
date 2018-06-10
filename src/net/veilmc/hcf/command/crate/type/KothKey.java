@@ -1,11 +1,9 @@
 package net.veilmc.hcf.command.crate.type;
 
-import net.veilmc.hcf.crowbar.Crowbar;
-import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.hcf.command.crate.EnderChestKey;
 import net.veilmc.hcf.crowbar.Crowbar;
+import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.util.ItemBuilder;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;

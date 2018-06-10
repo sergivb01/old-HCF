@@ -1,9 +1,9 @@
 package net.veilmc.hcf.listener.fixes;
 
-import net.veilmc.hcf.utils.ConfigurationService;
 import com.google.common.collect.ImmutableMap;
 import me.sergivb01.event.PrepareAnvilRepairEvent;
 import net.minecraft.server.v1_7_R4.*;
+import net.veilmc.hcf.utils.ConfigurationService;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;

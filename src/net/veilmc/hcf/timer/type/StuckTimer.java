@@ -1,17 +1,5 @@
 package net.veilmc.hcf.timer.type;
 
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.combatlog.CombatLogListener;
-import net.veilmc.hcf.faction.LandMap;
-import net.veilmc.hcf.timer.PlayerTimer;
-import net.veilmc.hcf.timer.TimerRunnable;
-import net.veilmc.hcf.utils.ConfigurationService;
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.combatlog.CombatLogListener;
-import net.veilmc.hcf.faction.LandMap;
-import net.veilmc.hcf.timer.PlayerTimer;
-import net.veilmc.hcf.timer.TimerRunnable;
-import net.veilmc.hcf.utils.ConfigurationService;
 import net.minecraft.util.com.google.common.cache.CacheBuilder;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.combatlog.CombatLogListener;
@@ -38,9 +26,7 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.TimeUnit;
 
-public class StuckTimer
-		extends PlayerTimer
-		implements Listener{
+public class StuckTimer extends PlayerTimer implements Listener{
 	private final ConcurrentMap<Object, Object> startedLocations;
 
 	public StuckTimer(){
@@ -161,5 +147,7 @@ public class StuckTimer
 			player.sendMessage(this.getDisplayName() + ChatColor.BLUE + " timer is teleporting you in " + ChatColor.BOLD + HCF.getRemaining(remainingMillis, true, false) + ChatColor.BLUE + '.');
 		}
 	}
+
+
 }
 

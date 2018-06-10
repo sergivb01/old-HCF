@@ -1,13 +1,12 @@
 package net.veilmc.hcf.timer;
 
-import java.util.UUID;
-
+import net.veilmc.hcf.HCF;
+import net.veilmc.hcf.timer.event.TimerExpireEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.timer.event.TimerExpireEvent;
+import java.util.UUID;
 
 public class TimerRunnable{
 	private final UUID represented;

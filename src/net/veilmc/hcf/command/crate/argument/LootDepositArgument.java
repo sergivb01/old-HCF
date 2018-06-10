@@ -1,10 +1,9 @@
 package net.veilmc.hcf.command.crate.argument;
 
-import net.veilmc.hcf.HCF;
+import com.google.common.primitives.Ints;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.command.crate.Key;
 import net.veilmc.util.command.CommandArgument;
-import com.google.common.primitives.Ints;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;

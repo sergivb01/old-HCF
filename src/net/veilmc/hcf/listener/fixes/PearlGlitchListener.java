@@ -1,12 +1,10 @@
 package net.veilmc.hcf.listener.fixes;
 
-import net.veilmc.hcf.HCF;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.type.ClaimableFaction;
 import net.veilmc.hcf.faction.type.Faction;
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Sets;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;

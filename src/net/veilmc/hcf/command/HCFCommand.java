@@ -3,14 +3,13 @@ package net.veilmc.hcf.command;
 import net.veilmc.base.BaseConstants;
 import net.veilmc.util.BukkitUtils;
 import net.veilmc.util.command.ArgumentExecutor;
-
-import java.util.Arrays;
-import java.util.regex.Pattern;
-
 import org.apache.commons.lang3.ArrayUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.Arrays;
+import java.util.regex.Pattern;
 
 public class HCFCommand
 		extends ArgumentExecutor{

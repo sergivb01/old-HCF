@@ -1,25 +1,19 @@
 package net.veilmc.hcf.utils;
 
 import com.google.common.collect.ImmutableList;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.ByteBuffer;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.Callable;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-
-public class UUIDFetcher
-		implements Callable<Map<String, UUID>>{
+public class UUIDFetcher implements Callable<Map<String, UUID>>{
 	private static final double PROFILES_PER_REQUEST = 100.0;
 	private static final String PROFILE_URL = "https://api.mojang.com/profiles/minecraft";
 	private final JSONParser jsonParser = new JSONParser();
@@ -99,5 +93,7 @@ public class UUIDFetcher
 		}
 		return uuidMap;
 	}
+
+
 }
 

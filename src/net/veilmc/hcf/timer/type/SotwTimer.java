@@ -2,13 +2,8 @@ package net.veilmc.hcf.timer.type;
 
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.utils.ConfigurationService;
-import net.veilmc.hcf.utils.ConfigurationService;
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.utils.ConfigurationService;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
-
-import net.veilmc.hcf.HCF;
 
 public class SotwTimer{
 	private SotwRunnable sotwRunnable;
@@ -54,5 +49,9 @@ public class SotwTimer{
 			this.cancel();
 			this.sotwTimer.sotwRunnable = null;
 		}
+
+
 	}
+
+
 }

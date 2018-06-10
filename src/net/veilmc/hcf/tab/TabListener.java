@@ -1,13 +1,10 @@
 package net.veilmc.hcf.tab;
 
-import net.veilmc.base.event.PlayerMoveByBlockEvent;
 import net.veilmc.hcf.HCF;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class TabListener implements Listener{
@@ -21,6 +18,7 @@ public class TabListener implements Listener{
 
 	/*
 		TODO:
+			* Use another API (bizzarrealex (?))
 			* Add listeners
 			* Create player tab
 			* Check different tab styles
@@ -38,7 +36,6 @@ public class TabListener implements Listener{
 	}
 
 
-
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event){
 		Player player = event.getPlayer();
@@ -51,8 +48,6 @@ public class TabListener implements Listener{
 		//	Tab.getByPlayer(player).setSlot(i, "Position " + i);
 		//}
 	}
-
-
 
 
 	@EventHandler

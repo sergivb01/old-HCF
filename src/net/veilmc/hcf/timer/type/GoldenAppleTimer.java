@@ -1,8 +1,6 @@
 package net.veilmc.hcf.timer.type;
 
 import net.veilmc.hcf.timer.PlayerTimer;
-import net.veilmc.hcf.timer.PlayerTimer;
-import net.veilmc.hcf.timer.PlayerTimer;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -15,9 +13,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.concurrent.TimeUnit;
 
-public class GoldenAppleTimer
-		extends PlayerTimer
-		implements Listener{
+public class GoldenAppleTimer extends PlayerTimer implements Listener{
 	public GoldenAppleTimer(JavaPlugin plugin){
 		super(ChatColor.YELLOW + "Apple", TimeUnit.SECONDS.toMillis(5));
 	}
@@ -38,5 +34,7 @@ public class GoldenAppleTimer
 			}
 		}
 	}
+
+
 }
 

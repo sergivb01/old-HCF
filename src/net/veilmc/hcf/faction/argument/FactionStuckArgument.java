@@ -1,13 +1,10 @@
 package net.veilmc.hcf.faction.argument;
 
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.kothgame.faction.EventFaction;
-import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.hcf.kothgame.faction.EventFaction;
 import net.veilmc.hcf.timer.type.StuckTimer;
 import net.veilmc.util.command.CommandArgument;
-
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.command.Command;

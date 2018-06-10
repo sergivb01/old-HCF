@@ -1,11 +1,9 @@
 package net.veilmc.hcf.listener;
 
-import net.veilmc.hcf.HCF;
 import net.veilmc.base.kit.event.KitApplyEvent;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.timer.event.TimerStartEvent;
 import net.veilmc.hcf.timer.type.PvpProtectionTimer;
-
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -13,8 +11,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-public class KitMapListener
-		implements Listener{
+public class KitMapListener implements Listener{
 	final HCF plugin;
 
 	public KitMapListener(HCF plugin){

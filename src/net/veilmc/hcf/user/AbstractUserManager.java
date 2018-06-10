@@ -18,8 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.regex.Pattern;
 
-public abstract class AbstractUserManager
-		implements Listener{
+public abstract class AbstractUserManager implements Listener{
 	private static final Pattern USERNAME_REGEX = Pattern.compile("^[a-zA-Z0-9_]{2,16}$");
 	protected final HCF plugin;
 	protected final ConcurrentMap<UUID, FactionUser> inMemoryStorage;

@@ -5,8 +5,6 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-import net.veilmc.hcf.faction.struct.Raidable;
-
 public class FactionDtrChangeEvent
 		extends Event
 		implements Cancellable{

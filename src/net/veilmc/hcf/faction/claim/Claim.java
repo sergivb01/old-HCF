@@ -1,23 +1,17 @@
 package net.veilmc.hcf.faction.claim;
 
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.type.ClaimableFaction;
 import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.util.GenericUtils;
 import net.veilmc.util.cuboid.Cuboid;
 import net.veilmc.util.cuboid.NamedCuboid;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
-
 import org.apache.commons.collections4.map.CaseInsensitiveMap;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
+
+import java.util.*;
 
 public class Claim
 		extends NamedCuboid

@@ -1,13 +1,8 @@
 package net.veilmc.hcf.command;
 
-import net.veilmc.hcf.HCF;
+import net.minecraft.util.org.apache.commons.lang3.text.WordUtils;
 import net.veilmc.hcf.HCF;
 import net.veilmc.util.ItemBuilder;
-
-import java.util.Collections;
-import java.util.List;
-
-import net.minecraft.util.org.apache.commons.lang3.text.WordUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -16,6 +11,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+
+import java.util.Collections;
+import java.util.List;
 
 public class SpawnerCommand
 		implements CommandExecutor, TabCompleter{
