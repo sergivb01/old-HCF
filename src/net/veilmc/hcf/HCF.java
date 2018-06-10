@@ -48,6 +48,7 @@ import net.veilmc.hcf.kothgame.koth.KothExecutor;
 import net.veilmc.hcf.listener.*;
 import net.veilmc.hcf.listener.fixes.*;
 import net.veilmc.hcf.scoreboard.ScoreboardHandler;
+import net.veilmc.hcf.tab.TabListener;
 import net.veilmc.hcf.timer.TimerExecutor;
 import net.veilmc.hcf.timer.TimerManager;
 import net.veilmc.hcf.timer.type.SotwTimer;
@@ -293,6 +294,11 @@ public class HCF extends JavaPlugin{
 
 	private void registerListeners(){
 		PluginManager manager = getServer().getPluginManager();
+
+		if(ConfigurationService.TAB){
+			manager.registerEvents(new TabListener(this), this);
+		}
+
 		manager.registerEvents(new PotionLimitListener(), this);
 		manager.registerEvents(new AutoRespawnListener(this), this);
 		manager.registerEvents(new PortalFixListener(), this);

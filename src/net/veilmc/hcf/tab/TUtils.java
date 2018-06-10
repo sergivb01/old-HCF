@@ -18,13 +18,8 @@ import java.util.List;
 import java.util.Map;
 
 class TUtils{
-	private HCF plugin;
-	private FactionManager factionManager;
-
-	TUtils(HCF plugin){
-		this.plugin = plugin;
-		this.factionManager = plugin.getFactionManager();
-	}
+	private HCF plugin = HCF.getPlugin();
+	private FactionManager factionManager = plugin.getFactionManager();
 
 	public String getCardinalDirection(final Player player){
 		double rotation = (player.getLocation().getYaw() - 90.0f) % 360.0f;
