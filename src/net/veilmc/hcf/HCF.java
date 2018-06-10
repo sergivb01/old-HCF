@@ -135,6 +135,7 @@ public class HCF extends JavaPlugin{
 		}
 	}
 
+	@Override
 	public void onEnable(){
 		if(!setupChat()){
 			getLogger().severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
@@ -222,6 +223,7 @@ public class HCF extends JavaPlugin{
 			getLogger().info("Starting koth in " + seconds + " seconds. (" + getNextGame() + ")");
 			NEXT_KOTH = System.currentTimeMillis() + (seconds * 1000);
 			new BukkitRunnable(){
+				@Override
 				public void run(){
 					Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "event start " + getNextGame());
 					NEXT_KOTH = -1;
@@ -250,6 +252,7 @@ public class HCF extends JavaPlugin{
 		keyManager.saveKeyData(); //Key things
 	}
 
+	@Override
 	public void onDisable(){
 		Bukkit.getServer().savePlayers();
 		Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "save-all");
