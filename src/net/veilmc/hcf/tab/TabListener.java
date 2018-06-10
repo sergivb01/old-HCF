@@ -17,7 +17,7 @@ public class TabListener implements Listener{
 	}
 
 	/*
-		TODO:
+		TODO: Read below
 			* Use another API (bizzarrealex (?))
 			* Add listeners
 			* Create player tab
