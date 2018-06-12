@@ -6,7 +6,7 @@ import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.kothgame.tracker.ConquestTracker;
 import net.veilmc.hcf.kothgame.tracker.EventTracker;
 import net.veilmc.hcf.kothgame.tracker.KothTracker;
-import net.veilmc.hcf.palace.PalaceTracker;
+import net.veilmc.hcf.kothgame.palace.PalaceTracker;
 
 
 public enum EventType{

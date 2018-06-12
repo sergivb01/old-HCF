@@ -36,7 +36,6 @@ import net.veilmc.hcf.faction.claim.Subclaim;
 import net.veilmc.hcf.faction.type.*;
 import net.veilmc.hcf.kothgame.CaptureZone;
 import net.veilmc.hcf.kothgame.EventExecutor;
-import net.veilmc.hcf.kothgame.EventScheduler;
 import net.veilmc.hcf.kothgame.conquest.ConquestExecutor;
 import net.veilmc.hcf.kothgame.eotw.EOTWHandler;
 import net.veilmc.hcf.kothgame.eotw.EotwCommand;
@@ -47,6 +46,8 @@ import net.veilmc.hcf.kothgame.faction.KothFaction;
 import net.veilmc.hcf.kothgame.koth.KothExecutor;
 import net.veilmc.hcf.listener.*;
 import net.veilmc.hcf.listener.fixes.*;
+import net.veilmc.hcf.runnables.AutoSaveRunnable;
+import net.veilmc.hcf.runnables.DonorBroadcastRunnable;
 import net.veilmc.hcf.scoreboard.ScoreboardHandler;
 import net.veilmc.hcf.tab.TabListener;
 import net.veilmc.hcf.timer.TimerExecutor;
@@ -61,7 +62,6 @@ import net.veilmc.hcf.utils.Message;
 import net.veilmc.hcf.visualise.ProtocolLibHook;
 import net.veilmc.hcf.visualise.VisualiseHandler;
 import net.veilmc.hcf.visualise.WallBorderListener;
-import net.veilmc.util.BukkitUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.PluginCommand;
@@ -70,11 +70,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.*;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 
 @Getter
@@ -84,13 +82,7 @@ public class HCF extends JavaPlugin{
 	public static final long HOUR = TimeUnit.HOURS.toMillis(1);
 	private static final long MINUTE = TimeUnit.MINUTES.toMillis(1);
 	private static HCF plugin;
-	public EventScheduler eventScheduler;
-	public String scoreboardTitle;
-	public long NEXT_KOTH = -1;
-	public ArrayList<String> players;
 	private Message message;
-	private List<String> eventGames = new ArrayList<>();
-	private Random random = new Random();
 	private WorldEditPlugin worldEdit;
 	private ClaimHandler claimHandler;
 	private SotwTimer sotwTimer;
@@ -104,37 +96,10 @@ public class HCF extends JavaPlugin{
 	private TimerManager timerManager;
 	private UserManager userManager;
 	private VisualiseHandler visualiseHandler;
-	private String armor;
 
 	public static Permission permission = null;
 	public static Chat chat = null;
 	public static Economy econ = null;
-
-	public static HCF getPlugin(){
-		return plugin;
-	}
-
-	public static String getRemaining(long millis, boolean milliseconds){
-		return HCF.getRemaining(millis, milliseconds, true);
-	}
-
-	public static String getRemaining(long duration, boolean milliseconds, boolean trail){
-		if(milliseconds && duration < MINUTE){
-			return (trail ? DateTimeFormats.REMAINING_SECONDS_TRAILING : DateTimeFormats.REMAINING_SECONDS).get().format((double) duration * 0.001) + 's';
-		}
-		return org.apache.commons.lang.time.DurationFormatUtils.formatDuration(duration, (duration >= HOUR ? "HH:" : "") + "mm:ss");
-	}
-
-	public static HCF getInstance(){
-		return plugin;
-	}
-
-	private void registerGames(){
-		eventGames.addAll(getFactionManager().getFactions().stream().filter(faction -> faction instanceof KothFaction).map(Faction::getName).collect(Collectors.toList()));
-		if(!(eventGames.isEmpty())){
-			eventGames.forEach(System.out::print);
-		}
-	}
 
 	@Override
 	public void onEnable(){
@@ -144,7 +109,6 @@ public class HCF extends JavaPlugin{
 			return;
 		}
 		plugin = this;
-
 
 		CustomEntityRegistration.registerCustomEntities();
 		ProtocolLibHook.hook(this);
@@ -167,15 +131,8 @@ public class HCF extends JavaPlugin{
 		Cooldowns.createCooldown("Assassin_item_cooldown");
 		Cooldowns.createCooldown("Archer_item_cooldown");
 		Cooldowns.createCooldown("Archer_jump_cooldown");
-		Cooldowns.createCooldown("report_cooldown");
-		Cooldowns.createCooldown("helpop_cooldown");
-
-		scoreboardTitle = ChatColor.translateAlternateColorCodes('&', getConfig().getString("scoreboard.title"));
-		armor = ChatColor.translateAlternateColorCodes('&', getConfig().getString("scoreboard.active-class"));
 
 		timerManager.enable();
-
-		registerGames();
 
 		Bukkit.getConsoleSender().sendMessage("");
 		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&7----------------[&3*'&bOpulent&3'*]----------------"));
@@ -183,63 +140,9 @@ public class HCF extends JavaPlugin{
 		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&7| - &bVault: &fHooked"));
 		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&7------------------[&3*'&bHCF&3'*]------------------"));
 
-		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
-			List<String> donors = new ArrayList<>();
-			Bukkit.getOnlinePlayers().stream().filter(player -> player.hasPermission("donor.broadcast") && !player.isOp() && !player.hasPermission("*")).forEach(player -> donors.add(player.getDisplayName()));
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new DonorBroadcastRunnable(), 20L, 600 * 20L);
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new AutoSaveRunnable(), 20L, 900 * 20L);
 
-			HCF.getInstance().getConfig().getStringList("online-donors").forEach(s ->
-					Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', s
-							.replace("%LINE%", BukkitUtils.STRAIGHT_LINE_DEFAULT + "")
-							.replace("%MEDICS%", donors.isEmpty() ? "&cNone" :
-									donors.toString()
-											.replace("[", "")
-											.replace("]", "")))));
-
-		}, 15 * 20L, (10 * 60) * 20L);
-
-		Bukkit.getScheduler().scheduleAsyncRepeatingTask(this, () -> {
-			Bukkit.broadcastMessage(ChatColor.GOLD.toString() + ChatColor.BOLD + "Starting backup of data");
-			Bukkit.getWorlds().forEach(world -> {
-				world.setThundering(false);
-				world.setStorm(false);
-			});
-
-			saveData();
-			Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&6&lAutoSave &eTask was completed."));
-		}, 10 * 20L, (60 * 15) * 20L);
-
-
-		int seconds = (ConfigurationService.KIT_MAP ? 300 : 7200);
-		startNewKoth(seconds);
-		NEXT_KOTH = System.currentTimeMillis() + (seconds * 1000);
-		Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&6&lKOTH &7» &eA new KOTH will be starting in&5 " + (ConfigurationService.KIT_MAP ? "5 minnutes" : "2 hours") + "!"));
-	}
-
-	public void startNewKoth(int seconds){
-		if(eventGames.isEmpty()){
-			Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&e[" + HCF.getPlugin().getDescription().getName() + "] &cCould not find any events to automatically start."));
-			Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&e[" + HCF.getPlugin().getDescription().getName() + "] &cRegister KOTHs and restart server to enable this feature."));
-
-		}else{
-			getLogger().info("Starting koth in " + seconds + " seconds. (" + getNextGame() + ")");
-			NEXT_KOTH = System.currentTimeMillis() + (seconds * 1000);
-			new BukkitRunnable(){
-				@Override
-				public void run(){
-					Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "event start " + getNextGame());
-					NEXT_KOTH = -1;
-				}
-			}.runTaskLater(this, 20L * seconds);
-		}
-	}
-
-	public void rotateGames(){
-		getLogger().info("Game list was rotated.");
-		Collections.rotate(eventGames, -1);
-	}
-
-	public String getNextGame(){
-		return eventGames.get(0);
 	}
 
 	public void saveData(){
@@ -253,7 +156,6 @@ public class HCF extends JavaPlugin{
 		keyManager.saveKeyData(); //Key things
 	}
 
-	@Override
 	public void onDisable(){
 		Bukkit.getServer().savePlayers();
 		Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "save-all");
@@ -290,7 +192,6 @@ public class HCF extends JavaPlugin{
 		ConfigurationSerialization.registerClass(RoadFaction.WestRoadFaction.class);
 		ConfigurationSerialization.registerClass(GlowstoneFaction.class);
 	}
-
 
 	private void registerListeners(){
 		PluginManager manager = getServer().getPluginManager();
@@ -370,7 +271,6 @@ public class HCF extends JavaPlugin{
 		manager.registerEvents(new CobbleCommand(), this);
 	}
 
-
 	private void registerCommands(){
 		getCommand("permissions").setExecutor(new PermissionsCommand(this));
 		getCommand("reclaim").setExecutor(new ReclaimCommand(this));
@@ -446,11 +346,6 @@ public class HCF extends JavaPlugin{
 		message = new Message(this);
 	}
 
-	public String getKothRemaining(){
-		long duration = NEXT_KOTH - System.currentTimeMillis();
-		return org.apache.commons.lang.time.DurationFormatUtils.formatDuration(duration, (duration >= HOUR ? "HH:" : "") + "mm:ss");
-	}
-
 	private boolean setupChat(){
 		if(getServer().getPluginManager().getPlugin("Vault") == null){
 			getLogger().severe("DB: Vault plugin = null");
@@ -463,6 +358,25 @@ public class HCF extends JavaPlugin{
 		}
 		chat = rsp.getProvider();
 		return chat != null;
+	}
+
+	public static String getRemaining(long millis, boolean milliseconds){
+		return HCF.getRemaining(millis, milliseconds, true);
+	}
+
+	public static String getRemaining(long duration, boolean milliseconds, boolean trail){
+		if(milliseconds && duration < MINUTE){
+			return (trail ? DateTimeFormats.REMAINING_SECONDS_TRAILING : DateTimeFormats.REMAINING_SECONDS).get().format((double) duration * 0.001) + 's';
+		}
+		return org.apache.commons.lang.time.DurationFormatUtils.formatDuration(duration, (duration >= HOUR ? "HH:" : "") + "mm:ss");
+	}
+
+	public static HCF getInstance(){
+		return plugin;
+	}
+
+	public static HCF getPlugin(){
+		return plugin;
 	}
 
 }

@@ -1,4 +1,4 @@
-package net.veilmc.hcf.palace;
+package net.veilmc.hcf.kothgame.palace;
 
 import com.google.common.collect.ImmutableList;
 import net.veilmc.hcf.HCF;

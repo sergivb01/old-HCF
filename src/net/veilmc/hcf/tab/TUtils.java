@@ -99,7 +99,7 @@ class TUtils{
 			return path;
 		}
 
-		path.replace("%faction_location%", factionManager.getFactionAt(player.getLocation()).getDisplayName(player))
+		path = path.replace("%faction_location%", factionManager.getFactionAt(player.getLocation()).getDisplayName(player))
 				.replace("%f_title%", "Faction Info");
 
 

@@ -1,16 +1,23 @@
 package net.veilmc.hcf.kothgame.koth.argument;
 
+import net.minecraft.util.org.apache.commons.lang3.text.WordUtils;
+import net.minecraft.util.org.apache.commons.lang3.time.DurationFormatUtils;
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.utils.ConfigurationService;
+import net.veilmc.hcf.utils.DateTimeFormats;
 import net.veilmc.util.BukkitUtils;
 import net.veilmc.util.command.CommandArgument;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 public class KothScheduleArgument
 		extends CommandArgument{
@@ -37,7 +44,7 @@ public class KothScheduleArgument
 	}
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
-        /*LocalDateTime now = LocalDateTime.now(DateTimeFormats.SERVER_ZONE_ID);
+        LocalDateTime now = LocalDateTime.now(DateTimeFormats.SERVER_ZONE_ID);
         int currentDay = now.getDayOfYear();
         Map<LocalDateTime, String> scheduleMap = this.plugin.eventScheduler.getScheduleMap();
         ArrayList<String> shownEvents = new ArrayList<String>();
@@ -59,15 +66,7 @@ public class KothScheduleArgument
         String weekName2 = WordUtils.capitalizeFully(now.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.ENGLISH));
         sender.sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
         sender.sendMessage(ChatColor.YELLOW + "Current Server time " + ChatColor.GREEN + weekName2 + ' ' + now.getDayOfMonth() + ' ' + monthName2 + ' ' + HHMMA.format(now) + ChatColor.YELLOW + '.');
-        sender.sendMessage(shownEvents.toArray(new String[shownEvents.size()]));*/
-
-		sender.sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
-		if(ConfigurationService.KIT_MAP && (this.plugin.NEXT_KOTH > 0)){
-			sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&eNext koth will be &a&l" + this.plugin.getNextGame() + " &ein &9&l" + this.plugin.getKothRemaining() + "&e."));
-		}else{
-			sender.sendMessage(ChatColor.RED + "No koths are scheduled. Please check back later.");
-		}
-		sender.sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
+        sender.sendMessage(shownEvents.toArray(new String[shownEvents.size()]));
 		return true;
 	}
 }

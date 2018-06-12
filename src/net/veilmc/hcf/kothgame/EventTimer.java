@@ -12,7 +12,7 @@ import net.veilmc.hcf.faction.type.PlayerFaction;
 import net.veilmc.hcf.kothgame.faction.ConquestFaction;
 import net.veilmc.hcf.kothgame.faction.EventFaction;
 import net.veilmc.hcf.kothgame.faction.KothFaction;
-import net.veilmc.hcf.palace.PalaceFaction;
+import net.veilmc.hcf.kothgame.palace.PalaceFaction;
 import net.veilmc.hcf.timer.GlobalTimer;
 import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.hcf.utils.DateTimeFormats;
@@ -154,16 +154,6 @@ public class EventTimer
 		if(key.getName().equalsIgnoreCase("conquest")){
 			Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "crate key " + winner.getName() + " " + key.getName() + " 8");
 		}
-
-		plugin.rotateGames();
-		if(ConfigurationService.KIT_MAP){
-			plugin.startNewKoth(1800);
-			Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&6&lKOTH &7» &eA new KOTH will be starting in &d&l30 minutes"));
-		}else{
-			plugin.startNewKoth(7200);
-			Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&6&lKOTH &7» &eA new KOTH will be starting in &d&l2 hours"));
-		}
-
 
 	}
 

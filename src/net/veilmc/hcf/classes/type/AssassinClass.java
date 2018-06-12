@@ -44,7 +44,7 @@ public class AssassinClass
 			if(on.canSee(p) || on.hasPermission("base.command.vanish")) continue;
 			on.showPlayer(p);
 		}
-		this.firstAssassinEffects.remove(p);
+		this.firstAssassinEffects.remove(p.getName());
 	}
 
 	@EventHandler

@@ -45,16 +45,6 @@ public class TimerSidebarProvider implements SidebarProvider{
 	private static final String STRAIGHT_LINE;
 	private static DecimalFormat df = new DecimalFormat("#.##");
 
-	static{
-		ThreadLocal.withInitial(() -> new DecimalFormat("##.#"));
-		new SidebarEntry(" ", " ", " ");
-		STRAIGHT_LINE = BukkitUtils.STRAIGHT_LINE_DEFAULT.substring(0, 14);
-	}
-
-	static{
-		CONQUEST_FORMATTER = ThreadLocal.withInitial(() -> new DecimalFormat("##.#"));
-	}
-
 	private final HCF plugin;
 
 	public TimerSidebarProvider(final HCF plugin){
@@ -71,7 +61,7 @@ public class TimerSidebarProvider implements SidebarProvider{
 	}
 
 	public String getTitle(){
-		return HCF.getPlugin().scoreboardTitle;
+		return ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("scoreboard.title"));
 	}
 
 	@Override
@@ -174,7 +164,6 @@ public class TimerSidebarProvider implements SidebarProvider{
 
 		}
 
-
 		long autore = BasePlugin.getPlugin().getAutoRestartHandler().getRemainingMilliseconds();
 		if((autore <= 300000) && (autore > 0)){
 			long remainingTicks = BasePlugin.getPlugin().getAutoRestartHandler().getRemainingTicks();
@@ -259,4 +248,13 @@ public class TimerSidebarProvider implements SidebarProvider{
 	private boolean isChatSlowed(){
 		return BasePlugin.getPlugin().getServerHandler().getRemainingChatSlowedMillis() > 0;
 	}
+
+
+	static{
+		ThreadLocal.withInitial(() -> new DecimalFormat("##.#"));
+		new SidebarEntry(" ", " ", " ");
+		STRAIGHT_LINE = BukkitUtils.STRAIGHT_LINE_DEFAULT.substring(0, 14);
+		CONQUEST_FORMATTER = ThreadLocal.withInitial(() -> new DecimalFormat("##.#"));
+	}
+
 }

@@ -1,4 +1,4 @@
-package net.veilmc.hcf.palace;
+package net.veilmc.hcf.kothgame.palace;
 
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldedit.bukkit.selections.Selection;

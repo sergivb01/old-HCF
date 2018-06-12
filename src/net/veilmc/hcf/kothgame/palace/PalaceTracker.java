@@ -1,4 +1,4 @@
-package net.veilmc.hcf.palace;
+package net.veilmc.hcf.kothgame.palace;
 
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.kothgame.CaptureZone;

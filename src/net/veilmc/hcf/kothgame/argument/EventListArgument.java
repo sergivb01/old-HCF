@@ -4,7 +4,7 @@ import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.hcf.kothgame.faction.EventFaction;
 import net.veilmc.hcf.kothgame.faction.KothFaction;
-import net.veilmc.hcf.palace.PalaceFaction;
+import net.veilmc.hcf.kothgame.palace.PalaceFaction;
 import net.veilmc.util.command.CommandArgument;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;

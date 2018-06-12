@@ -125,7 +125,7 @@ public class KeyListener
 				return;
 			}
 			ArrayList<ItemStack> finalLoot = new ArrayList<ItemStack>();
-			Random random = this.plugin.getRandom();
+			Random random = new Random();
 			for(int i = 0; i < rolls; ++i){
 				ItemStack item = loot[random.nextInt(loot.length)];
 				if(item == null || item.getType() == Material.AIR) continue;
