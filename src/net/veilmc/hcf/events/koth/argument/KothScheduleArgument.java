@@ -46,7 +46,7 @@ public class KothScheduleArgument
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
 		LocalDateTime now = LocalDateTime.now(DateTimeFormats.SERVER_ZONE_ID);
 		int currentDay = now.getDayOfYear();
-		Map<LocalDateTime, String> scheduleMap = this.plugin.eventScheduler.getScheduleMap();
+		Map<LocalDateTime, String> scheduleMap = this.plugin.getEventScheduler().getScheduleMap();
 		ArrayList<String> shownEvents = new ArrayList<String>();
 		for(Map.Entry<LocalDateTime, String> entry : scheduleMap.entrySet()){
 			LocalDateTime scheduleDateTime = entry.getKey();

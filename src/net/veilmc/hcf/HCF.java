@@ -26,6 +26,7 @@ import net.veilmc.hcf.deathban.DeathbanManager;
 import net.veilmc.hcf.deathban.FlatFileDeathbanManager;
 import net.veilmc.hcf.events.CaptureZone;
 import net.veilmc.hcf.events.EventExecutor;
+import net.veilmc.hcf.events.EventScheduler;
 import net.veilmc.hcf.events.conquest.ConquestExecutor;
 import net.veilmc.hcf.events.eotw.EOTWHandler;
 import net.veilmc.hcf.events.eotw.EotwCommand;
@@ -99,6 +100,7 @@ public class HCF extends JavaPlugin{
 	private TimerManager timerManager;
 	private UserManager userManager;
 	private VisualiseHandler visualiseHandler;
+	private EventScheduler eventScheduler;
 
 	public static String getRemaining(long millis, boolean milliseconds){
 		return HCF.getRemaining(millis, milliseconds, true);
@@ -139,6 +141,7 @@ public class HCF extends JavaPlugin{
 		PotionLimitListener.reload();
 
 		worldEdit = Bukkit.getPluginManager().getPlugin("WorldEdit") instanceof WorldEditPlugin && Bukkit.getPluginManager().getPlugin("WorldEdit").isEnabled() ? (WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit") : null;
+		eventScheduler = new EventScheduler(this);
 
 		registerConfiguration();
 		registerCommands();

@@ -30,7 +30,7 @@ public class KothNextArgument
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
 		long millis = System.currentTimeMillis();
 		sender.sendMessage(ChatColor.YELLOW + "The current server time is " + ChatColor.GREEN + DateTimeFormats.DAY_MTH_HR_MIN_AMPM.format(millis) + ChatColor.GOLD + '.');
-		Map<LocalDateTime, String> scheduleMap = this.plugin.eventScheduler.getScheduleMap();
+		Map<LocalDateTime, String> scheduleMap = this.plugin.getEventScheduler().getScheduleMap();
 		if(scheduleMap.isEmpty()){
 			sender.sendMessage(ChatColor.RED + "There is not an event schedule for after now.");
 			return true;
