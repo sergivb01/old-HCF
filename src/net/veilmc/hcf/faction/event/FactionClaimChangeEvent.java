@@ -1,18 +1,16 @@
 package net.veilmc.hcf.faction.event;
 
-import net.veilmc.hcf.faction.event.cause.ClaimChangeCause;
+import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableList;
 import net.veilmc.hcf.faction.claim.Claim;
 import net.veilmc.hcf.faction.event.cause.ClaimChangeCause;
 import net.veilmc.hcf.faction.type.ClaimableFaction;
-import com.google.common.base.Preconditions;
-import com.google.common.collect.ImmutableList;
-
-import java.util.Collection;
-
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+
+import java.util.Collection;
 
 public class FactionClaimChangeEvent
 		extends Event

@@ -1,15 +1,8 @@
 package net.veilmc.hcf.command;
 
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.HCF;
 import net.veilmc.util.imagemessage.ImageChar;
 import net.veilmc.util.imagemessage.ImageMessage;
-
-import java.awt.image.BufferedImage;
-import java.util.Collections;
-import java.util.List;
-import javax.imageio.ImageIO;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
@@ -20,6 +13,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.util.Collections;
+import java.util.List;
 
 public class EndDragonCommand
 		implements CommandExecutor,

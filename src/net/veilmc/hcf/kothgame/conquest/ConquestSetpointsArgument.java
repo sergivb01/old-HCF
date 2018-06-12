@@ -1,14 +1,12 @@
 package net.veilmc.hcf.kothgame.conquest;
 
-import net.veilmc.hcf.HCF;
+import com.google.common.primitives.Ints;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.hcf.faction.type.PlayerFaction;
 import net.veilmc.hcf.kothgame.EventType;
 import net.veilmc.hcf.kothgame.tracker.ConquestTracker;
 import net.veilmc.util.command.CommandArgument;
-import com.google.common.primitives.Ints;
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

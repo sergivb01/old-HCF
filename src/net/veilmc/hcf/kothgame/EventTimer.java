@@ -1,10 +1,8 @@
 package net.veilmc.hcf.kothgame;
 
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.kothgame.faction.ConquestFaction;
-import net.veilmc.hcf.kothgame.faction.EventFaction;
-import net.veilmc.hcf.kothgame.faction.KothFaction;
-import net.veilmc.hcf.timer.GlobalTimer;
+import com.google.common.base.Objects;
+import com.google.common.base.Preconditions;
+import com.google.common.collect.Iterables;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.command.crate.Key;
 import net.veilmc.hcf.faction.event.CaptureZoneEnterEvent;
@@ -18,9 +16,6 @@ import net.veilmc.hcf.palace.PalaceFaction;
 import net.veilmc.hcf.timer.GlobalTimer;
 import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.hcf.utils.DateTimeFormats;
-import com.google.common.base.Objects;
-import com.google.common.base.Preconditions;
-import com.google.common.collect.Iterables;
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -43,7 +38,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -77,7 +71,7 @@ public class EventTimer
 				//Iterator<Map.Entry<LocalDateTime, String>> iterator = plugin.eventScheduler.getScheduleMap().entrySet().iterator();
 				//while(!(!iterator.hasNext() || day == (scheduledTime = (entry = iterator.next()).getKey()).getDayOfYear() && hour == scheduledTime.getHour() && minute == scheduledTime.getMinute() && (faction = plugin.getFactionManager().getFaction(entry.getValue())) instanceof EventFaction && EventTimer.this.tryContesting((EventFaction) faction, Bukkit.getConsoleSender()))){
 
-			//	}
+				//	}
 			}
 		}.runTaskTimer(plugin, 20, 20);
 	}

@@ -1,9 +1,8 @@
 package net.veilmc.hcf.listener;
 
-import net.veilmc.hcf.HCF;
+import com.google.common.collect.Lists;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.utils.DateTimeFormats;
-import com.google.common.collect.Lists;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -24,8 +23,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.Arrays;
 import java.util.List;
 
-public class EventSignListener
-		implements Listener{
+public class EventSignListener implements Listener{
 	private static final String EVENT_SIGN_ITEM_NAME = ChatColor.GOLD + "Event Sign";
 
 	public static ItemStack getEventSign(String playerName, String kothName){

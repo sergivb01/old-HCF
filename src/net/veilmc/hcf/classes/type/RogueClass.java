@@ -1,11 +1,10 @@
 package net.veilmc.hcf.classes.type;
 
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.classes.PvpClass;
 import net.minecraft.util.gnu.trove.map.TObjectLongMap;
 import net.minecraft.util.gnu.trove.map.hash.TObjectLongHashMap;
 import net.minecraft.util.org.apache.commons.lang3.time.DurationFormatUtils;
+import net.veilmc.hcf.HCF;
+import net.veilmc.hcf.classes.PvpClass;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;

@@ -1,10 +1,10 @@
 package net.veilmc.hcf.faction.type;
 
-import java.util.Map;
-
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
+
+import java.util.Map;
 
 public class GlowstoneFaction
 		extends ClaimableFaction

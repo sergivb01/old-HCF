@@ -1,9 +1,6 @@
 package net.veilmc.hcf.faction.argument;
 
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.kothgame.faction.EventFaction;
-import net.veilmc.hcf.timer.PlayerTimer;
-import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.FactionExecutor;
 import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.hcf.faction.type.PlayerFaction;

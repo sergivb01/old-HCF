@@ -1,7 +1,6 @@
 package net.veilmc.hcf.faction.event;
 
 import net.veilmc.hcf.faction.struct.Relation;
-import net.veilmc.hcf.faction.struct.Relation;
 import net.veilmc.hcf.faction.type.PlayerFaction;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;

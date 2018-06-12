@@ -1,25 +1,17 @@
 package net.veilmc.hcf.listener;
 
+import com.google.common.base.Enums;
+import com.google.common.base.Optional;
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.hcf.crowbar.Crowbar;
 import net.veilmc.hcf.faction.FactionMember;
 import net.veilmc.hcf.faction.claim.Claim;
 import net.veilmc.hcf.faction.type.PlayerFaction;
+import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.util.ItemBuilder;
 import net.veilmc.util.ParticleEffect;
-import com.google.common.base.Enums;
-import com.google.common.base.Optional;
-
-import java.util.List;
-
 import org.apache.commons.lang3.text.WordUtils;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Sound;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.CreatureSpawner;
@@ -35,6 +27,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.CraftingInventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.List;
 
 public class CrowbarListener
 		implements Listener{

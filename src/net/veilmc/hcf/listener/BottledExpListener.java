@@ -1,12 +1,8 @@
 package net.veilmc.hcf.listener;
 
-import net.veilmc.util.ExperienceManager;
 import com.google.common.collect.Lists;
 import com.google.common.primitives.Ints;
-
-import java.util.Iterator;
-import java.util.List;
-
+import net.veilmc.util.ExperienceManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -25,6 +21,9 @@ import org.bukkit.inventory.CraftingInventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapelessRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.Iterator;
+import java.util.List;
 
 public class BottledExpListener
 		implements Listener{

@@ -1,16 +1,12 @@
 package net.veilmc.hcf.kothgame;
 
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.kothgame.tracker.ConquestTracker;
-import net.veilmc.hcf.kothgame.tracker.EventTracker;
-import net.veilmc.hcf.kothgame.tracker.KothTracker;
+import com.google.common.collect.ImmutableBiMap;
+import com.google.common.collect.ImmutableMap;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.kothgame.tracker.ConquestTracker;
 import net.veilmc.hcf.kothgame.tracker.EventTracker;
 import net.veilmc.hcf.kothgame.tracker.KothTracker;
 import net.veilmc.hcf.palace.PalaceTracker;
-import com.google.common.collect.ImmutableBiMap;
-import com.google.common.collect.ImmutableMap;
 
 
 public enum EventType{

@@ -1,11 +1,9 @@
 package net.veilmc.hcf.command;
 
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.user.FactionUser;
 import net.veilmc.base.BasePlugin;
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.hcf.user.FactionUser;
+import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.util.chat.ClickAction;
 import net.veilmc.util.chat.Text;
 import org.apache.commons.lang3.time.DurationFormatUtils;

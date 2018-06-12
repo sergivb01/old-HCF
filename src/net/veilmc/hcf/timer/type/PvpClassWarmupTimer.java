@@ -1,10 +1,5 @@
 package net.veilmc.hcf.timer.type;
 
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.classes.PvpClass;
-import net.veilmc.hcf.timer.PlayerTimer;
-import net.veilmc.hcf.timer.TimerRunnable;
-import net.veilmc.hcf.utils.ConfigurationService;
 import net.minecraft.util.com.google.common.cache.CacheBuilder;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.classes.PvpClass;
@@ -12,11 +7,6 @@ import net.veilmc.hcf.timer.PlayerTimer;
 import net.veilmc.hcf.timer.TimerRunnable;
 import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.util.Config;
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.classes.PvpClass;
-import net.veilmc.hcf.timer.PlayerTimer;
-import net.veilmc.hcf.timer.TimerRunnable;
-import net.veilmc.hcf.utils.ConfigurationService;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.HumanEntity;
@@ -36,9 +26,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.bukkit.Bukkit.getScheduler;
 
-public class PvpClassWarmupTimer
-		extends PlayerTimer
-		implements Listener{
+public class PvpClassWarmupTimer extends PlayerTimer implements Listener{
 	protected final ConcurrentMap<Object, Object> classWarmups;
 	private final HCF plugin;
 
@@ -143,6 +131,7 @@ public class PvpClassWarmupTimer
 			break;
 		}
 	}
+
 
 }
 

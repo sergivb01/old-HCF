@@ -1,12 +1,10 @@
 package net.veilmc.hcf.balance;
 
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.crowbar.Crowbar;
+import com.google.common.primitives.Ints;
 import net.veilmc.base.BasePlugin;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.crowbar.Crowbar;
 import net.veilmc.util.InventoryUtils;
-import com.google.common.primitives.Ints;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;

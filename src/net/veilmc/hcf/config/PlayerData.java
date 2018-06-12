@@ -1,12 +1,12 @@
 package net.veilmc.hcf.config;
 
-import java.io.File;
-import java.io.IOException;
-
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
+
+import java.io.File;
+import java.io.IOException;
 
 public class PlayerData{
 	static PlayerData instance = new PlayerData();

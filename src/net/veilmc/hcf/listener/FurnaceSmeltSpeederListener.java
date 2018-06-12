@@ -1,7 +1,6 @@
 package net.veilmc.hcf.listener;
 
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.HCF;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Furnace;

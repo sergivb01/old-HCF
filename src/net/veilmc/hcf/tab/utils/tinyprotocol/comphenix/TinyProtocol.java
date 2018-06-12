@@ -47,28 +47,22 @@ public abstract class TinyProtocol{
 	// Packets we have to intercept
 	private static final Class<?> PACKET_LOGIN_IN_START = Reflection.getMinecraftClass("PacketLoginInStart");
 	private static final FieldAccessor<GameProfile> getGameProfile = Reflection.getField(PACKET_LOGIN_IN_START, GameProfile.class, 0);
-
+	protected volatile boolean closed;
+	protected Plugin plugin;
 	// Speedup channel lookup
 	private Map<String, Channel> channelLookup = new MapMaker().weakValues().makeMap();
 	private Listener listener;
-
 	// Channels that have already been removed
 	private Set<Channel> uninjectedChannels = Collections.newSetFromMap(new MapMaker().weakKeys().<Channel, Boolean>makeMap());
-
 	// List of network markers
 	private List<Object> networkManagers;
-
 	// Injected channel handlers
 	private List<Channel> serverChannels = Lists.newArrayList();
 	private ChannelInboundHandlerAdapter serverChannelHandler;
 	private ChannelInitializer<Channel> beginInitProtocol;
 	private ChannelInitializer<Channel> endInitProtocol;
-
 	// Current handler name
 	private String handlerName;
-
-	protected volatile boolean closed;
-	protected Plugin plugin;
 
 	/**
 	 * Construct a new instance of TinyProtocol, and start intercepting packets for all connected clients and future clients.

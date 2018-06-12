@@ -1,8 +1,5 @@
 package net.veilmc.hcf.command;
 
-import java.util.Collections;
-import java.util.List;
-
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.type.Faction;
 import org.bukkit.Bukkit;
@@ -14,8 +11,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.faction.type.Faction;
+import java.util.Collections;
+import java.util.List;
 
 public class LocationCommand
 		implements CommandExecutor,

@@ -1,18 +1,16 @@
 package net.veilmc.hcf.faction.argument.staff;
 
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.FactionMember;
 import net.veilmc.hcf.faction.struct.Role;
 import net.veilmc.hcf.faction.type.PlayerFaction;
 import net.veilmc.util.command.CommandArgument;
-
-import java.util.Collections;
-import java.util.List;
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+
+import java.util.Collections;
+import java.util.List;
 
 public class FactionForcePromoteArgument
 		extends CommandArgument{

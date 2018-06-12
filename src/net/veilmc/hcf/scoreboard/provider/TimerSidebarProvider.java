@@ -1,10 +1,5 @@
 package net.veilmc.hcf.scoreboard.provider;
 
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.timer.GlobalTimer;
-import net.veilmc.hcf.timer.PlayerTimer;
-import net.veilmc.hcf.timer.Timer;
-import net.veilmc.hcf.user.FactionUser;
 import net.veilmc.base.BasePlugin;
 import net.veilmc.base.user.BaseUser;
 import net.veilmc.hcf.HCF;
@@ -46,9 +41,7 @@ import java.util.Map;
 import static net.veilmc.hcf.HCF.HOUR;
 
 public class TimerSidebarProvider implements SidebarProvider{
-
 	private static final ThreadLocal<DecimalFormat> CONQUEST_FORMATTER;
-	private static final SidebarEntry EMPTY_ENTRY_FILLER;
 	private static final String STRAIGHT_LINE;
 	private static DecimalFormat df = new DecimalFormat("#.##");
 
@@ -60,7 +53,6 @@ public class TimerSidebarProvider implements SidebarProvider{
 
 	static{
 		CONQUEST_FORMATTER = ThreadLocal.withInitial(() -> new DecimalFormat("##.#"));
-		EMPTY_ENTRY_FILLER = new SidebarEntry(" ", " ", " ");
 	}
 
 	private final HCF plugin;
@@ -237,8 +229,8 @@ public class TimerSidebarProvider implements SidebarProvider{
 			lines.add(new SidebarEntry(ChatColor.GRAY + " » " + ChatColor.YELLOW.toString(), "Vanished" + ChatColor.GRAY + ": ", baseUser.isVanished() ? (ChatColor.GREEN + "True") : (ChatColor.RED + "Visible")));
 			lines.add(new SidebarEntry(ChatColor.GRAY + " » " + ChatColor.YELLOW.toString(), "Channel" + ChatColor.GRAY + ": ", baseUser.isInStaffChat() ? (ChatColor.AQUA + "Staff Chat") : (ChatColor.GREEN + "Global")));
 
-			if(HCF.getPlugin().getServerHandler().isChatDisabled()){
-				lines.add(new SidebarEntry("§7 » §eChat", "§7: §fLocked ", "(" + HCF.getRemaining(HCF.getPlugin().getServerHandler().getChatDisabledMillis() - System.currentTimeMillis(), true) + ")"));
+			if(BasePlugin.getPlugin().getServerHandler().isChatDisabled()){
+				lines.add(new SidebarEntry("§7 » §eChat", "§7: §fLocked ", "(" + HCF.getRemaining(BasePlugin.getPlugin().getServerHandler().getChatDisabledMillis() - System.currentTimeMillis(), true) + ")"));
 			}
 
 			if(isChatSlowed()){

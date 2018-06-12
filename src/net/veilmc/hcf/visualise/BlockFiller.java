@@ -1,11 +1,10 @@
 package net.veilmc.hcf.visualise;
 
 import com.google.common.collect.Iterables;
-
-import java.util.ArrayList;
-
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+
+import java.util.ArrayList;
 
 abstract class BlockFiller{
 	BlockFiller(){

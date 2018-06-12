@@ -1,9 +1,9 @@
 package net.veilmc.hcf.combatlog;
 
+import net.minecraft.server.v1_7_R4.EntityTypes;
+
 import java.lang.reflect.Field;
 import java.util.Map;
-
-import net.minecraft.server.v1_7_R4.EntityTypes;
 
 public class CustomEntityRegistration{
 	public static void registerCustomEntities(){

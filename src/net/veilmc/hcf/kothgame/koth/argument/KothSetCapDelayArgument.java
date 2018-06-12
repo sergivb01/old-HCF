@@ -1,23 +1,20 @@
 package net.veilmc.hcf.kothgame.koth.argument;
 
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.kothgame.faction.KothFaction;
-import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.hcf.kothgame.CaptureZone;
 import net.veilmc.hcf.kothgame.faction.KothFaction;
 import net.veilmc.util.JavaUtils;
 import net.veilmc.util.command.CommandArgument;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class KothSetCapDelayArgument
 		extends CommandArgument{

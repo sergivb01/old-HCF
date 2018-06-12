@@ -1,9 +1,6 @@
 package net.veilmc.hcf.listener;
 
-import net.veilmc.hcf.HCF;
-import net.veilmc.base.ServerHandler;
-import net.veilmc.hcf.HCF;
-
+import net.veilmc.base.BasePlugin;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -15,18 +12,14 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent;
-import org.bukkit.event.player.PlayerBucketEmptyEvent;
-import org.bukkit.event.player.PlayerBucketFillEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerPortalEvent;
-import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.event.player.*;
 
 public class BorderListener
 		implements Listener{
 	private static final int BORDER_OFFSET_TELEPORTS = 50;
 
 	public static boolean isWithinBorder(Location location){
-		int borderSize = location.getWorld().getEnvironment() == World.Environment.NORMAL ? HCF.getPlugin().getServerHandler().getWorldBorder() : HCF.getPlugin().getServerHandler().getNetherBorder();
+		int borderSize = location.getWorld().getEnvironment() == World.Environment.NORMAL ? BasePlugin.getPlugin().getServerHandler().getWorldBorder() : BasePlugin.getPlugin().getServerHandler().getNetherBorder();
 		return Math.abs(location.getBlockX()) <= borderSize && Math.abs(location.getBlockZ()) <= borderSize;
 	}
 
@@ -104,7 +97,7 @@ public class BorderListener
 				}
 				int x = to.getBlockX();
 				int z = to.getBlockZ();
-				int borderSize = HCF.getPlugin().getServerHandler().getWorldBorder();
+				int borderSize = BasePlugin.getPlugin().getServerHandler().getWorldBorder();
 				boolean extended = false;
 				if(Math.abs(x) > borderSize){
 					to.setX(x > 0 ? borderSize - 50 : -borderSize + 50);

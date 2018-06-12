@@ -1,18 +1,12 @@
 package net.veilmc.hcf.balance;
 
-import net.veilmc.hcf.HCF;
+import com.google.common.collect.ImmutableList;
+import com.google.common.primitives.Ints;
 import net.veilmc.base.BaseConstants;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.util.BukkitUtils;
 import net.veilmc.util.JavaUtils;
-import com.google.common.collect.ImmutableList;
-import com.google.common.primitives.Ints;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
-
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -20,6 +14,10 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.UUID;
 
 public class EconomyCommand
 		implements CommandExecutor,

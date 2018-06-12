@@ -11,8 +11,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.util.*;
 
-public class UserManager
-		implements Listener{
+public class UserManager implements Listener{
 	private final HCF plugin;
 	private final Map<UUID, FactionUser> users = new HashMap<>();
 	private Config userConfig;

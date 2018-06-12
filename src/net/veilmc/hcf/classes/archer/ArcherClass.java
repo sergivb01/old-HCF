@@ -1,9 +1,8 @@
 package net.veilmc.hcf.classes.archer;
 
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.utils.Cooldowns;
 import net.veilmc.hcf.classes.PvpClass;
+import net.veilmc.hcf.utils.Cooldowns;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

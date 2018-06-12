@@ -1,26 +1,20 @@
 package net.veilmc.hcf.faction.argument;
 
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.hcf.faction.event.FactionRelationCreateEvent;
 import net.veilmc.hcf.faction.struct.Relation;
 import net.veilmc.hcf.faction.struct.Role;
 import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.hcf.faction.type.PlayerFaction;
+import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.util.command.CommandArgument;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.*;
 
 public class FactionAllyArgument
 		extends CommandArgument{

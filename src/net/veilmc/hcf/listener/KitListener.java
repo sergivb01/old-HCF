@@ -1,14 +1,12 @@
 package net.veilmc.hcf.listener;
 
-import net.veilmc.hcf.HCF;
 import net.veilmc.base.kit.event.KitApplyEvent;
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.hcf.faction.type.PlayerFaction;
 import net.veilmc.hcf.timer.event.TimerStartEvent;
 import net.veilmc.hcf.timer.type.PvpProtectionTimer;
-
+import net.veilmc.hcf.utils.ConfigurationService;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -16,8 +14,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 
-public class KitListener
-		implements Listener{
+public class KitListener implements Listener{
 	private final HCF plugin;
 
 	public KitListener(HCF plugin){

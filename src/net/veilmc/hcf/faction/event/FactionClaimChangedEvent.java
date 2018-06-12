@@ -1,14 +1,12 @@
 package net.veilmc.hcf.faction.event;
 
-import java.util.Collection;
-
+import net.veilmc.hcf.faction.claim.Claim;
 import net.veilmc.hcf.faction.event.cause.ClaimChangeCause;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-import net.veilmc.hcf.faction.claim.Claim;
-import net.veilmc.hcf.faction.event.cause.ClaimChangeCause;
+import java.util.Collection;
 
 public class FactionClaimChangedEvent
 		extends Event{

@@ -3,17 +3,15 @@ package net.veilmc.hcf.faction.claim;
 import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.util.GenericUtils;
 import net.veilmc.util.cuboid.Cuboid;
-import net.veilmc.util.cuboid.NamedCuboid;
+import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.configuration.serialization.ConfigurationSerializable;
 
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
-
-import org.bukkit.Location;
-import org.bukkit.World;
-import org.bukkit.configuration.serialization.ConfigurationSerializable;
 
 public class Subclaim
 		extends Claim

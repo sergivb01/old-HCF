@@ -1,14 +1,12 @@
 package net.veilmc.hcf.faction.argument;
 
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.hcf.faction.FactionMember;
 import net.veilmc.hcf.faction.claim.Claim;
 import net.veilmc.hcf.faction.struct.Role;
 import net.veilmc.hcf.faction.type.PlayerFaction;
+import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.util.command.CommandArgument;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;

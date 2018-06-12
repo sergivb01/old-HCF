@@ -1,16 +1,11 @@
 package net.veilmc.hcf.kothgame.eotw;
 
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.listener.BorderListener;
-import net.veilmc.base.ServerHandler;
+import net.veilmc.base.BasePlugin;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.claim.Claim;
 import net.veilmc.hcf.faction.type.ClaimableFaction;
 import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.hcf.listener.BorderListener;
-
-import java.util.concurrent.TimeUnit;
-
 import net.veilmc.util.BukkitUtils;
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
@@ -20,6 +15,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.concurrent.TimeUnit;
 
 public class EOTWHandler{
 	public static final int BORDER_DECREASE_MINIMUM = 1000;
@@ -53,7 +50,7 @@ public class EOTWHandler{
 			return;
 		}
 		if(yes){
-			this.runnable = new EotwRunnable(this.plugin.getServerHandler().getWorldBorder());
+			this.runnable = new EotwRunnable(BasePlugin.getPlugin().getServerHandler().getWorldBorder());
 			this.runnable.runTaskTimer(this.plugin, 1, 100);
 		}else if(this.runnable != null){
 			this.runnable.cancel();
@@ -122,7 +119,7 @@ public class EOTWHandler{
 				on.sendMessage(ChatColor.RED + "EOTW is active and your outside of the border. You will get wither.");
 				on.addPotionEffect(WITHER, true);
 			}
-			if(HCF.getPlugin().getServerHandler().getWorldBorder() <= 1000){
+			if(BasePlugin.getPlugin().getServerHandler().getWorldBorder() <= 1000){
 				return;
 			}
 			int newBorderSize = this.borderSize - 200;
@@ -133,7 +130,7 @@ public class EOTWHandler{
 				int borderSize;
 				World.Environment normal = World.Environment.NORMAL;
 				this.borderSize = borderSize = newBorderSize;
-				HCF.getPlugin().getServerHandler().setServerBorder(normal, Integer.valueOf(borderSize));
+				BasePlugin.getPlugin().getServerHandler().setServerBorder(normal, Integer.valueOf(borderSize));
 				Bukkit.broadcastMessage(ChatColor.RED + "Border has been decreased to " + ChatColor.RED + newBorderSize + ChatColor.RED + " blocks.");
 			}else if((long) elapsedSeconds % TimeUnit.MINUTES.toSeconds(5) == 0){
 				Bukkit.broadcastMessage(ChatColor.RED + "Border decreasing to " + ChatColor.RED + newBorderSize + ChatColor.RED + " blocks in " + ChatColor.RED + EOTWHandler.BORDER_DECREASE_TIME_ALERT_WORDS + ChatColor.DARK_AQUA + '.');

@@ -1,7 +1,6 @@
 package net.veilmc.hcf.listener;
 
 import com.google.common.base.Optional;
-import net.veilmc.base.BasePlugin;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.claim.Claim;
 import net.veilmc.hcf.faction.event.*;
@@ -10,7 +9,6 @@ import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.hcf.faction.type.PlayerFaction;
 import net.veilmc.hcf.kothgame.faction.KothFaction;
 import net.veilmc.hcf.utils.ConfigurationService;
-import net.milkbowl.vault.economy.EconomyResponse;
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -29,8 +27,7 @@ import org.bukkit.metadata.MetadataValue;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class FactionListener
-		implements Listener{
+public class FactionListener implements Listener{
 	private static final long FACTION_JOIN_WAIT_MILLIS = TimeUnit.SECONDS.toMillis(30);
 	private static final String FACTION_JOIN_WAIT_WORDS = DurationFormatUtils.formatDurationWords((long) FACTION_JOIN_WAIT_MILLIS, (boolean) true, (boolean) true);
 	private static final String LAND_CHANGED_META_KEY = "landChangedMessage";
@@ -58,7 +55,7 @@ public class FactionListener
 
 	private String getDisplayName(CommandSender sender){
 		if(sender instanceof Player){
-			return ChatColor.translateAlternateColorCodes('&', "&e" + HCF.getChat().getPlayerPrefix(((Player) sender).getPlayer()).replace("_", " ") + ((Player) sender).getDisplayName());
+			return ChatColor.translateAlternateColorCodes('&', "&e" + HCF.chat.getPlayerPrefix(((Player) sender).getPlayer()).replace("_", " ") + ((Player) sender).getDisplayName());
 			//return ChatColor.translateAlternateColorCodes('&', "&e" + PermissionsEx.getUser((Player) sender).getPrefix()).replace("_", " ") + ((Player) sender).getDisplayName();
 		}
 		return sender.getName();

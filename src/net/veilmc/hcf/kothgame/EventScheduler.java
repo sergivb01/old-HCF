@@ -1,23 +1,16 @@
 package net.veilmc.hcf.kothgame;
 
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.HCF;
 import com.google.common.primitives.Ints;
+import net.veilmc.hcf.HCF;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 
 public class EventScheduler{
 	private static final String FILE_NAME = "event-schedules.txt";

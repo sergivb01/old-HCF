@@ -1,17 +1,10 @@
 package net.veilmc.hcf.classes.type;
 
-import java.util.HashMap;
-import java.util.concurrent.TimeUnit;
-
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.classes.event.PvpClassUnequipEvent;
 import net.veilmc.hcf.classes.PvpClass;
+import net.veilmc.hcf.classes.event.PvpClassUnequipEvent;
 import net.veilmc.hcf.utils.Cooldowns;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Effect;
-import org.bukkit.Material;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -27,8 +20,8 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.classes.event.PvpClassUnequipEvent;
+import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 public class AssassinClass
 		extends PvpClass

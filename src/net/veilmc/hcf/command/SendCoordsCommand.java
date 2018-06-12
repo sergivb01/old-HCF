@@ -2,8 +2,6 @@ package net.veilmc.hcf.command;
 
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.type.PlayerFaction;
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.faction.type.PlayerFaction;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

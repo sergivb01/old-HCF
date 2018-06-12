@@ -1,6 +1,5 @@
 package net.veilmc.hcf.listener;
 
-import net.veilmc.hcf.HCF;
 import net.minecraft.util.org.apache.commons.lang3.StringUtils;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.struct.Role;

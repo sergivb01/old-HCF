@@ -1,8 +1,6 @@
 package net.veilmc.hcf.listener;
 
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.timer.PlayerTimer;
-import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.hcf.faction.type.PlayerFaction;
 import net.veilmc.hcf.timer.PlayerTimer;
@@ -32,7 +30,6 @@ public class ElevatorListener implements Listener{
 		this.plugin = plugin;
 		this.signTitle = ChatColor.BLUE + ChatColor.BOLD.toString() + "[Elevator]";
 	}
-
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void onSignUpdate(final SignChangeEvent e){

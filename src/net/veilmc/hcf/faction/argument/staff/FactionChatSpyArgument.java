@@ -1,7 +1,6 @@
 package net.veilmc.hcf.faction.argument.staff;
 
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.user.FactionUser;
+import com.google.common.collect.ImmutableList;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.event.FactionChatEvent;
 import net.veilmc.hcf.faction.event.FactionRemoveEvent;
@@ -9,13 +8,6 @@ import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.hcf.faction.type.PlayerFaction;
 import net.veilmc.hcf.user.FactionUser;
 import net.veilmc.util.command.CommandArgument;
-import com.google.common.collect.ImmutableList;
-
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
-
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -24,6 +16,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 public class FactionChatSpyArgument
 		extends CommandArgument

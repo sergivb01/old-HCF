@@ -5,16 +5,6 @@ import net.veilmc.hcf.classes.archer.ArcherClass;
 import net.veilmc.hcf.timer.PlayerTimer;
 import net.veilmc.hcf.timer.event.TimerExpireEvent;
 import net.veilmc.hcf.utils.ConfigurationService;
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.classes.archer.ArcherClass;
-import net.veilmc.hcf.timer.PlayerTimer;
-import net.veilmc.hcf.timer.event.TimerExpireEvent;
-import net.veilmc.hcf.utils.ConfigurationService;
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.classes.archer.ArcherClass;
-import net.veilmc.hcf.timer.PlayerTimer;
-import net.veilmc.hcf.timer.event.TimerExpireEvent;
-import net.veilmc.hcf.utils.ConfigurationService;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Arrow;
@@ -23,14 +13,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-public class ArcherTimer
-		extends PlayerTimer
-		implements Listener{
+public class ArcherTimer extends PlayerTimer implements Listener{
 	private final HCF plugin;
 
 	public ArcherTimer(HCF plugin){
@@ -81,7 +68,7 @@ public class ArcherTimer
 		if(((e.getEntity() instanceof Player)) && ((e.getDamager() instanceof Arrow)) && ((((Arrow) e.getDamager()).getShooter() instanceof Player))){
 			Player entity = (Player) e.getEntity();
 			Entity damager = (Player) ((Arrow) e.getDamager()).getShooter();
-			if(((damager instanceof Player)) &&
+			if(((damager != null)) &&
 					(getRemaining(entity) > 0L)){
 				if(ArcherClass.tagged.get(entity.getUniqueId()).equals(damager.getUniqueId())){
 					setCooldown(entity, entity.getUniqueId());
@@ -90,4 +77,6 @@ public class ArcherTimer
 			}
 		}
 	}
+
+
 }

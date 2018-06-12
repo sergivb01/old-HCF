@@ -1,6 +1,6 @@
 package net.veilmc.hcf.listener;
 
-import net.veilmc.hcf.HCF;
+import net.veilmc.base.BasePlugin;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.type.PlayerFaction;
 import net.veilmc.util.imagemessage.ImageChar;
@@ -28,9 +28,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Random;
 
-public class EndListener
-		implements Listener{
-
+public class EndListener implements Listener{
 
 	@EventHandler
 	public void onEntityDeath(EntityDeathEvent event){
@@ -182,7 +180,7 @@ public class EndListener
 				HCF.getPlugin().getMessage().sendMessage(event.getPlayer(), ChatColor.RED + "You cannot leave the end before the dragon is killed.");
 			}
 			event.useTravelAgent(false);
-			event.setTo(HCF.getPlugin().getServerHandler().getEndExit());
+			event.setTo(BasePlugin.getPlugin().getServerHandler().getEndExit());
 		}else if(event.getTo().getWorld().getEnvironment() == World.Environment.THE_END){
 			if(HCF.getPlugin().getTimerManager().spawnTagTimer.hasCooldown(player)){
 				event.setCancelled(true);
@@ -192,7 +190,7 @@ public class EndListener
 				event.setCancelled(true);
 				HCF.getPlugin().getMessage().sendMessage(event.getPlayer(), ChatColor.RED + "You cannot enter the end while you have pvp protection.");
 			}
-			if((!HCF.getPlugin().getServerHandler().isEnd() || HCF.getPlugin().getEotwHandler().isEndOfTheWorld()) && event.getPlayer().getGameMode() != GameMode.CREATIVE){
+			if((!BasePlugin.getPlugin().getServerHandler().isEnd() || HCF.getPlugin().getEotwHandler().isEndOfTheWorld()) && event.getPlayer().getGameMode() != GameMode.CREATIVE){
 				event.setCancelled(true);
 				HCF.getPlugin().getMessage().sendMessage(event.getPlayer(), ChatColor.RED + "The End is currently disabled.");
 			}

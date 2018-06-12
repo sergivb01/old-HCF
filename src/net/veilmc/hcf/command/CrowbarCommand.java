@@ -1,15 +1,9 @@
 package net.veilmc.hcf.command;
 
-import net.veilmc.hcf.crowbar.Crowbar;
-import net.veilmc.hcf.crowbar.Crowbar;
-import net.veilmc.util.BukkitUtils;
 import com.google.common.base.Optional;
 import com.google.common.primitives.Ints;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
+import net.veilmc.hcf.crowbar.Crowbar;
+import net.veilmc.util.BukkitUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -17,6 +11,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class CrowbarCommand
 		implements CommandExecutor,

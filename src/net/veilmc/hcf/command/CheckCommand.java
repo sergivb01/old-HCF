@@ -2,7 +2,6 @@ package net.veilmc.hcf.command;
 
 import litebans.api.Database;
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.HCF;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

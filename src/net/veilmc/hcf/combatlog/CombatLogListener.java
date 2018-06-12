@@ -1,7 +1,6 @@
 package net.veilmc.hcf.combatlog;
 
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.HCF;
 import net.veilmc.util.InventoryUtils;
 import org.bukkit.*;
 import org.bukkit.craftbukkit.v1_7_R4.entity.CraftEntity;

@@ -4,10 +4,6 @@ import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.command.spawn.argument.TokenCheckArgument;
 import net.veilmc.hcf.command.spawn.argument.TokenGiveArgument;
 import net.veilmc.hcf.command.spawn.argument.TokenSetArgument;
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.command.spawn.argument.TokenCheckArgument;
-import net.veilmc.hcf.command.spawn.argument.TokenGiveArgument;
-import net.veilmc.hcf.command.spawn.argument.TokenSetArgument;
 import net.veilmc.util.command.ArgumentExecutor;
 
 public class TokenExecutor extends ArgumentExecutor{

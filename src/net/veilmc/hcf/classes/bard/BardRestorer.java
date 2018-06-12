@@ -1,12 +1,10 @@
 package net.veilmc.hcf.classes.bard;
 
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.classes.event.PvpClassUnequipEvent;
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.classes.event.PvpClassUnequipEvent;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 import me.sergivb01.event.PotionEffectExpiresEvent;
+import net.veilmc.hcf.HCF;
+import net.veilmc.hcf.classes.event.PvpClassUnequipEvent;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

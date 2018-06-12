@@ -1,39 +1,5 @@
 package net.veilmc.hcf.timer.type;
 
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.faction.claim.Claim;
-import net.veilmc.hcf.faction.event.FactionClaimChangedEvent;
-import net.veilmc.hcf.faction.event.PlayerClaimEnterEvent;
-import net.veilmc.hcf.faction.event.cause.ClaimChangeCause;
-import net.veilmc.hcf.faction.type.ClaimableFaction;
-import net.veilmc.hcf.faction.type.Faction;
-import net.veilmc.hcf.faction.type.PlayerFaction;
-import net.veilmc.hcf.faction.type.RoadFaction;
-import net.veilmc.hcf.timer.PlayerTimer;
-import net.veilmc.hcf.timer.TimerRunnable;
-import net.veilmc.hcf.timer.event.TimerClearEvent;
-import net.veilmc.hcf.timer.event.TimerStartEvent;
-import net.veilmc.hcf.utils.ConfigurationService;
-import net.veilmc.hcf.utils.DurationFormatter;
-import net.veilmc.hcf.visualise.VisualType;
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.utils.ConfigurationService;
-import net.veilmc.hcf.utils.DurationFormatter;
-import net.veilmc.hcf.faction.claim.Claim;
-import net.veilmc.hcf.faction.event.FactionClaimChangedEvent;
-import net.veilmc.hcf.faction.event.PlayerClaimEnterEvent;
-import net.veilmc.hcf.faction.event.cause.ClaimChangeCause;
-import net.veilmc.hcf.faction.type.ClaimableFaction;
-import net.veilmc.hcf.faction.type.Faction;
-import net.veilmc.hcf.faction.type.PlayerFaction;
-import net.veilmc.hcf.faction.type.RoadFaction;
-import net.veilmc.hcf.timer.PlayerTimer;
-import net.veilmc.hcf.timer.TimerRunnable;
-import net.veilmc.hcf.timer.event.TimerClearEvent;
-import net.veilmc.hcf.timer.event.TimerStartEvent;
-import net.veilmc.hcf.visualise.VisualType;
-import net.veilmc.util.BukkitUtils;
-import net.veilmc.util.Config;
 import com.google.common.base.Optional;
 import net.minecraft.util.com.google.common.cache.CacheBuilder;
 import net.veilmc.hcf.HCF;
@@ -52,6 +18,8 @@ import net.veilmc.hcf.timer.event.TimerStartEvent;
 import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.hcf.utils.DurationFormatter;
 import net.veilmc.hcf.visualise.VisualType;
+import net.veilmc.util.BukkitUtils;
+import net.veilmc.util.Config;
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -80,7 +48,6 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.TimeUnit;
 
 public class PvpProtectionTimer extends PlayerTimer implements Listener{
-	private static final String PVP_COMMAND = "/pvp enable";
 	private static final long ITEM_PICKUP_DELAY;
 	private static final long ITEM_PICKUP_MESSAGE_DELAY = 1250L;
 	private static final String ITEM_PICKUP_MESSAGE_META_KEY = "pickupMessageDelay";
@@ -375,5 +342,6 @@ public class PvpProtectionTimer extends PlayerTimer implements Listener{
 		super.onDisable(config);
 		config.set("pvp-timer-legible", new ArrayList<>(legible).toArray(new UUID[legible.size()]));
 	}
+
 }
 

@@ -1,7 +1,7 @@
 package net.veilmc.hcf.command;
 
-import net.veilmc.hcf.utils.ConfigurationService;
 import net.md_5.bungee.api.ChatColor;
+import net.veilmc.hcf.utils.ConfigurationService;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

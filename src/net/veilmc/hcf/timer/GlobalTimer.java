@@ -1,13 +1,11 @@
 package net.veilmc.hcf.timer;
 
-import org.bukkit.Bukkit;
-
 import net.veilmc.hcf.timer.event.TimerExtendEvent;
 import net.veilmc.hcf.timer.event.TimerPauseEvent;
 import net.veilmc.hcf.timer.event.TimerStartEvent;
+import org.bukkit.Bukkit;
 
-public abstract class GlobalTimer
-		extends Timer{
+public abstract class GlobalTimer extends Timer{
 	private TimerRunnable runnable;
 
 	public GlobalTimer(String name, long defaultCooldown){
@@ -68,4 +66,6 @@ public abstract class GlobalTimer
 		}
 		return !hadCooldown;
 	}
+
+
 }

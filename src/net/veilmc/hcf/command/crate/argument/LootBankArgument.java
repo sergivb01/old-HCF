@@ -1,16 +1,14 @@
 package net.veilmc.hcf.command.crate.argument;
 
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.HCF;
 import net.veilmc.util.command.CommandArgument;
-
-import java.util.Map;
-import java.util.UUID;
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.Map;
+import java.util.UUID;
 
 public class LootBankArgument
 		extends CommandArgument{

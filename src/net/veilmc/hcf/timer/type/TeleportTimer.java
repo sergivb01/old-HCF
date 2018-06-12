@@ -1,24 +1,6 @@
 package net.veilmc.hcf.timer.type;
 
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.faction.FactionManager;
-import net.veilmc.hcf.faction.type.Faction;
-import net.veilmc.hcf.timer.PlayerTimer;
-import net.veilmc.hcf.timer.TimerRunnable;
-import net.veilmc.hcf.utils.ConfigurationService;
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.utils.ConfigurationService;
-import net.veilmc.hcf.faction.FactionManager;
-import net.veilmc.hcf.faction.type.Faction;
-import net.veilmc.hcf.timer.PlayerTimer;
-import net.veilmc.hcf.timer.TimerRunnable;
 import net.minecraft.util.com.google.common.cache.CacheBuilder;
-
-import java.util.Collection;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.TimeUnit;
-
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.FactionManager;
 import net.veilmc.hcf.faction.type.Faction;
@@ -38,9 +20,12 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
-public class TeleportTimer
-		extends PlayerTimer
-		implements Listener{
+import java.util.Collection;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.TimeUnit;
+
+public class TeleportTimer extends PlayerTimer implements Listener{
 	private final ConcurrentMap<Object, Object> destinationMap;
 	private final HCF plugin;
 
@@ -151,5 +136,7 @@ public class TeleportTimer
 			player.teleport(destination, PlayerTeleportEvent.TeleportCause.COMMAND);
 		}
 	}
+
+
 }
 

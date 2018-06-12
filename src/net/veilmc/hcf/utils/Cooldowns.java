@@ -1,9 +1,9 @@
 package net.veilmc.hcf.utils;
 
+import org.bukkit.entity.Player;
+
 import java.util.HashMap;
 import java.util.UUID;
-
-import org.bukkit.entity.Player;
 
 public class Cooldowns{
 	private static HashMap<String, HashMap<UUID, Long>> cooldown = new HashMap();

@@ -1,20 +1,18 @@
 package net.veilmc.hcf.faction.argument;
 
-import net.veilmc.hcf.HCF;
+import com.google.common.collect.ImmutableList;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.struct.Role;
 import net.veilmc.hcf.faction.type.PlayerFaction;
 import net.veilmc.util.command.CommandArgument;
-import com.google.common.collect.ImmutableList;
-
-import java.util.Collections;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.Collections;
+import java.util.List;
 
 public class FactionAnnouncementArgument
 		extends CommandArgument{
@@ -64,7 +62,7 @@ public class FactionAnnouncementArgument
 			playerFaction.broadcast(ChatColor.AQUA + sender.getName() + ChatColor.YELLOW + " has cleared the factions' announcement.");
 			return true;
 		}
-		playerFaction.broadcast(ChatColor.GREEN + player.getName() + ChatColor.YELLOW + " has updated the factions' announcement from " + ChatColor.GREEN + (oldAnnouncement != null ? oldAnnouncement : ChatColor.RED +  "nothing") + ChatColor.YELLOW + " to " + ChatColor.GREEN + newAnnouncement + ChatColor.YELLOW + '.');
+		playerFaction.broadcast(ChatColor.GREEN + player.getName() + ChatColor.YELLOW + " has updated the factions' announcement from " + ChatColor.GREEN + (oldAnnouncement != null ? oldAnnouncement : ChatColor.RED + "nothing") + ChatColor.YELLOW + " to " + ChatColor.GREEN + newAnnouncement + ChatColor.YELLOW + '.');
 		return true;
 	}
 

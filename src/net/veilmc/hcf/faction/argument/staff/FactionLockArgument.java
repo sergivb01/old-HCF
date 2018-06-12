@@ -1,7 +1,6 @@
 package net.veilmc.hcf.faction.argument.staff;
 
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.hcf.faction.type.PlayerFaction;
 import net.veilmc.util.command.CommandArgument;

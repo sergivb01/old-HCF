@@ -8,8 +8,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemBuilder
-{
+public class ItemBuilder{
 	private Material type;
 	private String name;
 	private String[] lore;
@@ -17,7 +16,7 @@ public class ItemBuilder
 	private short data;
 	private boolean unbreakable;
 
-	public ItemBuilder(final Material type, final String name, final String... lore) {
+	public ItemBuilder(final Material type, final String name, final String... lore){
 		this.type = type;
 		this.name = name;
 		this.lore = lore;
@@ -25,7 +24,7 @@ public class ItemBuilder
 		this.data = 0;
 	}
 
-	public ItemBuilder(final Material type, final String name, final List<String> list, final String... lore) {
+	public ItemBuilder(final Material type, final String name, final List<String> list, final String... lore){
 		this.type = type;
 		this.name = name;
 		this.lore = lore;
@@ -33,7 +32,7 @@ public class ItemBuilder
 		this.data = 0;
 	}
 
-	public ItemBuilder(final Material type, final String name, final boolean unbreakable, final String... lore) {
+	public ItemBuilder(final Material type, final String name, final boolean unbreakable, final String... lore){
 		this.type = type;
 		this.name = name;
 		this.lore = lore;
@@ -42,7 +41,7 @@ public class ItemBuilder
 		this.data = 0;
 	}
 
-	public ItemBuilder(final Material type, final String name, final int amount, final String... lore) {
+	public ItemBuilder(final Material type, final String name, final int amount, final String... lore){
 		this.type = type;
 		this.name = name;
 		this.lore = lore;
@@ -50,7 +49,7 @@ public class ItemBuilder
 		this.data = 0;
 	}
 
-	public ItemBuilder(final Material type, final String name, final int amount, final byte data, final String... lore) {
+	public ItemBuilder(final Material type, final String name, final int amount, final byte data, final String... lore){
 		this.type = type;
 		this.name = name;
 		this.lore = lore;
@@ -58,7 +57,7 @@ public class ItemBuilder
 		this.data = data;
 	}
 
-	public ItemBuilder(final Material type, final String name, final int amount, final byte data, final List<String> lore) {
+	public ItemBuilder(final Material type, final String name, final int amount, final byte data, final List<String> lore){
 		this.type = type;
 		this.name = name;
 		this.lore = lore.toArray(new String[lore.size()]);
@@ -66,7 +65,7 @@ public class ItemBuilder
 		this.data = data;
 	}
 
-	public ItemBuilder(final ItemStack display, final String... lore) {
+	public ItemBuilder(final ItemStack display, final String... lore){
 		this.type = display.getType();
 		this.name = display.getItemMeta().getDisplayName();
 		this.lore = lore;
@@ -74,17 +73,19 @@ public class ItemBuilder
 		this.data = display.getDurability();
 	}
 
-	public ItemStack getItem() {
+	public ItemStack getItem(){
 		final List<String> lore = new ArrayList<String>();
-		for (int i = 0; i < this.lore.length; ++i) {
+		for(int i = 0; i < this.lore.length; ++i){
 			lore.add(ChatColor.translateAlternateColorCodes('&', this.lore[i]));
 		}
 		final ItemStack item = new ItemStack(this.type, this.amount, this.data);
 		final ItemMeta meta = item.getItemMeta();
 		meta.setDisplayName(this.name);
-		meta.setLore((List)lore);
+		meta.setLore(lore);
 		meta.spigot().setUnbreakable(this.unbreakable);
 		item.setItemMeta(meta);
 		return item;
 	}
+
+
 }

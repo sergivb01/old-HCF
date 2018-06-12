@@ -1,13 +1,12 @@
 package net.veilmc.hcf.faction.event;
 
-import net.veilmc.hcf.faction.type.PlayerFaction;
 import com.google.common.base.Optional;
-
-import java.util.UUID;
-
+import net.veilmc.hcf.faction.type.PlayerFaction;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
+
+import java.util.UUID;
 
 public class PlayerJoinedFactionEvent
 		extends FactionEvent{

@@ -1,7 +1,6 @@
 package net.veilmc.hcf.faction.argument.staff;
 
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.hcf.faction.type.PlayerFaction;
 import net.veilmc.util.command.CommandArgument;
@@ -45,7 +44,7 @@ public class FactionMuteArgument
 		ConsoleCommandSender console = Bukkit.getConsoleSender();
 		for(UUID uuid : playerFaction.getMembers().keySet()){
 			String commandLine = "mute " + uuid.toString() + " " + extraArgs;
-			sender.sendMessage(ChatColor.RED + "Mute: " + ChatColor.YELLOW + uuid.toString() );
+			sender.sendMessage(ChatColor.RED + "Mute: " + ChatColor.YELLOW + uuid.toString());
 			console.getServer().dispatchCommand(sender, commandLine);
 		}
 		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cExecuting command to mute the faction " + playerFaction.getName()));

@@ -1,16 +1,14 @@
 package net.veilmc.hcf.faction.event;
 
-import java.util.Collection;
-
-import net.veilmc.hcf.faction.struct.ChatChannel;
 import net.veilmc.hcf.faction.FactionMember;
 import net.veilmc.hcf.faction.struct.ChatChannel;
+import net.veilmc.hcf.faction.type.PlayerFaction;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;
 
-import net.veilmc.hcf.faction.type.PlayerFaction;
+import java.util.Collection;
 
 public class FactionChatEvent
 		extends FactionEvent

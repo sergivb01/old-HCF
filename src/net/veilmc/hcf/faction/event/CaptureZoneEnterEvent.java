@@ -1,11 +1,8 @@
 package net.veilmc.hcf.faction.event;
 
-import net.veilmc.hcf.kothgame.CaptureZone;
-import net.veilmc.hcf.kothgame.faction.CapturableFaction;
-import net.veilmc.hcf.kothgame.CaptureZone;
-import net.veilmc.hcf.kothgame.faction.CapturableFaction;
 import com.google.common.base.Preconditions;
-
+import net.veilmc.hcf.kothgame.CaptureZone;
+import net.veilmc.hcf.kothgame.faction.CapturableFaction;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.HandlerList;

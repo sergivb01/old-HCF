@@ -1,13 +1,13 @@
 package net.veilmc.hcf.classes;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
-
 import net.veilmc.util.BukkitUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 public abstract class PvpClass{
 	public static final long DEFAULT_MAX_DURATION = TimeUnit.MINUTES.toMillis(8);

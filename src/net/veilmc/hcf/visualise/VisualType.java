@@ -1,17 +1,15 @@
 package net.veilmc.hcf.visualise;
 
-import java.util.ArrayList;
-
 import net.veilmc.hcf.HCF;
+import net.veilmc.hcf.faction.struct.Relation;
+import net.veilmc.hcf.faction.type.Faction;
 import org.bukkit.DyeColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.faction.struct.Relation;
-import net.veilmc.hcf.faction.type.Faction;
+import java.util.ArrayList;
 
 public enum VisualType{
 	SPAWN_BORDER{

@@ -5,14 +5,6 @@ import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.combatlog.CombatLogListener;
 import net.veilmc.hcf.timer.PlayerTimer;
 import net.veilmc.hcf.utils.ConfigurationService;
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.combatlog.CombatLogListener;
-import net.veilmc.hcf.timer.PlayerTimer;
-import net.veilmc.hcf.utils.ConfigurationService;
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.combatlog.CombatLogListener;
-import net.veilmc.hcf.timer.PlayerTimer;
-import net.veilmc.hcf.utils.ConfigurationService;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -30,9 +22,7 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-public class LogoutTimer
-		extends PlayerTimer
-		implements Listener{
+public class LogoutTimer extends PlayerTimer implements Listener{
 	public LogoutTimer(){
 		super(ConfigurationService.LOGOUT_TIMER, TimeUnit.SECONDS.toMillis(30), false);
 	}
@@ -107,5 +97,7 @@ public class LogoutTimer
 			player.sendMessage(this.getDisplayName() + ChatColor.YELLOW + " timer is disconnecting you in " + ChatColor.RED + ChatColor.BOLD + HCF.getRemaining(remainingMillis, true, false) + ChatColor.BLUE + '.');
 		}
 	}
+
+
 }
 

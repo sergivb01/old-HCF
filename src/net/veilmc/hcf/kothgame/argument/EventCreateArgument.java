@@ -1,22 +1,20 @@
 package net.veilmc.hcf.kothgame.argument;
 
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.hcf.kothgame.EventType;
 import net.veilmc.hcf.kothgame.faction.ConquestFaction;
 import net.veilmc.hcf.kothgame.faction.KothFaction;
 import net.veilmc.hcf.palace.PalaceFaction;
 import net.veilmc.util.command.CommandArgument;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import org.apache.commons.lang3.text.WordUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class EventCreateArgument
 		extends CommandArgument{

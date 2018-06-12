@@ -1,13 +1,8 @@
 package net.veilmc.hcf.listener;
 
+import com.google.common.primitives.Ints;
 import net.veilmc.util.ItemBuilder;
 import net.veilmc.util.ParticleEffect;
-import com.google.common.primitives.Ints;
-
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -26,6 +21,10 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
 
 public class BookDeenchantListener
 		implements Listener{

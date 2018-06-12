@@ -1,16 +1,6 @@
 package net.veilmc.hcf.timer.event;
 
-import net.veilmc.hcf.timer.GlobalTimer;
-import net.veilmc.hcf.timer.PlayerTimer;
-import net.veilmc.hcf.timer.Timer;
-import net.veilmc.hcf.timer.GlobalTimer;
-import net.veilmc.hcf.timer.PlayerTimer;
-import net.veilmc.hcf.timer.Timer;
 import com.google.common.base.Optional;
-
-import java.util.UUID;
-import javax.annotation.Nullable;
-
 import net.veilmc.hcf.timer.GlobalTimer;
 import net.veilmc.hcf.timer.PlayerTimer;
 import net.veilmc.hcf.timer.Timer;
@@ -19,9 +9,10 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-public class TimerExtendEvent
-		extends Event
-		implements Cancellable{
+import javax.annotation.Nullable;
+import java.util.UUID;
+
+public class TimerExtendEvent extends Event implements Cancellable{
 	private static final HandlerList handlers = new HandlerList();
 	private final Optional<Player> player;
 	private final Optional<UUID> userUUID;

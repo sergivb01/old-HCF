@@ -1,7 +1,7 @@
 package net.veilmc.hcf.timer;
 
-import org.bukkit.ChatColor;
 import net.veilmc.util.Config;
+import org.bukkit.ChatColor;
 
 public abstract class Timer{
 	protected final String name;
@@ -30,5 +30,7 @@ public abstract class Timer{
 
 	public void onDisable(Config config){
 	}
+
+
 }
 

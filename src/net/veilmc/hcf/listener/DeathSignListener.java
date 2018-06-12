@@ -1,9 +1,8 @@
 package net.veilmc.hcf.listener;
 
-import net.veilmc.hcf.HCF;
+import com.google.common.collect.Lists;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.utils.DateTimeFormats;
-import com.google.common.collect.Lists;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;

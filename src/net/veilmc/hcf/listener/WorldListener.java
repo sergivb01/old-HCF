@@ -7,31 +7,16 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.CreatureSpawner;
-import org.bukkit.entity.EnderDragon;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Squid;
-import org.bukkit.entity.Wither;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockFadeEvent;
-import org.bukkit.event.block.BlockFromToEvent;
-import org.bukkit.event.block.BlockIgniteEvent;
-import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.entity.CreatureSpawnEvent;
-import org.bukkit.event.entity.EntityChangeBlockEvent;
-import org.bukkit.event.entity.EntityExplodeEvent;
-import org.bukkit.event.entity.EntityPortalEvent;
-import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.block.*;
+import org.bukkit.event.entity.*;
 import org.bukkit.event.inventory.InventoryOpenEvent;
-import org.bukkit.event.player.PlayerBedEnterEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.material.EnderChest;
 import org.spigotmc.event.player.PlayerSpawnLocationEvent;
-
-import net.veilmc.hcf.HCF;
 
 public class WorldListener implements Listener{
 	private final HCF plugin;
@@ -80,12 +65,6 @@ public class WorldListener implements Listener{
 		if(event.getEntity() instanceof EnderDragon){
 			event.setCancelled(true);
 		}
-	}
-
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-	public void onBedEnter(PlayerBedEnterEvent event){
-		//event.setCancelled(true); //TODO: Enable/Disable beds at nether
-		//event.getPlayer().sendMessage(ChatColor.RED + "Beds are disabled on this server.");
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)

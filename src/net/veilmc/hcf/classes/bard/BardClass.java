@@ -1,7 +1,5 @@
 package net.veilmc.hcf.classes.bard;
 
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.faction.type.PlayerFaction;
 import net.minecraft.util.gnu.trove.map.TObjectLongMap;
 import net.minecraft.util.gnu.trove.map.hash.TObjectLongHashMap;
 import net.veilmc.hcf.HCF;

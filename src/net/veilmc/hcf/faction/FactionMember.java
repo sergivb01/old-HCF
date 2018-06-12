@@ -1,21 +1,18 @@
 package net.veilmc.hcf.faction;
 
-import net.veilmc.hcf.faction.struct.ChatChannel;
-import net.veilmc.hcf.faction.struct.Role;
-import net.veilmc.hcf.faction.struct.ChatChannel;
-import net.veilmc.hcf.faction.struct.Role;
 import com.google.common.base.Enums;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.UUID;
-
+import net.veilmc.hcf.faction.struct.ChatChannel;
+import net.veilmc.hcf.faction.struct.Role;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.entity.Player;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class FactionMember
 		implements ConfigurationSerializable{

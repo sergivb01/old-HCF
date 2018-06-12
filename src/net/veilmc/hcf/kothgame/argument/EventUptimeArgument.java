@@ -1,12 +1,10 @@
 package net.veilmc.hcf.kothgame.argument;
 
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.utils.DateTimeFormats;
 import net.veilmc.hcf.kothgame.EventTimer;
 import net.veilmc.hcf.kothgame.faction.EventFaction;
+import net.veilmc.hcf.utils.DateTimeFormats;
 import net.veilmc.util.command.CommandArgument;
-
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;

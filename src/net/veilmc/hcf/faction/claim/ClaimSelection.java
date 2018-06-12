@@ -1,16 +1,14 @@
 package net.veilmc.hcf.faction.claim;
 
-import net.veilmc.hcf.HCF;
+import com.google.common.base.Preconditions;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.hcf.faction.type.PlayerFaction;
 import net.veilmc.util.cuboid.Cuboid;
-import com.google.common.base.Preconditions;
-
-import java.util.UUID;
-
 import org.bukkit.Location;
 import org.bukkit.World;
+
+import java.util.UUID;
 
 public class ClaimSelection
 		implements Cloneable{

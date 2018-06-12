@@ -1,11 +1,10 @@
 package net.veilmc.hcf.kothgame.tracker;
 
-import net.veilmc.hcf.kothgame.EventType;
-import org.bukkit.entity.Player;
-
 import net.veilmc.hcf.kothgame.CaptureZone;
 import net.veilmc.hcf.kothgame.EventTimer;
+import net.veilmc.hcf.kothgame.EventType;
 import net.veilmc.hcf.kothgame.faction.EventFaction;
+import org.bukkit.entity.Player;
 
 @Deprecated
 public interface EventTracker{

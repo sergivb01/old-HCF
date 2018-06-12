@@ -1,15 +1,13 @@
 package net.veilmc.hcf.timer;
 
-import java.util.concurrent.TimeUnit;
-
+import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.utils.ConfigurationService;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
-import net.veilmc.hcf.HCF;
+import java.util.concurrent.TimeUnit;
 
-public class SOTWTimer
-		extends GlobalTimer{
+public class SOTWTimer extends GlobalTimer{
 	public SOTWTimer(){
 		super(ConfigurationService.SOTW_TIMER, TimeUnit.MINUTES.toMillis(30L));
 	}
@@ -23,4 +21,6 @@ public class SOTWTimer
 	public ChatColor getScoreboardPrefix(){
 		return ConfigurationService.SOTW_COLOUR;
 	}
+
+
 }

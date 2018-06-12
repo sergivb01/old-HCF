@@ -7,31 +7,24 @@ import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
-import com.comphenix.protocol.events.PacketListener;
 import com.comphenix.protocol.reflect.FieldAccessException;
 import com.comphenix.protocol.reflect.StructureModifier;
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.HCF;
-
 import net.minecraft.server.v1_7_R4.Block;
-import net.minecraft.server.v1_7_R4.EntityHuman;
 import net.minecraft.server.v1_7_R4.EntityPlayer;
+import net.veilmc.hcf.HCF;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class ProtocolLibHook{
-	private static final int STARTED_DIGGING = 0;
-	private static final int FINISHED_DIGGING = 2;
 
 	public static void hook(final HCF hcf){
 		ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
-		protocolManager.addPacketListener((PacketListener) new PacketAdapter((Plugin) hcf, ListenerPriority.NORMAL, new PacketType[]{PacketType.Play.Client.BLOCK_PLACE}){
+		protocolManager.addPacketListener(new PacketAdapter(hcf, ListenerPriority.NORMAL, PacketType.Play.Client.BLOCK_PLACE){
 
 			public void onPacketReceiving(PacketEvent event){
 				PacketContainer packet = event.getPacket();
@@ -39,10 +32,10 @@ public class ProtocolLibHook{
 				final Player player = event.getPlayer();
 				try{
 					int face;
-					if(modifier.size() < 4 || (face = ((Integer) modifier.read(3)).intValue()) == 255){
+					if(modifier.size() < 4 || (face = (Integer) modifier.read(3)) == 255){
 						return;
 					}
-					final Location location = new Location(player.getWorld(), (double) ((Integer) modifier.read(0)).intValue(), (double) ((Integer) modifier.read(1)).intValue(), (double) ((Integer) modifier.read(2)).intValue());
+					final Location location = new Location(player.getWorld(), (double) (Integer) modifier.read(0), (double) (Integer) modifier.read(1), (double) (Integer) modifier.read(2));
 					VisualBlock visualBlock = hcf.getVisualiseHandler().getVisualBlockAt(player, location);
 					if(visualBlock == null){
 						return;
@@ -77,7 +70,7 @@ public class ProtocolLibHook{
 						}
 					}
 					event.setCancelled(true);
-					ItemStack stack = (ItemStack) packet.getItemModifier().read(0);
+					ItemStack stack = packet.getItemModifier().read(0);
 					if(stack != null && (stack.getType().isBlock() || ProtocolLibHook.isLiquidSource(stack.getType()))){
 						player.setItemInHand(player.getItemInHand());
 					}
@@ -91,7 +84,7 @@ public class ProtocolLibHook{
 								org.bukkit.block.Block block = location.getBlock();
 								player.sendBlockChange(location, block.getType(), block.getData());
 							}
-						}.runTask((Plugin) hcf);
+						}.runTask(hcf);
 					}
 				}catch(FieldAccessException face){
 					// empty catch block
@@ -99,7 +92,7 @@ public class ProtocolLibHook{
 			}
 
 		});
-		protocolManager.addPacketListener((PacketListener) new PacketAdapter((Plugin) hcf, ListenerPriority.NORMAL, new PacketType[]{PacketType.Play.Client.BLOCK_DIG}){
+		protocolManager.addPacketListener(new PacketAdapter(hcf, ListenerPriority.NORMAL, PacketType.Play.Client.BLOCK_DIG){
 
 			public void onPacketReceiving(PacketEvent event){
 				PacketContainer packet = event.getPacket();
@@ -122,7 +115,7 @@ public class ProtocolLibHook{
 							player.sendBlockChange(location, data.getBlockType(), data.getData());
 						}else if(status == 0){
 							EntityPlayer entityPlayer = ((CraftPlayer) player).getHandle();
-							if(player.getGameMode() == GameMode.CREATIVE || Block.getById((int) data.getItemTypeId()).getDamage((EntityHuman) entityPlayer, entityPlayer.world, x, y, z) > 1.0f){
+							if(player.getGameMode() == GameMode.CREATIVE || Block.getById(data.getItemTypeId()).getDamage(entityPlayer, entityPlayer.world, x, y, z) > 1.0f){
 								player.sendBlockChange(location, data.getBlockType(), data.getData());
 							}
 						}

@@ -1,17 +1,15 @@
 package net.veilmc.hcf.command.crate.argument;
 
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.command.crate.Key;
 import net.veilmc.util.command.CommandArgument;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class LootListArgument
 		extends CommandArgument{

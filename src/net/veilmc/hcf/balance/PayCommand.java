@@ -1,7 +1,6 @@
 package net.veilmc.hcf.balance;
 
 import com.google.common.primitives.Ints;
-import net.veilmc.hcf.HCF;
 import net.veilmc.base.BaseConstants;
 import net.veilmc.hcf.HCF;
 import org.bukkit.Bukkit;

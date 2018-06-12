@@ -17,9 +17,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
-public class SkullListener
-		implements Listener{
-	private static final String KILL_BEHEAD_PERMISSION = "hcf.kill.behead";
+public class SkullListener implements Listener{
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
 	public void onPlayerDeath(PlayerDeathEvent event){

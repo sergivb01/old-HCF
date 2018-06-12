@@ -1,18 +1,15 @@
 package net.veilmc.hcf.utils;
 
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.HCF;
 import net.veilmc.util.chat.Text;
+import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.UUID;
 
-import net.veilmc.hcf.HCF;
-import org.bukkit.entity.Player;
-
 public final class Message{
 	private final HashMap<UUID, Long> messageDelay = new HashMap();
-	HCF plugin;
+	private HCF plugin;
 
 	public Message(HCF plugin){
 		this.plugin = plugin;

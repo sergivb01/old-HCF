@@ -2,15 +2,7 @@ package net.veilmc.hcf.command.crate;
 
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.command.crate.argument.*;
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.command.crate.argument.LootBankArgument;
-import net.veilmc.hcf.command.crate.argument.LootBroadcastsArgument;
-import net.veilmc.hcf.command.crate.argument.LootDepositArgument;
-import net.veilmc.hcf.command.crate.argument.LootGiveArgument;
-import net.veilmc.hcf.command.crate.argument.LootListArgument;
-import net.veilmc.hcf.command.crate.argument.LootWithdrawArgument;
 import net.veilmc.util.command.ArgumentExecutor;
-import net.veilmc.util.command.CommandArgument;
 
 public class LootExecutor
 		extends ArgumentExecutor{

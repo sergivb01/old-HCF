@@ -1,20 +1,10 @@
 package net.veilmc.hcf.command.crate;
 
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.HCF;
 import net.veilmc.util.InventoryUtils;
 import net.veilmc.util.chat.Text;
 import net.veilmc.util.chat.TextUtils;
-
-import java.util.ArrayList;
-import java.util.Random;
-
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Sound;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.entity.Player;
@@ -31,6 +21,9 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 public class KeyListener
 		implements Listener{

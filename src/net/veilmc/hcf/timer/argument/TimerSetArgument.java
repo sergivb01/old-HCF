@@ -1,19 +1,13 @@
 package net.veilmc.hcf.timer.argument;
 
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.timer.PlayerTimer;
-import net.veilmc.hcf.timer.Timer;
-import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.timer.PlayerTimer;
-import net.veilmc.hcf.timer.Timer;
-import net.veilmc.util.JavaUtils;
-import net.veilmc.util.command.CommandArgument;
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.FluentIterable;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.timer.PlayerTimer;
 import net.veilmc.hcf.timer.Timer;
+import net.veilmc.util.JavaUtils;
+import net.veilmc.util.command.CommandArgument;
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -28,8 +22,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class TimerSetArgument
-		extends CommandArgument{
+public class TimerSetArgument extends CommandArgument{
 	private static final Pattern WHITESPACE_TRIMMER = Pattern.compile("\\s");
 	private final HCF plugin;
 

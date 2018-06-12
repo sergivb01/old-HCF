@@ -2,15 +2,14 @@ package net.veilmc.hcf.crowbar;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
-
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 public class Crowbar{
 	public static final int MAX_SPAWNER_USES = 1;
