@@ -8,7 +8,7 @@ public class TabListener implements Listener{
 	private static HCF plugin;
 
 	public TabListener(HCF plugin){
-		new Azazel(plugin, new PlayerTab());
+		new Azazel(plugin, new PlayerTab()); //Register azazel
 	}
 
 
