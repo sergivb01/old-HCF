@@ -1,7 +1,7 @@
 package net.veilmc.hcf.commands;
 
 import net.md_5.bungee.api.ChatColor;
-import net.veilmc.hcf.listener.DeathListener;
+import net.veilmc.hcf.listeners.DeathListener;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;

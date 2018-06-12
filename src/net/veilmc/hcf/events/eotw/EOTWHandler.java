@@ -5,7 +5,7 @@ import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.claim.Claim;
 import net.veilmc.hcf.faction.type.ClaimableFaction;
 import net.veilmc.hcf.faction.type.Faction;
-import net.veilmc.hcf.listener.BorderListener;
+import net.veilmc.hcf.listeners.BorderListener;
 import net.veilmc.util.BukkitUtils;
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
