@@ -30,7 +30,7 @@ public class FactionAnnouncementArgument
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
 		if(!(sender instanceof Player)){
-			sender.sendMessage(ChatColor.RED + "This command is only executable by players.");
+			sender.sendMessage(ChatColor.RED + "This commands is only executable by players.");
 			return true;
 		}
 		if(args.length < 2){

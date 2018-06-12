@@ -19,7 +19,7 @@ public class FactionForceLeaderArgument
 	public FactionForceLeaderArgument(HCF plugin){
 		super("forceleader", "Forces the leader of a faction.");
 		this.plugin = plugin;
-		this.permission = "hcf.command.faction.argument." + this.getName();
+		this.permission = "hcf.commands.faction.argument." + this.getName();
 	}
 
 	public String getUsage(String label){

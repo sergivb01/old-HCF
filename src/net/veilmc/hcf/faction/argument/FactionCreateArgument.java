@@ -2,7 +2,7 @@ package net.veilmc.hcf.faction.argument;
 
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.type.PlayerFaction;
-import net.veilmc.hcf.utils.ConfigurationService;
+import net.veilmc.hcf.utils.config.ConfigurationService;
 import net.veilmc.util.JavaUtils;
 import net.veilmc.util.command.CommandArgument;
 import org.bukkit.ChatColor;
@@ -25,7 +25,7 @@ public class FactionCreateArgument
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
 		if(!(sender instanceof Player)){
-			sender.sendMessage(ChatColor.RED + "This command may only be executed by players.");
+			sender.sendMessage(ChatColor.RED + "This commands may only be executed by players.");
 			return true;
 		}
 		if(args.length < 2){

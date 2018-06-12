@@ -1,6 +1,6 @@
 package net.veilmc.hcf.faction.type;
 
-import net.veilmc.hcf.utils.ConfigurationService;
+import net.veilmc.hcf.utils.config.ConfigurationService;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;

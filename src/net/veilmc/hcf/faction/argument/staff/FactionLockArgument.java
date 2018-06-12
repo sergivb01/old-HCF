@@ -19,7 +19,7 @@ public class FactionLockArgument
 	public FactionLockArgument(HCF plugin){
 		super("lock", " Lock all factions");
 		this.plugin = plugin;
-		this.permission = "hcf.command.faction.argument." + this.getName();
+		this.permission = "hcf.commands.faction.argument." + this.getName();
 	}
 
 	public String getUsage(String label){

@@ -5,7 +5,7 @@ import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.FactionMember;
 import net.veilmc.hcf.faction.struct.Role;
 import net.veilmc.hcf.faction.type.PlayerFaction;
-import net.veilmc.hcf.utils.ConfigurationService;
+import net.veilmc.hcf.utils.config.ConfigurationService;
 import net.veilmc.util.command.CommandArgument;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;

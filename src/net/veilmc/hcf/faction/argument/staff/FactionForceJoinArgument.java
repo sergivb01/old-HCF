@@ -24,7 +24,7 @@ public class FactionForceJoinArgument
 	public FactionForceJoinArgument(HCF plugin){
 		super("forcejoin", "Forcefully join a faction.");
 		this.plugin = plugin;
-		this.permission = "hcf.command.faction.argument." + this.getName();
+		this.permission = "hcf.commands.faction.argument." + this.getName();
 	}
 
 	public String getUsage(String label){

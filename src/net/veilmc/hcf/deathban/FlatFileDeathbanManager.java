@@ -4,7 +4,7 @@ import net.minecraft.util.gnu.trove.map.TObjectIntMap;
 import net.minecraft.util.gnu.trove.map.hash.TObjectIntHashMap;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.type.Faction;
-import net.veilmc.hcf.utils.ConfigurationService;
+import net.veilmc.hcf.utils.config.ConfigurationService;
 import net.veilmc.util.Config;
 import net.veilmc.util.PersistableLocation;
 import org.bukkit.Location;

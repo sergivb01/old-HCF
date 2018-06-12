@@ -18,195 +18,200 @@ import java.lang.reflect.Field;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class Tab {
+public class Tab{
 
-    @Getter private Scoreboard scoreboard;
-    @Getter @Setter private Team elevatedTeam;
-    private Map<TabEntryPosition, String> entries;
+	@Getter
+	private Scoreboard scoreboard;
+	@Getter
+	@Setter
+	private Team elevatedTeam;
+	private Map<TabEntryPosition, String> entries;
 
-    public Tab(Player player, boolean hook, Azazel azazel) {
-        this.entries = new ConcurrentHashMap<>();
+	public Tab(Player player, boolean hook, Azazel azazel){
+		this.entries = new ConcurrentHashMap<>();
 
-        scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
-        if (hook && !player.getScoreboard().equals(Bukkit.getScoreboardManager().getMainScoreboard())) {
-            scoreboard = player.getScoreboard();
-        }
+		scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+		if(hook && !player.getScoreboard().equals(Bukkit.getScoreboardManager().getMainScoreboard())){
+			scoreboard = player.getScoreboard();
+		}
 
-        elevatedTeam = scoreboard.registerNewTeam(getBlanks().get(getBlanks().size() - 1));
+		elevatedTeam = scoreboard.registerNewTeam(getBlanks().get(getBlanks().size() - 1));
 
-        for (Player other : Bukkit.getOnlinePlayers()) {
+		for(Player other : Bukkit.getOnlinePlayers()){
 
-            getElevatedTeam(other, azazel).addEntry(other.getName());
+			getElevatedTeam(other, azazel).addEntry(other.getName());
 
-            Tab tab = azazel.getTabByPlayer(other);
-            if (tab != null) {
-                tab.getElevatedTeam(player, azazel).addEntry(player.getName());
-            }
+			Tab tab = azazel.getTabByPlayer(other);
+			if(tab != null){
+				tab.getElevatedTeam(player, azazel).addEntry(player.getName());
+			}
 
-            PacketPlayOutPlayerInfo packet = PacketPlayOutPlayerInfo.removePlayer(((CraftPlayer)other).getHandle());
-            ((CraftPlayer)player).getHandle().playerConnection.sendPacket(packet);
-        }
+			PacketPlayOutPlayerInfo packet = PacketPlayOutPlayerInfo.removePlayer(((CraftPlayer) other).getHandle());
+			((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
+		}
 
-        player.setScoreboard(scoreboard);
+		player.setScoreboard(scoreboard);
 
-        initialize(player);
-    }
+		initialize(player);
+	}
 
-    public Team getElevatedTeam(Player player, Azazel azazel) {
-        if (player.hasMetadata("HydrogenPrefix")) {
-            String prefix = ChatColor.getLastColors(player.getDisplayName().replace(ChatColor.RESET + "", ""));
+	/*
+		There should be a better way to do this without reflection
+	 */
+	private static Packet getPlayerPacket(String name){
+		PacketPlayOutPlayerInfo packet = new PacketPlayOutPlayerInfo();
 
-            String name = getBlanks().get(getBlanks().size() - 1) + prefix;
-            if (name.length() > 16) {
-                name = name.substring(0, 15);
-            }
+		Field action;
+		Field username;
+		Field player;
+		try{
+			action = PacketPlayOutPlayerInfo.class.getDeclaredField("action");
+			username = PacketPlayOutPlayerInfo.class.getDeclaredField("username");
+			player = PacketPlayOutPlayerInfo.class.getDeclaredField("player");
 
-            Team team = scoreboard.getTeam(name);
+			action.setAccessible(true);
+			username.setAccessible(true);
+			player.setAccessible(true);
 
-            if (team == null) {
-                team = scoreboard.registerNewTeam(name);
+			action.set(packet, 0);
+			username.set(packet, name);
+			player.set(packet, new GameProfile(UUID.randomUUID(), name));
+		}catch(NoSuchFieldException e){
+			e.printStackTrace();
+			return null;
+		}catch(IllegalAccessException e){
+			e.printStackTrace();
+		}
 
-                team.setPrefix(prefix);
+		return packet;
+	}
 
-            }
+	public Team getElevatedTeam(Player player, Azazel azazel){
+		if(player.hasMetadata("HydrogenPrefix")){
+			String prefix = ChatColor.getLastColors(player.getDisplayName().replace(ChatColor.RESET + "", ""));
 
-            return team;
-        }
+			String name = getBlanks().get(getBlanks().size() - 1) + prefix;
+			if(name.length() > 16){
+				name = name.substring(0, 15);
+			}
 
-        return elevatedTeam;
-    }
+			Team team = scoreboard.getTeam(name);
 
-    public Set<TabEntryPosition> getPositions() {
-        return entries.keySet();
-    }
+			if(team == null){
+				team = scoreboard.registerNewTeam(name);
 
-    public Team getByLocation(int x, int y) {
-        for (TabEntryPosition position : entries.keySet()) {
-            if (position.getX() == x && position.getY() == y) {
-                return scoreboard.getTeam(position.getKey());
-            }
-        }
-        return null;
-    }
+				team.setPrefix(prefix);
 
-    private void initialize(Player player) {
-        if (((CraftPlayer)player).getHandle().playerConnection.networkManager.getVersion() >= 47) {
-            for (int x = 0; x < 4; x++) {
-                for (int y = 0; y < 20; y++) {
-                    String key = getNextBlank();
-                    TabEntryPosition position = new TabEntryPosition(x, y, key, scoreboard);
+			}
 
-                    entries.put(position, key);
+			return team;
+		}
 
-                    ((CraftPlayer) player).getHandle().playerConnection.sendPacket(getPlayerPacket(entries.get(position)));
+		return elevatedTeam;
+	}
 
-                    Team team = scoreboard.getTeam(position.getKey());
+	public Set<TabEntryPosition> getPositions(){
+		return entries.keySet();
+	}
 
-                    if (team == null) {
-                        team = scoreboard.registerNewTeam(position.getKey());
-                    }
+	public Team getByLocation(int x, int y){
+		for(TabEntryPosition position : entries.keySet()){
+			if(position.getX() == x && position.getY() == y){
+				return scoreboard.getTeam(position.getKey());
+			}
+		}
+		return null;
+	}
 
-                    team.addEntry(entries.get(position));
-                }
-            }
-        } else {
-            for (int i = 0; i < 60; i++) {
-                int x = i % 3;
-                int y = i / 3;
+	private void initialize(Player player){
+		if(((CraftPlayer) player).getHandle().playerConnection.networkManager.getVersion() >= 47){
+			for(int x = 0; x < 4; x++){
+				for(int y = 0; y < 20; y++){
+					String key = getNextBlank();
+					TabEntryPosition position = new TabEntryPosition(x, y, key, scoreboard);
 
-                String key = getNextBlank();
-                TabEntryPosition position = new TabEntryPosition(x, y, key, scoreboard);
-                entries.put(position, key);
+					entries.put(position, key);
 
-                ((CraftPlayer) player).getHandle().playerConnection.sendPacket(getPlayerPacket(entries.get(position)));
+					((CraftPlayer) player).getHandle().playerConnection.sendPacket(getPlayerPacket(entries.get(position)));
 
-                Team team = scoreboard.getTeam(position.getKey());
+					Team team = scoreboard.getTeam(position.getKey());
 
-                if (team == null) {
-                    team = scoreboard.registerNewTeam(position.getKey());
-                }
+					if(team == null){
+						team = scoreboard.registerNewTeam(position.getKey());
+					}
 
-                team.addEntry(entries.get(position));
-            }
-        }
-    }
+					team.addEntry(entries.get(position));
+				}
+			}
+		}else{
+			for(int i = 0; i < 60; i++){
+				int x = i % 3;
+				int y = i / 3;
 
-    private String getNextBlank() {
-        outer: for (String blank : getBlanks()) {
+				String key = getNextBlank();
+				TabEntryPosition position = new TabEntryPosition(x, y, key, scoreboard);
+				entries.put(position, key);
 
-            if (scoreboard.getTeam(blank) != null) {
-                continue;
-            }
+				((CraftPlayer) player).getHandle().playerConnection.sendPacket(getPlayerPacket(entries.get(position)));
 
-            for (String identifier : entries.values()) {
-                if (identifier.equals(blank)) {
-                    continue outer;
-                }
-            }
-            return blank;
-        }
-        return null;
-    }
+				Team team = scoreboard.getTeam(position.getKey());
 
-    public List<String> getBlanks() {
-        List<String> toReturn = new ArrayList<>();
+				if(team == null){
+					team = scoreboard.registerNewTeam(position.getKey());
+				}
 
-        for (ChatColor color : ChatColor.values()) {
-            for (int i = 0; i < 4; i++) {
+				team.addEntry(entries.get(position));
+			}
+		}
+	}
 
-                String identifier = StringUtils.repeat(color + "", 4 - i) + ChatColor.RESET;
-                toReturn.add(identifier);
-            }
-        }
+	private String getNextBlank(){
+		outer:
+		for(String blank : getBlanks()){
 
-        return toReturn;
-    }
+			if(scoreboard.getTeam(blank) != null){
+				continue;
+			}
 
+			for(String identifier : entries.values()){
+				if(identifier.equals(blank)){
+					continue outer;
+				}
+			}
+			return blank;
+		}
+		return null;
+	}
 
-    /*
-        There should be a better way to do this without reflection
-     */
-    private static Packet getPlayerPacket(String name) {
-        PacketPlayOutPlayerInfo packet = new PacketPlayOutPlayerInfo();
+	public List<String> getBlanks(){
+		List<String> toReturn = new ArrayList<>();
 
-        Field action;
-        Field username;
-        Field player;
-        try {
-            action = PacketPlayOutPlayerInfo.class.getDeclaredField("action");
-            username = PacketPlayOutPlayerInfo.class.getDeclaredField("username");
-            player = PacketPlayOutPlayerInfo.class.getDeclaredField("player");
+		for(ChatColor color : ChatColor.values()){
+			for(int i = 0; i < 4; i++){
 
-            action.setAccessible(true);
-            username.setAccessible(true);
-            player.setAccessible(true);
+				String identifier = StringUtils.repeat(color + "", 4 - i) + ChatColor.RESET;
+				toReturn.add(identifier);
+			}
+		}
 
-            action.set(packet, 0);
-            username.set(packet, name);
-            player.set(packet, new GameProfile(UUID.randomUUID(), name));
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-            return null;
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
+		return toReturn;
+	}
 
-        return packet;
-    }
+	public static class UpdatedPacketPlayOutPlayerInfo extends PacketPlayOutPlayerInfo{
 
-    public static class UpdatedPacketPlayOutPlayerInfo extends PacketPlayOutPlayerInfo {
+	}
 
-    }
+	public static class TabEntryPosition{
+		@Getter
+		private final int x, y;
+		@Getter
+		private final String key;
 
-    public static class TabEntryPosition {
-        @Getter private final int x, y;
-        @Getter private final String key;
-
-        public TabEntryPosition(int x, int y, String key, Scoreboard scoreboard) {
-            this.x = x;
-            this.y = y;
-            this.key = key;
-        }
-    }
+		public TabEntryPosition(int x, int y, String key, Scoreboard scoreboard){
+			this.x = x;
+			this.y = y;
+			this.key = key;
+		}
+	}
 
 }

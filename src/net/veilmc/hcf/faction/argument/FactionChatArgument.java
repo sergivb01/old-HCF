@@ -31,7 +31,7 @@ public class FactionChatArgument
 
 	public boolean onCommand(final CommandSender sender, final Command command, final String label, final String[] args){
 		if(!(sender instanceof Player)){
-			sender.sendMessage(ChatColor.RED + "This command is only executable by players.");
+			sender.sendMessage(ChatColor.RED + "This commands is only executable by players.");
 			return true;
 		}
 		final Player player = (Player) sender;

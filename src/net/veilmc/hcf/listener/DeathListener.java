@@ -8,7 +8,7 @@ import net.veilmc.hcf.faction.struct.Role;
 import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.hcf.faction.type.PlayerFaction;
 import net.veilmc.hcf.user.FactionUser;
-import net.veilmc.hcf.utils.ConfigurationService;
+import net.veilmc.hcf.utils.config.ConfigurationService;
 import net.veilmc.util.JavaUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

@@ -1,6 +1,7 @@
 
 server-name: 'Large HCF' # Example: Squads, Large HCF
-
+tab: true
+dev: true
 
 database:
   mongo:

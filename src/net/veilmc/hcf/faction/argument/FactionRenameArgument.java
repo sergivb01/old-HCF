@@ -3,7 +3,7 @@ package net.veilmc.hcf.faction.argument;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.struct.Role;
 import net.veilmc.hcf.faction.type.PlayerFaction;
-import net.veilmc.hcf.utils.ConfigurationService;
+import net.veilmc.hcf.utils.config.ConfigurationService;
 import net.veilmc.util.JavaUtils;
 import net.veilmc.util.command.CommandArgument;
 import org.apache.commons.lang3.time.DurationFormatUtils;

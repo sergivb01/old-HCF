@@ -2,13 +2,13 @@ package net.veilmc.hcf.listener;
 
 import com.google.common.base.Optional;
 import net.veilmc.hcf.HCF;
+import net.veilmc.hcf.events.faction.KothFaction;
 import net.veilmc.hcf.faction.claim.Claim;
 import net.veilmc.hcf.faction.event.*;
 import net.veilmc.hcf.faction.struct.RegenStatus;
 import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.hcf.faction.type.PlayerFaction;
-import net.veilmc.hcf.kothgame.faction.KothFaction;
-import net.veilmc.hcf.utils.ConfigurationService;
+import net.veilmc.hcf.utils.config.ConfigurationService;
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

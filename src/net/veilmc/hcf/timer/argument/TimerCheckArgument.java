@@ -22,7 +22,7 @@ public class TimerCheckArgument
 	public TimerCheckArgument(HCF plugin){
 		super("check", "Check remaining timer time");
 		this.plugin = plugin;
-		this.permission = "hcf.command.timer.argument" + this.getName();
+		this.permission = "hcf.commands.timer.argument" + this.getName();
 	}
 
 	public String getUsage(String label){

@@ -22,7 +22,7 @@ public class FactionMuteArgument
 	public FactionMuteArgument(HCF plugin){
 		super("mute", "Mutes every member in this faction.");
 		this.plugin = plugin;
-		this.permission = ("hcf.command.faction.argument." + getName());
+		this.permission = ("hcf.commands.faction.argument." + getName());
 	}
 
 	public String getUsage(String label){
@@ -47,7 +47,7 @@ public class FactionMuteArgument
 			sender.sendMessage(ChatColor.RED + "Mute: " + ChatColor.YELLOW + uuid.toString());
 			console.getServer().dispatchCommand(sender, commandLine);
 		}
-		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cExecuting command to mute the faction " + playerFaction.getName()));
+		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cExecuting commands to mute the faction " + playerFaction.getName()));
 		return true;
 	}
 

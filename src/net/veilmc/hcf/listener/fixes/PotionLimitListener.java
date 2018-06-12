@@ -2,7 +2,7 @@ package net.veilmc.hcf.listener.fixes;
 
 import net.md_5.bungee.api.ChatColor;
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.config.PotionLimiterData;
+import net.veilmc.hcf.utils.config.PotionLimiterData;
 import org.bukkit.Material;
 import org.bukkit.block.BrewingStand;
 import org.bukkit.entity.Player;

@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.primitives.Ints;
 import net.veilmc.base.BaseConstants;
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.utils.ConfigurationService;
+import net.veilmc.hcf.utils.config.ConfigurationService;
 import net.veilmc.util.BukkitUtils;
 import net.veilmc.util.JavaUtils;
 import org.bukkit.ChatColor;

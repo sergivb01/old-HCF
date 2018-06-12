@@ -29,7 +29,7 @@ public class TimerSetArgument extends CommandArgument{
 	public TimerSetArgument(HCF plugin){
 		super("set", "Set remaining timer time");
 		this.plugin = plugin;
-		this.permission = "hcf.command.timer.argument." + this.getName();
+		this.permission = "hcf.commands.timer.argument." + this.getName();
 	}
 
 	public String getUsage(String label){

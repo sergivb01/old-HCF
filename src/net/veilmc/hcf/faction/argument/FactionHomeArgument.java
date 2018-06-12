@@ -1,10 +1,10 @@
 package net.veilmc.hcf.faction.argument;
 
 import net.veilmc.hcf.HCF;
+import net.veilmc.hcf.events.faction.EventFaction;
 import net.veilmc.hcf.faction.FactionExecutor;
 import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.hcf.faction.type.PlayerFaction;
-import net.veilmc.hcf.kothgame.faction.EventFaction;
 import net.veilmc.hcf.timer.PlayerTimer;
 import net.veilmc.util.command.CommandArgument;
 import org.bukkit.ChatColor;
@@ -33,7 +33,7 @@ public class FactionHomeArgument
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
 		if(!(sender instanceof Player)){
-			sender.sendMessage(ChatColor.RED + "This command is only executable by players.");
+			sender.sendMessage(ChatColor.RED + "This commands is only executable by players.");
 			return true;
 		}
 		Player player = (Player) sender;

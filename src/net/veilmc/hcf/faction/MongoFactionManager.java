@@ -9,7 +9,7 @@ import net.veilmc.hcf.faction.struct.ChatChannel;
 import net.veilmc.hcf.faction.struct.Relation;
 import net.veilmc.hcf.faction.struct.Role;
 import net.veilmc.hcf.faction.type.*;
-import net.veilmc.hcf.utils.ConfigurationService;
+import net.veilmc.hcf.utils.config.ConfigurationService;
 import net.veilmc.util.JavaUtils;
 import net.veilmc.util.cuboid.CoordinatePair;
 import org.apache.commons.collections4.map.CaseInsensitiveMap;

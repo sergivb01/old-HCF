@@ -9,7 +9,7 @@ import net.veilmc.hcf.faction.event.PlayerLeaveFactionEvent;
 import net.veilmc.hcf.timer.PlayerTimer;
 import net.veilmc.hcf.timer.event.TimerClearEvent;
 import net.veilmc.hcf.timer.event.TimerStartEvent;
-import net.veilmc.hcf.utils.ConfigurationService;
+import net.veilmc.hcf.utils.config.ConfigurationService;
 import net.veilmc.hcf.visualise.VisualType;
 import net.veilmc.util.BukkitUtils;
 import org.apache.commons.lang.time.DurationFormatUtils;

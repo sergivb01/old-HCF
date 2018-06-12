@@ -19,7 +19,7 @@ public class FactionForcePromoteArgument
 	public FactionForcePromoteArgument(HCF plugin){
 		super("forcepromote", "Forces the promotion status of a player.");
 		this.plugin = plugin;
-		this.permission = "hcf.command.faction.argument." + this.getName();
+		this.permission = "hcf.commands.faction.argument." + this.getName();
 	}
 
 	public String getUsage(String label){

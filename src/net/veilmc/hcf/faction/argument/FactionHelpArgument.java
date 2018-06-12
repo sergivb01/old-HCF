@@ -4,7 +4,7 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.primitives.Ints;
 import net.veilmc.hcf.faction.FactionExecutor;
-import net.veilmc.hcf.utils.ConfigurationService;
+import net.veilmc.hcf.utils.config.ConfigurationService;
 import net.veilmc.util.BukkitUtils;
 import net.veilmc.util.chat.ClickAction;
 import net.veilmc.util.chat.Text;

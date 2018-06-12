@@ -6,12 +6,12 @@ import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.classes.PvpClass;
 import net.veilmc.hcf.classes.bard.BardClass;
 import net.veilmc.hcf.classes.type.MinerClass;
+import net.veilmc.hcf.events.EventTimer;
+import net.veilmc.hcf.events.eotw.EOTWHandler;
+import net.veilmc.hcf.events.faction.ConquestFaction;
+import net.veilmc.hcf.events.faction.EventFaction;
+import net.veilmc.hcf.events.tracker.ConquestTracker;
 import net.veilmc.hcf.faction.type.PlayerFaction;
-import net.veilmc.hcf.kothgame.EventTimer;
-import net.veilmc.hcf.kothgame.eotw.EOTWHandler;
-import net.veilmc.hcf.kothgame.faction.ConquestFaction;
-import net.veilmc.hcf.kothgame.faction.EventFaction;
-import net.veilmc.hcf.kothgame.tracker.ConquestTracker;
 import net.veilmc.hcf.scoreboard.SidebarEntry;
 import net.veilmc.hcf.scoreboard.SidebarProvider;
 import net.veilmc.hcf.timer.GlobalTimer;
@@ -21,9 +21,9 @@ import net.veilmc.hcf.timer.type.NotchAppleTimer;
 import net.veilmc.hcf.timer.type.SotwTimer;
 import net.veilmc.hcf.timer.type.SpawnTagTimer;
 import net.veilmc.hcf.user.FactionUser;
-import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.hcf.utils.DateTimeFormats;
 import net.veilmc.hcf.utils.DurationFormatter;
+import net.veilmc.hcf.utils.config.ConfigurationService;
 import net.veilmc.util.BukkitUtils;
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
@@ -44,6 +44,13 @@ public class TimerSidebarProvider implements SidebarProvider{
 	private static final ThreadLocal<DecimalFormat> CONQUEST_FORMATTER;
 	private static final String STRAIGHT_LINE;
 	private static DecimalFormat df = new DecimalFormat("#.##");
+
+	static{
+		ThreadLocal.withInitial(() -> new DecimalFormat("##.#"));
+		new SidebarEntry(" ", " ", " ");
+		STRAIGHT_LINE = BukkitUtils.STRAIGHT_LINE_DEFAULT.substring(0, 14);
+		CONQUEST_FORMATTER = ThreadLocal.withInitial(() -> new DecimalFormat("##.#"));
+	}
 
 	private final HCF plugin;
 
@@ -247,14 +254,6 @@ public class TimerSidebarProvider implements SidebarProvider{
 
 	private boolean isChatSlowed(){
 		return BasePlugin.getPlugin().getServerHandler().getRemainingChatSlowedMillis() > 0;
-	}
-
-
-	static{
-		ThreadLocal.withInitial(() -> new DecimalFormat("##.#"));
-		new SidebarEntry(" ", " ", " ");
-		STRAIGHT_LINE = BukkitUtils.STRAIGHT_LINE_DEFAULT.substring(0, 14);
-		CONQUEST_FORMATTER = ThreadLocal.withInitial(() -> new DecimalFormat("##.#"));
 	}
 
 }

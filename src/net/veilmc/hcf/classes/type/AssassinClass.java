@@ -41,7 +41,7 @@ public class AssassinClass
 	public void onUnEquip(PvpClassUnequipEvent e){
 		Player p = e.getPlayer();
 		for(Player on : Bukkit.getServer().getOnlinePlayers()){
-			if(on.canSee(p) || on.hasPermission("base.command.vanish")) continue;
+			if(on.canSee(p) || on.hasPermission("base.commands.vanish")) continue;
 			on.showPlayer(p);
 		}
 		this.firstAssassinEffects.remove(p.getName());
@@ -98,7 +98,7 @@ public class AssassinClass
 					on.playEffect(p.getLocation().add(0.5, 1.5, 0.5), Effect.ENDER_SIGNAL, 5);
 					on.playEffect(p.getLocation().add(0.5, 1.0, 0.5), Effect.ENDER_SIGNAL, 5);
 					on.playSound(p.getLocation(), Sound.ENDERMAN_TELEPORT, 1.0f, 1.0f);
-					if(on.hasPermission("base.command.vanish")) continue;
+					if(on.hasPermission("base.commands.vanish")) continue;
 					on.hidePlayer(p);
 				}
 				Cooldowns.addCooldown("Assassin_item_cooldown", p, 60);
@@ -122,7 +122,7 @@ public class AssassinClass
 	public void afterFiveSeconds(final Player p, boolean force){
 		if(this.firstAssassinEffects.containsKey(p.getName()) && this.isApplicableFor(p)){
 			for(Player on : Bukkit.getServer().getOnlinePlayers()){
-				if(!on.canSee(p) && !on.hasPermission("base.command.vanish")){
+				if(!on.canSee(p) && !on.hasPermission("base.commands.vanish")){
 					on.showPlayer(p);
 				}
 				on.playEffect(p.getLocation().add(0.0, 2.0, 0.0), Effect.ENDER_SIGNAL, 3);

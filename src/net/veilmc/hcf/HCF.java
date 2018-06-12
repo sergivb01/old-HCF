@@ -12,19 +12,28 @@ import net.veilmc.hcf.classes.PvpClassManager;
 import net.veilmc.hcf.classes.archer.ArcherClass;
 import net.veilmc.hcf.combatlog.CombatLogListener;
 import net.veilmc.hcf.combatlog.CustomEntityRegistration;
-import net.veilmc.hcf.command.*;
-import net.veilmc.hcf.command.crate.KeyListener;
-import net.veilmc.hcf.command.crate.KeyManager;
-import net.veilmc.hcf.command.crate.LootExecutor;
-import net.veilmc.hcf.command.death.DeathExecutor;
-import net.veilmc.hcf.command.lives.LivesExecutor;
-import net.veilmc.hcf.command.spawn.SpawnCommand;
-import net.veilmc.hcf.command.spawn.TokenExecutor;
-import net.veilmc.hcf.config.PotionLimiterData;
+import net.veilmc.hcf.commands.*;
+import net.veilmc.hcf.commands.crate.KeyListener;
+import net.veilmc.hcf.commands.crate.KeyManager;
+import net.veilmc.hcf.commands.crate.LootExecutor;
+import net.veilmc.hcf.commands.death.DeathExecutor;
+import net.veilmc.hcf.commands.lives.LivesExecutor;
+import net.veilmc.hcf.commands.spawn.SpawnCommand;
+import net.veilmc.hcf.commands.spawn.TokenExecutor;
 import net.veilmc.hcf.deathban.Deathban;
 import net.veilmc.hcf.deathban.DeathbanListener;
 import net.veilmc.hcf.deathban.DeathbanManager;
 import net.veilmc.hcf.deathban.FlatFileDeathbanManager;
+import net.veilmc.hcf.events.CaptureZone;
+import net.veilmc.hcf.events.EventExecutor;
+import net.veilmc.hcf.events.conquest.ConquestExecutor;
+import net.veilmc.hcf.events.eotw.EOTWHandler;
+import net.veilmc.hcf.events.eotw.EotwCommand;
+import net.veilmc.hcf.events.eotw.EotwListener;
+import net.veilmc.hcf.events.faction.CapturableFaction;
+import net.veilmc.hcf.events.faction.ConquestFaction;
+import net.veilmc.hcf.events.faction.KothFaction;
+import net.veilmc.hcf.events.koth.KothExecutor;
 import net.veilmc.hcf.faction.FactionExecutor;
 import net.veilmc.hcf.faction.FactionManager;
 import net.veilmc.hcf.faction.FactionMember;
@@ -34,20 +43,8 @@ import net.veilmc.hcf.faction.claim.ClaimHandler;
 import net.veilmc.hcf.faction.claim.ClaimWandListener;
 import net.veilmc.hcf.faction.claim.Subclaim;
 import net.veilmc.hcf.faction.type.*;
-import net.veilmc.hcf.kothgame.CaptureZone;
-import net.veilmc.hcf.kothgame.EventExecutor;
-import net.veilmc.hcf.kothgame.conquest.ConquestExecutor;
-import net.veilmc.hcf.kothgame.eotw.EOTWHandler;
-import net.veilmc.hcf.kothgame.eotw.EotwCommand;
-import net.veilmc.hcf.kothgame.eotw.EotwListener;
-import net.veilmc.hcf.kothgame.faction.CapturableFaction;
-import net.veilmc.hcf.kothgame.faction.ConquestFaction;
-import net.veilmc.hcf.kothgame.faction.KothFaction;
-import net.veilmc.hcf.kothgame.koth.KothExecutor;
 import net.veilmc.hcf.listener.*;
 import net.veilmc.hcf.listener.fixes.*;
-import net.veilmc.hcf.runnables.AutoSaveRunnable;
-import net.veilmc.hcf.runnables.DonorBroadcastRunnable;
 import net.veilmc.hcf.scoreboard.ScoreboardHandler;
 import net.veilmc.hcf.tab.TabListener;
 import net.veilmc.hcf.timer.TimerExecutor;
@@ -55,10 +52,13 @@ import net.veilmc.hcf.timer.TimerManager;
 import net.veilmc.hcf.timer.type.SotwTimer;
 import net.veilmc.hcf.user.FactionUser;
 import net.veilmc.hcf.user.UserManager;
-import net.veilmc.hcf.utils.ConfigurationService;
 import net.veilmc.hcf.utils.Cooldowns;
 import net.veilmc.hcf.utils.DateTimeFormats;
 import net.veilmc.hcf.utils.Message;
+import net.veilmc.hcf.utils.config.ConfigurationService;
+import net.veilmc.hcf.utils.config.PotionLimiterData;
+import net.veilmc.hcf.utils.runnables.AutoSaveRunnable;
+import net.veilmc.hcf.utils.runnables.DonorBroadcastRunnable;
 import net.veilmc.hcf.visualise.ProtocolLibHook;
 import net.veilmc.hcf.visualise.VisualiseHandler;
 import net.veilmc.hcf.visualise.WallBorderListener;
@@ -81,6 +81,9 @@ public class HCF extends JavaPlugin{
 	public static final Joiner COMMA_JOINER = Joiner.on(", ");
 	public static final long HOUR = TimeUnit.HOURS.toMillis(1);
 	private static final long MINUTE = TimeUnit.MINUTES.toMillis(1);
+	public static Permission permission = null;
+	public static Chat chat = null;
+	public static Economy econ = null;
 	private static HCF plugin;
 	private Message message;
 	private WorldEditPlugin worldEdit;
@@ -97,9 +100,24 @@ public class HCF extends JavaPlugin{
 	private UserManager userManager;
 	private VisualiseHandler visualiseHandler;
 
-	public static Permission permission = null;
-	public static Chat chat = null;
-	public static Economy econ = null;
+	public static String getRemaining(long millis, boolean milliseconds){
+		return HCF.getRemaining(millis, milliseconds, true);
+	}
+
+	public static String getRemaining(long duration, boolean milliseconds, boolean trail){
+		if(milliseconds && duration < MINUTE){
+			return (trail ? DateTimeFormats.REMAINING_SECONDS_TRAILING : DateTimeFormats.REMAINING_SECONDS).get().format((double) duration * 0.001) + 's';
+		}
+		return org.apache.commons.lang.time.DurationFormatUtils.formatDuration(duration, (duration >= HOUR ? "HH:" : "") + "mm:ss");
+	}
+
+	public static HCF getInstance(){
+		return plugin;
+	}
+
+	public static HCF getPlugin(){
+		return plugin;
+	}
 
 	@Override
 	public void onEnable(){
@@ -325,7 +343,7 @@ public class HCF extends JavaPlugin{
 
 		for(final Map.Entry<String, Map<String, Object>> entry : map.entrySet()){
 			final PluginCommand command = getCommand(entry.getKey());
-			command.setPermission("hcf.command." + entry.getKey());
+			command.setPermission("hcf.commands." + entry.getKey());
 		}
 
 	}
@@ -358,25 +376,6 @@ public class HCF extends JavaPlugin{
 		}
 		chat = rsp.getProvider();
 		return chat != null;
-	}
-
-	public static String getRemaining(long millis, boolean milliseconds){
-		return HCF.getRemaining(millis, milliseconds, true);
-	}
-
-	public static String getRemaining(long duration, boolean milliseconds, boolean trail){
-		if(milliseconds && duration < MINUTE){
-			return (trail ? DateTimeFormats.REMAINING_SECONDS_TRAILING : DateTimeFormats.REMAINING_SECONDS).get().format((double) duration * 0.001) + 's';
-		}
-		return org.apache.commons.lang.time.DurationFormatUtils.formatDuration(duration, (duration >= HOUR ? "HH:" : "") + "mm:ss");
-	}
-
-	public static HCF getInstance(){
-		return plugin;
-	}
-
-	public static HCF getPlugin(){
-		return plugin;
 	}
 
 }

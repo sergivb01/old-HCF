@@ -4,7 +4,7 @@ import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.classes.archer.ArcherClass;
 import net.veilmc.hcf.timer.PlayerTimer;
 import net.veilmc.hcf.timer.event.TimerExpireEvent;
-import net.veilmc.hcf.utils.ConfigurationService;
+import net.veilmc.hcf.utils.config.ConfigurationService;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Arrow;

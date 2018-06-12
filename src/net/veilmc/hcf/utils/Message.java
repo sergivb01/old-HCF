@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public final class Message{
-	private final HashMap<UUID, Long> messageDelay = new HashMap();
+	private final HashMap<UUID, Long> messageDelay = new HashMap<>();
 	private HCF plugin;
 
 	public Message(HCF plugin){
@@ -22,7 +22,7 @@ public final class Message{
 			}
 			this.messageDelay.remove(player.getUniqueId());
 		}
-		this.messageDelay.putIfAbsent(player.getUniqueId(), System.currentTimeMillis() + 3000);
+		this.messageDelay.computeIfAbsent(player.getUniqueId(), k -> System.currentTimeMillis() + 3000);
 		player.sendMessage(message);
 	}
 
@@ -33,7 +33,7 @@ public final class Message{
 			}
 			this.messageDelay.remove(player.getUniqueId());
 		}
-		this.messageDelay.putIfAbsent(player.getUniqueId(), System.currentTimeMillis() + 3000);
+		this.messageDelay.computeIfAbsent(player.getUniqueId(), k -> System.currentTimeMillis() + 3000);
 		text.send(player);
 	}
 }

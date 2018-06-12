@@ -4,7 +4,7 @@ package net.veilmc.hcf.timer.type;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.combatlog.CombatLogListener;
 import net.veilmc.hcf.timer.PlayerTimer;
-import net.veilmc.hcf.utils.ConfigurationService;
+import net.veilmc.hcf.utils.config.ConfigurationService;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;

@@ -1,7 +1,7 @@
 package net.veilmc.hcf.timer;
 
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.kothgame.EventTimer;
+import net.veilmc.hcf.events.EventTimer;
 import net.veilmc.hcf.timer.type.*;
 import net.veilmc.util.Config;
 import org.bukkit.event.Listener;

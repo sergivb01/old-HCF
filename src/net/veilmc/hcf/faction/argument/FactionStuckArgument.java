@@ -1,8 +1,8 @@
 package net.veilmc.hcf.faction.argument;
 
 import net.veilmc.hcf.HCF;
+import net.veilmc.hcf.events.faction.EventFaction;
 import net.veilmc.hcf.faction.type.Faction;
-import net.veilmc.hcf.kothgame.faction.EventFaction;
 import net.veilmc.hcf.timer.type.StuckTimer;
 import net.veilmc.util.command.CommandArgument;
 import org.bukkit.ChatColor;
@@ -26,12 +26,12 @@ public class FactionStuckArgument
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
 		if(!(sender instanceof Player)){
-			sender.sendMessage(ChatColor.RED + "This command is only executable by players.");
+			sender.sendMessage(ChatColor.RED + "This commands is only executable by players.");
 			return true;
 		}
 		Player player = (Player) sender;
 		if(player.getWorld().getEnvironment() != World.Environment.NORMAL){
-			sender.sendMessage(ChatColor.RED + "You can only use this command from the overworld.");
+			sender.sendMessage(ChatColor.RED + "You can only use this commands from the overworld.");
 			return true;
 		}
 		Faction factionAt = this.plugin.getFactionManager().getFactionAt(player.getLocation());

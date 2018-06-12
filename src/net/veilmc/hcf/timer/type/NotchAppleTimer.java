@@ -2,7 +2,7 @@ package net.veilmc.hcf.timer.type;
 
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.timer.PlayerTimer;
-import net.veilmc.hcf.utils.ConfigurationService;
+import net.veilmc.hcf.utils.config.ConfigurationService;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

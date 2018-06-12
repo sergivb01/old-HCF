@@ -5,7 +5,7 @@ import com.google.common.collect.Maps;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.event.FactionRenameEvent;
 import net.veilmc.hcf.faction.struct.Relation;
-import net.veilmc.hcf.utils.ConfigurationService;
+import net.veilmc.hcf.utils.config.ConfigurationService;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;

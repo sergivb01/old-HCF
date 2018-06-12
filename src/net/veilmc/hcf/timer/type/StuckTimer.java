@@ -6,7 +6,7 @@ import net.veilmc.hcf.combatlog.CombatLogListener;
 import net.veilmc.hcf.faction.LandMap;
 import net.veilmc.hcf.timer.PlayerTimer;
 import net.veilmc.hcf.timer.TimerRunnable;
-import net.veilmc.hcf.utils.ConfigurationService;
+import net.veilmc.hcf.utils.config.ConfigurationService;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;

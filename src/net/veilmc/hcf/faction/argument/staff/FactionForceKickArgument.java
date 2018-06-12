@@ -19,7 +19,7 @@ public class FactionForceKickArgument
 	public FactionForceKickArgument(HCF plugin){
 		super("forcekick", "Forcefully kick a player from their faction.");
 		this.plugin = plugin;
-		this.permission = "hcf.command.faction.argument." + this.getName();
+		this.permission = "hcf.commands.faction.argument." + this.getName();
 	}
 
 	public String getUsage(String label){

@@ -33,7 +33,7 @@ public class FactionMapArgument
 		boolean newShowingMap;
 		VisualType visualType;
 		if(!(sender instanceof Player)){
-			sender.sendMessage(ChatColor.RED + "This command is only executable by players.");
+			sender.sendMessage(ChatColor.RED + "This commands is only executable by players.");
 			return true;
 		}
 		Player player = (Player) sender;

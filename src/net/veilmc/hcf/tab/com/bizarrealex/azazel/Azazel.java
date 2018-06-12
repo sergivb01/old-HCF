@@ -20,75 +20,78 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class Azazel implements Listener {
+public class Azazel implements Listener{
 
-    @Getter private final JavaPlugin plugin;
-    private final Map<UUID, Tab> tabs;
-    @Getter @Setter private TabAdapter adapter;
+	@Getter
+	private final JavaPlugin plugin;
+	private final Map<UUID, Tab> tabs;
+	@Getter
+	@Setter
+	private TabAdapter adapter;
 
-    public Azazel(JavaPlugin plugin) {
-        this.plugin = plugin;
-        this.tabs = new ConcurrentHashMap<>();
+	public Azazel(JavaPlugin plugin){
+		this.plugin = plugin;
+		this.tabs = new ConcurrentHashMap<>();
 
-        if (Bukkit.getMaxPlayers() < 60) {
-            plugin.getServer().setMaxPlayers(60);
-            plugin.getLogger().severe("Slots have been set to 60 to make tab work!");
-        }
+		if(Bukkit.getMaxPlayers() < 60){
+			plugin.getServer().setMaxPlayers(60);
+			plugin.getLogger().severe("Slots have been set to 60 to make tab work!");
+		}
 
-        for (Player player : Bukkit.getOnlinePlayers()) {
-           // if (((CraftPlayer)player).getHandle().playerConnection.networkManager.getVersion() < 47) {
-                if (!(tabs.containsKey(player.getUniqueId()))) {
-                    tabs.put(player.getUniqueId(), new Tab(player, true, this));
-                }
-           // }
-        }
+		for(Player player : Bukkit.getOnlinePlayers()){
+			// if (((CraftPlayer)player).getHandle().playerConnection.networkManager.getVersion() < 47) {
+			if(!(tabs.containsKey(player.getUniqueId()))){
+				tabs.put(player.getUniqueId(), new Tab(player, true, this));
+			}
+			// }
+		}
 
-        new AzazelTask(this, plugin);
+		new AzazelTask(this, plugin);
 
-        Bukkit.getPluginManager().registerEvents(this, plugin);
-    }
+		Bukkit.getPluginManager().registerEvents(this, plugin);
+	}
 
-    public Azazel(JavaPlugin plugin, TabAdapter adapter) {
-        this(plugin);
+	public Azazel(JavaPlugin plugin, TabAdapter adapter){
+		this(plugin);
 
-        this.adapter = adapter;
-    }
+		this.adapter = adapter;
+	}
 
-    public Tab getTabByPlayer(Player player) {
-        return tabs.get(player.getUniqueId());
-    }
+	public Tab getTabByPlayer(Player player){
+		return tabs.get(player.getUniqueId());
+	}
 
-    @EventHandler
-    public void onPlayerJoinEvent(PlayerJoinEvent event) {
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            PacketPlayOutPlayerInfo packet = PacketPlayOutPlayerInfo.removePlayer(((CraftPlayer)event.getPlayer()).getHandle());
-            ((CraftPlayer)player).getHandle().playerConnection.sendPacket(packet);
-        }
+	@EventHandler
+	public void onPlayerJoinEvent(PlayerJoinEvent event){
+		for(Player player : Bukkit.getOnlinePlayers()){
+			PacketPlayOutPlayerInfo packet = PacketPlayOutPlayerInfo.removePlayer(((CraftPlayer) event.getPlayer()).getHandle());
+			((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
+		}
 
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                tabs.put(event.getPlayer().getUniqueId(), new Tab(event.getPlayer(), true, Azazel.this));
-            }
-        }.runTaskLater(plugin, 1L);
-    }
+		new BukkitRunnable(){
+			@Override
+			public void run(){
+				tabs.put(event.getPlayer().getUniqueId(), new Tab(event.getPlayer(), true, Azazel.this));
+			}
+		}.runTaskLater(plugin, 1L);
+	}
 
-    @EventHandler
-    public void onPlayerQuitEvent(PlayerQuitEvent event) {
-        tabs.remove(event.getPlayer().getUniqueId());
+	@EventHandler
+	public void onPlayerQuitEvent(PlayerQuitEvent event){
+		tabs.remove(event.getPlayer().getUniqueId());
 
-        for (Player other : Bukkit.getOnlinePlayers()) {
-            EntityPlayer entityPlayer = ((CraftPlayer)other).getHandle();
+		for(Player other : Bukkit.getOnlinePlayers()){
+			EntityPlayer entityPlayer = ((CraftPlayer) other).getHandle();
 
-            if (entityPlayer.playerConnection.networkManager.getVersion() >= 47) {
-                Tab tab = getTabByPlayer(event.getPlayer());
+			if(entityPlayer.playerConnection.networkManager.getVersion() >= 47){
+				Tab tab = getTabByPlayer(event.getPlayer());
 
-                if (tab != null && tab.getElevatedTeam() != null) {
-                    tab.getElevatedTeam().removeEntry(event.getPlayer().getName());
-                }
+				if(tab != null && tab.getElevatedTeam() != null){
+					tab.getElevatedTeam().removeEntry(event.getPlayer().getName());
+				}
 
-            }
+			}
 
-        }
-    }
+		}
+	}
 }

@@ -22,7 +22,7 @@ public class FactionBanArgument
 	public FactionBanArgument(HCF plugin){
 		super("ban", "Tempbans every faction member.");
 		this.plugin = plugin;
-		this.permission = ("hcf.command.faction.argument." + getName());
+		this.permission = ("hcf.commands.faction.argument." + getName());
 	}
 
 	public String getUsage(String label){
@@ -47,7 +47,7 @@ public class FactionBanArgument
 			sender.sendMessage(ChatColor.RED + "Ban: " + ChatColor.YELLOW + uuid.toString());
 			console.getServer().dispatchCommand(sender, commandLine);
 		}
-		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cExecuting command to ban the faction " + playerFaction.getName()));
+		sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cExecuting commands to ban the faction " + playerFaction.getName()));
 		return true;
 	}
 

@@ -49,7 +49,7 @@ commands:
   crowbar:
     description: Management of crowbar tools.
   conquest:
-    description: Base Conquest command.
+    description: Base Conquest commands.
   economy:
     aliases: [bal, balance, money, eco]
     description: Command used to modify the economy.

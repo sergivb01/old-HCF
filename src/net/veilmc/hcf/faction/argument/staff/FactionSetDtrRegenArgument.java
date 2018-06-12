@@ -4,7 +4,7 @@ import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.FactionManager;
 import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.hcf.faction.type.PlayerFaction;
-import net.veilmc.hcf.utils.ConfigurationService;
+import net.veilmc.hcf.utils.config.ConfigurationService;
 import net.veilmc.util.JavaUtils;
 import net.veilmc.util.command.CommandArgument;
 import org.apache.commons.lang3.time.DurationFormatUtils;
@@ -19,7 +19,7 @@ public class FactionSetDtrRegenArgument
 	public FactionSetDtrRegenArgument(HCF plugin){
 		super("setdtrregen", "Sets the DTR cooldown of a faction.", new String[]{"setdtrregeneration"});
 		this.plugin = plugin;
-		this.permission = "hcf.command.faction.argument." + this.getName();
+		this.permission = "hcf.commands.faction.argument." + this.getName();
 	}
 
 	public String getUsage(String label){
@@ -28,7 +28,7 @@ public class FactionSetDtrRegenArgument
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
 		if(ConfigurationService.KIT_MAP){
-			sender.sendMessage(ChatColor.RED + "There is no need for this command on VeilMC kitmap.");
+			sender.sendMessage(ChatColor.RED + "There is no need for this commands on VeilMC kitmap.");
 			return false;
 		}
 		if(args.length < 3){

@@ -15,7 +15,7 @@ public class NoPermissionClickListener
 	@EventHandler
 	public void onInteract(PlayerInteractEvent e){
 		Player player = e.getPlayer();
-		if(player.getGameMode() == GameMode.CREATIVE && !player.hasPermission("command.gamemode")){
+		if(player.getGameMode() == GameMode.CREATIVE && !player.hasPermission("commands.gamemode")){
 			e.setCancelled(true);
 			player.setGameMode(GameMode.SURVIVAL);
 		}
@@ -24,7 +24,7 @@ public class NoPermissionClickListener
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
 	public void onBlockPlaceCreative(BlockBreakEvent event){
 		Player player = event.getPlayer();
-		if(player.getGameMode() == GameMode.CREATIVE && !player.hasPermission("command.gamemode")){
+		if(player.getGameMode() == GameMode.CREATIVE && !player.hasPermission("commands.gamemode")){
 			event.setCancelled(true);
 			player.setGameMode(GameMode.SURVIVAL);
 		}
@@ -33,7 +33,7 @@ public class NoPermissionClickListener
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
 	public void onBlockBreakCreative(BlockBreakEvent event){
 		Player player = event.getPlayer();
-		if(player.getGameMode() == GameMode.CREATIVE && !player.hasPermission("command.gamemode")){
+		if(player.getGameMode() == GameMode.CREATIVE && !player.hasPermission("commands.gamemode")){
 			event.setCancelled(true);
 			player.setGameMode(GameMode.SURVIVAL);
 		}
@@ -42,7 +42,7 @@ public class NoPermissionClickListener
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
 	public void onInventoryCreative(InventoryCreativeEvent event){
 		HumanEntity humanEntity = event.getWhoClicked();
-		if(humanEntity instanceof Player && !humanEntity.hasPermission("command.gamemode")){
+		if(humanEntity instanceof Player && !humanEntity.hasPermission("commands.gamemode")){
 			event.setCancelled(true);
 			humanEntity.setGameMode(GameMode.SURVIVAL);
 		}

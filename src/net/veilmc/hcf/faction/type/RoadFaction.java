@@ -1,7 +1,7 @@
 package net.veilmc.hcf.faction.type;
 
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.utils.ConfigurationService;
+import net.veilmc.hcf.utils.config.ConfigurationService;
 import net.veilmc.util.BukkitUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

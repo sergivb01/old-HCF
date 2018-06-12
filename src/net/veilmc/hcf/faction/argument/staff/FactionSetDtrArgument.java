@@ -4,7 +4,7 @@ import com.google.common.primitives.Doubles;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.hcf.faction.type.PlayerFaction;
-import net.veilmc.hcf.utils.ConfigurationService;
+import net.veilmc.hcf.utils.config.ConfigurationService;
 import net.veilmc.util.command.CommandArgument;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -23,7 +23,7 @@ public class FactionSetDtrArgument
 	public FactionSetDtrArgument(HCF plugin){
 		super("setdtr", "Sets the DTR of a faction.");
 		this.plugin = plugin;
-		this.permission = "hcf.command.faction.argument." + this.getName();
+		this.permission = "hcf.commands.faction.argument." + this.getName();
 	}
 
 	public String getUsage(String label){
@@ -32,7 +32,7 @@ public class FactionSetDtrArgument
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
 		if(ConfigurationService.KIT_MAP){
-			sender.sendMessage(ChatColor.RED + "There is no need for this command on VeilMC kitmap.");
+			sender.sendMessage(ChatColor.RED + "There is no need for this commands on VeilMC kitmap.");
 			return false;
 		}
 		if(args.length < 3){

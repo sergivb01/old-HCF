@@ -16,7 +16,7 @@ public class PexCrashFix implements Listener{
 			String cmd = e.getMessage().toLowerCase().replaceFirst("/", "");
 			if((cmd.startsWith("pex")) || (cmd.startsWith("permission")) || (((cmd.contains("faction")) || (cmd.contains("f"))) && ((cmd.contains("top")) || (cmd.contains("t"))) && ((cmd.contains("balance")) || (cmd.contains("money"))))){
 				e.setCancelled(true);
-				e.getPlayer().sendMessage(ChatColor.RED + "You lack the correct permissions to run this command!");
+				e.getPlayer().sendMessage(ChatColor.RED + "You lack the correct permissions to run this commands!");
 			}
 		}
 		String cmd = e.getMessage().toLowerCase().replaceFirst("/", "");

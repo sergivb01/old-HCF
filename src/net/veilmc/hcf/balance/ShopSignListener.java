@@ -3,7 +3,7 @@ package net.veilmc.hcf.balance;
 import com.google.common.primitives.Ints;
 import net.veilmc.base.BasePlugin;
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.crowbar.Crowbar;
+import net.veilmc.hcf.utils.Crowbar;
 import net.veilmc.util.InventoryUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
