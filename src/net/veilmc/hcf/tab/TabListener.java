@@ -6,9 +6,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 
 public class TabListener implements Listener{
-	private static HCF plugin;
+	private HCF plugin;
 
 	public TabListener(HCF plugin){
+		this.plugin = plugin;
 		new Azazel(plugin, new PlayerTab());
 		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
