@@ -53,6 +53,7 @@ import net.veilmc.hcf.timer.TimerManager;
 import net.veilmc.hcf.timer.type.SotwTimer;
 import net.veilmc.hcf.user.FactionUser;
 import net.veilmc.hcf.user.UserManager;
+import net.veilmc.hcf.utils.ClientAPI;
 import net.veilmc.hcf.utils.Cooldowns;
 import net.veilmc.hcf.utils.DateTimeFormats;
 import net.veilmc.hcf.utils.Message;
@@ -70,13 +71,17 @@ import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.plugin.messaging.PluginMessageListener;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 
 @Getter
-public class HCF extends JavaPlugin{
+public class HCF extends JavaPlugin implements PluginMessageListener{
 	public static final Joiner SPACE_JOINER = Joiner.on(' ');
 	public static final Joiner COMMA_JOINER = Joiner.on(", ");
 	public static final long HOUR = TimeUnit.HOURS.toMillis(1);
@@ -100,6 +105,7 @@ public class HCF extends JavaPlugin{
 	private UserManager userManager;
 	private VisualiseHandler visualiseHandler;
 	private EventScheduler eventScheduler;
+	public static List<UUID> cbUser;
 
 	public static String getRemaining(long millis, boolean milliseconds){
 		return HCF.getRemaining(millis, milliseconds, true);
@@ -128,6 +134,9 @@ public class HCF extends JavaPlugin{
 			return;
 		}
 		plugin = this;
+
+		cbUser = new ArrayList<>();
+		registerClientCheck();
 
 		CustomEntityRegistration.registerCustomEntities();
 		ProtocolLibHook.hook(this);
@@ -185,6 +194,12 @@ public class HCF extends JavaPlugin{
 		scoreboardHandler.clearBoards();
 		saveData();
 		timerManager.disable();
+	}
+
+	private void registerClientCheck() {
+		Bukkit.getPluginManager().registerEvents(new ClientAPI(), this);
+		this.getServer().getMessenger().registerIncomingPluginChannel(this, "CB|INIT", this::onPluginMessageReceived);
+		this.getServer().getMessenger().registerIncomingPluginChannel(this, "CB-Binary", this::onPluginMessageReceived);
 	}
 
 	private void registerConfiguration(){
@@ -363,6 +378,24 @@ public class HCF extends JavaPlugin{
 		keyManager = new KeyManager(this);
 		message = new Message(this);
 	}
+
+	@Override
+	public void onPluginMessageReceived(String channel, Player player, byte[] arg2) {
+		boolean cb = false;
+		if (channel.equals("CB|INIT") || channel.equals("CB-Binary")) {
+			cb = true;
+		}
+		if (!cbUser.contains(player.getUniqueId())) {
+			if (cb) {
+				cbUser.add(player.getUniqueId());
+				player.sendMessage(" ");
+				player.sendMessage(ChatColor.GREEN + "Cheatbreaker has been detected!");
+				player.sendMessage(ChatColor.GRAY + "Staff will be notified of this if required.");
+				player.sendMessage(" ");
+			}
+		}
+	}
+
 
 	private boolean setupChat(){
 		if(getServer().getPluginManager().getPlugin("Vault") == null){

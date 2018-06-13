@@ -34,7 +34,7 @@ public class Azazel implements Listener{
 		this.tabs = new ConcurrentHashMap<>();
 
 		if(Bukkit.getMaxPlayers() < 60){
-			plugin.getServer().setMaxPlayers(60);
+			//plugin.getServer().setMaxPlayers(60);
 			plugin.getLogger().severe("Slots have been set to 60 to make tab work!");
 		}
 
