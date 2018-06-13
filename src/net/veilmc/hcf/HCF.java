@@ -319,6 +319,7 @@ public class HCF extends JavaPlugin implements PluginMessageListener{
 	}
 
 	private void registerCommands(){
+		getCommand("debug").setExecutor(new DebugCommand());
 		getCommand("report").setExecutor(new ReportCommand());
 		getCommand("request").setExecutor(new RequestCommand());
 		getCommand("test").setExecutor(new TestCommand());

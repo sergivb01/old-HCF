@@ -17,6 +17,7 @@ database:
     enabled: false
     host: ''
     port: 6379
+    channel: 'hcf-communicate'
     auth:
       enabled: false
       password: ''

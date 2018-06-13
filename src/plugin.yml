@@ -6,6 +6,7 @@ commands:
   report:
   request:
   staffchat:
+  debug:
   death:
     aliases: ["d"]
   token:
