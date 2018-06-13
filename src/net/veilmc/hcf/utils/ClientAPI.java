@@ -14,6 +14,10 @@ public class ClientAPI implements Listener{
 		if (HCF.cbUser.contains(player.getUniqueId())) {
 			HCF.cbUser.remove(player.getUniqueId());
 		}
+		if (HCF.blUser.contains(player.getUniqueId())) {
+			HCF.blUser.remove(player.getUniqueId());
+		}
+
 	}
 }
 

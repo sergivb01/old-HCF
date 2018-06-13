@@ -106,6 +106,7 @@ public class HCF extends JavaPlugin implements PluginMessageListener{
 	private VisualiseHandler visualiseHandler;
 	private EventScheduler eventScheduler;
 	public static List<UUID> cbUser;
+	public static List<UUID> blUser;
 
 	public static String getRemaining(long millis, boolean milliseconds){
 		return HCF.getRemaining(millis, milliseconds, true);
@@ -136,6 +137,7 @@ public class HCF extends JavaPlugin implements PluginMessageListener{
 		plugin = this;
 
 		cbUser = new ArrayList<>();
+		blUser = new ArrayList<>();
 		registerClientCheck();
 
 		CustomEntityRegistration.registerCustomEntities();
@@ -200,6 +202,7 @@ public class HCF extends JavaPlugin implements PluginMessageListener{
 		Bukkit.getPluginManager().registerEvents(new ClientAPI(), this);
 		this.getServer().getMessenger().registerIncomingPluginChannel(this, "CB|INIT", this::onPluginMessageReceived);
 		this.getServer().getMessenger().registerIncomingPluginChannel(this, "CB-Binary", this::onPluginMessageReceived);
+		this.getServer().getMessenger().registerIncomingPluginChannel(this, "BLC|M", this::onPluginMessageReceived);
 	}
 
 	private void registerConfiguration(){
@@ -382,9 +385,14 @@ public class HCF extends JavaPlugin implements PluginMessageListener{
 	@Override
 	public void onPluginMessageReceived(String channel, Player player, byte[] arg2) {
 		boolean cb = false;
+		boolean bl = false;
 		if (channel.equals("CB|INIT") || channel.equals("CB-Binary")) {
 			cb = true;
 		}
+		if (channel.equals("BLC|M")) {
+			bl = true;
+		}
+
 		if (!cbUser.contains(player.getUniqueId())) {
 			if (cb) {
 				cbUser.add(player.getUniqueId());
@@ -394,6 +402,16 @@ public class HCF extends JavaPlugin implements PluginMessageListener{
 				player.sendMessage(" ");
 			}
 		}
+		if (!blUser.contains(player.getUniqueId())) {
+			if (bl) {
+				cbUser.add(player.getUniqueId());
+				player.sendMessage(" ");
+				player.sendMessage(ChatColor.GREEN + "BL Client has been detected!");
+				player.sendMessage(ChatColor.GRAY + "Staff will be notified of this if required.");
+				player.sendMessage(" ");
+			}
+		}
+
 	}
 
 
