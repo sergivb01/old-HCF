@@ -3,6 +3,9 @@ version: DEV
 main: net.veilmc.hcf.HCF
 softdepend: [ProtocolLib]
 commands:
+  report:
+  request:
+  staffchat:
   death:
     aliases: ["d"]
   token:

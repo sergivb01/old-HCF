@@ -20,6 +20,7 @@ import net.veilmc.hcf.commands.death.DeathExecutor;
 import net.veilmc.hcf.commands.lives.LivesExecutor;
 import net.veilmc.hcf.commands.spawn.SpawnCommand;
 import net.veilmc.hcf.commands.spawn.TokenExecutor;
+import net.veilmc.hcf.database.redis.RedisManager;
 import net.veilmc.hcf.deathban.Deathban;
 import net.veilmc.hcf.deathban.DeathbanListener;
 import net.veilmc.hcf.deathban.DeathbanManager;
@@ -165,6 +166,8 @@ public class HCF extends JavaPlugin implements PluginMessageListener{
 
 		timerManager.enable();
 
+		initDatabases();
+
 		Bukkit.getConsoleSender().sendMessage("");
 		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&7----------------[&3*'&bOpulent&3'*]----------------"));
 		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&7| - &bVersion: &f" + HCF.getPlugin().getDescription().getVersion()));
@@ -174,6 +177,15 @@ public class HCF extends JavaPlugin implements PluginMessageListener{
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new DonorBroadcastRunnable(), 20L, 600 * 20L);
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new AutoSaveRunnable(), 20L, 900 * 20L);
 
+	}
+
+	private void initDatabases(){
+		if(ConfigurationService.REDIS_ENABLED){
+			new RedisManager(this);
+		}
+		if(ConfigurationService.MONGO_ENABLED){
+			//new MongoManager(); TODO: Actually create the mongo
+		}
 	}
 
 	public void saveData(){
@@ -200,9 +212,9 @@ public class HCF extends JavaPlugin implements PluginMessageListener{
 
 	private void registerClientCheck() {
 		Bukkit.getPluginManager().registerEvents(new ClientAPI(), this);
-		this.getServer().getMessenger().registerIncomingPluginChannel(this, "CB|INIT", this::onPluginMessageReceived);
-		this.getServer().getMessenger().registerIncomingPluginChannel(this, "CB-Binary", this::onPluginMessageReceived);
-		this.getServer().getMessenger().registerIncomingPluginChannel(this, "BLC|M", this::onPluginMessageReceived);
+		this.getServer().getMessenger().registerIncomingPluginChannel(this, "CB|INIT", this);
+		this.getServer().getMessenger().registerIncomingPluginChannel(this, "CB-Binary", this);
+		this.getServer().getMessenger().registerIncomingPluginChannel(this, "BLC|M", this);
 	}
 
 	private void registerConfiguration(){
@@ -307,6 +319,8 @@ public class HCF extends JavaPlugin implements PluginMessageListener{
 	}
 
 	private void registerCommands(){
+		getCommand("report").setExecutor(new ReportCommand());
+		getCommand("request").setExecutor(new RequestCommand());
 		getCommand("test").setExecutor(new TestCommand());
 		getCommand("permissions").setExecutor(new PermissionsCommand(this));
 		getCommand("reclaim").setExecutor(new ReclaimCommand(this));

@@ -7,10 +7,19 @@ database:
   mongo:
     enabled: false
     host: ''
-    port: ''
-    username: ''
-    password: ''
+    port: 27017
     database: ''
+    auth:
+      enabled: false
+      username: ''
+      password: ''
+  redis:
+    enabled: false
+    host: ''
+    port: 6379
+    auth:
+      enabled: false
+      password: ''
 
 online-donors:
   - '&7%LINE%'

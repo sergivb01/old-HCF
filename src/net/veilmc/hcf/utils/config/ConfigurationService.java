@@ -58,13 +58,6 @@ public final class ConfigurationService{
 	public static String LOGOUT_STARTED;
 	public static String LOGOUT_DISCONNECT;
 
-	public static Boolean MONGO_ENABLED;
-	public static String MONGO_HOST;
-	public static String MONGO_PORT;
-	public static String MONGO_USERNAME;
-	public static String MONGO_PASSWORD;
-	public static String MONGO_DATABASE;
-
 	public static String ECONOMY_YOUR_BALANCE;
 	public static String ECONOMY_OTHERS_BALANCE;
 
@@ -138,6 +131,22 @@ public final class ConfigurationService{
 	public static boolean DIAMOND_ORE_ALERTS = false;
 	public static int UNBUILDABLE_RANGE;
 
+
+	public static boolean MONGO_ENABLED;
+	public static String MONGO_HOST;
+	public static int MONGO_PORT;
+	public static String MONGO_DATABASE;
+	public static boolean MONGO_AUTH;
+	public static String MONGO_USERNAME;
+	public static String MONGO_PASSWORD;
+
+	public static boolean REDIS_ENABLED;
+	public static String REDIS_HOST;
+	public static int REDIS_PORT;
+	public static String REDIS_CHANNEL;
+	public static boolean REDIS_AUTH;
+	public static String REDIS_PASSWORD;
+
 //    public static List<String> SHOW;
 
 	public static void init(FileConfiguration config){
@@ -146,12 +155,22 @@ public final class ConfigurationService{
 		DEV = config.getBoolean("dev", false);
 		TAB = config.getBoolean("tab");
 
-		MONGO_ENABLED = config.getBoolean("mongo.enabled", false);
-		MONGO_HOST = config.getString("mongo.host", "127.0.0.1");
-		MONGO_PORT = config.getString("mongo.port", "123");
-		MONGO_USERNAME = config.getString("mongo.username", "username");
-		MONGO_PASSWORD = config.getString("mongo.password", "password");
-		MONGO_DATABASE = config.getString("mongo.database", "database");
+		MONGO_ENABLED = config.getBoolean("database.mongo.enabled", false);
+		MONGO_HOST = config.getString("database.mongo.host", "127.0.0.1");
+		MONGO_PORT = config.getInt("database.mongo.port", 6379);
+		MONGO_AUTH = config.getBoolean("database.mongo.auth.enabled", false);
+		MONGO_USERNAME = config.getString("database.mongo.auth.username", "username");
+		MONGO_PASSWORD = config.getString("database.mongo.auth.password", "password");
+		MONGO_DATABASE = config.getString("database.mongo.auth.database", "database");
+
+		REDIS_ENABLED = config.getBoolean("database.redis.enabled", false);
+		REDIS_HOST = config.getString("database.redis.host", "127.0.0.1");
+		REDIS_PORT = config.getInt("database.redis.port", 6379);
+		REDIS_CHANNEL = config.getString("database.redis.channel", "hcf-communicate");
+		REDIS_AUTH = config.getBoolean("database.redis.auth.enabled");
+		REDIS_PASSWORD = config.getString("database.redis.auth.password");
+
+
 
 		TEAMSPEAK_IP = config.getString("server-info.teamspeak");
 
