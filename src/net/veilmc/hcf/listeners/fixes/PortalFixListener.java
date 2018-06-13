@@ -1,5 +1,6 @@
 package net.veilmc.hcf.listeners.fixes;
 
+import net.veilmc.hcf.HCF;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -8,8 +9,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-public class PortalFixListener
-		implements Listener{
+public class PortalFixListener implements Listener{
+
+	public PortalFixListener(HCF plugin){
+		Bukkit.getPluginManager().registerEvents(this, plugin);
+	}
 
 	@EventHandler
 	public void onClick(PlayerInteractEvent e){

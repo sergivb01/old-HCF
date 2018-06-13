@@ -25,8 +25,8 @@ public class PlayerTab implements TabAdapter, Listener{
 		this.plugin = plugin;
 		this.azazel = new Azazel(plugin, this);
 		this.staffTab = new StaffTab();
-		Bukkit.getPluginManager().registerEvents(this, plugin);
 		this.userManager = HCF.getInstance().getUserManager();
+		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
 
 	public TabTemplate getTemplate(Player player){

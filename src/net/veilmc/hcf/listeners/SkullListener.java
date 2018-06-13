@@ -1,7 +1,9 @@
 package net.veilmc.hcf.listeners;
 
+import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.utils.config.ConfigurationService;
 import org.apache.commons.lang3.text.WordUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.SkullType;
@@ -18,6 +20,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 
 public class SkullListener implements Listener{
+
+	public SkullListener(HCF plugin){
+		Bukkit.getPluginManager().registerEvents(this, plugin);
+	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
 	public void onPlayerDeath(PlayerDeathEvent event){

@@ -1,6 +1,7 @@
 package net.veilmc.hcf.listeners;
 
 import net.veilmc.hcf.HCF;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -10,9 +11,9 @@ import org.bukkit.event.entity.EntityDamageEvent;
 public class SotwListener implements Listener{
 	private final HCF plugin;
 
-	public SotwListener(final HCF plugin){
-		super();
+	public SotwListener(HCF plugin){
 		this.plugin = plugin;
+		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

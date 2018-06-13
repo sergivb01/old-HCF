@@ -1,6 +1,5 @@
 package net.veilmc.hcf.listeners;
 
-import com.google.common.collect.Lists;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.utils.DateTimeFormats;
 import org.bukkit.*;
@@ -33,13 +32,17 @@ public class DeathSignListener
 					}
 					, 5);
 		}
+		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
 
 	public static ItemStack getDeathSign(String playerName, String killerName){
 		ItemStack stack = new ItemStack(Material.SIGN, 1);
 		ItemMeta meta = stack.getItemMeta();
 		meta.setDisplayName(DEATH_SIGN_ITEM_NAME);
-		meta.setLore((List) Lists.newArrayList((Object[]) new String[]{ChatColor.GREEN + playerName, ChatColor.GRAY + "slain by", ChatColor.GREEN + killerName, ChatColor.GRAY + DateTimeFormats.DAY_MTH_HR_MIN.format(System.currentTimeMillis())}));
+		meta.setLore(Arrays.asList(
+				ChatColor.GREEN + playerName, ChatColor.GRAY + "slain by", ChatColor.GREEN + killerName,
+				ChatColor.GRAY + DateTimeFormats.DAY_MTH_HR_MIN.format(System.currentTimeMillis())
+		));
 		stack.setItemMeta(meta);
 		return stack;
 	}

@@ -1,5 +1,6 @@
 package net.veilmc.hcf.listeners.fixes;
 
+import net.veilmc.hcf.HCF;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -12,8 +13,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
-public class VoidGlitchFixListener
-		implements Listener{
+public class VoidGlitchFixListener implements Listener{
+
+	public VoidGlitchFixListener(HCF plugin){
+		Bukkit.getPluginManager().registerEvents(this, plugin);
+	}
+
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void onPlayerDamage(EntityDamageEvent event){
 		Entity entity;

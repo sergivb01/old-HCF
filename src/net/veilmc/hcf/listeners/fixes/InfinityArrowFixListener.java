@@ -1,5 +1,7 @@
 package net.veilmc.hcf.listeners.fixes;
 
+import net.veilmc.hcf.HCF;
+import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_7_R4.entity.CraftArrow;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
@@ -9,8 +11,12 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ProjectileHitEvent;
 
-public class InfinityArrowFixListener
-		implements Listener{
+public class InfinityArrowFixListener implements Listener{
+
+	public InfinityArrowFixListener(HCF plugin){
+		Bukkit.getPluginManager().registerEvents(this, plugin);
+	}
+
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void onProjectileHit(ProjectileHitEvent event){
 		Arrow arrow;

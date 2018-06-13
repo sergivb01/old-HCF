@@ -1,5 +1,7 @@
 package net.veilmc.hcf.listeners.fixes;
 
+import net.veilmc.hcf.HCF;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -9,6 +11,10 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 public class PexCrashFix implements Listener{
 
 	private String[] commands = {"calc", "eval", "solve", "worldedit:/calc", "worldedit:/eval", "worldedit:/solve", "/worldedit:/", "//calculate"};
+
+	public PexCrashFix(HCF plugin){
+		Bukkit.getPluginManager().registerEvents(this, plugin);
+	}
 
 	@EventHandler
 	public void onCommandSend(PlayerCommandPreprocessEvent e){

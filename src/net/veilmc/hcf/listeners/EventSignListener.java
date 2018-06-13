@@ -3,10 +3,7 @@ package net.veilmc.hcf.listeners;
 import com.google.common.collect.Lists;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.utils.DateTimeFormats;
-import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Sign;
@@ -25,6 +22,10 @@ import java.util.List;
 
 public class EventSignListener implements Listener{
 	private static final String EVENT_SIGN_ITEM_NAME = ChatColor.GOLD + "Event Sign";
+
+	public EventSignListener(HCF plugin){
+		Bukkit.getPluginManager().registerEvents(this, plugin);
+	}
 
 	public static ItemStack getEventSign(String playerName, String kothName){
 		ItemStack stack = new ItemStack(Material.SIGN, 1);

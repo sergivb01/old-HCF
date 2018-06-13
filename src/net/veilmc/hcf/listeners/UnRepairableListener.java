@@ -1,6 +1,8 @@
 package net.veilmc.hcf.listeners;
 
 import me.sergivb01.event.PrepareAnvilRepairEvent;
+import net.veilmc.hcf.HCF;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -9,6 +11,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 
 public class UnRepairableListener implements Listener{
+
+	public UnRepairableListener(HCF plugin){
+		Bukkit.getPluginManager().registerEvents(this, plugin);
+	}
+
 	@EventHandler
 	public void onRepair(PrepareAnvilRepairEvent e){
 		for(ItemStack itemStack : e.getInventory().getContents()){

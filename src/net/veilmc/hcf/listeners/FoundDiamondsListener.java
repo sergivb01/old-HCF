@@ -17,8 +17,11 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.metadata.FixedMetadataValue;
 
 public class FoundDiamondsListener implements Listener{
-
 	public static String DIAMOND_ORE_ALERTS = "FD_ALERTS";
+
+	public FoundDiamondsListener(HCF plugin){
+		Bukkit.getPluginManager().registerEvents(this, plugin);
+	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onBlockPlace(BlockPlaceEvent event){

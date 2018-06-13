@@ -4,6 +4,7 @@ import com.google.common.base.Preconditions;
 import net.minecraft.server.v1_7_R4.EntityLiving;
 import net.veilmc.hcf.HCF;
 import org.apache.commons.lang3.text.WordUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_7_R4.entity.CraftEntity;
@@ -18,12 +19,12 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class DeathMessageListener
-		implements Listener{
+public class DeathMessageListener implements Listener{
 	private final HCF plugin;
 
 	public DeathMessageListener(HCF plugin){
 		this.plugin = plugin;
+		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
 
 	public static String replaceLast(String text, String regex, String replacement){

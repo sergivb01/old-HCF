@@ -1,5 +1,7 @@
 package net.veilmc.hcf.listeners.fixes;
 
+import net.veilmc.hcf.HCF;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
@@ -10,8 +12,12 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.inventory.InventoryCreativeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-public class NoPermissionClickListener
-		implements Listener{
+public class NoPermissionClickListener implements Listener{
+
+	public NoPermissionClickListener(HCF plugin){
+		Bukkit.getPluginManager().registerEvents(this, plugin);
+	}
+
 	@EventHandler
 	public void onInteract(PlayerInteractEvent e){
 		Player player = e.getPlayer();

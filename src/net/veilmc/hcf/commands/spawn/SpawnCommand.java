@@ -44,6 +44,10 @@ public class SpawnCommand
 					player.sendMessage(ChatColor.RED + "You can not do this while your " + ChatColor.BOLD + "Spawn Tag" + ChatColor.RED + " is active.");
 					return false;
 				}else{
+					if(this.plugin.getEotwHandler().isEndOfTheWorld(true)){
+						player.sendMessage(ChatColor.RED + "You can not use Spawn tokens while in EOTW.");
+						return true;
+					}
 					Integer oldToken = this.plugin.getUserManager().getUser(player.getUniqueId()).getSpawnTokens();
 					player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&aYou have used a spawn token."));
 					this.plugin.getTimerManager().teleportTimer.teleport(player, Bukkit.getWorld("world").getSpawnLocation(), TimeUnit.SECONDS.toMillis(3L), ChatColor.YELLOW + "Teleporting to spawn in " + ChatColor.LIGHT_PURPLE + "3 seconds.", PlayerTeleportEvent.TeleportCause.COMMAND);

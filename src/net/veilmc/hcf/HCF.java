@@ -68,7 +68,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -215,81 +214,78 @@ public class HCF extends JavaPlugin{
 	}
 
 	private void registerListeners(){
-		PluginManager manager = getServer().getPluginManager();
-
 		if(ConfigurationService.TAB){
-			manager.registerEvents(new PlayerTab(this), this);
+			new PlayerTab(this);
 		}
 
-		manager.registerEvents(new PotionLimitListener(), this);
-		manager.registerEvents(new AutoRespawnListener(this), this);
-		manager.registerEvents(new PortalFixListener(), this);
-		manager.registerEvents(new ElevatorListener(this), this);
-		manager.registerEvents(new EndPortalCommand(this), this);
-		manager.registerEvents(new PermissionsCommand(this), this);
-		manager.registerEvents(new ColonFix(), this);
-		manager.registerEvents(new PotionListener(), this);
-		manager.registerEvents(new PexCrashFix(), this);
-		manager.registerEvents(new DupeGlitchFix(), this);
-		manager.registerEvents(new DonorOnlyListener(), this);
-		manager.registerEvents(new ArcherClass(this), this);
-		manager.registerEvents(new KeyListener(this), this);
-		manager.registerEvents(new WeatherFixListener(), this);
-		manager.registerEvents(new EndermanFixListener(), this);
-		manager.registerEvents(new MinecartElevatorListener(), this);
-		manager.registerEvents(new StoreCommand(this), this);
-		manager.registerEvents(new AutoSmeltOreListener(), this);
-		manager.registerEvents(new BlockHitFixListener(), this);
-		manager.registerEvents(new BlockJumpGlitchFixListener(), this);
-		manager.registerEvents(new HungerFixListener(), this);
-		manager.registerEvents(new BoatGlitchFixListener(), this);
-		manager.registerEvents(new BookDeenchantListener(), this);
-		manager.registerEvents(new BorderListener(), this);
-		manager.registerEvents(new BottledExpListener(), this);
-		manager.registerEvents(new ChatListener(this), this);
-		manager.registerEvents(new ClaimWandListener(this), this);
-		manager.registerEvents(new CombatLogListener(this), this);
-		manager.registerEvents(new CoreListener(this), this);
-		manager.registerEvents(new CreeperFriendlyListener(), this);
-		manager.registerEvents(new CrowbarListener(this), this);
-		manager.registerEvents(new DeathListener(this), this);
-		manager.registerEvents(new DeathMessageListener(this), this);
-		manager.registerEvents(new DeathSignListener(this), this);
-		manager.registerEvents(new DeathbanListener(this), this);
-		manager.registerEvents(new EnchantLimitListener(), this);
-		manager.registerEvents(new EnderChestRemovalListener(), this);
-		manager.registerEvents(new EntityLimitListener(), this);
+		new CheatBreakerListener(this);
+		new PotionLimitListener(this);
+		new AutoRespawnListener(this);
+		new PortalFixListener(this);
+		new ElevatorListener(this);
+		new EndPortalCommand(this);
+		new PermissionsCommand(this);
+		new ColonFix(this);
+		new PotionListener(this);
+		new PexCrashFix(this);
+		new DupeGlitchFix(this);
+		new DonorOnlyListener(this);
+		new ArcherClass(this);
+		new KeyListener(this);
+		new WeatherFixListener(this);
+		new EndermanFixListener(this);
+		new MinecartElevatorListener(this);
+		new StoreCommand(this);
+		new AutoSmeltOreListener(this);
+		new BlockHitFixListener(this);
+		new BlockJumpGlitchFixListener(this);
+		new HungerFixListener(this);
+		new BoatGlitchFixListener(this);
+		new BookDeenchantListener(this);
+		new BorderListener(this);
+		new BottledExpListener(this);
+		new ChatListener(this);
+		new ClaimWandListener(this);
+		new CombatLogListener(this);
+		new CoreListener(this);
+		new CreeperFriendlyListener(this);
+		new CrowbarListener(this);
+		new DeathListener(this);
+		new DeathMessageListener(this);
+		new DeathSignListener(this);
+		new DeathbanListener(this);
+		new EnchantLimitListener(this);
+		new EnderChestRemovalListener(this);
+		new EntityLimitListener(this);
 
 		//TODO: Switch between flatfile & mongodb
-		manager.registerEvents(new FlatFileFactionManager(this), this);
-
-		manager.registerEvents(new EndListener(), this);
-		manager.registerEvents(new EotwListener(this), this);
-		manager.registerEvents(new EventSignListener(), this);
-		manager.registerEvents(new ExpMultiplierListener(), this);
-		manager.registerEvents(new EnchantSecurityListener(), this);
-		manager.registerEvents(new FactionListener(this), this);
-		manager.registerEvents(new HitDetectionListener(), this);
-		manager.registerEvents(new FoundDiamondsListener(), this);
-		manager.registerEvents(new FurnaceSmeltSpeederListener(this), this);
-		manager.registerEvents(new InfinityArrowFixListener(), this);
-		manager.registerEvents(new KitListener(this), this);
-		manager.registerEvents(new ItemStatTrackingListener(), this);
-		manager.registerEvents(new PearlGlitchListener(this), this);
-		manager.registerEvents(new PotionLimitListener(), this);
-		manager.registerEvents(new FactionsCoreListener(this), this);
-		manager.registerEvents(new SignSubclaimListener(this), this);
-		manager.registerEvents(new ShopSignListener(this), this);
-		manager.registerEvents(new SkullListener(), this);
-		manager.registerEvents(new BookQuillFixListener(), this);
-		manager.registerEvents(new BeaconStrengthFixListener(), this);
-		manager.registerEvents(new VoidGlitchFixListener(), this);
-		manager.registerEvents(new WallBorderListener(this), this);
-		manager.registerEvents(new WorldListener(this), this);
-		manager.registerEvents(new UnRepairableListener(), this);
-		manager.registerEvents(new SotwListener(this), this);
-		//manager.registerEvents(new StatTrackListener(), this);
-		manager.registerEvents(new CobbleCommand(), this);
+		new FlatFileFactionManager(this);
+		new EndListener(this);
+		new EotwListener(this);
+		new EventSignListener(this);
+		new ExpMultiplierListener(this);
+		new EnchantSecurityListener(this);
+		new FactionListener(this);
+		new HitDetectionListener(this);
+		new FoundDiamondsListener(this);
+		new FurnaceSmeltSpeederListener(this);
+		new InfinityArrowFixListener(this);
+		new KitListener(this);
+		new ItemStatTrackingListener(this);
+		new PearlGlitchListener(this);
+		new PotionLimitListener(this);
+		new FactionsCoreListener(this);
+		new SignSubclaimListener(this);
+		new ShopSignListener(this);
+		new SkullListener(this);
+		new BookQuillFixListener(this);
+		new BeaconStrengthFixListener(this);
+		new VoidGlitchFixListener(this);
+		new WallBorderListener(this);
+		new WorldListener(this);
+		new UnRepairableListener(this);
+		new SotwListener(this);
+		//new StatTrackListener(this);
 	}
 
 	private void registerCommands(){
@@ -339,7 +335,7 @@ public class HCF extends JavaPlugin{
 		getCommand("loot").setExecutor(new LootExecutor(this));
 		getCommand("safestop").setExecutor(new SafestopCommand());
 		getCommand("nether").setExecutor(new NetherCommand(this));
-		getCommand("cobble").setExecutor(new CobbleCommand());
+		getCommand("cobble").setExecutor(new CobbleCommand(this));
 		getCommand("ores").setExecutor(new OresCommand());
 		getCommand("crowgive").setExecutor(new CrowbarGiveCommand());
 		getCommand("user").setExecutor(new UserCommand(this));

@@ -30,6 +30,10 @@ import java.util.Random;
 
 public class EndListener implements Listener{
 
+	public EndListener(HCF plugin){
+		Bukkit.getPluginManager().registerEvents(this, plugin);
+	}
+
 	@EventHandler
 	public void onEntityDeath(EntityDeathEvent event){
 		if(event.getEntity() instanceof EnderDragon){

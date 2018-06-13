@@ -1,6 +1,8 @@
 package net.veilmc.hcf.listeners;
 
 import net.veilmc.base.BasePlugin;
+import net.veilmc.hcf.HCF;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -14,9 +16,12 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.player.*;
 
-public class BorderListener
-		implements Listener{
+public class BorderListener implements Listener{
 	private static final int BORDER_OFFSET_TELEPORTS = 50;
+
+	public BorderListener(HCF plugin){
+		Bukkit.getPluginManager().registerEvents(this, plugin);
+	}
 
 	public static boolean isWithinBorder(Location location){
 		int borderSize = location.getWorld().getEnvironment() == World.Environment.NORMAL ? BasePlugin.getPlugin().getServerHandler().getWorldBorder() : BasePlugin.getPlugin().getServerHandler().getNetherBorder();

@@ -2,13 +2,18 @@ package net.veilmc.hcf.listeners;
 
 import net.md_5.bungee.api.ChatColor;
 import net.veilmc.base.BasePlugin;
+import net.veilmc.hcf.HCF;
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 
-public class DonorOnlyListener
-		implements Listener{
+public class DonorOnlyListener implements Listener{
 	private static final String DONOR_ONLY_PERMISSION = "hcf.donoronly.bypass";
+
+	public DonorOnlyListener(HCF plugin){
+		Bukkit.getPluginManager().registerEvents(this, plugin);
+	}
 
 	@EventHandler
 	public void onJoinServerWhileNotDonor(PlayerLoginEvent e){

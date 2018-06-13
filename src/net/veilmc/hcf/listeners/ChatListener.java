@@ -36,6 +36,7 @@ public class ChatListener
 	public ChatListener(HCF plugin){
 		this.plugin = plugin;
 		this.messageHistory = CacheBuilder.newBuilder().expireAfterWrite(2, TimeUnit.MINUTES).build().asMap();
+		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)

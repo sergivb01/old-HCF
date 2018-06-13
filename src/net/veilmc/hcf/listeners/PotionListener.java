@@ -1,5 +1,7 @@
 package net.veilmc.hcf.listeners;
 
+import net.veilmc.hcf.HCF;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -10,6 +12,11 @@ import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.util.Vector;
 
 public class PotionListener implements Listener{
+
+	public PotionListener(HCF plugin){
+		Bukkit.getPluginManager().registerEvents(this, plugin);
+	}
+
 	@EventHandler
 	void onProjectileLaunch(ProjectileLaunchEvent event){
 		if(event.getEntityType() == EntityType.SPLASH_POTION){
@@ -17,7 +24,7 @@ public class PotionListener implements Listener{
 			if(((projectile.getShooter() instanceof Player)) && (((Player) projectile.getShooter()).isSprinting())){
 				Vector velocity = projectile.getVelocity();
 
-				velocity.setY(velocity.getY() - 1);
+				velocity.setY(velocity.getY() - 1.25);
 				projectile.setVelocity(velocity);
 			}
 		}

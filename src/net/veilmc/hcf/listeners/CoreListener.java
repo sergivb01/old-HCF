@@ -2,6 +2,7 @@ package net.veilmc.hcf.listeners;
 
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.type.Faction;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -20,6 +21,7 @@ public class CoreListener
 
 	public CoreListener(HCF plugin){
 		this.plugin = plugin;
+		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

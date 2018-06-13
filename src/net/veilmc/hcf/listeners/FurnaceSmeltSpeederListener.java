@@ -16,6 +16,7 @@ public class FurnaceSmeltSpeederListener implements Listener{
 
 	public FurnaceSmeltSpeederListener(HCF plugin){
 		this.plugin = plugin;
+		Bukkit.getPluginManager().registerEvents(this, plugin);
 		final ShapedRecipe cmelon = new ShapedRecipe(new ItemStack(Material.SPECKLED_MELON, 1));
 		cmelon.shape("AAA", "CBA", "AAA").setIngredient('B', Material.MELON).setIngredient('C', Material.GOLD_NUGGET);
 		Bukkit.getServer().addRecipe(cmelon);

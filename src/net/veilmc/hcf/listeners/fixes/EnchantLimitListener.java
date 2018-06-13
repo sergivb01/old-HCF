@@ -3,7 +3,9 @@ package net.veilmc.hcf.listeners.fixes;
 import com.google.common.collect.ImmutableMap;
 import me.sergivb01.event.PrepareAnvilRepairEvent;
 import net.minecraft.server.v1_7_R4.*;
+import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.utils.config.ConfigurationService;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
@@ -33,6 +35,10 @@ public class EnchantLimitListener implements Listener{
 
 	public int getMaxLevel(Enchantment enchant){
 		return ConfigurationService.ENCHANTMENT_LIMITS.getOrDefault(enchant, enchant.getMaxLevel());
+	}
+
+	public EnchantLimitListener(HCF plugin){
+		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

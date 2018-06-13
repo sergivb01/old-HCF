@@ -1,5 +1,7 @@
 package net.veilmc.hcf.listeners.fixes;
 
+import net.veilmc.hcf.HCF;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
@@ -10,8 +12,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.util.Vector;
 
-public class BlockJumpGlitchFixListener
-		implements Listener{
+public class BlockJumpGlitchFixListener implements Listener{
+
+	public BlockJumpGlitchFixListener(HCF plugin){
+		Bukkit.getPluginManager().registerEvents(this, plugin);
+	}
+
 	@EventHandler(ignoreCancelled = false, priority = EventPriority.MONITOR)
 	public void onBlockBreak(BlockPlaceEvent event){
 		if(event.isCancelled()){

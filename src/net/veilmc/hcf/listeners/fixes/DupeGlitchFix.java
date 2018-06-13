@@ -1,6 +1,8 @@
 package net.veilmc.hcf.listeners.fixes;
 
 import net.md_5.bungee.api.ChatColor;
+import net.veilmc.hcf.HCF;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -15,6 +17,11 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 
 public class DupeGlitchFix implements Listener{
+
+	public DupeGlitchFix(HCF plugin){
+		Bukkit.getPluginManager().registerEvents(this, plugin);
+	}
+
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void onBlockPlace(PlayerInteractEvent e){
 		Player p = e.getPlayer();

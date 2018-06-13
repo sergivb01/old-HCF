@@ -4,6 +4,7 @@ import net.veilmc.base.kit.event.KitApplyEvent;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.timer.event.TimerStartEvent;
 import net.veilmc.hcf.timer.type.PvpProtectionTimer;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -16,6 +17,7 @@ public class KitMapListener implements Listener{
 
 	public KitMapListener(HCF plugin){
 		this.plugin = plugin;
+		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)

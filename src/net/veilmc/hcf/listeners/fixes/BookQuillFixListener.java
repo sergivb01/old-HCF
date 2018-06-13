@@ -1,5 +1,7 @@
 package net.veilmc.hcf.listeners.fixes;
 
+import net.veilmc.hcf.HCF;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
@@ -9,8 +11,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class BookQuillFixListener
-		implements Listener{
+public class BookQuillFixListener implements Listener{
+
+	public BookQuillFixListener(HCF plugin){
+		Bukkit.getPluginManager().registerEvents(this, plugin);
+	}
+
 	@EventHandler
 	public void craftBookEvent(PrepareItemCraftEvent e){
 		Material itemType = e.getRecipe().getResult().getType();

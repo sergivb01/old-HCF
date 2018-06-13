@@ -1,6 +1,8 @@
 package net.veilmc.hcf.commands;
 
+import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.utils.config.ConfigurationService;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -18,6 +20,10 @@ import java.util.ArrayList;
 public class CobbleCommand implements Listener, CommandExecutor{
 
 	private static ArrayList cobbletoggle = new ArrayList();
+
+	public CobbleCommand(HCF plugin){
+		Bukkit.getPluginManager().registerEvents(this, plugin);
+	}
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
 		if(!(sender instanceof Player)){

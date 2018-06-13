@@ -6,10 +6,7 @@ import net.veilmc.hcf.faction.type.PlayerFaction;
 import net.veilmc.hcf.timer.PlayerTimer;
 import net.veilmc.hcf.utils.config.ConfigurationService;
 import org.apache.commons.lang.StringUtils;
-import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
@@ -29,6 +26,7 @@ public class ElevatorListener implements Listener{
 	public ElevatorListener(HCF plugin){
 		this.plugin = plugin;
 		this.signTitle = ChatColor.BLUE + ChatColor.BOLD.toString() + "[Elevator]";
+		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

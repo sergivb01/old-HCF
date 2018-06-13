@@ -1,6 +1,7 @@
 package net.veilmc.hcf.listeners.fixes;
 
 import net.veilmc.hcf.HCF;
+import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 
 public class AutoRespawnListener implements Listener{
@@ -8,6 +9,7 @@ public class AutoRespawnListener implements Listener{
 
 	public AutoRespawnListener(HCF plugin){
 		this.plugin = plugin;
+		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
 
     /*@EventHandler //Laggy af

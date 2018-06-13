@@ -44,9 +44,9 @@ public class FactionsCoreListener implements Listener{
 
 	private final HCF plugin;
 
-	public FactionsCoreListener(final HCF plugin){
-		super();
+	public FactionsCoreListener(HCF plugin){
 		this.plugin = plugin;
+		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
 
 	public static boolean attemptBuild(Entity entity, Location location, String denyMessage){

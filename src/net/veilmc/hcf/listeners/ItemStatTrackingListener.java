@@ -2,7 +2,9 @@ package net.veilmc.hcf.listeners;
 
 import com.google.common.base.Preconditions;
 import net.minecraft.server.v1_7_R4.EntityLiving;
+import net.veilmc.hcf.HCF;
 import org.apache.commons.lang3.text.WordUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.v1_7_R4.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
@@ -19,6 +21,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ItemStatTrackingListener implements Listener{
+
+	public ItemStatTrackingListener(HCF plugin){
+		Bukkit.getPluginManager().registerEvents(this, plugin);
+	}
+
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void onPlayerDeath(PlayerDeathEvent event){
 		ItemStack stack;

@@ -1,5 +1,6 @@
 package net.veilmc.hcf.listeners.fixes;
 
+import net.veilmc.hcf.HCF;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
@@ -13,10 +14,11 @@ import org.bukkit.material.EnderChest;
 
 import java.util.Iterator;
 
-public class EnderChestRemovalListener
-		implements Listener{
-	public EnderChestRemovalListener(){
+public class EnderChestRemovalListener implements Listener{
+
+	public EnderChestRemovalListener(HCF plugin){
 		this.removeRecipe();
+		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)

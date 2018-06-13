@@ -3,6 +3,7 @@ package net.veilmc.hcf.listeners.fixes;
 import net.md_5.bungee.api.ChatColor;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.utils.config.PotionLimiterData;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.BrewingStand;
 import org.bukkit.entity.Player;
@@ -17,13 +18,14 @@ import org.bukkit.projectiles.ProjectileSource;
 
 import java.util.List;
 
-public class PotionLimitListener
-		implements Listener{
-	private static HCF plugin;
+public class PotionLimitListener implements Listener{
+	private HCF plugin;
 	private static List<Short> disabledPotions;
 	private static PotionLimiterData limiter;
 
-	public static void init(){
+	public PotionLimitListener(HCF plugin){
+		this.plugin = plugin;
+		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
 
 	public static void reload(){

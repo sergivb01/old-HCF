@@ -29,15 +29,15 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 
-public class DeathListener
-		implements Listener{
+public class DeathListener implements Listener{
 	private static final long REGEN_DELAY = TimeUnit.MINUTES.toMillis(60L);
-	public static HashMap<UUID, ItemStack[]> PlayerInventoryContents = new HashMap();
-	public static HashMap<UUID, ItemStack[]> PlayerArmorContents = new HashMap();
+	public static HashMap<UUID, ItemStack[]> PlayerInventoryContents = new HashMap<>();
+	public static HashMap<UUID, ItemStack[]> PlayerArmorContents = new HashMap<>();
 	private final HCF plugin;
 
 	public DeathListener(HCF plugin){
 		this.plugin = plugin;
+		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
 
 	@EventHandler(priority = EventPriority.LOWEST)

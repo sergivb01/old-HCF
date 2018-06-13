@@ -23,6 +23,7 @@ public class WorldListener implements Listener{
 
 	public WorldListener(HCF plugin){
 		this.plugin = plugin;
+		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
 
 

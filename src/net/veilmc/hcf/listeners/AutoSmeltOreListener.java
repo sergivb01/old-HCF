@@ -1,9 +1,7 @@
 package net.veilmc.hcf.listeners;
 
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
+import net.veilmc.hcf.HCF;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -13,9 +11,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class AutoSmeltOreListener
-		implements Listener{
-	private static final String AUTO_SMELT_ORE_PERMISSION = "hcf.autosmeltore";
+public class AutoSmeltOreListener implements Listener{
+
+	public AutoSmeltOreListener(HCF plugin){
+		Bukkit.getPluginManager().registerEvents(this, plugin);
+	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
 	public void onBlockBreak(BlockBreakEvent event){

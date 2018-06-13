@@ -3,7 +3,9 @@ package net.veilmc.hcf.listeners.fixes;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import net.minecraft.util.com.google.common.cache.CacheBuilder;
+import net.veilmc.hcf.HCF;
 import net.veilmc.util.BukkitUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -20,15 +22,15 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.TimeUnit;
 
-public class BlockHitFixListener
-		implements Listener{
+public class BlockHitFixListener implements Listener{
 	private static final long THRESHOLD = 850L;
 	private static final ImmutableSet<Material> NON_TRANSPARENT_ATTACK_BREAK_TYPES = Sets.immutableEnumSet(Material.GLASS, Material.STAINED_GLASS, Material.STAINED_GLASS_PANE);
 	private static final ImmutableSet<Material> NON_TRANSPARENT_ATTACK_INTERACT_TYPES = Sets.immutableEnumSet(Material.IRON_DOOR_BLOCK, Material.IRON_DOOR, Material.WOODEN_DOOR, Material.WOOD_DOOR, Material.TRAP_DOOR, Material.FENCE_GATE);
 	private final ConcurrentMap<Object, Object> lastInteractTimes;
 
-	public BlockHitFixListener(){
+	public BlockHitFixListener(HCF plugin){
 		this.lastInteractTimes = CacheBuilder.newBuilder().expireAfterWrite(850L, TimeUnit.MILLISECONDS).build().asMap();
+		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
 
 	@EventHandler(ignoreCancelled = false, priority = EventPriority.HIGH)

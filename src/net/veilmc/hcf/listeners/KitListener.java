@@ -7,6 +7,7 @@ import net.veilmc.hcf.faction.type.PlayerFaction;
 import net.veilmc.hcf.timer.event.TimerStartEvent;
 import net.veilmc.hcf.timer.type.PvpProtectionTimer;
 import net.veilmc.hcf.utils.config.ConfigurationService;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -19,6 +20,7 @@ public class KitListener implements Listener{
 
 	public KitListener(HCF plugin){
 		this.plugin = plugin;
+		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
 
 	@EventHandler

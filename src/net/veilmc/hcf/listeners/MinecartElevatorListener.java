@@ -1,5 +1,7 @@
 package net.veilmc.hcf.listeners;
 
+import net.veilmc.hcf.HCF;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Minecart;
@@ -9,6 +11,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.vehicle.VehicleEnterEvent;
 
 public class MinecartElevatorListener implements Listener{
+
+	public MinecartElevatorListener(HCF plugin){
+		Bukkit.getPluginManager().registerEvents(this, plugin);
+	}
+
 	@EventHandler
 	public void onMinecart(VehicleEnterEvent event){
 		if((!(event.getVehicle() instanceof Minecart)) || (!(event.getEntered() instanceof Player))){

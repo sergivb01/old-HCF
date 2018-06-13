@@ -1,6 +1,7 @@
 package net.veilmc.hcf.listeners;
 
 import com.google.common.primitives.Ints;
+import net.veilmc.hcf.HCF;
 import net.veilmc.util.ItemBuilder;
 import net.veilmc.util.ParticleEffect;
 import org.bukkit.Bukkit;
@@ -26,12 +27,15 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-public class BookDeenchantListener
-		implements Listener{
+public class BookDeenchantListener implements Listener{
 	private static final ItemStack EMPTY_BOOK = new ItemStack(Material.BOOK, 1);
 	private static final String PERMISSION_1 = "hcf.deenchant.1";
 	private static final String PERMISSION_2 = "hcf.deenchant.2";
 	private static final Set<Inventory> tracked = new HashSet<Inventory>();
+
+	public BookDeenchantListener(HCF plugin){
+		Bukkit.getPluginManager().registerEvents(this, plugin);
+	}
 
 	@EventHandler
 	public void onClose(InventoryCloseEvent e){

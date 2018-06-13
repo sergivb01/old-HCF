@@ -2,6 +2,7 @@ package net.veilmc.hcf.listeners;
 
 import com.google.common.collect.Lists;
 import com.google.common.primitives.Ints;
+import net.veilmc.hcf.HCF;
 import net.veilmc.util.ExperienceManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -29,7 +30,8 @@ public class BottledExpListener
 		implements Listener{
 	private static final String BOTTLED_EXP_DISPLAY_NAME = ChatColor.AQUA.toString() + "Bottled Exp";
 
-	public BottledExpListener(){
+	public BottledExpListener(HCF plugin){
+		Bukkit.getPluginManager().registerEvents(this, plugin);
 		Bukkit.addRecipe(new ShapelessRecipe(this.createExpBottle(1)).addIngredient(Material.GLASS_BOTTLE));
 	}
 

@@ -1,5 +1,6 @@
 package net.veilmc.hcf.listeners.fixes;
 
+import net.veilmc.hcf.HCF;
 import net.veilmc.util.BukkitUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.enchantments.Enchantment;
@@ -12,8 +13,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class EnchantSecurityListener
-		implements Listener{
+public class EnchantSecurityListener implements Listener{
+
+	public EnchantSecurityListener(HCF plugin){
+		Bukkit.getPluginManager().registerEvents(this, plugin);
+	}
+
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
 	public void onAttack(EntityDamageByEntityEvent event){
 		final Entity attackerEntity = event.getDamager();

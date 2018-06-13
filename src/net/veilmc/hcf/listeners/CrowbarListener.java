@@ -30,12 +30,12 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
 
-public class CrowbarListener
-		implements Listener{
+public class CrowbarListener implements Listener{
 	private final HCF plugin;
 
 	public CrowbarListener(HCF plugin){
 		this.plugin = plugin;
+		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
