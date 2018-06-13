@@ -26,7 +26,10 @@ public class Subscriber{
 
 	private void init(){
 		jedisPubSub = this.get();
-		new Thread(() -> jedis.subscribe(jedisPubSub, ConfigurationService.REDIS_CHANNEL)).start(); //Create subscriber in new Thread to avoid blocking main one
+		new Thread(() -> {
+			jedis.subscribe(jedisPubSub, ConfigurationService.REDIS_CHANNEL);
+			instance.getLogger().info("Redis subscriber has subscribed to " + ConfigurationService.REDIS_CHANNEL);
+		}).start(); //Create subscriber in new Thread to avoid blocking main one
 	}
 
 	private JedisPubSub get(){
