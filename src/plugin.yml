@@ -36,6 +36,7 @@ commands:
   enderchest:
     aliases: ["echest", "pv", "playervault"]
     description: Open your personal enderchest.
+  test:
   toggleend:
     aliases: [end]
     description: Used to close or open the end.

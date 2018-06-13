@@ -47,7 +47,7 @@ import net.veilmc.hcf.faction.type.*;
 import net.veilmc.hcf.listeners.*;
 import net.veilmc.hcf.listeners.fixes.*;
 import net.veilmc.hcf.scoreboard.ScoreboardHandler;
-import net.veilmc.hcf.tab.TabListener;
+import net.veilmc.hcf.tab.PlayerTab;
 import net.veilmc.hcf.timer.TimerExecutor;
 import net.veilmc.hcf.timer.TimerManager;
 import net.veilmc.hcf.timer.type.SotwTimer;
@@ -218,7 +218,7 @@ public class HCF extends JavaPlugin{
 		PluginManager manager = getServer().getPluginManager();
 
 		if(ConfigurationService.TAB){
-			manager.registerEvents(new TabListener(this), this);
+			manager.registerEvents(new PlayerTab(this), this);
 		}
 
 		manager.registerEvents(new PotionLimitListener(), this);
@@ -293,6 +293,7 @@ public class HCF extends JavaPlugin{
 	}
 
 	private void registerCommands(){
+		getCommand("test").setExecutor(new TestCommand());
 		getCommand("permissions").setExecutor(new PermissionsCommand(this));
 		getCommand("reclaim").setExecutor(new ReclaimCommand(this));
 		getCommand("platinum").setExecutor(new PlatinumReviveCommand(this));
