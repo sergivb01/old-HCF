@@ -11,7 +11,6 @@ public class PayloadParser{
 		String server = document.getString("server");
 		String type = document.getString("type");
 
-		if(server.equalsIgnoreCase(ConfigurationService.SERVER_NAME)) return;
 
 		Payload payload = getPayloadFromType(type);
 		if(payload == null){
@@ -20,8 +19,11 @@ public class PayloadParser{
 		}
 
 		payload.fromDocument(document);
-		Cache.addPayload(payload);
 		payload.broadcast();
+
+		if(!server.equalsIgnoreCase(ConfigurationService.SERVER_NAME)){
+			Cache.addPayload(payload);
+		}
 	}
 
 	public static Payload getPayloadFromType(String type){

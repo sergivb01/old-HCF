@@ -4,6 +4,11 @@ import net.veilmc.hcf.database.redis.RedisManager;
 import net.veilmc.hcf.payloads.Cache;
 import net.veilmc.hcf.utils.config.ConfigurationService;
 import org.bson.Document;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 public abstract class Payload{
 	private String type;
@@ -27,6 +32,10 @@ public abstract class Payload{
 		RedisManager.publisher.write("payload;" +
 				document.toJson()
 		);
+	}
+
+	public Collection<Player> getStaffMembers(){
+		return Bukkit.getOnlinePlayers().stream().filter(player -> player.hasPermission("hcf.utils.staff")).collect(Collectors.toList());
 	}
 
 	public abstract void fromDocument(Document document);
