@@ -31,13 +31,15 @@ public class StaffChatPayload extends Payload{
 		this.playerUUID = (UUID)document.get("playerUUID");
 		this.playerName = document.getString("playerName");
 		this.message = document.getString("message");
+		this.server = document.getString("server");
 	}
 
 	public Document toDocument(){
 		return new Document("uuid", uuid)
 				.append("playerUUID", playerUUID)
 				.append("playerName", playerName)
-				.append("message", message);
+				.append("message", message)
+				.append("server", server);
 	}
 
 

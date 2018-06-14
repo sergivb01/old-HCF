@@ -2,7 +2,6 @@ package net.veilmc.hcf.payloads.types;
 
 import net.veilmc.hcf.database.mongo.MongoManager;
 import net.veilmc.hcf.database.redis.RedisManager;
-import net.veilmc.hcf.payloads.Cache;
 import net.veilmc.hcf.utils.config.ConfigurationService;
 import org.bson.Document;
 import org.bukkit.Bukkit;
@@ -13,9 +12,11 @@ import java.util.stream.Collectors;
 
 public abstract class Payload{
 	private String type;
+	String server;
 
 	public Payload(String type){
 		this.type = type;
+		this.server = ConfigurationService.SERVER_NAME;
 	}
 
 	@Override
@@ -24,12 +25,13 @@ public abstract class Payload{
 	}
 
 	public void send(){
-		Cache.addPayload(this);
 		Document document = this.toDocument()
 				.append("type", type)
-				.append("server", ConfigurationService.SERVER_NAME)
+				.append("server", server)
 				.append("timestamp", System.currentTimeMillis());
-		MongoManager.addPayload(document);
+
+		if(!type.equals("status")) MongoManager.addPayload(document);
+
 		RedisManager.publisher.write("payload;" +
 				document.toJson()
 		);

@@ -2,6 +2,7 @@ package net.veilmc.hcf.faction;
 
 import com.google.common.base.Preconditions;
 import net.veilmc.hcf.HCF;
+import net.veilmc.hcf.database.mongo.MongoManager;
 import net.veilmc.hcf.faction.claim.Claim;
 import net.veilmc.hcf.faction.event.*;
 import net.veilmc.hcf.faction.event.cause.ClaimChangeCause;
@@ -307,6 +308,13 @@ public class FlatFileFactionManager implements Listener, FactionManager{
 
 	public void saveFactionData(){
 		this.config.set("factions", new ArrayList(this.factionUUIDMap.values()));
+
+		if(ConfigurationService.MONGO_ENABLED){
+			factionUUIDMap.values().stream()
+					.filter(faction -> faction instanceof PlayerFaction)
+					.map(faction -> (PlayerFaction)faction)
+					.forEach(MongoManager::saveFaction);
+		}
 		this.config.save();
 	}
 }

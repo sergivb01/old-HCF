@@ -2,7 +2,6 @@ package net.veilmc.hcf.payloads;
 
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.payloads.types.*;
-import net.veilmc.hcf.utils.config.ConfigurationService;
 import org.bson.Document;
 
 public class PayloadParser{
@@ -19,16 +18,20 @@ public class PayloadParser{
 		}
 
 		payload.fromDocument(document);
-		payload.broadcast();
-		HCF.getInstance().getLogger().info("Recived payload " + payload.toDocument().toJson() + "!");
-
-		if(!server.equalsIgnoreCase(ConfigurationService.SERVER_NAME)){
-			Cache.addPayload(payload);
+		if(payload instanceof StatusPayload){ //Do not log or either broadcast server status.
+			Cache.setStatus((StatusPayload) payload);
+			return;
 		}
+
+		payload.broadcast();
+
+		Cache.addPayload(payload);
 	}
 
 	public static Payload getPayloadFromType(String type){
 		switch(type.toLowerCase()){
+			case "status":
+				return new StatusPayload();
 			case "staffchat":
 				return new StaffChatPayload();
 			case "report":

@@ -48,6 +48,8 @@ import net.veilmc.hcf.faction.claim.Subclaim;
 import net.veilmc.hcf.faction.type.*;
 import net.veilmc.hcf.listeners.*;
 import net.veilmc.hcf.listeners.fixes.*;
+import net.veilmc.hcf.payloads.types.Payload;
+import net.veilmc.hcf.payloads.types.StatusPayload;
 import net.veilmc.hcf.scoreboard.ScoreboardHandler;
 import net.veilmc.hcf.tab.PlayerTab;
 import net.veilmc.hcf.timer.TimerExecutor;
@@ -63,6 +65,7 @@ import net.veilmc.hcf.utils.config.ConfigurationService;
 import net.veilmc.hcf.utils.config.PotionLimiterData;
 import net.veilmc.hcf.utils.runnables.AutoSaveRunnable;
 import net.veilmc.hcf.utils.runnables.DonorBroadcastRunnable;
+import net.veilmc.hcf.utils.runnables.StatusPayloadRunnable;
 import net.veilmc.hcf.visualise.ProtocolLibHook;
 import net.veilmc.hcf.visualise.VisualiseHandler;
 import net.veilmc.hcf.visualise.WallBorderListener;
@@ -70,16 +73,16 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 
 @Getter
@@ -178,6 +181,10 @@ public class HCF extends JavaPlugin implements PluginMessageListener{
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new DonorBroadcastRunnable(), 20L, 600 * 20L);
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new AutoSaveRunnable(), 300 * 20L, 900 * 20L);
 
+		if(ConfigurationService.REDIS_ENABLED){
+			Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new StatusPayloadRunnable(), 10L, 5 * 20L);
+		}
+
 	}
 
 	private void initDatabases(){
@@ -203,6 +210,21 @@ public class HCF extends JavaPlugin implements PluginMessageListener{
 	}
 
 	public void onDisable(){
+		if(ConfigurationService.REDIS_ENABLED){
+			Map<String, UUID> map = new HashMap<>(Bukkit.getOnlinePlayers().stream()
+					.filter(p -> p.hasPermission("hcf.utils.staff"))
+					.collect(Collectors.toMap(HumanEntity::getName, Entity::getUniqueId)));
+
+			Payload payload = new StatusPayload(Bukkit.getOnlinePlayers().size(),
+					Bukkit.getMaxPlayers(),
+					Bukkit.hasWhitelist(),
+					BasePlugin.getPlugin().getServerHandler().isDonorOnly(),
+					false,
+					map
+			);
+			payload.send();
+		}
+
 		Bukkit.getServer().savePlayers();
 		Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "save-all");
 		CustomEntityRegistration.unregisterCustomEntities();

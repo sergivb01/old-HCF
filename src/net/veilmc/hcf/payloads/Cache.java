@@ -1,16 +1,16 @@
 package net.veilmc.hcf.payloads;
 
-import net.veilmc.hcf.payloads.types.ReportPayload;
-import net.veilmc.hcf.payloads.types.RequestPayload;
 import net.veilmc.hcf.payloads.types.Payload;
+import net.veilmc.hcf.payloads.types.StatusPayload;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 public class Cache{
 	public static Map<UUID, Long> commandDelay = new HashMap<>();
+	public static Map<String, StatusPayload> serverStatuses = new HashMap<>();
 	public static List<Payload> payloads = new ArrayList<>();
 
 	public static boolean canExecute(Player player){
@@ -25,19 +25,18 @@ public class Cache{
 		return payloads.add(payload);
 	}
 
-	public List<Payload> getPayloads(String type){
-		switch(type.toLowerCase()){
-			case "report":
-				return payloads.stream().filter(payload -> payload instanceof ReportPayload).collect(Collectors.toList());
-
-			case "request":
-				return payloads.stream().filter(payload -> payload instanceof RequestPayload).collect(Collectors.toList());
-
-			case "serverswitch":
-				return payloads.stream().filter(payload -> payload instanceof RequestPayload).collect(Collectors.toList());
-
+	public static void setStatus(StatusPayload payload){
+		String server = payload.getServer();
+		if(serverStatuses.containsKey(server)){
+			if(serverStatuses.get(server).isUp() != payload.isUp()){
+				Bukkit.broadcastMessage("Server " + server + " is now " + (payload.isUp() ? "online" : "offline") + "!");
+			}
 		}
-		return null;
+		serverStatuses.put(server, payload);
+	}
+
+	public StatusPayload getServerStatus(String server){
+		return serverStatuses.getOrDefault(server, null);
 	}
 
 

@@ -11,6 +11,12 @@ public class DebugCommand implements CommandExecutor{
 		Cache.commandDelay.forEach((key, value) -> sender.sendMessage("UUID=" + key.toString() + " // Last=" + value));
 		sender.sendMessage("=================================================================");
 		Cache.payloads.forEach(payload -> sender.sendMessage(payload.toDocument().toJson()));
+
+		sender.sendMessage("=================================================================");
+		Cache.serverStatuses.forEach((server, payload) -> {
+			sender.sendMessage(" * Server: " + server + " - " + payload.toDocument().toJson());
+		});
+
 		return true;
 	}
 

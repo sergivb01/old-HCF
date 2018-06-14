@@ -39,6 +39,7 @@ public class ReportPayload extends Payload{
 		this.reportedName = document.getString("reportedName");
 		this.reportedUUID = (UUID) document.get("reportedUUID");
 		this.reason = document.getString("reason");
+		this.server = document.getString("server");
 	}
 
 	public Document toDocument(){
@@ -47,7 +48,8 @@ public class ReportPayload extends Payload{
 				.append("reportedName", reportedName)
 				.append("reportedUUID", reportedUUID)
 				.append("reason", reason)
-				.append("uuid", uuid);
+				.append("uuid", uuid)
+				.append("server", server);
 	}
 
 	public void broadcast(){

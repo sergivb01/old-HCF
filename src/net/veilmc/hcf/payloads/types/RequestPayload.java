@@ -6,7 +6,8 @@ import org.bukkit.Bukkit;
 
 import java.util.UUID;
 
-@Getter public class RequestPayload extends Payload{
+@Getter
+public class RequestPayload extends Payload{
 	private UUID uuid;
 
 	private String playerName;
@@ -30,13 +31,15 @@ import java.util.UUID;
 		this.playerName = document.getString("playerName");
 		this.playerUUID = (UUID) document.get("playerUUID");
 		this.reason = document.getString("reason");
+		this.server = document.getString("server");
 	}
 
 	public Document toDocument(){
 		return new Document("playerName", playerName)
 				.append("playerUUID", playerUUID)
 				.append("reason", reason)
-				.append("uuid", uuid);
+				.append("uuid", uuid)
+				.append("server", server);
 	}
 
 	public void broadcast(){

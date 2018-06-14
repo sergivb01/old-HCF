@@ -32,6 +32,7 @@ public class ServerSwitchPayload extends Payload{
 		this.playerName = document.getString("playerName");
 		this.playerUUID = (UUID) document.get("playerUUID");
 		this.status = document.getString("status");
+		this.server = document.getString("server");
 	}
 
 	@Override
@@ -39,7 +40,8 @@ public class ServerSwitchPayload extends Payload{
 		return new Document("playerName", playerName)
 				.append("playerUUID", playerUUID)
 				.append("status", status)
-				.append("uuid", uuid);
+				.append("uuid", uuid)
+				.append("server", server);
 	}
 
 	public void broadcast(){

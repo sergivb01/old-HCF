@@ -93,9 +93,9 @@ public class PlayerFaction
 			Map.Entry entry1 = (Map.Entry) entry2.next();
 			this.requestedRelations.put(UUID.fromString((String) entry1.getKey()), Relation.valueOf((String) entry1.getValue()));
 		}
-		this.open = ((Boolean) map.get("open")).booleanValue();
-		this.balance = ((Integer) map.get("balance")).intValue();
-		this.deathsUntilRaidable = ((Double) map.get("deathsUntilRaidable")).doubleValue();
+		this.open = (Boolean) map.get("open");
+		this.balance = (Integer) map.get("balance");
+		this.deathsUntilRaidable = (Double) map.get("deathsUntilRaidable");
 		this.regenCooldownTimestamp = Long.parseLong((String) map.get("regenCooldownTimestamp"));
 		this.lastDtrUpdateTimestamp = Long.parseLong((String) map.get("lastDtrUpdateTimestamp"));
 	}
@@ -143,9 +143,9 @@ public class PlayerFaction
 		if(this.announcement != null){
 			map.put("announcement", this.announcement);
 		}
-		map.put("open", Boolean.valueOf(this.open));
-		map.put("balance", Integer.valueOf(this.balance));
-		map.put("deathsUntilRaidable", Double.valueOf(this.deathsUntilRaidable));
+		map.put("open", this.open);
+		map.put("balance", this.balance);
+		map.put("deathsUntilRaidable", this.deathsUntilRaidable);
 		map.put("regenCooldownTimestamp", Long.toString(this.regenCooldownTimestamp));
 		map.put("lastDtrUpdateTimestamp", Long.toString(this.lastDtrUpdateTimestamp));
 		return map;
