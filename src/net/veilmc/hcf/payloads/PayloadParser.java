@@ -24,6 +24,7 @@ public class PayloadParser{
 
 		payload.fromDocument(document);
 		Cache.addPayload(payload);
+		payload.broadcast();
 	}
 
 	public static Payload getPayloadFromType(String type){

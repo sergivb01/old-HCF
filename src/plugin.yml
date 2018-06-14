@@ -5,7 +5,9 @@ softdepend: [ProtocolLib]
 commands:
   report:
   request:
+    aliases: ["helpop", "adminhelp"]
   staffchat:
+    aliases: ["sc", "ac"]
   debug:
   death:
     aliases: ["d"]

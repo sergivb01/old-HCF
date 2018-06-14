@@ -248,6 +248,7 @@ public class HCF extends JavaPlugin implements PluginMessageListener{
 			new PlayerTab(this);
 		}
 
+		new PayloadsListener(this);
 		new CheatBreakerListener(this);
 		new PotionLimitListener(this);
 		new AutoRespawnListener(this);
@@ -319,6 +320,7 @@ public class HCF extends JavaPlugin implements PluginMessageListener{
 	}
 
 	private void registerCommands(){
+		getCommand("staffchat").setExecutor(new StaffChatCommand());
 		getCommand("debug").setExecutor(new DebugCommand());
 		getCommand("report").setExecutor(new ReportCommand());
 		getCommand("request").setExecutor(new RequestCommand());

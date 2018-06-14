@@ -2,10 +2,12 @@ package net.veilmc.hcf.payloads.types;
 
 import lombok.Getter;
 import org.bson.Document;
+import org.bukkit.Bukkit;
 
 import java.util.UUID;
 
- @Getter public class ServerSwitchPayload extends Payload{
+@Getter
+public class ServerSwitchPayload extends Payload{
 	private UUID uuid;
 	private String playerName;
 	private UUID playerUUID;
@@ -15,11 +17,11 @@ import java.util.UUID;
 		super("serverswitch");
 	}
 
-	public ServerSwitchPayload(String playerName, UUID playerUUID, String status){
+	public ServerSwitchPayload(UUID playerUUID, String playerName, String status){
 		super("serverswitch");
 		this.uuid = UUID.randomUUID();
-		this.playerName = playerName;
 		this.playerUUID = playerUUID;
+		this.playerName = playerName;
 		this.status = status;
 	}
 
@@ -38,8 +40,8 @@ import java.util.UUID;
 				.append("uuid", uuid);
 	}
 
-	 public void broadcast(){
-		 //TODO: Broadcast
-	 }
+	public void broadcast(){
+		Bukkit.broadcastMessage(this.toDocument().toJson());
+	}
 
 }

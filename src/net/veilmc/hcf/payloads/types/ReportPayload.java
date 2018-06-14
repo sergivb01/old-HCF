@@ -2,6 +2,7 @@ package net.veilmc.hcf.payloads.types;
 
 import lombok.Getter;
 import org.bson.Document;
+import org.bukkit.Bukkit;
 
 import java.util.UUID;
 
@@ -50,7 +51,7 @@ public class ReportPayload extends Payload{
 	}
 
 	public void broadcast(){
-		//TODO: Broadcast
+		Bukkit.broadcastMessage(this.toDocument().toJson());
 	}
 
 
