@@ -227,7 +227,7 @@ public final class ConfigurationService{
 
 		CRATE_BROADCASTS = false;
 
-		SERVER_NAME = config.getString("server-name", "HCF");
+		SERVER_NAME = config.getString("server-info.server-name", "HCF");
 
 		COBBLE_ENABLED = ChatColor.translateAlternateColorCodes('&', config.getString("messages.cobble-enabled"));
 		COBBLE_DISABLED = ChatColor.translateAlternateColorCodes('&', config.getString("messages.cobble-disabled"));

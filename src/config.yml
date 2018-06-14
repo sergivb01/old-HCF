@@ -1,8 +1,10 @@
 
-server-name: 'Large HCF' # Example: Squads, Large HCF
-tab: true
-dev: true
+# The basic information about your server
+server-info:
+  server-name: 'Lite HCF'
+  teamspeak: 'ts.example.com'
 
+# Enable database support, leave both databases false for sole Flatefile use
 database:
   mongo:
     enabled: false
@@ -22,6 +24,10 @@ database:
       enabled: false
       password: ''
 
+# Toggle the custom tab
+tab: true
+
+# Online donators message
 online-donors:
   - '&7%LINE%'
   - '&6&lOnline Donators'
@@ -29,35 +35,43 @@ online-donors:
   - ' &7- &e%MEDICS%'
   - '&7%LINE%'
 
-server-info:
-  teamspeak: 'ts.example.com'
 
+#Scoreboard options
 scoreboard:
   title: '&6&lFactions &7| &cHCF'
   active-class: '&a&lActive Class&7'
 
-# Enable death-signs so when a player dies it spawns a sign.
+
+# Toggle deathban signs drop
 death-signs: true
 
+# How large should Warzone radius be?
 warzone: 750
 
-# Enable found diamond alerts.
+# Toggle found diamond alerts
 found-diamonds: true
 
-# Is kit-map mode enabled?
+# Enable kitmap mode?
 kit-map: false
 
-#Deathban Permissions
-
-# hcf.deathban.150m
+#Deathban Base time
 deathban-time: 180
+
+# Specific Deathban times can be set by giving the player the following permissions
+# hcf.deathban.<time>
+#
+# Avaliable times:
+# 5m/10m/15m/30m/35m/40m/45m/60m/90m/120m/150m
+
+
 
 # Can't build how many blocks from spawn?
 unbuildable-range: 300
 
+# Change the result on the Help command
 help:
   - '&7&m-----------------------------------------------------'
-  - '&7&l  Factions Help'
+  - '&6&l  Factions Help'
   - '&a '
   - '&e  World Border:'
   - '  &7* &eOverworld&7: &f%OVERWORLD%'
@@ -93,7 +107,7 @@ messages:
   still-deathbanned: '&cStill death-banned for %time%: &f%reason%&c. &cYou can purchase lives at our store to bypass this.'
   deathbanned-eotw-entire: '&cYou have been death-banned for entire of EOTW. Check out our website for SOTW information.\nwww.server.com'
   
-# Faction configurable messages
+# Messages for Faction related messages
   end-cannot-build: '&cYou cannot build in the end.'  
   world-cannot-build: '&cYou cannot build within 300 blocks of spawn.'
   failed-pearl: '&cYou cannot Enderpearl into safe-zones, used Enderpearl has been refunded.'
@@ -102,6 +116,7 @@ messages:
   in-faction: '&a%player% &eis in your faction.'
   ally-faction: '&eYou are hurting an ally &7[%allyplayer%]&e.'
 
+# Messages for SOTW command
 sotw:
   started: '&cStarted SOTW protection for &c&l%time%&c.'
   not-active: '&cSOTW protection already active.'
@@ -109,7 +124,7 @@ sotw:
   ended-one: '&cSOTW Protection is now over!'
   ended-two: '&cYou are no longer invincible!'
 
-
+# Help for the PvP Timer command
 pvp-timer:
   - '&7%LINE%'
   - '&e/pvp enable &7- &fRemoves your PvP Timer.'
@@ -117,30 +132,41 @@ pvp-timer:
   - '&e/lives &7- &fLife & deathban related commands.'
   - '&7%LINE%'
   
-# Timer placeholders and colors  
+# Timer Colours / Messages
 timers:
   enderpearl-timer: '&e&lEnderpearl'
   enderpearl-color: '&e'
+
   archer-timer: '&c&lArcher Tag'
   archer-color: '&c'
+
   notch-apple-timer: '&6&lGapple'
   notch-apple-color: '&6'
+
   pvp-class-warmup-timer: '&bClass Warmup'
   pvp-class-warmup-color: '&b'
+
   pvptimer-timer: '&a&lPvP Timer'
   pvptimer-color: '&a&l'
+
   sotw-timer: '&a&lSOTW'
   sotw-color: '&c'
+
   spawntag-timer: '&c&lSpawn Tag'
   spawntag-color: '&c'
+
   stuck-timer: '&c&lStuck'
   stuck-color: '&c'
+
   teleport-timer: '&9&lTeleport'
   teleport-color: '&9'
+
   event-timer: '&9&lEvent'
   event-color: '&9&l'
   logout-timer: '&c&lLogout'
   logout-color: '&c'
+
+  #Timer Messages
   messages:
     logout-already-started: '&cYour &c&lLogout &ctimer has already started.'
     logout-started: '&cYour &c&lLogout &ctimer has started.'
@@ -150,12 +176,12 @@ timers:
     spawn-tagged: '&cYou are now spawn-tagged for %time%.'
 
 
-# Faction colors
-
+# Faction Options
 faction-settings:
   max-players: 5
   max-allies: 1
   show:
+  # Player Faction currently not functional.
     player-faction:
       - '&7%LINE%'
       - '&f&l > %FACTION% &3- &7(%ONLINE%/%MAX% online)'
@@ -187,7 +213,9 @@ faction-settings:
     default: '&7'
     wilderness: '&d'
     glowstone: '&6'
-# Potion limitations
+
+
+# Potion Limits
 potion-limits:
   instant-damage: 1
   regen: 1
@@ -197,7 +225,7 @@ potion-limits:
   invis: 1
   poison: 1
 
-# Change enchantment limits to your map kit needs.
+# Enchantment Limits
 enchant-limits:
   PROTECTION_ENVIRONMENTAL: 2
   PROTECTION_FIRE: 3
@@ -217,13 +245,3 @@ enchant-limits:
   LOOT_BONUS_MOBS: 3
   LUCK: 3
   LURE: 3
-
-reclaim:
-  message: '&b{PLAYER} &7has reclaimed their &e{GROUP}'
-  groups:
-    default:
-      - bc {PLAYER} redeemed perks from {GROUP}
-    vip:
-      - bc {PLAYER} redeemed perks from {GROUP}
-    redeemedPlayers:
-      default:
