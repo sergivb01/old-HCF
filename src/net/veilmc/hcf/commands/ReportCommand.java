@@ -58,9 +58,9 @@ public class ReportCommand implements CommandExecutor{
 		}
 
 		Bukkit.getOnlinePlayers().stream().filter(p -> p.hasPermission("hcf.utils.staff")).collect(Collectors.toList())
-				.forEach(p -> p.sendMessage(ChatColor.translateAlternateColorCodes('&',
-						"Player " + target.getName() + " has been reported by " + player.getName() + " for: " + reason
-				)));
+				.forEach(p -> p.sendMessage(String.format(ChatColor.translateAlternateColorCodes(
+						'&', "&4[Report] &c%s&7 has been reported by &7%s&7 for &c%s"
+				), target.getName(), player.getName(), reason)));
 
 		return true;
 	}

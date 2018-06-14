@@ -401,14 +401,8 @@ public class HCF extends JavaPlugin implements PluginMessageListener{
 
 	@Override
 	public void onPluginMessageReceived(String channel, Player player, byte[] arg2) {
-		boolean cb = false;
-		boolean bl = false;
-		if (channel.equals("CB|INIT") || channel.equals("CB-Binary")) {
-			cb = true;
-		}
-		if (channel.equals("BLC|M")) {
-			bl = true;
-		}
+		boolean cb = channel.equals("CB|INIT") || channel.equals("CB-Binary");
+		boolean bl = channel.equals("BLC|M");
 
 		if (!cbUser.contains(player.getUniqueId())) {
 			if (cb) {
