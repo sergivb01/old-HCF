@@ -13,6 +13,10 @@ public class StaffChatPayload extends Payload{
 	private String playerName;
 	private String message;
 
+	public StaffChatPayload(){
+		super("staffchat");
+	}
+
 	public StaffChatPayload(UUID playerUUID, String playerName, String message){
 		super("staffchat");
 		this.uuid = UUID.randomUUID();

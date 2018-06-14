@@ -1,10 +1,7 @@
 package net.veilmc.hcf.payloads;
 
 import net.veilmc.hcf.HCF;
-import net.veilmc.hcf.payloads.types.Payload;
-import net.veilmc.hcf.payloads.types.ReportPayload;
-import net.veilmc.hcf.payloads.types.RequestPayload;
-import net.veilmc.hcf.payloads.types.ServerSwitchPayload;
+import net.veilmc.hcf.payloads.types.*;
 import net.veilmc.hcf.utils.config.ConfigurationService;
 import org.bson.Document;
 
@@ -37,6 +34,9 @@ public class PayloadParser{
 
 			case "serverswitch":
 				return new ServerSwitchPayload();
+
+			case "staffchat":
+				return new StaffChatPayload();
 		}
 		return null;
 	}
