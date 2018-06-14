@@ -30,7 +30,7 @@ public abstract class Payload{
 				.append("server", server)
 				.append("timestamp", System.currentTimeMillis());
 
-		if(!type.equals("status")) MongoManager.addPayload(document);
+		if(!type.equals("status") && ConfigurationService.MONGO_ENABLED) MongoManager.addPayload(document);
 
 		RedisManager.publisher.write("payload;" +
 				document.toJson()
