@@ -15,9 +15,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-/*
-    TODO: Clean this thing up
- */
 public class AzazelTask extends BukkitRunnable{
 
 	private final Azazel azazel;
