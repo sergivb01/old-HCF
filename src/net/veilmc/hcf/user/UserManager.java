@@ -1,6 +1,8 @@
 package net.veilmc.hcf.user;
 
 import net.veilmc.hcf.HCF;
+import net.veilmc.hcf.database.mongo.MongoManager;
+import net.veilmc.hcf.utils.config.ConfigurationService;
 import net.veilmc.util.Config;
 import org.apache.commons.lang3.ObjectUtils;
 import org.bukkit.configuration.MemorySection;
@@ -64,6 +66,9 @@ public class UserManager implements Listener{
 		LinkedHashMap<String, FactionUser> saveMap = new LinkedHashMap<String, FactionUser>(entrySet.size());
 		for(Map.Entry<UUID, FactionUser> entry : entrySet){
 			saveMap.put(entry.getKey().toString(), entry.getValue());
+			if(ConfigurationService.MONGO_ENABLED){
+				MongoManager.savePlayer(entry.getValue());
+			}
 		}
 		this.userConfig.set("users", saveMap);
 		this.userConfig.save();

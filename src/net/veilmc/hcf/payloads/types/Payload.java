@@ -1,5 +1,6 @@
 package net.veilmc.hcf.payloads.types;
 
+import net.veilmc.hcf.database.mongo.MongoManager;
 import net.veilmc.hcf.database.redis.RedisManager;
 import net.veilmc.hcf.payloads.Cache;
 import net.veilmc.hcf.utils.config.ConfigurationService;
@@ -28,7 +29,7 @@ public abstract class Payload{
 				.append("type", type)
 				.append("server", ConfigurationService.SERVER_NAME)
 				.append("timestamp", System.currentTimeMillis());
-		//TODO: Log this payload
+		MongoManager.addPayload(document);
 		RedisManager.publisher.write("payload;" +
 				document.toJson()
 		);

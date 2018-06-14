@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 public final class ConfigurationService{
 
 	public static final TimeZone SERVER_TIME_ZONE = TimeZone.getTimeZone("EST");
-	public static final List<String> DISALLOWED_FACTION_NAMES = ImmutableList.of("velt", "faithful", "hcteams", "hcteamseotw", "hcteamssotw", "exploitesquad", "staff", "mod", "owner", "dev", "admin", "ipvp");
+	public static final List<String> DISALLOWED_FACTION_NAMES = ImmutableList.of("veil", "velt", "faithful", "hcteams", "hcteamseotw", "hcteamssotw", "exploitesquad", "staff", "mod", "owner", "dev", "admin", "ipvp");
 	public static final Map<Enchantment, Integer> ENCHANTMENT_LIMITS = new HashMap<Enchantment, Integer>();
 	public static final Map<PotionType, Integer> POTION_LIMITS = new EnumMap<PotionType, Integer>(PotionType.class);
 	public static final Map<World.Environment, Double> SPAWN_RADIUS_MAP = new EnumMap<World.Environment, Double>(World.Environment.class);
@@ -158,10 +158,10 @@ public final class ConfigurationService{
 		MONGO_ENABLED = config.getBoolean("database.mongo.enabled", false);
 		MONGO_HOST = config.getString("database.mongo.host", "127.0.0.1");
 		MONGO_PORT = config.getInt("database.mongo.port", 6379);
+		MONGO_DATABASE = config.getString("database.mongo.database", "database");
 		MONGO_AUTH = config.getBoolean("database.mongo.auth.enabled", false);
 		MONGO_USERNAME = config.getString("database.mongo.auth.username", "username");
 		MONGO_PASSWORD = config.getString("database.mongo.auth.password", "password");
-		MONGO_DATABASE = config.getString("database.mongo.auth.database", "database");
 
 		REDIS_ENABLED = config.getBoolean("database.redis.enabled", false);
 		REDIS_HOST = config.getString("database.redis.host", "127.0.0.1");

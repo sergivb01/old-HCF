@@ -20,6 +20,7 @@ import net.veilmc.hcf.commands.death.DeathExecutor;
 import net.veilmc.hcf.commands.lives.LivesExecutor;
 import net.veilmc.hcf.commands.spawn.SpawnCommand;
 import net.veilmc.hcf.commands.spawn.TokenExecutor;
+import net.veilmc.hcf.database.mongo.MongoManager;
 import net.veilmc.hcf.database.redis.RedisManager;
 import net.veilmc.hcf.deathban.Deathban;
 import net.veilmc.hcf.deathban.DeathbanListener;
@@ -175,7 +176,7 @@ public class HCF extends JavaPlugin implements PluginMessageListener{
 		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&7------------------[&3*'&bHCF&3'*]------------------"));
 
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new DonorBroadcastRunnable(), 20L, 600 * 20L);
-		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new AutoSaveRunnable(), 20L, 900 * 20L);
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new AutoSaveRunnable(), 300 * 20L, 900 * 20L);
 
 	}
 
@@ -184,14 +185,16 @@ public class HCF extends JavaPlugin implements PluginMessageListener{
 			new RedisManager(this);
 		}
 		if(ConfigurationService.MONGO_ENABLED){
-			//new MongoManager(); TODO: Actually create the mongo
+			new MongoManager(this);
 		}
 	}
 
 	public void saveData(){
 		Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "save-all");
 		BasePlugin.getPlugin().getServerHandler().saveServerData(); //Base data
+
 		Bukkit.getOnlinePlayers().forEach(Player::saveData);//Save data
+
 		deathbanManager.saveDeathbanData(); //Deathbans
 		economyManager.saveEconomyData(); //Balance
 		factionManager.saveFactionData(); //Factions
