@@ -1,6 +1,7 @@
 package net.veilmc.hcf.commands;
 
 import net.veilmc.hcf.payloads.Cache;
+import net.veilmc.hcf.payloads.types.Payload;
 import net.veilmc.hcf.payloads.types.RequestPayload;
 import net.veilmc.hcf.utils.StringUtils;
 import net.veilmc.hcf.utils.config.ConfigurationService;
@@ -40,7 +41,9 @@ public class RequestCommand implements CommandExecutor{
 		Cache.addPlayerDelay(player);
 
 		if(ConfigurationService.REDIS_ENABLED){
-			new RequestPayload(player.getName(), player.getUniqueId(), reason).send();
+			Payload payload = new RequestPayload(player.getName(), player.getUniqueId(), reason);
+			payload.send();
+			Cache.addPayload(payload);
 			return true;
 		}
 

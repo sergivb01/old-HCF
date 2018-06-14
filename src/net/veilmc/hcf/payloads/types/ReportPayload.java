@@ -33,12 +33,12 @@ public class ReportPayload extends Payload{
 	}
 
 	public void fromDocument(Document document){
+		this.uuid = (UUID) document.get("uuid");
 		this.reporterName = document.getString("reporterName");
 		this.reporterUUID = (UUID) document.get("reporterUUID");
 		this.reportedName = document.getString("reportedName");
 		this.reportedUUID = (UUID) document.get("reportedUUID");
 		this.reason = document.getString("reason");
-		this.uuid = (UUID) document.get("uuid");
 	}
 
 	public Document toDocument(){

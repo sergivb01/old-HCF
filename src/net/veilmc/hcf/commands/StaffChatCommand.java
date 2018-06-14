@@ -4,6 +4,7 @@ import net.veilmc.base.BasePlugin;
 import net.veilmc.base.command.BaseCommand;
 import net.veilmc.base.user.ServerParticipator;
 import net.veilmc.hcf.payloads.Cache;
+import net.veilmc.hcf.payloads.types.Payload;
 import net.veilmc.hcf.payloads.types.StaffChatPayload;
 import net.veilmc.hcf.utils.StringUtils;
 import org.bukkit.Bukkit;
@@ -35,7 +36,9 @@ public class StaffChatCommand implements CommandExecutor{
 		}else{
 			Player targetPlayer = Bukkit.getPlayerExact(args[0]);
 			if(!BaseCommand.canSee(sender, targetPlayer) || !sender.hasPermission("command.staffchat.others")){
-				Cache.addPayload(new StaffChatPayload(participator.getUniqueId(), participator.getName(), StringUtils.join(args)));
+				Payload payload = new StaffChatPayload(participator.getUniqueId(), participator.getName(), StringUtils.join(args));
+				payload.send();
+				Cache.addPayload(payload);
 				return true;
 			}
 			target = BasePlugin.getPlugin().getUserManager().getUser(targetPlayer.getUniqueId());

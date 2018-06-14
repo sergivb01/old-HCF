@@ -3,6 +3,7 @@ package net.veilmc.hcf.listeners;
 import net.veilmc.base.BasePlugin;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.payloads.Cache;
+import net.veilmc.hcf.payloads.types.Payload;
 import net.veilmc.hcf.payloads.types.ServerSwitchPayload;
 import net.veilmc.hcf.payloads.types.StaffChatPayload;
 import org.bukkit.Bukkit;
@@ -23,7 +24,9 @@ public class PayloadsListener implements Listener{
 	public void onPlayerJoin(PlayerJoinEvent event){
 		Player player = event.getPlayer();
 		if(player.hasPermission("hcf.utils.staff")){
-			Cache.addPayload(new ServerSwitchPayload(player.getUniqueId(), player.getName(), "joined"));
+			Payload payload = new ServerSwitchPayload(player.getUniqueId(), player.getName(), "joined");
+			payload.send();
+			Cache.addPayload(payload);
 		}
 	}
 
@@ -31,7 +34,9 @@ public class PayloadsListener implements Listener{
 	public void onPlayerQuit(PlayerQuitEvent event){
 		Player player = event.getPlayer();
 		if(player.hasPermission("hcf.utils.staff")){
-			Cache.addPayload(new ServerSwitchPayload(player.getUniqueId(), player.getName(), "left"));
+			Payload payload = new ServerSwitchPayload(player.getUniqueId(), player.getName(), "left");
+			payload.send();
+			Cache.addPayload(payload);
 		}
 	}
 
@@ -41,7 +46,9 @@ public class PayloadsListener implements Listener{
 		Player player = event.getPlayer();
 
 		if(player.hasPermission("hcf.command.staffchat") && BasePlugin.getPlugin().getUserManager().getUser(player.getUniqueId()).isInStaffChat() && !event.getMessage().startsWith("!")){
-			Cache.addPayload(new StaffChatPayload(player.getUniqueId(), player.getName(), event.getMessage()));
+			Payload payload = new StaffChatPayload(player.getUniqueId(), player.getName(), event.getMessage());
+			payload.send();
+			Cache.addPayload(payload);
 			event.setCancelled(true);
 		}
 	}

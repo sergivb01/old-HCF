@@ -9,6 +9,7 @@ import java.util.UUID;
 @Getter
 public class ServerSwitchPayload extends Payload{
 	private UUID uuid;
+
 	private String playerName;
 	private UUID playerUUID;
 	private String status;
@@ -27,7 +28,8 @@ public class ServerSwitchPayload extends Payload{
 
 	@Override
 	public void fromDocument(Document document){
-		this.playerName = document.getString("playername");
+		this.uuid = (UUID) document.get("uuid");
+		this.playerName = document.getString("playerName");
 		this.playerUUID = (UUID) document.get("playerUUID");
 		this.status = document.getString("status");
 	}

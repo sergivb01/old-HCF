@@ -20,6 +20,7 @@ public class PayloadParser{
 
 		payload.fromDocument(document);
 		payload.broadcast();
+		HCF.getInstance().getLogger().info("Recived payload " + payload.toDocument().toJson() + "!");
 
 		if(!server.equalsIgnoreCase(ConfigurationService.SERVER_NAME)){
 			Cache.addPayload(payload);
@@ -28,6 +29,8 @@ public class PayloadParser{
 
 	public static Payload getPayloadFromType(String type){
 		switch(type.toLowerCase()){
+			case "staffchat":
+				return new StaffChatPayload();
 			case "report":
 				return new ReportPayload();
 
@@ -37,8 +40,6 @@ public class PayloadParser{
 			case "serverswitch":
 				return new ServerSwitchPayload();
 
-			case "staffchat":
-				return new StaffChatPayload();
 		}
 		return null;
 	}

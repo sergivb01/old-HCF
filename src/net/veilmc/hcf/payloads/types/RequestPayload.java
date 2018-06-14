@@ -8,6 +8,7 @@ import java.util.UUID;
 
 @Getter public class RequestPayload extends Payload{
 	private UUID uuid;
+
 	private String playerName;
 	private UUID playerUUID;
 	private String reason;
@@ -25,10 +26,10 @@ import java.util.UUID;
 	}
 
 	public void fromDocument(Document document){
+		this.uuid = (UUID) document.get("uuid");
 		this.playerName = document.getString("playerName");
 		this.playerUUID = (UUID) document.get("playerUUID");
 		this.reason = document.getString("reason");
-		this.uuid = (UUID) document.get("uuid");
 	}
 
 	public Document toDocument(){

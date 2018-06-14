@@ -9,6 +9,7 @@ import java.util.UUID;
 @Getter
 public class StaffChatPayload extends Payload{
 	private UUID uuid;
+
 	private UUID playerUUID;
 	private String playerName;
 	private String message;

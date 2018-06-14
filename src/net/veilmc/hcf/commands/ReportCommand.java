@@ -1,6 +1,7 @@
 package net.veilmc.hcf.commands;
 
 import net.veilmc.hcf.payloads.Cache;
+import net.veilmc.hcf.payloads.types.Payload;
 import net.veilmc.hcf.payloads.types.ReportPayload;
 import net.veilmc.hcf.utils.StringUtils;
 import net.veilmc.hcf.utils.config.ConfigurationService;
@@ -50,7 +51,9 @@ public class ReportCommand implements CommandExecutor{
 		Cache.addPlayerDelay(player);
 
 		if(ConfigurationService.REDIS_ENABLED){
-			new ReportPayload(player.getName(), player.getUniqueId(), target.getName(), target.getUniqueId(), reason).send();
+			Payload payload = new ReportPayload(player.getName(), player.getUniqueId(), target.getName(), target.getUniqueId(), reason);
+			payload.send();
+			Cache.addPayload(payload);
 			return true;
 		}
 
