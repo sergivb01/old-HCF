@@ -77,6 +77,7 @@ public class PayloadsListener implements Listener{
 					.forEach(p -> p.sendMessage(ChatColor.translateAlternateColorCodes('&',
 							"&5[StaffChat] &d" + player.getName() + "&7: " + event.getMessage()
 					)));
+			event.setCancelled(true);
 		}
 	}
 
