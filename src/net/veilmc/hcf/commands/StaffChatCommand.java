@@ -7,11 +7,15 @@ import net.veilmc.hcf.payloads.Cache;
 import net.veilmc.hcf.payloads.types.Payload;
 import net.veilmc.hcf.payloads.types.StaffChatPayload;
 import net.veilmc.hcf.utils.StringUtils;
+import net.veilmc.hcf.utils.config.ConfigurationService;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.stream.Collectors;
 
 import static org.bukkit.ChatColor.GREEN;
 import static org.bukkit.ChatColor.RED;
@@ -36,10 +40,17 @@ public class StaffChatCommand implements CommandExecutor{
 		}else{
 			Player targetPlayer = Bukkit.getPlayerExact(args[0]);
 			if(!BaseCommand.canSee(sender, targetPlayer) || !sender.hasPermission("command.staffchat.others")){
-				Payload payload = new StaffChatPayload(participator.getUniqueId(), participator.getName(), StringUtils.join(args));
-				payload.send();
-				Cache.addPayload(payload);
-				return true;
+				if(ConfigurationService.REDIS_ENABLED){
+					Payload payload = new StaffChatPayload(participator.getUniqueId(), participator.getName(), StringUtils.join(args));
+					payload.send();
+					Cache.addPayload(payload);
+					return true;
+				}
+
+				Bukkit.getOnlinePlayers().stream().filter(p -> p.hasPermission("hcf.command.staffchat")).collect(Collectors.toList())
+						.forEach(p -> p.sendMessage(ChatColor.translateAlternateColorCodes('&',
+								"&5[StaffChat] &d" + participator.getName() + "&7: " + StringUtils.join(args)
+						)));
 			}
 			target = BasePlugin.getPlugin().getUserManager().getUser(targetPlayer.getUniqueId());
 		}
