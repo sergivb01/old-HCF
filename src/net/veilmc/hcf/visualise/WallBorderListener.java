@@ -6,6 +6,7 @@ import net.veilmc.hcf.faction.type.ClaimableFaction;
 import net.veilmc.hcf.faction.type.Faction;
 import net.veilmc.hcf.faction.type.RoadFaction;
 import net.veilmc.util.cuboid.Cuboid;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -34,6 +35,7 @@ public class WallBorderListener implements Listener{
 		super();
 		this.wallBorderTask = new HashMap<>();
 		this.plugin = plugin;
+		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)

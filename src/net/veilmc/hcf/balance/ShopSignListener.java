@@ -5,6 +5,7 @@ import net.veilmc.base.BasePlugin;
 import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.utils.Crowbar;
 import net.veilmc.util.InventoryUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -35,6 +36,7 @@ public class ShopSignListener implements Listener{
 
 	public ShopSignListener(final HCF plugin){
 		this.plugin = plugin;
+		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
 
 	@EventHandler(ignoreCancelled = false, priority = EventPriority.HIGH)

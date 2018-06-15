@@ -7,6 +7,7 @@ import net.veilmc.hcf.user.FactionUser;
 import net.veilmc.hcf.utils.config.ConfigurationService;
 import net.veilmc.util.BukkitUtils;
 import org.apache.commons.lang3.time.DurationFormatUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -34,6 +35,7 @@ public class DeathbanListener
 	public DeathbanListener(HCF plugin){
 		this.plugin = plugin;
 		this.lastAttemptedJoinMap = CacheBuilder.newBuilder().expireAfterWrite(LIFE_USE_DELAY_MILLIS, TimeUnit.MILLISECONDS).build().asMap();
+		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

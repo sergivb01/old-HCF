@@ -28,6 +28,7 @@ public class CombatLogListener
 
 	public CombatLogListener(HCF plugin){
 		this.plugin = plugin;
+		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
 
 	public static void safelyDisconnect(Player player, String reason){
@@ -39,7 +40,7 @@ public class CombatLogListener
 	public static void removeCombatLoggers(){
 		Iterator<CombatLogEntry> iterator = LOGGERS.values().iterator();
 		while(iterator.hasNext()){
-			CombatLogEntry entry = (CombatLogEntry) iterator.next();
+			CombatLogEntry entry = iterator.next();
 			entry.task.cancel();
 			entry.loggerEntity.getBukkitEntity().remove();
 			iterator.remove();
@@ -50,7 +51,7 @@ public class CombatLogListener
 	public static void removeCombatLogger(OfflinePlayer player){
 		//Iterator<CombatLogEntry> iterator = player.getUniqueId();
 
-		CombatLogEntry entry = (CombatLogEntry) LOGGERS.get(player.getUniqueId());
+		CombatLogEntry entry = LOGGERS.get(player.getUniqueId());
 		entry.task.cancel();
 		entry.loggerEntity.getBukkitEntity().remove();
 	}
@@ -73,7 +74,7 @@ public class CombatLogListener
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onLoggerDeath(LoggerDeathEvent event){
-		CombatLogEntry entry = (CombatLogEntry) LOGGERS.remove(event.getLoggerEntity().getPlayerUUID());
+		CombatLogEntry entry = LOGGERS.remove(event.getLoggerEntity().getPlayerUUID());
 		if(entry != null){
 			entry.task.cancel();
 		}
@@ -81,7 +82,7 @@ public class CombatLogListener
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
 	public void onPlayerSpawnLocation(PlayerSpawnLocationEvent event){
-		CombatLogEntry combatLogEntry = (CombatLogEntry) LOGGERS.remove(event.getPlayer().getUniqueId());
+		CombatLogEntry combatLogEntry = LOGGERS.remove(event.getPlayer().getUniqueId());
 		if(combatLogEntry != null){
 			CraftLivingEntity loggerEntity = combatLogEntry.loggerEntity.getBukkitEntity();
 			Player player = event.getPlayer();

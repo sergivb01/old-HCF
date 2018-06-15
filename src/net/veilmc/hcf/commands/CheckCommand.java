@@ -27,6 +27,7 @@ public class CheckCommand implements Listener, CommandExecutor{
 
 	public CheckCommand(HCF plugin){
 		this.plugin = plugin;
+		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
 
 	private static Inventory getBanMenu(final OfflinePlayer target){

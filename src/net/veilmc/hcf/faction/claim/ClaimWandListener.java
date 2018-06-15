@@ -5,6 +5,7 @@ import net.veilmc.hcf.HCF;
 import net.veilmc.hcf.faction.type.PlayerFaction;
 import net.veilmc.hcf.visualise.VisualBlock;
 import net.veilmc.hcf.visualise.VisualType;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -33,6 +34,7 @@ public class ClaimWandListener
 
 	public ClaimWandListener(HCF plugin){
 		this.plugin = plugin;
+		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
 
 	@EventHandler(ignoreCancelled = false, priority = EventPriority.HIGH)
