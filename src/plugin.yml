@@ -1,4 +1,4 @@
-name: HCF
+name: Rhino-HCF
 version: DEV
 main: net.veilmc.hcf.HCF
 softdepend: [ProtocolLib]

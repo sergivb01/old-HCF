@@ -14,7 +14,7 @@ public class FFACommand
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
 		for(Player p : Bukkit.getOnlinePlayers()){
-			if(p.hasPermission("rank.staff")){
+			if(p.hasPermission("hcf.utils.staff")){
 				p.sendMessage(ChatColor.RED + "Players have been given the FFA potion effects.");
 			}else{
 				p.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 999999, 1));

@@ -88,7 +88,6 @@ import java.util.stream.Collectors;
 @Getter
 public class HCF extends JavaPlugin implements PluginMessageListener{
 	public static final Joiner SPACE_JOINER = Joiner.on(' ');
-	public static final Joiner COMMA_JOINER = Joiner.on(", ");
 	public static final long HOUR = TimeUnit.HOURS.toMillis(1);
 	private static final long MINUTE = TimeUnit.MINUTES.toMillis(1);
 	public static Permission permission = null;
@@ -134,11 +133,12 @@ public class HCF extends JavaPlugin implements PluginMessageListener{
 
 	@Override
 	public void onEnable(){
-		if(!setupChat()){
+		if(!setupVault()){
 			getLogger().severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
 			getServer().getPluginManager().disablePlugin(this);
 			return;
 		}
+
 		plugin = this;
 
 		cbUser = new ArrayList<>();
@@ -172,11 +172,9 @@ public class HCF extends JavaPlugin implements PluginMessageListener{
 
 		initDatabases();
 
-		Bukkit.getConsoleSender().sendMessage("");
-		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&7----------------[&3*'&bOpulent&3'*]----------------"));
-		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&7| - &bVersion: &f" + HCF.getPlugin().getDescription().getVersion()));
-		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&7| - &bVault: &fHooked"));
-		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&7------------------[&3*'&bHCF&3'*]------------------"));
+		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&d[Rhino] &7| - &bVersion: &f" + HCF.getPlugin().getDescription().getVersion()));
+		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&d[Rhino] &7| - &bVault: &fHooked"));
+		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&d[Rhino] &4NOTE: &cUnauthorised use of this plugin will mean your HWID and version of the plugin will be disabled, along with any other plugins associated with this plugin."));
 
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new DonorBroadcastRunnable(), 20L, 600 * 20L);
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new AutoSaveRunnable(), 300 * 20L, 900 * 20L);
@@ -184,7 +182,6 @@ public class HCF extends JavaPlugin implements PluginMessageListener{
 		if(ConfigurationService.REDIS_ENABLED){
 			Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new StatusPayloadRunnable(), 10L, 5 * 20L);
 		}
-
 	}
 
 	private void initDatabases(){
@@ -451,7 +448,7 @@ public class HCF extends JavaPlugin implements PluginMessageListener{
 	}
 
 
-	private boolean setupChat(){
+	private boolean setupVault(){
 		if(getServer().getPluginManager().getPlugin("Vault") == null){
 			getLogger().severe("DB: Vault plugin = null");
 			return false;

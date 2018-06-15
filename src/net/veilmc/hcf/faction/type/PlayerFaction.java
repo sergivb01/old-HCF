@@ -544,7 +544,7 @@ public class PlayerFaction
 			sender.sendMessage(ChatColor.YELLOW + " Total Kills: " + ChatColor.WHITE + combinedKills1);
 		}else{
 			sender.sendMessage(ChatColor.YELLOW + " Balance: " + ChatColor.WHITE + '$' + this.balance + ChatColor.YELLOW + ", " + "Total Kills: " + ChatColor.WHITE + combinedKills1 + ChatColor.WHITE + " kills");
-			if(!(sender.hasPermission("rank.staff"))){
+			if(!(sender.hasPermission("hcf.utils.staff"))){
 				sender.sendMessage(ChatColor.YELLOW + " Deaths until Raidable: " + this.getDtrColour() + JavaUtils.format(getDeathsUntilRaidable(false)) + ChatColor.GRAY + "/" + this.getMaximumDeathsUntilRaidable() + this.getRegenStatus().getSymbol());
 			}else{
 				Text dtr = new Text(ChatColor.YELLOW + " Deaths until Raidable: " + this.getDtrColour() + JavaUtils.format(getDeathsUntilRaidable(false)) + ChatColor.GRAY + "/" + this.getMaximumDeathsUntilRaidable() + this.getRegenStatus().getSymbol() + ChatColor.GRAY + " (");
@@ -558,7 +558,7 @@ public class PlayerFaction
 		}
 
 		if(dtrRegenRemaining > 0L){
-			if(sender.hasPermission("rank.staff")){
+			if(sender.hasPermission("hcf.utils.staff")){
 				Text beforeRegen = new Text(ChatColor.YELLOW + " Time until Regen: " + ChatColor.LIGHT_PURPLE + DurationFormatUtils.formatDurationWords(dtrRegenRemaining, true, true) + " ");
 				Text regen = new Text(ChatColor.GRAY + "(Remove)");
 				regen.setHoverText(ChatColor.GRAY + "Click to remove regen delay.");
