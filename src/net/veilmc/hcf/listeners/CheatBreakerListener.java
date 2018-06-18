@@ -1,17 +1,15 @@
 package net.veilmc.hcf.listeners;
 
 import net.veilmc.hcf.HCF;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 
 public class CheatBreakerListener implements PluginMessageListener{
 
 	public CheatBreakerListener(HCF plugin){
-		Bukkit.getPluginManager().registerEvents(this, plugin);
+//		Bukkit.getPluginManager().registerEvents(this, plugin);
 	}
 
 	@EventHandler
