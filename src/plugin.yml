@@ -1,6 +1,6 @@
-name: HCF
+name: Rhino-HCF
 version: DEV
-main: net.veilmc.hcf.HCF
+main: com.sergivb01.hcf.HCF
 softdepend: [ProtocolLib]
 commands:
   report:
