@@ -28,7 +28,7 @@ public class PayloadParser{
 		Cache.addPayload(payload);
 	}
 
-	public static Payload getPayloadFromType(String type){
+	private static Payload getPayloadFromType(String type){
 		switch(type.toLowerCase()){
 			case "status":
 				return new StatusPayload();
