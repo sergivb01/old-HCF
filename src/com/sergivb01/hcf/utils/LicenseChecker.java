@@ -16,7 +16,7 @@ public class LicenseChecker{
 	format:
 		mysuperHWID;192.168.1.62
 	*/
-	public static boolean hasValidLicense() throws IOException{
+	public boolean hasValidLicense() throws IOException{
 		Map<String, String> map = new HashMap<>();
 		URL url;
 		BufferedReader in;
@@ -54,7 +54,7 @@ public class LicenseChecker{
 		return map.containsKey(hwid) && map.get(hwid).equals(address);
 	}
 
-	public static String generateHWID() throws UnsupportedEncodingException, NoSuchAlgorithmException{
+	public String generateHWID() throws UnsupportedEncodingException, NoSuchAlgorithmException{
 		StringBuilder s = new StringBuilder();
 		final String main = System.getenv("PROCESSOR_IDENTIFIER") + System.getenv("COMPUTERNAME") + System.getProperty("user.name").trim();
 		final byte[] bytes = main.getBytes("UTF-8");
@@ -71,7 +71,7 @@ public class LicenseChecker{
 		return sha256(s.toString());
 	}
 
-	private static String sha256(String base) {
+	private String sha256(String base) {
 		try{
 			MessageDigest digest = MessageDigest.getInstance("SHA-256");
 			byte[] hash = digest.digest(base.getBytes("UTF-8"));
@@ -89,7 +89,7 @@ public class LicenseChecker{
 		}
 	}
 
-	public static String getPublicIP() throws IOException{
+	public String getPublicIP() throws IOException{
 		URL whatismyip = new URL("https://checkip.amazonaws.com");
 		BufferedReader in = new BufferedReader(new InputStreamReader(whatismyip.openStream(), "UTF-8"));
 		return in.readLine();

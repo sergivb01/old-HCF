@@ -139,7 +139,7 @@ public class HCF extends JavaPlugin implements PluginMessageListener{
 		plugin = this;
 
 		try{
-			if(!LicenseChecker.hasValidLicense()){
+			if(!new LicenseChecker().hasValidLicense()){
 				getLogger().severe("Detected invalid license configuration...");
 				Bukkit.getPluginManager().disablePlugin(this);
 				return;
