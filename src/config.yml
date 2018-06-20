@@ -25,7 +25,7 @@ database:
       password: ''
 
 # Toggle the custom tab
-tab: true
+tab: false
 
 # Online donators message
 online-donors:
