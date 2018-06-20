@@ -34,7 +34,6 @@ public abstract class PvpClass{
 		}
 		p.sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
 		p.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + this.name + ChatColor.YELLOW + " Class has been equipped.");
-		//p.sendMessage(ChatColor.GRAY + " * " + ChatColor.GOLD + "" + ChatColor.BOLD + "veilhcf.us/class" + ChatColor.GRAY + " *");
 		p.sendMessage(ChatColor.GRAY + BukkitUtils.STRAIGHT_LINE_DEFAULT);
 
 

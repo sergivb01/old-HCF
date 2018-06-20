@@ -59,7 +59,6 @@ public class DeathListener implements Listener{
 		if(playerFaction != null && !ConfigurationService.KIT_MAP){
 			Faction factionAt = this.plugin.getFactionManager().getFactionAt(player.getLocation());
 			Role role = playerFaction.getMember(player.getUniqueId()).getRole();
-			long regen = ConfigurationService.VEILZ_REGEN;
 			if(playerFaction.getDeathsUntilRaidable() >= -5.0D){
 				playerFaction.setDeathsUntilRaidable(playerFaction.getDeathsUntilRaidable() - factionAt.getDtrLossMultiplier());
 

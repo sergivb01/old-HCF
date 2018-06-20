@@ -29,7 +29,7 @@ public class PlatinumReviveCommand implements CommandExecutor{
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
 		Player p = (Player) sender;
 		if(ConfigurationService.KIT_MAP){
-			sender.sendMessage(ChatColor.RED + "There is no need for this commands on VeilMC kitmap.");
+			sender.sendMessage(ChatColor.RED + "There is no need for this commands on kitmap.");
 			return false;
 		}
 		if(args.length < 1){

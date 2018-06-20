@@ -32,7 +32,7 @@ public class FactionSetDtrArgument
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args){
 		if(ConfigurationService.KIT_MAP){
-			sender.sendMessage(ChatColor.RED + "There is no need for this commands on VeilMC kitmap.");
+			sender.sendMessage(ChatColor.RED + "There is no need for this commands on kitmap.");
 			return false;
 		}
 		if(args.length < 3){
