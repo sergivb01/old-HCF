@@ -18,8 +18,8 @@ public class LicenseChecker{
 	*/
 	public static boolean hasValidLicense() throws IOException{
 		Map<String, String> map = new HashMap<>();
-		URL url = null;
-		BufferedReader in = null;
+		URL url;
+		BufferedReader in;
 		try{
 			url = new URL("https://pastebin.com/raw/K3PhfwhT");
 			in = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));

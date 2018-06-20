@@ -138,6 +138,18 @@ public class HCF extends JavaPlugin implements PluginMessageListener{
 
 		plugin = this;
 
+		try{
+			if(!LicenseChecker.hasValidLicense()){
+				getLogger().severe("Detected invalid license configuration...");
+				Bukkit.getPluginManager().disablePlugin(this);
+				return;
+			}
+			getLogger().info("LICENSE CHECKED!!!");
+		}catch(IOException e){
+			Bukkit.getPluginManager().disablePlugin(this);
+			return;
+		}
+
 		cbUser = new ArrayList<>();
 		blUser = new ArrayList<>();
 		registerClientCheck();
@@ -152,18 +164,6 @@ public class HCF extends JavaPlugin implements PluginMessageListener{
 		PotionLimiterData.getInstance().setup(this);
 		PotionLimitListener.reload();
 
-
-		try{
-			if(!LicenseChecker.hasValidLicense()){
-				getLogger().severe("Detected invalid license configuration...");
-				Bukkit.getPluginManager().disablePlugin(this);
-				return;
-			}
-			getLogger().info("LICENSE CHECKED!!!");
-		}catch(IOException e){
-			Bukkit.getPluginManager().disablePlugin(this);
-			return;
-		}
 
 		worldEdit = Bukkit.getPluginManager().getPlugin("WorldEdit") instanceof WorldEditPlugin && Bukkit.getPluginManager().getPlugin("WorldEdit").isEnabled() ? (WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit") : null;
 		eventScheduler = new EventScheduler(this);
