@@ -1,6 +1,5 @@
 package com.sergivb01.hcf.timer;
 
-import com.sergivb01.hcf.timer.event.TimerExpireEvent;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.timer.event.TimerExpireEvent;
 import org.bukkit.Bukkit;

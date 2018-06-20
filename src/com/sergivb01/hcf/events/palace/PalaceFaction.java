@@ -1,10 +1,6 @@
 package com.sergivb01.hcf.events.palace;
 
 import com.google.common.collect.ImmutableList;
-import com.sergivb01.hcf.events.faction.CapturableFaction;
-import com.sergivb01.hcf.faction.claim.Claim;
-import com.sergivb01.hcf.faction.type.ClaimableFaction;
-import com.sergivb01.hcf.faction.type.PlayerFaction;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.events.CaptureZone;
 import com.sergivb01.hcf.events.EventType;

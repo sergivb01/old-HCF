@@ -9,7 +9,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 public class ClientAPI implements Listener{
 
 	@EventHandler
-	public void onQuit(PlayerQuitEvent event) {
+	public void onQuit(PlayerQuitEvent event){
 		Player player = event.getPlayer();
 		HCF.cbUser.remove(player.getUniqueId());
 		HCF.blUser.remove(player.getUniqueId());

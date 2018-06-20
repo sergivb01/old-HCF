@@ -10,7 +10,7 @@ public class StringUtils{
 		StringBuilder ret = new StringBuilder();
 		for(int i = start; i < args.length; i++){
 			ret.append(args[i])
-				.append(" ");
+					.append(" ");
 		}
 		return ret.toString();
 	}

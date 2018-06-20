@@ -1,6 +1,5 @@
 package com.sergivb01.hcf.commands;
 
-import com.sergivb01.hcf.utils.StringUtils;
 import com.sergivb01.hcf.payloads.Cache;
 import com.sergivb01.hcf.payloads.types.Payload;
 import com.sergivb01.hcf.payloads.types.ReportPayload;

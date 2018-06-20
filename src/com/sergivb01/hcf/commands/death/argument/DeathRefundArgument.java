@@ -1,10 +1,9 @@
 package com.sergivb01.hcf.commands.death.argument;
 
-import com.sergivb01.hcf.listeners.DeathListener;
-import net.md_5.bungee.api.ChatColor;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.listeners.DeathListener;
 import com.sergivb01.util.command.CommandArgument;
+import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;

@@ -1,12 +1,11 @@
 package com.sergivb01.hcf.classes.bard;
 
-import com.sergivb01.hcf.faction.type.PlayerFaction;
-import net.minecraft.util.gnu.trove.map.TObjectLongMap;
-import net.minecraft.util.gnu.trove.map.hash.TObjectLongHashMap;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.classes.PvpClass;
 import com.sergivb01.hcf.faction.type.PlayerFaction;
 import com.sergivb01.util.chat.Lang;
+import net.minecraft.util.gnu.trove.map.TObjectLongMap;
+import net.minecraft.util.gnu.trove.map.hash.TObjectLongHashMap;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;

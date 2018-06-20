@@ -1,6 +1,7 @@
 package com.sergivb01.hcf;
 
 import com.google.common.base.Joiner;
+import com.sergivb01.base.BasePlugin;
 import com.sergivb01.hcf.balance.*;
 import com.sergivb01.hcf.classes.PvpClassManager;
 import com.sergivb01.hcf.classes.archer.ArcherClass;
@@ -68,69 +69,6 @@ import lombok.Getter;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
-import com.sergivb01.base.BasePlugin;
-import com.sergivb01.hcf.balance.*;
-import com.sergivb01.hcf.classes.PvpClassManager;
-import com.sergivb01.hcf.classes.archer.ArcherClass;
-import com.sergivb01.hcf.combatlog.CombatLogListener;
-import com.sergivb01.hcf.combatlog.CustomEntityRegistration;
-import com.sergivb01.hcf.commands.*;
-import com.sergivb01.hcf.commands.crate.KeyListener;
-import com.sergivb01.hcf.commands.crate.KeyManager;
-import com.sergivb01.hcf.commands.crate.LootExecutor;
-import com.sergivb01.hcf.commands.death.DeathExecutor;
-import com.sergivb01.hcf.commands.lives.LivesExecutor;
-import com.sergivb01.hcf.commands.spawn.SpawnCommand;
-import com.sergivb01.hcf.commands.spawn.TokenExecutor;
-import com.sergivb01.hcf.database.mongo.MongoManager;
-import com.sergivb01.hcf.database.redis.RedisManager;
-import com.sergivb01.hcf.deathban.Deathban;
-import com.sergivb01.hcf.deathban.DeathbanListener;
-import com.sergivb01.hcf.deathban.DeathbanManager;
-import com.sergivb01.hcf.deathban.FlatFileDeathbanManager;
-import com.sergivb01.hcf.events.CaptureZone;
-import com.sergivb01.hcf.events.EventExecutor;
-import com.sergivb01.hcf.events.EventScheduler;
-import com.sergivb01.hcf.events.conquest.ConquestExecutor;
-import com.sergivb01.hcf.events.eotw.EOTWHandler;
-import com.sergivb01.hcf.events.eotw.EotwCommand;
-import com.sergivb01.hcf.events.eotw.EotwListener;
-import com.sergivb01.hcf.events.faction.CapturableFaction;
-import com.sergivb01.hcf.events.faction.ConquestFaction;
-import com.sergivb01.hcf.events.faction.KothFaction;
-import com.sergivb01.hcf.events.koth.KothExecutor;
-import com.sergivb01.hcf.faction.FactionExecutor;
-import com.sergivb01.hcf.faction.FactionManager;
-import com.sergivb01.hcf.faction.FactionMember;
-import com.sergivb01.hcf.faction.FlatFileFactionManager;
-import com.sergivb01.hcf.faction.claim.Claim;
-import com.sergivb01.hcf.faction.claim.ClaimHandler;
-import com.sergivb01.hcf.faction.claim.ClaimWandListener;
-import com.sergivb01.hcf.faction.claim.Subclaim;
-import com.sergivb01.hcf.faction.type.*;
-import com.sergivb01.hcf.listeners.*;
-import com.sergivb01.hcf.listeners.fixes.*;
-import com.sergivb01.hcf.payloads.types.Payload;
-import com.sergivb01.hcf.payloads.types.StatusPayload;
-import com.sergivb01.hcf.scoreboard.ScoreboardHandler;
-import com.sergivb01.hcf.tab.PlayerTab;
-import com.sergivb01.hcf.timer.TimerExecutor;
-import com.sergivb01.hcf.timer.TimerManager;
-import com.sergivb01.hcf.timer.type.SotwTimer;
-import com.sergivb01.hcf.user.FactionUser;
-import com.sergivb01.hcf.user.UserManager;
-import com.sergivb01.hcf.utils.ClientAPI;
-import com.sergivb01.hcf.utils.Cooldowns;
-import com.sergivb01.hcf.utils.DateTimeFormats;
-import com.sergivb01.hcf.utils.Message;
-import com.sergivb01.hcf.utils.config.ConfigurationService;
-import com.sergivb01.hcf.utils.config.PotionLimiterData;
-import com.sergivb01.hcf.utils.runnables.AutoSaveRunnable;
-import com.sergivb01.hcf.utils.runnables.DonorBroadcastRunnable;
-import com.sergivb01.hcf.utils.runnables.StatusPayloadRunnable;
-import com.sergivb01.hcf.visualise.ProtocolLibHook;
-import com.sergivb01.hcf.visualise.VisualiseHandler;
-import com.sergivb01.hcf.visualise.WallBorderListener;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.PluginCommand;
@@ -146,7 +84,6 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-
 @Getter
 public class HCF extends JavaPlugin implements PluginMessageListener{
 	public static final Joiner SPACE_JOINER = Joiner.on(' ');
@@ -155,6 +92,8 @@ public class HCF extends JavaPlugin implements PluginMessageListener{
 	public static Permission permission = null;
 	public static Chat chat = null;
 	public static Economy econ = null;
+	public static List<UUID> cbUser;
+	public static List<UUID> blUser;
 	private static HCF plugin;
 	private Message message;
 	private WorldEditPlugin worldEdit;
@@ -171,8 +110,6 @@ public class HCF extends JavaPlugin implements PluginMessageListener{
 	private UserManager userManager;
 	private VisualiseHandler visualiseHandler;
 	private EventScheduler eventScheduler;
-	public static List<UUID> cbUser;
-	public static List<UUID> blUser;
 
 	public static String getRemaining(long millis, boolean milliseconds){
 		return HCF.getRemaining(millis, milliseconds, true);
@@ -293,7 +230,7 @@ public class HCF extends JavaPlugin implements PluginMessageListener{
 		timerManager.disable();
 	}
 
-	private void registerClientCheck() {
+	private void registerClientCheck(){
 		Bukkit.getPluginManager().registerEvents(new ClientAPI(), this);
 		this.getServer().getMessenger().registerIncomingPluginChannel(this, "CB|INIT", this);
 		this.getServer().getMessenger().registerIncomingPluginChannel(this, "CB-Binary", this);
@@ -481,12 +418,12 @@ public class HCF extends JavaPlugin implements PluginMessageListener{
 	}
 
 	@Override
-	public void onPluginMessageReceived(String channel, Player player, byte[] arg2) {
+	public void onPluginMessageReceived(String channel, Player player, byte[] arg2){
 		boolean cb = channel.equals("CB|INIT") || channel.equals("CB-Binary");
 		boolean bl = channel.equals("BLC|M");
 
-		if (!cbUser.contains(player.getUniqueId())) {
-			if (cb) {
+		if(!cbUser.contains(player.getUniqueId())){
+			if(cb){
 				cbUser.add(player.getUniqueId());
 				player.sendMessage(" ");
 				player.sendMessage(ChatColor.GREEN + "Cheatbreaker has been detected!");
@@ -494,8 +431,8 @@ public class HCF extends JavaPlugin implements PluginMessageListener{
 				player.sendMessage(" ");
 			}
 		}
-		if (!blUser.contains(player.getUniqueId())) {
-			if (bl) {
+		if(!blUser.contains(player.getUniqueId())){
+			if(bl){
 				cbUser.add(player.getUniqueId());
 				player.sendMessage(" ");
 				player.sendMessage(ChatColor.GREEN + "BL Client has been detected!");

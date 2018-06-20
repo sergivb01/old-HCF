@@ -1,10 +1,10 @@
 package com.sergivb01.hcf.classes.type;
 
+import com.sergivb01.hcf.HCF;
+import com.sergivb01.hcf.classes.PvpClass;
 import net.minecraft.util.gnu.trove.map.TObjectLongMap;
 import net.minecraft.util.gnu.trove.map.hash.TObjectLongHashMap;
 import net.minecraft.util.org.apache.commons.lang3.time.DurationFormatUtils;
-import com.sergivb01.hcf.HCF;
-import com.sergivb01.hcf.classes.PvpClass;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;

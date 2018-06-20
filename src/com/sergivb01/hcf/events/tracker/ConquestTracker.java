@@ -2,9 +2,6 @@ package com.sergivb01.hcf.events.tracker;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Ordering;
-import com.sergivb01.hcf.faction.event.FactionRemoveEvent;
-import com.sergivb01.hcf.faction.type.Faction;
-import com.sergivb01.hcf.faction.type.PlayerFaction;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.events.CaptureZone;
 import com.sergivb01.hcf.events.EventTimer;

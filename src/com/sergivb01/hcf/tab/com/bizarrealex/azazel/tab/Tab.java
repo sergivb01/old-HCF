@@ -1,11 +1,11 @@
 package com.sergivb01.hcf.tab.com.bizarrealex.azazel.tab;
 
+import com.sergivb01.hcf.tab.com.bizarrealex.azazel.Azazel;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.server.v1_7_R4.Packet;
 import net.minecraft.server.v1_7_R4.PacketPlayOutPlayerInfo;
 import net.minecraft.util.com.mojang.authlib.GameProfile;
-import com.sergivb01.hcf.tab.com.bizarrealex.azazel.Azazel;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

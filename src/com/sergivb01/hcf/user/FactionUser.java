@@ -2,7 +2,6 @@ package com.sergivb01.hcf.user;
 
 import com.google.common.collect.Maps;
 import com.sergivb01.hcf.deathban.Deathban;
-import com.sergivb01.hcf.deathban.Deathban;
 import com.sergivb01.util.GenericUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;

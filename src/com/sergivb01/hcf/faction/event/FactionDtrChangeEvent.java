@@ -1,7 +1,6 @@
 package com.sergivb01.hcf.faction.event;
 
 import com.sergivb01.hcf.faction.struct.Raidable;
-import com.sergivb01.hcf.faction.struct.Raidable;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;

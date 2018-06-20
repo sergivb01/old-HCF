@@ -1,13 +1,12 @@
 package com.sergivb01.hcf.events.argument;
 
-import com.sergivb01.hcf.faction.type.Faction;
-import com.sk89q.worldedit.bukkit.WorldEditPlugin;
-import com.sk89q.worldedit.bukkit.selections.Selection;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.events.faction.EventFaction;
 import com.sergivb01.hcf.faction.type.Faction;
 import com.sergivb01.util.command.CommandArgument;
 import com.sergivb01.util.cuboid.Cuboid;
+import com.sk89q.worldedit.bukkit.WorldEditPlugin;
+import com.sk89q.worldedit.bukkit.selections.Selection;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

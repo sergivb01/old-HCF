@@ -171,7 +171,6 @@ public final class ConfigurationService{
 		REDIS_PASSWORD = config.getString("database.redis.auth.password");
 
 
-
 		TEAMSPEAK_IP = config.getString("server-info.teamspeak");
 
 		WARZONE_RADIUS = config.getInt("warzone");

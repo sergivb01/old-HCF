@@ -1,7 +1,5 @@
 package com.sergivb01.hcf.faction;
 
-import com.sergivb01.hcf.faction.argument.*;
-import com.sergivb01.hcf.faction.argument.staff.*;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.faction.argument.*;
 import com.sergivb01.hcf.faction.argument.staff.*;

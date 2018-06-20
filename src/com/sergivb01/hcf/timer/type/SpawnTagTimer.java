@@ -1,13 +1,6 @@
 package com.sergivb01.hcf.timer.type;
 
 import com.google.common.base.Optional;
-import com.sergivb01.hcf.faction.event.PlayerClaimEnterEvent;
-import com.sergivb01.hcf.faction.event.PlayerJoinFactionEvent;
-import com.sergivb01.hcf.faction.event.PlayerLeaveFactionEvent;
-import com.sergivb01.hcf.timer.event.TimerClearEvent;
-import com.sergivb01.hcf.timer.event.TimerStartEvent;
-import com.sergivb01.hcf.utils.config.ConfigurationService;
-import com.sergivb01.hcf.visualise.VisualType;
 import com.sergivb01.base.kit.event.KitApplyEvent;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.faction.event.PlayerClaimEnterEvent;

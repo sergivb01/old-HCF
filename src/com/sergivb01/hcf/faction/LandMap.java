@@ -1,10 +1,5 @@
 package com.sergivb01.hcf.faction;
 
-import com.sergivb01.hcf.faction.claim.Claim;
-import com.sergivb01.hcf.faction.type.Faction;
-import com.sergivb01.hcf.faction.type.PlayerFaction;
-import com.sergivb01.hcf.visualise.VisualBlockData;
-import com.sergivb01.hcf.visualise.VisualType;
 import com.sergivb01.base.BasePlugin;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.faction.claim.Claim;

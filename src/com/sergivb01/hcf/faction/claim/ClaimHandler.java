@@ -1,9 +1,6 @@
 package com.sergivb01.hcf.faction.claim;
 
 import com.google.common.base.Preconditions;
-import com.sergivb01.hcf.faction.struct.Role;
-import com.sergivb01.hcf.visualise.VisualType;
-import net.minecraft.util.com.google.common.cache.CacheBuilder;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.faction.FactionManager;
 import com.sergivb01.hcf.faction.struct.Role;
@@ -12,6 +9,7 @@ import com.sergivb01.hcf.utils.config.ConfigurationService;
 import com.sergivb01.hcf.visualise.VisualType;
 import com.sergivb01.util.ItemBuilder;
 import com.sergivb01.util.cuboid.Cuboid;
+import net.minecraft.util.com.google.common.cache.CacheBuilder;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;

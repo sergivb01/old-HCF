@@ -1,9 +1,5 @@
 package com.sergivb01.hcf.events.koth;
 
-import com.sergivb01.hcf.events.koth.argument.KothNextArgument;
-import com.sergivb01.hcf.events.koth.argument.KothScheduleArgument;
-import com.sergivb01.hcf.events.koth.argument.KothSetCapDelayArgument;
-import com.sergivb01.hcf.events.koth.argument.KothShowArgument;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.events.koth.argument.KothNextArgument;
 import com.sergivb01.hcf.events.koth.argument.KothScheduleArgument;

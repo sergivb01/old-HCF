@@ -1,6 +1,5 @@
 package com.sergivb01.hcf.faction.event;
 
-import com.sergivb01.hcf.faction.struct.ChatChannel;
 import com.sergivb01.hcf.faction.FactionMember;
 import com.sergivb01.hcf.faction.struct.ChatChannel;
 import com.sergivb01.hcf.faction.type.PlayerFaction;

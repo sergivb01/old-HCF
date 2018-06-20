@@ -1,7 +1,5 @@
 package com.sergivb01.hcf.events.palace;
 
-import com.sergivb01.hcf.events.faction.EventFaction;
-import com.sergivb01.hcf.events.tracker.EventTracker;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.events.CaptureZone;
 import com.sergivb01.hcf.events.EventTimer;

@@ -1,11 +1,5 @@
 package com.sergivb01.hcf.tab;
 
-import com.sergivb01.hcf.tab.com.bizarrealex.azazel.Azazel;
-import com.sergivb01.hcf.tab.com.bizarrealex.azazel.tab.TabAdapter;
-import com.sergivb01.hcf.tab.com.bizarrealex.azazel.tab.TabTemplate;
-import com.sergivb01.hcf.tab.tabs.StaffTab;
-import com.sergivb01.hcf.user.TabStyles;
-import com.sergivb01.hcf.user.UserManager;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.tab.com.bizarrealex.azazel.Azazel;
 import com.sergivb01.hcf.tab.com.bizarrealex.azazel.tab.TabAdapter;
@@ -21,11 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerTab implements TabAdapter, Listener{
+	public static List<Player> clean = new ArrayList<>();
 	private HCF plugin;
 	private Azazel azazel;
 	private StaffTab staffTab;
 	private UserManager userManager;
-	public static List<Player> clean = new ArrayList<>();
 
 	public PlayerTab(HCF plugin){
 		this.plugin = plugin;
@@ -61,7 +55,6 @@ public class PlayerTab implements TabAdapter, Listener{
 		tabTemplate.left(15, "(x, y) [NE]");
 
 
-
 		tabTemplate.middle(0, "&3&lHCFactions");
 		tabTemplate.middle(2, "Online: &b" + Bukkit.getOnlinePlayers().size());
 
@@ -89,7 +82,6 @@ public class PlayerTab implements TabAdapter, Listener{
 
 		tabTemplate.right(13, "&3&lCurrent Event&7:");
 		tabTemplate.right(14, "&bSky Koth &f(500, -500)");
-
 
 
 		tabTemplate.farRight(9, "&cFor an optimal experience");

@@ -1,15 +1,5 @@
 package com.sergivb01.hcf.events.palace;
 
-import com.sergivb01.hcf.events.faction.CapturableFaction;
-import com.sergivb01.hcf.events.faction.ConquestFaction;
-import com.sergivb01.hcf.events.faction.EventFaction;
-import com.sergivb01.hcf.events.tracker.ConquestTracker;
-import com.sergivb01.hcf.faction.FactionManager;
-import com.sergivb01.hcf.faction.claim.Claim;
-import com.sergivb01.hcf.faction.type.Faction;
-import com.sk89q.worldedit.bukkit.WorldEditPlugin;
-import com.sk89q.worldedit.bukkit.selections.Selection;
-import net.minecraft.util.org.apache.commons.lang3.StringUtils;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.events.CaptureZone;
 import com.sergivb01.hcf.events.faction.CapturableFaction;
@@ -21,6 +11,9 @@ import com.sergivb01.hcf.faction.claim.Claim;
 import com.sergivb01.hcf.faction.type.Faction;
 import com.sergivb01.hcf.utils.config.ConfigurationService;
 import com.sergivb01.util.command.CommandArgument;
+import com.sk89q.worldedit.bukkit.WorldEditPlugin;
+import com.sk89q.worldedit.bukkit.selections.Selection;
+import net.minecraft.util.org.apache.commons.lang3.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.command.Command;

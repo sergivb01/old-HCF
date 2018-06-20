@@ -1,7 +1,6 @@
 package com.sergivb01.hcf.faction.type;
 
 import com.sergivb01.hcf.faction.claim.Claim;
-import com.sergivb01.hcf.faction.claim.Claim;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;

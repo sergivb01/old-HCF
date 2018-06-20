@@ -1,9 +1,5 @@
 package com.sergivb01.hcf.events.eotw;
 
-import com.sergivb01.hcf.faction.claim.Claim;
-import com.sergivb01.hcf.faction.type.ClaimableFaction;
-import com.sergivb01.hcf.faction.type.Faction;
-import com.sergivb01.hcf.listeners.BorderListener;
 import com.sergivb01.base.BasePlugin;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.faction.claim.Claim;

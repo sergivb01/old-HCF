@@ -1,8 +1,6 @@
 package com.sergivb01.hcf.events.conquest;
 
 import com.google.common.primitives.Ints;
-import com.sergivb01.hcf.faction.type.Faction;
-import com.sergivb01.hcf.faction.type.PlayerFaction;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.events.EventType;
 import com.sergivb01.hcf.events.tracker.ConquestTracker;

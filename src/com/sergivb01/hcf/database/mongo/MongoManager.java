@@ -5,14 +5,12 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Indexes;
-import com.sergivb01.hcf.faction.FactionMember;
-import com.sergivb01.hcf.faction.type.PlayerFaction;
-import lombok.Getter;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.faction.FactionMember;
 import com.sergivb01.hcf.faction.type.PlayerFaction;
 import com.sergivb01.hcf.user.FactionUser;
 import com.sergivb01.hcf.utils.config.ConfigurationService;
+import lombok.Getter;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bukkit.Bukkit;
@@ -23,12 +21,12 @@ import java.util.Map;
 
 @Getter
 public class MongoManager{
-	private HCF plugin;
-	private MongoClient mongoClient;
 	private static MongoDatabase mongoDatabase;
 	private static MongoCollection<Document> payloads;
 	private static MongoCollection<Document> playerProfiles;
 	private static MongoCollection<Document> factionProfiles;
+	private HCF plugin;
+	private MongoClient mongoClient;
 
 	public MongoManager(HCF plugin){
 		this.plugin = plugin;
@@ -95,7 +93,7 @@ public class MongoManager{
 					new Document(
 							"role", factionMember.getRole().toString()
 					).append("uuid", factionMember.getUniqueId())
-					.append("online", player != null && player.isOnline())
+							.append("online", player != null && player.isOnline())
 			);
 		}
 

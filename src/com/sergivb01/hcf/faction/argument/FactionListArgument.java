@@ -1,12 +1,12 @@
 package com.sergivb01.hcf.faction.argument;
 
 import com.google.common.primitives.Ints;
-import net.md_5.bungee.api.chat.*;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.faction.type.PlayerFaction;
 import com.sergivb01.util.BukkitUtils;
 import com.sergivb01.util.MapSorting;
 import com.sergivb01.util.command.CommandArgument;
+import net.md_5.bungee.api.chat.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;

@@ -1,14 +1,12 @@
 package com.sergivb01.hcf.timer.type;
 
-import com.sergivb01.hcf.classes.PvpClass;
-import com.sergivb01.hcf.utils.config.ConfigurationService;
-import net.minecraft.util.com.google.common.cache.CacheBuilder;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.classes.PvpClass;
 import com.sergivb01.hcf.timer.PlayerTimer;
 import com.sergivb01.hcf.timer.TimerRunnable;
 import com.sergivb01.hcf.utils.config.ConfigurationService;
 import com.sergivb01.util.Config;
+import net.minecraft.util.com.google.common.cache.CacheBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.HumanEntity;

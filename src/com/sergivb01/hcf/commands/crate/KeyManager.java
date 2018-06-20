@@ -3,7 +3,6 @@ package com.sergivb01.hcf.commands.crate;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Sets;
 import com.google.common.collect.Table;
-import com.sergivb01.hcf.commands.crate.type.*;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.commands.crate.type.*;
 import com.sergivb01.util.Config;

@@ -1,7 +1,6 @@
 package com.sergivb01.hcf.faction.event;
 
 import com.sergivb01.hcf.faction.struct.Relation;
-import com.sergivb01.hcf.faction.struct.Relation;
 import com.sergivb01.hcf.faction.type.PlayerFaction;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;

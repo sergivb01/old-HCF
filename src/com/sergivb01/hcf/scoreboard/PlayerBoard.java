@@ -1,11 +1,11 @@
 package com.sergivb01.hcf.scoreboard;
 
-import net.minecraft.server.v1_7_R4.PacketPlayOutPlayerInfo;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.classes.archer.ArcherClass;
 import com.sergivb01.hcf.faction.struct.Relation;
 import com.sergivb01.hcf.faction.type.PlayerFaction;
 import com.sergivb01.hcf.utils.config.ConfigurationService;
+import net.minecraft.server.v1_7_R4.PacketPlayOutPlayerInfo;
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
 import org.bukkit.entity.Player;

@@ -2,10 +2,6 @@ package com.sergivb01.hcf.events;
 
 import com.google.common.collect.ImmutableBiMap;
 import com.google.common.collect.ImmutableMap;
-import com.sergivb01.hcf.events.palace.PalaceTracker;
-import com.sergivb01.hcf.events.tracker.ConquestTracker;
-import com.sergivb01.hcf.events.tracker.EventTracker;
-import com.sergivb01.hcf.events.tracker.KothTracker;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.events.palace.PalaceTracker;
 import com.sergivb01.hcf.events.tracker.ConquestTracker;

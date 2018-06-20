@@ -2,7 +2,6 @@ package com.sergivb01.hcf.timer;
 
 import com.google.common.base.Optional;
 import com.sergivb01.hcf.timer.event.*;
-import com.sergivb01.hcf.timer.event.*;
 import com.sergivb01.util.Config;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.MemorySection;

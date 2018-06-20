@@ -1,6 +1,5 @@
 package com.sergivb01.hcf.commands;
 
-import com.sergivb01.hcf.utils.StringUtils;
 import com.sergivb01.base.BasePlugin;
 import com.sergivb01.base.command.BaseCommand;
 import com.sergivb01.base.user.ServerParticipator;

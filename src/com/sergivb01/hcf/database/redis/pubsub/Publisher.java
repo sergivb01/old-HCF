@@ -1,7 +1,7 @@
 package com.sergivb01.hcf.database.redis.pubsub;
 
-import lombok.Getter;
 import com.sergivb01.hcf.utils.config.ConfigurationService;
+import lombok.Getter;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;

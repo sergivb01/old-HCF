@@ -1,6 +1,5 @@
 package com.sergivb01.hcf.events.argument;
 
-import com.sergivb01.hcf.faction.type.Faction;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.events.faction.EventFaction;
 import com.sergivb01.hcf.faction.type.Faction;

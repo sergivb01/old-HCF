@@ -1,7 +1,5 @@
 package com.sergivb01.hcf.events.koth.argument;
 
-import com.sergivb01.hcf.events.faction.KothFaction;
-import com.sergivb01.hcf.faction.type.Faction;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.events.CaptureZone;
 import com.sergivb01.hcf.events.faction.KothFaction;

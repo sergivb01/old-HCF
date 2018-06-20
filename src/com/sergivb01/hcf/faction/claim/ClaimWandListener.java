@@ -1,8 +1,6 @@
 package com.sergivb01.hcf.faction.claim;
 
 import com.google.common.base.Predicate;
-import com.sergivb01.hcf.visualise.VisualBlock;
-import com.sergivb01.hcf.visualise.VisualType;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.faction.type.PlayerFaction;
 import com.sergivb01.hcf.visualise.VisualBlock;

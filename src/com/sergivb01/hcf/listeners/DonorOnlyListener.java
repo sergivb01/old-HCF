@@ -1,8 +1,8 @@
 package com.sergivb01.hcf.listeners;
 
-import net.md_5.bungee.api.ChatColor;
 import com.sergivb01.base.BasePlugin;
 import com.sergivb01.hcf.HCF;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

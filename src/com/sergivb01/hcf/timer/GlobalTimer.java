@@ -3,9 +3,6 @@ package com.sergivb01.hcf.timer;
 import com.sergivb01.hcf.timer.event.TimerExtendEvent;
 import com.sergivb01.hcf.timer.event.TimerPauseEvent;
 import com.sergivb01.hcf.timer.event.TimerStartEvent;
-import com.sergivb01.hcf.timer.event.TimerExtendEvent;
-import com.sergivb01.hcf.timer.event.TimerPauseEvent;
-import com.sergivb01.hcf.timer.event.TimerStartEvent;
 import org.bukkit.Bukkit;
 
 public abstract class GlobalTimer extends Timer{

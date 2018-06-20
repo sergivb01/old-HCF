@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.server.v1_7_R4.EntityPlayer;
 import net.minecraft.server.v1_7_R4.PacketPlayOutPlayerInfo;
-import com.sergivb01.hcf.tab.com.bizarrealex.azazel.tab.Tab;
-import com.sergivb01.hcf.tab.com.bizarrealex.azazel.tab.TabAdapter;
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
 import org.bukkit.entity.Player;

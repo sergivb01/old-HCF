@@ -1,8 +1,8 @@
 package com.sergivb01.hcf.listeners.fixes;
 
-import net.md_5.bungee.api.ChatColor;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.utils.config.PotionLimiterData;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.BrewingStand;
@@ -19,9 +19,9 @@ import org.bukkit.projectiles.ProjectileSource;
 import java.util.List;
 
 public class PotionLimitListener implements Listener{
-	private HCF plugin;
 	private static List<Short> disabledPotions;
 	private static PotionLimiterData limiter;
+	private HCF plugin;
 
 	public PotionLimitListener(HCF plugin){
 		this.plugin = plugin;

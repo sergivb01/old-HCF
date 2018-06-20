@@ -11,8 +11,8 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 public abstract class Payload{
-	private String type;
 	String server;
+	private String type;
 
 	public Payload(String type){
 		this.type = type;

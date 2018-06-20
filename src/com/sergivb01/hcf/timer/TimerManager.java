@@ -1,7 +1,5 @@
 package com.sergivb01.hcf.timer;
 
-import com.sergivb01.hcf.events.EventTimer;
-import com.sergivb01.hcf.timer.type.*;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.events.EventTimer;
 import com.sergivb01.hcf.timer.type.*;

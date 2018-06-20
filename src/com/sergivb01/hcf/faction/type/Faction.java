@@ -2,8 +2,6 @@ package com.sergivb01.hcf.faction.type;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
-import com.sergivb01.hcf.faction.event.FactionRenameEvent;
-import com.sergivb01.hcf.faction.struct.Relation;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.faction.event.FactionRenameEvent;
 import com.sergivb01.hcf.faction.struct.Relation;

@@ -1,10 +1,9 @@
 package com.sergivb01.hcf.database.redis.pubsub;
 
-import com.sergivb01.hcf.payloads.PayloadParser;
-import lombok.Getter;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.payloads.PayloadParser;
 import com.sergivb01.hcf.utils.config.ConfigurationService;
+import lombok.Getter;
 import org.bson.Document;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPubSub;
@@ -13,7 +12,8 @@ import java.util.Arrays;
 
 public class Subscriber{
 	private HCF instance;
-	@Getter private JedisPubSub jedisPubSub;
+	@Getter
+	private JedisPubSub jedisPubSub;
 	private Jedis jedis;
 
 	public Subscriber(HCF instance){

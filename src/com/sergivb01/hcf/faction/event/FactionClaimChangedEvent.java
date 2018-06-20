@@ -1,6 +1,5 @@
 package com.sergivb01.hcf.faction.event;
 
-import com.sergivb01.hcf.faction.event.cause.ClaimChangeCause;
 import com.sergivb01.hcf.faction.claim.Claim;
 import com.sergivb01.hcf.faction.event.cause.ClaimChangeCause;
 import org.bukkit.command.CommandSender;

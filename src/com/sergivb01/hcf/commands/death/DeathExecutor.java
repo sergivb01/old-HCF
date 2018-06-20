@@ -1,8 +1,5 @@
 package com.sergivb01.hcf.commands.death;
 
-import com.sergivb01.hcf.commands.death.argument.DeathInfoArgument;
-import com.sergivb01.hcf.commands.death.argument.DeathRefundArgument;
-import com.sergivb01.hcf.commands.death.argument.DeathReviveArgument;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.commands.death.argument.DeathInfoArgument;
 import com.sergivb01.hcf.commands.death.argument.DeathRefundArgument;

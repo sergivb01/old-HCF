@@ -1,7 +1,7 @@
 package com.sergivb01.hcf.payloads.types;
 
-import lombok.Getter;
 import com.sergivb01.hcf.utils.config.ConfigurationService;
+import lombok.Getter;
 import org.bson.Document;
 import org.bukkit.Bukkit;
 
@@ -15,8 +15,8 @@ public class StatusPayload extends Payload{
 	private int online;
 	private int max;
 	private boolean whitelist,
-		donor,
-		up;
+			donor,
+			up;
 	private Map<String, UUID> staff;
 
 	public StatusPayload(){
@@ -61,12 +61,12 @@ public class StatusPayload extends Payload{
 		Bukkit.broadcastMessage(this.toDocument().toJson());
 	}
 
-	public void setServer(String server){
-		this.server = server;
-	}
-
 	public String getServer(){
 		return this.server;
+	}
+
+	public void setServer(String server){
+		this.server = server;
 	}
 
 }

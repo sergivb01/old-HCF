@@ -1,7 +1,5 @@
 package com.sergivb01.hcf.events;
 
-import com.sergivb01.hcf.events.argument.*;
-import com.sergivb01.hcf.events.palace.EventSetCapzone;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.events.argument.*;
 import com.sergivb01.hcf.events.palace.EventSetCapzone;

@@ -1,12 +1,12 @@
 package com.sergivb01.hcf.deathban;
 
-import net.minecraft.util.gnu.trove.map.TObjectIntMap;
-import net.minecraft.util.gnu.trove.map.hash.TObjectIntHashMap;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.faction.type.Faction;
 import com.sergivb01.hcf.utils.config.ConfigurationService;
 import com.sergivb01.util.Config;
 import com.sergivb01.util.PersistableLocation;
+import net.minecraft.util.gnu.trove.map.TObjectIntMap;
+import net.minecraft.util.gnu.trove.map.hash.TObjectIntHashMap;
 import org.bukkit.Location;
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.entity.Player;

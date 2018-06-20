@@ -1,8 +1,5 @@
 package com.sergivb01.hcf.events.faction;
 
-import com.sergivb01.hcf.faction.claim.Claim;
-import com.sergivb01.hcf.faction.type.ClaimableFaction;
-import com.sergivb01.hcf.faction.type.Faction;
 import com.sergivb01.hcf.events.CaptureZone;
 import com.sergivb01.hcf.events.EventType;
 import com.sergivb01.hcf.faction.claim.Claim;

@@ -2,10 +2,6 @@ package com.sergivb01.hcf.faction.type;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
-import com.sergivb01.hcf.faction.claim.Claim;
-import com.sergivb01.hcf.faction.event.FactionClaimChangeEvent;
-import com.sergivb01.hcf.faction.event.FactionClaimChangedEvent;
-import com.sergivb01.hcf.faction.event.cause.ClaimChangeCause;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.faction.claim.Claim;
 import com.sergivb01.hcf.faction.event.FactionClaimChangeEvent;

@@ -1,10 +1,10 @@
 package com.sergivb01.hcf.listeners.fixes;
 
 import com.google.common.collect.ImmutableMap;
-import me.sergivb01.event.PrepareAnvilRepairEvent;
-import net.minecraft.server.v1_7_R4.*;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.utils.config.ConfigurationService;
+import me.sergivb01.event.PrepareAnvilRepairEvent;
+import net.minecraft.server.v1_7_R4.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -33,12 +33,12 @@ public class EnchantLimitListener implements Listener{
 	private ImmutableMap<Material, EnumArmorMaterial> ITEM_ARMOUR_MAPPING =
 			(ImmutableMap.of(Material.IRON_INGOT, EnumArmorMaterial.IRON, Material.GOLD_INGOT, EnumArmorMaterial.GOLD, Material.DIAMOND, EnumArmorMaterial.DIAMOND));
 
-	public int getMaxLevel(Enchantment enchant){
-		return ConfigurationService.ENCHANTMENT_LIMITS.getOrDefault(enchant, enchant.getMaxLevel());
-	}
-
 	public EnchantLimitListener(HCF plugin){
 		Bukkit.getPluginManager().registerEvents(this, plugin);
+	}
+
+	public int getMaxLevel(Enchantment enchant){
+		return ConfigurationService.ENCHANTMENT_LIMITS.getOrDefault(enchant, enchant.getMaxLevel());
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

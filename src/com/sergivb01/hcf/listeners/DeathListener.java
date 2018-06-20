@@ -1,8 +1,5 @@
 package com.sergivb01.hcf.listeners;
 
-import net.minecraft.server.v1_7_R4.EntityLightning;
-import net.minecraft.server.v1_7_R4.PacketPlayOutSpawnEntityWeather;
-import net.minecraft.server.v1_7_R4.WorldServer;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.faction.struct.Role;
 import com.sergivb01.hcf.faction.type.Faction;
@@ -10,6 +7,9 @@ import com.sergivb01.hcf.faction.type.PlayerFaction;
 import com.sergivb01.hcf.user.FactionUser;
 import com.sergivb01.hcf.utils.config.ConfigurationService;
 import com.sergivb01.util.JavaUtils;
+import net.minecraft.server.v1_7_R4.EntityLightning;
+import net.minecraft.server.v1_7_R4.PacketPlayOutSpawnEntityWeather;
+import net.minecraft.server.v1_7_R4.WorldServer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;

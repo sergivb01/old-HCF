@@ -15,7 +15,6 @@ public class StaffTab{
 		}
 
 
-
 		tabTemplate.middle(0, "&3&lHCFactions");
 		tabTemplate.middle(2, "Online: &b" + Bukkit.getOnlinePlayers().size());
 
@@ -24,7 +23,6 @@ public class StaffTab{
 		tabTemplate.middle(6, "Kits: &b156 &7(8)");
 		tabTemplate.middle(7, "SevensHCF: &b360 &7(4)");
 		tabTemplate.middle(8, "SoloHCF: &b78 &7(2)");
-
 
 
 		tabTemplate.right(4, "&3&lRequests&7:");

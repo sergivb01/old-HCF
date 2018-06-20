@@ -1,6 +1,5 @@
 package com.sergivb01.hcf.timer.argument;
 
-import com.sergivb01.hcf.utils.UUIDFetcher;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.timer.PlayerTimer;
 import com.sergivb01.hcf.timer.Timer;

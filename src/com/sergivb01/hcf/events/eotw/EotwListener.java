@@ -1,9 +1,5 @@
 package com.sergivb01.hcf.events.eotw;
 
-import com.sergivb01.hcf.faction.event.FactionClaimChangeEvent;
-import com.sergivb01.hcf.faction.event.cause.ClaimChangeCause;
-import com.sergivb01.hcf.faction.type.ClaimableFaction;
-import com.sergivb01.hcf.faction.type.PlayerFaction;
 import com.sergivb01.base.kit.event.KitApplyEvent;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.faction.event.FactionClaimChangeEvent;

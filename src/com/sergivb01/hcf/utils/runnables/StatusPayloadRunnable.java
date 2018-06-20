@@ -1,7 +1,5 @@
 package com.sergivb01.hcf.utils.runnables;
 
-import com.sergivb01.hcf.payloads.types.Payload;
-import com.sergivb01.hcf.payloads.types.StatusPayload;
 import com.sergivb01.base.BasePlugin;
 import com.sergivb01.hcf.payloads.types.Payload;
 import com.sergivb01.hcf.payloads.types.StatusPayload;

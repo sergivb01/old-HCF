@@ -1,7 +1,7 @@
 package com.sergivb01.hcf.commands;
 
-import litebans.api.Database;
 import com.sergivb01.hcf.HCF;
+import litebans.api.Database;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

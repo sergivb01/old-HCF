@@ -1,20 +1,6 @@
 package com.sergivb01.hcf.timer.type;
 
 import com.google.common.base.Optional;
-import com.sergivb01.hcf.faction.claim.Claim;
-import com.sergivb01.hcf.faction.event.FactionClaimChangedEvent;
-import com.sergivb01.hcf.faction.event.PlayerClaimEnterEvent;
-import com.sergivb01.hcf.faction.event.cause.ClaimChangeCause;
-import com.sergivb01.hcf.faction.type.ClaimableFaction;
-import com.sergivb01.hcf.faction.type.Faction;
-import com.sergivb01.hcf.faction.type.PlayerFaction;
-import com.sergivb01.hcf.faction.type.RoadFaction;
-import com.sergivb01.hcf.timer.event.TimerClearEvent;
-import com.sergivb01.hcf.timer.event.TimerStartEvent;
-import com.sergivb01.hcf.utils.DurationFormatter;
-import com.sergivb01.hcf.utils.config.ConfigurationService;
-import com.sergivb01.hcf.visualise.VisualType;
-import net.minecraft.util.com.google.common.cache.CacheBuilder;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.faction.claim.Claim;
 import com.sergivb01.hcf.faction.event.FactionClaimChangedEvent;
@@ -33,6 +19,7 @@ import com.sergivb01.hcf.utils.config.ConfigurationService;
 import com.sergivb01.hcf.visualise.VisualType;
 import com.sergivb01.util.BukkitUtils;
 import com.sergivb01.util.Config;
+import net.minecraft.util.com.google.common.cache.CacheBuilder;
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

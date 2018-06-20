@@ -1,8 +1,8 @@
 package com.sergivb01.hcf.listeners;
 
 import com.google.common.base.Preconditions;
-import net.minecraft.server.v1_7_R4.EntityLiving;
 import com.sergivb01.hcf.HCF;
+import net.minecraft.server.v1_7_R4.EntityLiving;
 import org.apache.commons.lang3.text.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

@@ -1,8 +1,8 @@
 package com.sergivb01.hcf.balance;
 
+import com.sergivb01.util.Config;
 import net.minecraft.util.gnu.trove.map.TObjectIntMap;
 import net.minecraft.util.gnu.trove.map.hash.TObjectIntHashMap;
-import com.sergivb01.util.Config;
 import org.bukkit.configuration.MemorySection;
 import org.bukkit.plugin.java.JavaPlugin;
 

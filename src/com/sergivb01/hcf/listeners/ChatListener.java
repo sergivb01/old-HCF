@@ -1,11 +1,11 @@
 package com.sergivb01.hcf.listeners;
 
-import net.minecraft.util.com.google.common.cache.CacheBuilder;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.faction.event.FactionChatEvent;
 import com.sergivb01.hcf.faction.struct.ChatChannel;
 import com.sergivb01.hcf.faction.type.PlayerFaction;
 import com.sergivb01.hcf.utils.config.ConfigurationService;
+import net.minecraft.util.com.google.common.cache.CacheBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

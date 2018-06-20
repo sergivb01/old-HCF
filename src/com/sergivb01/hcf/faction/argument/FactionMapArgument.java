@@ -1,7 +1,6 @@
 package com.sergivb01.hcf.faction.argument;
 
 import com.google.common.base.Enums;
-import com.sergivb01.hcf.visualise.VisualType;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.faction.LandMap;
 import com.sergivb01.hcf.user.FactionUser;

@@ -1,9 +1,6 @@
 package com.sergivb01.hcf.scoreboard;
 
 import com.google.common.base.Optional;
-import me.sergivb01.event.PotionEffectAddEvent;
-import me.sergivb01.event.PotionEffectRemoveEvent;
-import net.minecraft.server.v1_7_R4.PacketPlayOutPlayerInfo;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.faction.event.FactionRelationCreateEvent;
 import com.sergivb01.hcf.faction.event.FactionRelationRemoveEvent;
@@ -11,6 +8,9 @@ import com.sergivb01.hcf.faction.event.PlayerJoinedFactionEvent;
 import com.sergivb01.hcf.faction.event.PlayerLeftFactionEvent;
 import com.sergivb01.hcf.faction.type.PlayerFaction;
 import com.sergivb01.hcf.scoreboard.provider.TimerSidebarProvider;
+import me.sergivb01.event.PotionEffectAddEvent;
+import me.sergivb01.event.PotionEffectRemoveEvent;
+import net.minecraft.server.v1_7_R4.PacketPlayOutPlayerInfo;
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_7_R4.entity.CraftPlayer;
 import org.bukkit.entity.Player;

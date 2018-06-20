@@ -2,9 +2,9 @@ package com.sergivb01.hcf.listeners.fixes;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
-import net.minecraft.util.com.google.common.cache.CacheBuilder;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.util.BukkitUtils;
+import net.minecraft.util.com.google.common.cache.CacheBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

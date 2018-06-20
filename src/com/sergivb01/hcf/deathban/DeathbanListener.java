@@ -1,11 +1,11 @@
 package com.sergivb01.hcf.deathban;
 
-import net.minecraft.util.com.google.common.cache.CacheBuilder;
 import com.sergivb01.base.BasePlugin;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.user.FactionUser;
 import com.sergivb01.hcf.utils.config.ConfigurationService;
 import com.sergivb01.util.BukkitUtils;
+import net.minecraft.util.com.google.common.cache.CacheBuilder;
 import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;

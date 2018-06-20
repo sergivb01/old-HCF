@@ -1,11 +1,11 @@
 package com.sergivb01.hcf.listeners;
 
-import net.minecraft.util.org.apache.commons.lang3.StringUtils;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.faction.struct.Role;
 import com.sergivb01.hcf.faction.type.Faction;
 import com.sergivb01.hcf.faction.type.PlayerFaction;
 import com.sergivb01.hcf.utils.config.ConfigurationService;
+import net.minecraft.util.org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;

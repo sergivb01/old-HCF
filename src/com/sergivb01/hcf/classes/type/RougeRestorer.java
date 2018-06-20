@@ -2,11 +2,10 @@ package com.sergivb01.hcf.classes.type;
 
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
-import com.sergivb01.hcf.classes.event.PvpClassUnequipEvent;
-import me.sergivb01.event.PotionEffectExpiresEvent;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.classes.bard.BardClass;
 import com.sergivb01.hcf.classes.event.PvpClassUnequipEvent;
+import me.sergivb01.event.PotionEffectExpiresEvent;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

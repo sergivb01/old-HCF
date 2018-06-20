@@ -1,6 +1,5 @@
 package com.sergivb01.hcf.classes.type;
 
-import com.sergivb01.hcf.classes.event.PvpClassEquipEvent;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.classes.PvpClass;
 import com.sergivb01.hcf.classes.event.PvpClassEquipEvent;

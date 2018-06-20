@@ -1,8 +1,5 @@
 package com.sergivb01.hcf.timer.type;
 
-import com.sergivb01.hcf.classes.archer.ArcherClass;
-import com.sergivb01.hcf.timer.event.TimerExpireEvent;
-import com.sergivb01.hcf.utils.config.ConfigurationService;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.classes.archer.ArcherClass;
 import com.sergivb01.hcf.timer.PlayerTimer;

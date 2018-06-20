@@ -1,13 +1,6 @@
 package com.sergivb01.hcf.faction;
 
 import com.google.common.base.Preconditions;
-import com.sergivb01.hcf.faction.claim.Claim;
-import com.sergivb01.hcf.faction.event.*;
-import com.sergivb01.hcf.faction.event.cause.ClaimChangeCause;
-import com.sergivb01.hcf.faction.struct.ChatChannel;
-import com.sergivb01.hcf.faction.struct.Relation;
-import com.sergivb01.hcf.faction.struct.Role;
-import com.sergivb01.hcf.faction.type.*;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.database.mongo.MongoManager;
 import com.sergivb01.hcf.faction.claim.Claim;
@@ -319,7 +312,7 @@ public class FlatFileFactionManager implements Listener, FactionManager{
 		if(ConfigurationService.MONGO_ENABLED){
 			factionUUIDMap.values().stream()
 					.filter(faction -> faction instanceof PlayerFaction)
-					.map(faction -> (PlayerFaction)faction)
+					.map(faction -> (PlayerFaction) faction)
 					.forEach(MongoManager::saveFaction);
 		}
 		this.config.save();

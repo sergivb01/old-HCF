@@ -1,11 +1,5 @@
 package com.sergivb01.hcf.classes;
 
-import com.sergivb01.hcf.classes.archer.ArcherClass;
-import com.sergivb01.hcf.classes.bard.BardClass;
-import com.sergivb01.hcf.classes.event.PvpClassEquipEvent;
-import com.sergivb01.hcf.classes.event.PvpClassUnequipEvent;
-import com.sergivb01.hcf.classes.type.MinerClass;
-import com.sergivb01.hcf.classes.type.RogueClass;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.classes.archer.ArcherClass;
 import com.sergivb01.hcf.classes.bard.BardClass;

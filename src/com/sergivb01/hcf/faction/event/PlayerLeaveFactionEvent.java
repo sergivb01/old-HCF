@@ -3,7 +3,6 @@ package com.sergivb01.hcf.faction.event;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.sergivb01.hcf.faction.event.cause.FactionLeaveCause;
-import com.sergivb01.hcf.faction.event.cause.FactionLeaveCause;
 import com.sergivb01.hcf.faction.type.PlayerFaction;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

@@ -27,8 +27,8 @@ public class StaffChatPayload extends Payload{
 	}
 
 	public void fromDocument(Document document){
-		this.uuid = (UUID)document.get("uuid");
-		this.playerUUID = (UUID)document.get("playerUUID");
+		this.uuid = (UUID) document.get("uuid");
+		this.playerUUID = (UUID) document.get("playerUUID");
 		this.playerName = document.getString("playerName");
 		this.message = document.getString("message");
 		this.server = document.getString("server");

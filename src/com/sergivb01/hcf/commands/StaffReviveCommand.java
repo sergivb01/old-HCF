@@ -1,6 +1,5 @@
 package com.sergivb01.hcf.commands;
 
-import com.sergivb01.hcf.deathban.Deathban;
 import com.sergivb01.hcf.HCF;
 import com.sergivb01.hcf.deathban.Deathban;
 import com.sergivb01.hcf.user.FactionUser;

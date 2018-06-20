@@ -1,7 +1,7 @@
 package com.sergivb01.hcf.commands;
 
-import net.md_5.bungee.api.ChatColor;
 import com.sergivb01.hcf.utils.config.ConfigurationService;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

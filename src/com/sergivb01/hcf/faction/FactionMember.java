@@ -5,8 +5,6 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 import com.sergivb01.hcf.faction.struct.ChatChannel;
 import com.sergivb01.hcf.faction.struct.Role;
-import com.sergivb01.hcf.faction.struct.ChatChannel;
-import com.sergivb01.hcf.faction.struct.Role;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
