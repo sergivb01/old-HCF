@@ -35,6 +35,7 @@ public class LicenseChecker{
 		}
 		in.close();
 
+		String address = getPublicIP();
 		String hwid;
 		try{
 			hwid = generateHWID();
@@ -42,7 +43,13 @@ public class LicenseChecker{
 			System.out.println("Failed to generate hwid.");
 			return false;
 		}
-		String address = getPublicIP();
+
+		System.out.println("=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#");
+		System.out.println("License checker - Here are your personal details:");
+		System.out.println("Public IP Address: " + address);
+		System.out.println("HWID: " + hwid);
+		System.out.println("Please send this details to a plugin developer to get your plugin version activated.");
+		System.out.println("=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#=#");
 
 		return map.containsKey(hwid) && map.get(hwid).equals(address);
 	}
