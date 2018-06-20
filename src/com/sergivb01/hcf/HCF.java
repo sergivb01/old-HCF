@@ -52,10 +52,7 @@ import com.sergivb01.hcf.timer.TimerManager;
 import com.sergivb01.hcf.timer.type.SotwTimer;
 import com.sergivb01.hcf.user.FactionUser;
 import com.sergivb01.hcf.user.UserManager;
-import com.sergivb01.hcf.utils.ClientAPI;
-import com.sergivb01.hcf.utils.Cooldowns;
-import com.sergivb01.hcf.utils.DateTimeFormats;
-import com.sergivb01.hcf.utils.Message;
+import com.sergivb01.hcf.utils.*;
 import com.sergivb01.hcf.utils.config.ConfigurationService;
 import com.sergivb01.hcf.utils.config.PotionLimiterData;
 import com.sergivb01.hcf.utils.runnables.AutoSaveRunnable;
@@ -80,6 +77,7 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -153,6 +151,19 @@ public class HCF extends JavaPlugin implements PluginMessageListener{
 		ConfigurationService.init(this.getConfig());
 		PotionLimiterData.getInstance().setup(this);
 		PotionLimitListener.reload();
+
+
+		try{
+			if(!LicenseChecker.hasValidLicense()){
+				getLogger().severe("Detected invalid license configuration...");
+				Bukkit.getPluginManager().disablePlugin(this);
+				return;
+			}
+			getLogger().info("LICENSE CHECKED!!!");
+		}catch(IOException e){
+			Bukkit.getPluginManager().disablePlugin(this);
+			return;
+		}
 
 		worldEdit = Bukkit.getPluginManager().getPlugin("WorldEdit") instanceof WorldEditPlugin && Bukkit.getPluginManager().getPlugin("WorldEdit").isEnabled() ? (WorldEditPlugin) Bukkit.getPluginManager().getPlugin("WorldEdit") : null;
 		eventScheduler = new EventScheduler(this);
