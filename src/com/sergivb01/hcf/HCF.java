@@ -90,8 +90,7 @@ public class HCF extends JavaPlugin implements PluginMessageListener{
 	public static Permission permission = null;
 	public static Chat chat = null;
 	public static Economy econ = null;
-	public static List<UUID> cbUser;
-	public static List<UUID> blUser;
+	public List<UUID> cbUser;
 	private static HCF plugin;
 	private Message message;
 	private WorldEditPlugin worldEdit;
@@ -140,18 +139,17 @@ public class HCF extends JavaPlugin implements PluginMessageListener{
 
 		try{
 			if(!new LicenseChecker().hasValidLicense()){
-				getLogger().severe("Detected invalid license configuration...");
+				getLogger().severe(new Object() {int t;public String toString() {byte[] buf = new byte[8];t = 127568161;buf[0] = (byte) (t >>> 9);t = 451302509;buf[1] = (byte) (t >>> 12);t = 1445895453;buf[2] = (byte) (t >>> 6);t = -381473439;buf[3] = (byte) (t >>> 11);t = -1138762984;buf[4] = (byte) (t >>> 3);t = 473569281;buf[5] = (byte) (t >>> 15);t = 1883966633;buf[6] = (byte) (t >>> 5);t = -163509114;buf[7] = (byte) (t >>> 5);return new String(buf);}}.toString());
 				Bukkit.getPluginManager().disablePlugin(this);
 				return;
 			}
-			getLogger().info("LICENSE CHECKED!!!");
+			getLogger().info(new Object() {int t;public String toString() {byte[] buf = new byte[7];t = 1234997544;buf[0] = (byte) (t >>> 21);t = 617298466;buf[1] = (byte) (t >>> 23);t = -1845882633;buf[2] = (byte) (t >>> 6);t = -1439718507;buf[3] = (byte) (t >>> 19);t = -1925520198;buf[4] = (byte) (t >>> 18);t = 238359782;buf[5] = (byte) (t >>> 6);t = 311058284;buf[6] = (byte) (t >>> 17);return new String(buf);}}.toString());
 		}catch(IOException e){
 			Bukkit.getPluginManager().disablePlugin(this);
 			return;
 		}
 
 		cbUser = new ArrayList<>();
-		blUser = new ArrayList<>();
 		registerClientCheck();
 
 		CustomEntityRegistration.registerCustomEntities();
@@ -182,9 +180,8 @@ public class HCF extends JavaPlugin implements PluginMessageListener{
 
 		initDatabases();
 
-		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&d[Rhino] &7| - &bVersion: &f" + HCF.getPlugin().getDescription().getVersion()));
-		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&d[Rhino] &7| - &bVault: &fHooked"));
-		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&d[Rhino] &4NOTE: &cUnauthorised use of this plugin will mean your HWID and version of the plugin will be disabled, along with any other plugins associated with this plugin."));
+		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&d[Rhino-HCF] &7|- Plugin has been enabled"));
+		Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&d[Rhino-HCF] &7|- &bVersion: &f" + HCF.getPlugin().getDescription().getVersion()));
 
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new DonorBroadcastRunnable(), 20L, 600 * 20L);
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new AutoSaveRunnable(), 300 * 20L, 900 * 20L);
@@ -245,7 +242,6 @@ public class HCF extends JavaPlugin implements PluginMessageListener{
 		Bukkit.getPluginManager().registerEvents(new ClientAPI(), this);
 		this.getServer().getMessenger().registerIncomingPluginChannel(this, "CB|INIT", this);
 		this.getServer().getMessenger().registerIncomingPluginChannel(this, "CB-Binary", this);
-		this.getServer().getMessenger().registerIncomingPluginChannel(this, "BLC|M", this);
 	}
 
 	private void registerConfiguration(){
@@ -431,22 +427,12 @@ public class HCF extends JavaPlugin implements PluginMessageListener{
 	@Override
 	public void onPluginMessageReceived(String channel, Player player, byte[] arg2){
 		boolean cb = channel.equals("CB|INIT") || channel.equals("CB-Binary");
-		boolean bl = channel.equals("BLC|M");
 
 		if(!cbUser.contains(player.getUniqueId())){
 			if(cb){
 				cbUser.add(player.getUniqueId());
 				player.sendMessage(" ");
 				player.sendMessage(ChatColor.GREEN + "Cheatbreaker has been detected!");
-				player.sendMessage(ChatColor.GRAY + "Staff will be notified of this if required.");
-				player.sendMessage(" ");
-			}
-		}
-		if(!blUser.contains(player.getUniqueId())){
-			if(bl){
-				cbUser.add(player.getUniqueId());
-				player.sendMessage(" ");
-				player.sendMessage(ChatColor.GREEN + "BL Client has been detected!");
 				player.sendMessage(ChatColor.GRAY + "Staff will be notified of this if required.");
 				player.sendMessage(" ");
 			}
