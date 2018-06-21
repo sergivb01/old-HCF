@@ -90,7 +90,7 @@ public class HCF extends JavaPlugin implements PluginMessageListener{
 	public static Permission permission = null;
 	public static Chat chat = null;
 	public static Economy econ = null;
-	public List<UUID> cbUser;
+	public static List<UUID> cbUser;
 	private static HCF plugin;
 	private Message message;
 	private WorldEditPlugin worldEdit;

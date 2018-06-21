@@ -12,8 +12,6 @@ public class ClientAPI implements Listener{
 	public void onQuit(PlayerQuitEvent event){
 		Player player = event.getPlayer();
 		HCF.cbUser.remove(player.getUniqueId());
-		HCF.blUser.remove(player.getUniqueId());
-
 	}
 }
 
