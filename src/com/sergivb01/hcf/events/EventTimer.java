@@ -22,18 +22,16 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.EnderPearl;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.LeavesDecayEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerKickEvent;
+import org.bukkit.event.player.PlayerPortalEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.projectiles.ProjectileSource;
+import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.time.LocalDateTime;
@@ -253,16 +251,6 @@ public class EventTimer
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void onEnderpearl(final ProjectileLaunchEvent event){
-		ProjectileSource source;
-		EnderPearl enderPearl;
-		Projectile projectile = event.getEntity();
-		if(projectile instanceof EnderPearl && (source = (enderPearl = (EnderPearl) projectile).getShooter()) instanceof Player){
-			this.handleDisconnect((Player) projectile.getShooter());
-		}
-	}
-
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onPlayerDeath(final PlayerDeathEvent event){
 		this.handleDisconnect(event.getEntity());
 	}
@@ -274,6 +262,16 @@ public class EventTimer
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onPlayerKick(final PlayerKickEvent event){
+		this.handleDisconnect(event.getPlayer());
+	}
+
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	public void onPlayerTeleport(final PlayerTeleportEvent event){
+		this.handleDisconnect(event.getPlayer());
+	}
+
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	public void onPlayerPortal(final PlayerPortalEvent event){
 		this.handleDisconnect(event.getPlayer());
 	}
 
