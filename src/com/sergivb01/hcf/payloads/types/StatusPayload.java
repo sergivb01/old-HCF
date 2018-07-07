@@ -3,7 +3,6 @@ package com.sergivb01.hcf.payloads.types;
 import com.sergivb01.hcf.utils.config.ConfigurationService;
 import lombok.Getter;
 import org.bson.Document;
-import org.bukkit.Bukkit;
 
 import java.util.Map;
 import java.util.UUID;
@@ -58,7 +57,7 @@ public class StatusPayload extends Payload{
 	}
 
 	public void broadcast(){
-		Bukkit.broadcastMessage(this.toDocument().toJson());
+		//Bukkit.broadcastMessage(this.toDocument().toJson());
 	}
 
 	public String getServer(){

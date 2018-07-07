@@ -90,6 +90,9 @@ help:
 
 # Configurable messages
 messages:
+  request: "&5[Request] &d%PLAYER% &7has requested help: &d%REASON%"
+  report: "&4[Report] &c%REPORTED%&7 has been reported by &7%REPORTER%&7 for &c%REASON%"
+  staffchat: "&5[StaffChat] &d%PLAYER%&7: %MESSAGE%"
   economy:
     your-balance: '&eYour balance is &d$%BALANCE%'
     others-balance: '&eBalance of &a%PLAYER%&e is &d$%BALANCE%'

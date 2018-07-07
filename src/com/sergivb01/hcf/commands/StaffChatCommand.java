@@ -51,6 +51,13 @@ public class StaffChatCommand implements CommandExecutor{
 						.forEach(p -> p.sendMessage(ChatColor.translateAlternateColorCodes('&',
 								"&5[StaffChat] &d" + participator.getName() + "&7: " + StringUtils.join(args)
 						)));
+
+
+				Bukkit.getOnlinePlayers().stream().filter(p -> p.hasPermission("hcf.utils.staff")).collect(Collectors.toList())
+						.forEach(p -> p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigurationService.STAFFCHAT
+								.replace("%PLAYER%", participator.getName())
+								.replace("%MESSAGE%", StringUtils.join(args))
+						)));
 			}
 			target = BasePlugin.getPlugin().getUserManager().getUser(targetPlayer.getUniqueId());
 		}

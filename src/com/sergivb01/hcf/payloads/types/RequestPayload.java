@@ -1,8 +1,9 @@
 package com.sergivb01.hcf.payloads.types;
 
+import com.sergivb01.hcf.utils.config.ConfigurationService;
 import lombok.Getter;
 import org.bson.Document;
-import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 
 import java.util.UUID;
 
@@ -43,7 +44,11 @@ public class RequestPayload extends Payload{
 	}
 
 	public void broadcast(){
-		Bukkit.broadcastMessage(this.toDocument().toJson());
+		getStaffMembers().forEach(p -> p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigurationService.REQUEST
+				.replace("%PLAYER%",playerName)
+				.replace("%REASON%", reason)
+				.replace("%SERVER%", server)
+		)));
 	}
 
 }

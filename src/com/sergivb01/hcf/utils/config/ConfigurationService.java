@@ -125,6 +125,9 @@ public final class ConfigurationService{
 	public static boolean KIT_MAP;
 	public static boolean DEV;
 
+	public static String REPORT;
+	public static String REQUEST;
+	public static String STAFFCHAT;
 
 	public static boolean TAB;
 	public static boolean DIAMOND_ORE_ALERTS = false;
@@ -168,6 +171,10 @@ public final class ConfigurationService{
 		REDIS_CHANNEL = config.getString("database.redis.channel", "hcf-communicate");
 		REDIS_AUTH = config.getBoolean("database.redis.auth.enabled");
 		REDIS_PASSWORD = config.getString("database.redis.auth.password");
+
+		REPORT = config.getString("messages.report");
+		REQUEST = config.getString("messages.request");
+		STAFFCHAT = config.getString("messages.staffchat");
 
 
 		TEAMSPEAK_IP = config.getString("server-info.teamspeak");

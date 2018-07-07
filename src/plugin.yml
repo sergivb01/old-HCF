@@ -1,5 +1,5 @@
 name: Rhino-HCF
-version: DEV
+version: 1.1
 main: com.sergivb01.hcf.HCF
 softdepend: [ProtocolLib]
 commands:

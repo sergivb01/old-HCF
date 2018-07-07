@@ -48,9 +48,10 @@ public class RequestCommand implements CommandExecutor{
 		}
 
 		Bukkit.getOnlinePlayers().stream().filter(p -> p.hasPermission("hcf.utils.staff")).collect(Collectors.toList())
-				.forEach(p -> p.sendMessage(String.format(ChatColor.translateAlternateColorCodes('&',
-						"&5[Request] &d%s &7has requested help: &d%s"
-				), player.getName(), reason)));
+				.forEach(p -> p.sendMessage(ChatColor.translateAlternateColorCodes('&', ConfigurationService.REQUEST
+						.replace("%PLAYER%", player.getName())
+						.replace("%REASON%", reason)
+				)));
 
 		return true;
 	}

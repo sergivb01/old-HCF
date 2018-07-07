@@ -2,7 +2,6 @@ package com.sergivb01.hcf.payloads.types;
 
 import lombok.Getter;
 import org.bson.Document;
-import org.bukkit.Bukkit;
 
 import java.util.UUID;
 
@@ -45,7 +44,7 @@ public class ServerSwitchPayload extends Payload{
 	}
 
 	public void broadcast(){
-		Bukkit.broadcastMessage(this.toDocument().toJson());
+		//Bukkit.broadcastMessage(this.toDocument().toJson());
 	}
 
 }

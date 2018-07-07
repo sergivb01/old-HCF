@@ -1,6 +1,7 @@
 package com.sergivb01.hcf.commands;
 
 import com.sergivb01.hcf.HCF;
+import com.sergivb01.hcf.user.FactionUser;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -9,14 +10,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class ReclaimCommand
-		implements CommandExecutor{
-
+public class ReclaimCommand implements CommandExecutor{
 	private final HCF plugin;
-	List<String> used = new ArrayList();
 
 	public ReclaimCommand(HCF plugin){
 		this.plugin = plugin;
@@ -27,26 +22,29 @@ public class ReclaimCommand
 		Player p = (Player) sender;
 		FileConfiguration config = HCF.getPlugin().getConfig();
 		String groupName = HCF.permission.getPrimaryGroup(p);
-		String redeemedPlayers = "reclaim.redeemedPlayers.";
 		String groups = "reclaim.groups.";
 
+		FactionUser user = HCF.getPlugin().getUserManager().getUser(p.getUniqueId());
 
 		if(config.getString(groups + groupName) == null){
-			p.sendMessage(ChatColor.RED + "You dont have anything to reclaim!");
+			p.sendMessage(ChatColor.RED + "You don't have anything to reclaim!");
 		}else{
-			if(config.getStringList(redeemedPlayers + groupName) != null){
-				this.used.addAll(config.getStringList(redeemedPlayers + groupName));
-			}
-			if(this.used.contains(p.getName().toLowerCase())){
+			if(user.isReclaimed()){
 				p.sendMessage(ChatColor.RED + "You have already reclaimed your rewards.");
 			}else{
-				this.used.add(p.getName().toLowerCase());
-				config.set(redeemedPlayers + groupName, this.used);
-				HCF.getPlugin().saveConfig();
+				user.setReclaimed(true);
+
 				for(String reclaimCommand : config.getStringList(groups + groupName)){
-					Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), reclaimCommand.replace("{PLAYER}", p.getName()));
+					Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), reclaimCommand
+							.replace("{PLAYER}", p.getName())
+							.replace("{RANK}", groupName)
+					);
 				}
-				Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', config.getString("Message").replace("{PLAYER}", p.getName()).replace("{GROUP}", groupName)));
+
+				Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', config.getString("reclaim.message")
+						.replace("{PLAYER}", p.getName())
+						.replace("{GROUP}", groupName))
+				);
 			}
 		}
 		return false;
